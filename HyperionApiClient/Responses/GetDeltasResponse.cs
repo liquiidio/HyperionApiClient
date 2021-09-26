@@ -3,7 +3,7 @@ using Newtonsoft.Json;
 
 namespace EosRio.HyperionApi
 {
-    public class Response15 
+    public class GetDeltasResponse 
     {
         [JsonProperty("query_time_ms", Required = Required.DisallowNull, NullValueHandling = NullValueHandling.Ignore)]
         public double QueryTimeMs { get; set; }
@@ -20,10 +20,7 @@ namespace EosRio.HyperionApi
         [JsonProperty("total", Required = Required.DisallowNull, NullValueHandling = NullValueHandling.Ignore)]
         public Total Total { get; set; }
     
-        [JsonProperty("stats", Required = Required.DisallowNull, NullValueHandling = NullValueHandling.Ignore)]
-        public Stats Stats { get; set; }
-    
-        [JsonProperty("events", Required = Required.DisallowNull, NullValueHandling = NullValueHandling.Ignore)]
-        public ICollection<Events> Events { get; set; }
+        [JsonProperty("deltas", Required = Required.DisallowNull, NullValueHandling = NullValueHandling.Ignore)]
+        public ICollection<Deltas> Deltas { get; set; }
     }
 }

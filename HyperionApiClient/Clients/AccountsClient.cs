@@ -27,7 +27,7 @@ namespace EosRio.HyperionApi
         /// <param name="limit">limit of [n] results per page</param>
         /// <param name="skip">skip [n] results</param>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public async Task<Response6> GetCreatedAccountsAsync(string account, int? limit = null, int? skip = null, CancellationToken cancellationToken = default)
+        public async Task<GetCreatedAccountsResponse> GetCreatedAccountsAsync(string account, int? limit = null, int? skip = null, CancellationToken cancellationToken = default)
         {
             if (account == null)
                 throw new ArgumentNullException("account");
@@ -63,7 +63,7 @@ namespace EosRio.HyperionApi
                 var status = (int)response.StatusCode;
                 if (status == 200)
                 {
-                    var objectResponse = await ReadObjectResponseAsync<Response6>(response, headers, cancellationToken).ConfigureAwait(false);
+                    var objectResponse = await ReadObjectResponseAsync<GetCreatedAccountsResponse>(response, headers, cancellationToken).ConfigureAwait(false);
                     if (objectResponse.Object == null)
                     {
                         throw new ApiException("Response was null which was not expected.", status, objectResponse.Text, headers, null);
@@ -80,7 +80,7 @@ namespace EosRio.HyperionApi
         /// <summary>get account creator</summary>
         /// <param name="account">created account</param>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public async Task<Response7> GetCreatorAsync(string account, CancellationToken cancellationToken = default)
+        public async Task<GetCreatorResponse> GetCreatorAsync(string account, CancellationToken cancellationToken = default)
         {
             if (account == null)
                 throw new ArgumentNullException("account");
@@ -108,7 +108,7 @@ namespace EosRio.HyperionApi
                 var status = (int)response.StatusCode;
                 if (status == 200)
                 {
-                    var objectResponse = await ReadObjectResponseAsync<Response7>(response, headers, cancellationToken).ConfigureAwait(false);
+                    var objectResponse = await ReadObjectResponseAsync<GetCreatorResponse>(response, headers, cancellationToken).ConfigureAwait(false);
                     if (objectResponse.Object == null)
                     {
                         throw new ApiException("Response was null which was not expected.", status, objectResponse.Text, headers, null);
@@ -127,7 +127,7 @@ namespace EosRio.HyperionApi
         /// <param name="limit">limit of [n] results per page</param>
         /// <param name="skip">skip [n] results</param>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public async Task<Response8> GetAccountAsync(string account, int? limit = null, int? skip = null, CancellationToken cancellationToken = default)
+        public async Task<GetAccountResponse> GetAccountAsync(string account, int? limit = null, int? skip = null, CancellationToken cancellationToken = default)
         {
             if (account == null)
                 throw new ArgumentNullException("account");
@@ -163,7 +163,7 @@ namespace EosRio.HyperionApi
                 var status = (int)response.StatusCode;
                 if (status == 200)
                 {
-                    var objectResponse = await ReadObjectResponseAsync<Response8>(response, headers, cancellationToken).ConfigureAwait(false);
+                    var objectResponse = await ReadObjectResponseAsync<GetAccountResponse>(response, headers, cancellationToken).ConfigureAwait(false);
                     if (objectResponse.Object == null)
                     {
                         throw new ApiException("Response was null which was not expected.", status, objectResponse.Text, headers, null);
@@ -183,7 +183,7 @@ namespace EosRio.HyperionApi
         /// <param name="skip">skip [n] results</param>
         /// <param name="details">include permission details</param>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public async Task<Response9> GetKeyAccountsGetAsync(string publicKey, int? limit = null, int? skip = null, bool? details = null, CancellationToken cancellationToken = default)
+        public async Task<GetKeyAccountsWithPermissionsResponse> GetKeyAccountsGetAsync(string publicKey, int? limit = null, int? skip = null, bool? details = null, CancellationToken cancellationToken = default)
         {
             if (publicKey == null)
                 throw new ArgumentNullException("publicKey");
@@ -223,7 +223,7 @@ namespace EosRio.HyperionApi
                 var status = (int)response.StatusCode;
                 if (status == 200)
                 {
-                    var objectResponse = await ReadObjectResponseAsync<Response9>(response, headers, cancellationToken).ConfigureAwait(false);
+                    var objectResponse = await ReadObjectResponseAsync<GetKeyAccountsWithPermissionsResponse>(response, headers, cancellationToken).ConfigureAwait(false);
                     if (objectResponse.Object == null)
                     {
                         throw new ApiException("Response was null which was not expected.", status, objectResponse.Text, headers, null);
@@ -239,7 +239,7 @@ namespace EosRio.HyperionApi
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <summary>get accounts by public key</summary>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public async Task<Response10> GetKeyAccountsPostAsync(Body body, CancellationToken cancellationToken = default)
+        public async Task<GetKeyAccountsResponse> GetKeyAccountsPostAsync(Body body, CancellationToken cancellationToken = default)
         {
             if (body == null)
                 throw new ArgumentNullException("body");
@@ -269,7 +269,7 @@ namespace EosRio.HyperionApi
                 var status = (int)response.StatusCode;
                 if (status == 200)
                 {
-                    var objectResponse = await ReadObjectResponseAsync<Response10>(response, headers, cancellationToken).ConfigureAwait(false);
+                    var objectResponse = await ReadObjectResponseAsync<GetKeyAccountsResponse>(response, headers, cancellationToken).ConfigureAwait(false);
                     if (objectResponse.Object == null)
                     {
                         throw new ApiException("Response was null which was not expected.", status, objectResponse.Text, headers, null);
@@ -289,7 +289,7 @@ namespace EosRio.HyperionApi
         /// <param name="action">method name</param>
         /// <param name="permission">permission name</param>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public async Task<Response11> GetLinksAsync(string account = null, string code = null, string action = null, string permission = null, CancellationToken cancellationToken = default)
+        public async Task<GetLinksResponse> GetLinksAsync(string account = null, string code = null, string action = null, string permission = null, CancellationToken cancellationToken = default)
         {
             var urlBuilder = new StringBuilder(BaseUrl != null ? BaseUrl.TrimEnd('/') : "").Append("/v2/state/get_links?");
             if (account != null)
@@ -330,7 +330,7 @@ namespace EosRio.HyperionApi
                 var status = (int)response.StatusCode;
                 if (status == 200)
                 {
-                    var objectResponse = await ReadObjectResponseAsync<Response11>(response, headers, cancellationToken).ConfigureAwait(false);
+                    var objectResponse = await ReadObjectResponseAsync<GetLinksResponse>(response, headers, cancellationToken).ConfigureAwait(false);
                     if (objectResponse.Object == null)
                     {
                         throw new ApiException("Response was null which was not expected.", status, objectResponse.Text, headers, null);
@@ -352,6 +352,8 @@ namespace EosRio.HyperionApi
         /// <exception cref="ApiException">A server side error occurred.</exception>
         public async Task GetTokensAsync(string account, int? limit = null, int? skip = null, CancellationToken cancellationToken = default)
         {
+            // TODO return value?!
+
             if (account == null)
                 throw new ArgumentNullException("account");
     
@@ -396,7 +398,7 @@ namespace EosRio.HyperionApi
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <summary>get controlled accounts by controlling accounts</summary>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public async Task<Response12> GetControlledAccountsAsync(object body, CancellationToken cancellationToken = default)
+        public async Task<GetControlledAccountsResponse> GetControlledAccountsAsync(object body, CancellationToken cancellationToken = default)
         {
             if (body == null)
                 throw new ArgumentNullException("body");
@@ -426,7 +428,7 @@ namespace EosRio.HyperionApi
                 var status = (int)response.StatusCode;
                 if (status == 200)
                 {
-                    var objectResponse = await ReadObjectResponseAsync<Response12>(response, headers, cancellationToken).ConfigureAwait(false);
+                    var objectResponse = await ReadObjectResponseAsync<GetControlledAccountsResponse>(response, headers, cancellationToken).ConfigureAwait(false);
                     if (objectResponse.Object == null)
                     {
                         throw new ApiException("Response was null which was not expected.", status, objectResponse.Text, headers, null);
@@ -442,7 +444,7 @@ namespace EosRio.HyperionApi
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <summary>get accounts by public key</summary>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public async Task<Response13> GetKeyAccountsPostAsync(object body, CancellationToken cancellationToken = default)
+        public async Task<GetKeyAccountsResponse> GetKeyAccountsPostAsync(object body, CancellationToken cancellationToken = default)
         {
             if (body == null)
                 throw new ArgumentNullException("body");
@@ -472,7 +474,7 @@ namespace EosRio.HyperionApi
                 var status = (int)response.StatusCode;
                 if (status == 200)
                 {
-                    var objectResponse = await ReadObjectResponseAsync<Response13>(response, headers, cancellationToken).ConfigureAwait(false);
+                    var objectResponse = await ReadObjectResponseAsync<GetKeyAccountsResponse>(response, headers, cancellationToken).ConfigureAwait(false);
                     if (objectResponse.Object == null)
                     {
                         throw new ApiException("Response was null which was not expected.", status, objectResponse.Text, headers, null);

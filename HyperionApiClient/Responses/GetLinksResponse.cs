@@ -3,7 +3,7 @@ using Newtonsoft.Json;
 
 namespace EosRio.HyperionApi
 {
-    public class Response11 
+    public class GetLinksResponse 
     {
         [JsonProperty("query_time_ms", Required = Required.DisallowNull, NullValueHandling = NullValueHandling.Ignore)]
         public double QueryTimeMs { get; set; }

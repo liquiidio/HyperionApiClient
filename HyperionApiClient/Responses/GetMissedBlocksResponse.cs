@@ -3,7 +3,7 @@ using Newtonsoft.Json;
 
 namespace EosRio.HyperionApi
 {
-    public class Response6 
+    public class GetMissedBlocksResponse 
     {
         [JsonProperty("query_time_ms", Required = Required.DisallowNull, NullValueHandling = NullValueHandling.Ignore)]
         public double QueryTimeMs { get; set; }
@@ -20,10 +20,10 @@ namespace EosRio.HyperionApi
         [JsonProperty("total", Required = Required.DisallowNull, NullValueHandling = NullValueHandling.Ignore)]
         public Total Total { get; set; }
     
-        [JsonProperty("query_time", Required = Required.DisallowNull, NullValueHandling = NullValueHandling.Ignore)]
-        public double QueryTime { get; set; }
+        [JsonProperty("stats", Required = Required.DisallowNull, NullValueHandling = NullValueHandling.Ignore)]
+        public Stats Stats { get; set; }
     
-        [JsonProperty("accounts", Required = Required.DisallowNull, NullValueHandling = NullValueHandling.Ignore)]
-        public ICollection<Accounts> Accounts { get; set; }
+        [JsonProperty("events", Required = Required.DisallowNull, NullValueHandling = NullValueHandling.Ignore)]
+        public ICollection<Events> Events { get; set; }
     }
 }

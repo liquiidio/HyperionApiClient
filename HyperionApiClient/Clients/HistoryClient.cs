@@ -30,6 +30,8 @@ namespace EosRio.HyperionApi
         /// <exception cref="ApiException">A server side error occurred.</exception>
         public async Task GetAbiSnapshotAsync(string contract, int? block = null, bool? fetch = null, CancellationToken cancellationToken = default)
         {
+            // TODO return value
+
             if (contract == null)
                 throw new ArgumentNullException("contract");
     
@@ -86,7 +88,7 @@ namespace EosRio.HyperionApi
         /// <param name="noBinary">exclude large binary data</param>
         /// <param name="checkLib">perform reversibility check</param>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public async Task<Response> GetActionsGetAsync(int? limit = null, int? skip = null, string account = null, string track = null, string filter = null, Sort? sort = null, string after = null, string before = null, bool? simple = null, bool? hotOnly = null, bool? noBinary = null, bool? checkLib = null, CancellationToken cancellationToken = default)
+        public async Task<GetActionsResponse> GetActionsGetAsync(int? limit = null, int? skip = null, string account = null, string track = null, string filter = null, Sort? sort = null, string after = null, string before = null, bool? simple = null, bool? hotOnly = null, bool? noBinary = null, bool? checkLib = null, CancellationToken cancellationToken = default)
         {
             var urlBuilder = new StringBuilder(BaseUrl != null ? BaseUrl.TrimEnd('/') : "").Append("/v2/history/get_actions?");
             if (limit != null)
@@ -159,7 +161,7 @@ namespace EosRio.HyperionApi
                 var status = (int)response.StatusCode;
                 if (status == 200)
                 {
-                    var objectResponse = await ReadObjectResponseAsync<Response>(response, headers, cancellationToken).ConfigureAwait(false);
+                    var objectResponse = await ReadObjectResponseAsync<GetActionsResponse>(response, headers, cancellationToken).ConfigureAwait(false);
                     if (objectResponse.Object == null)
                     {
                         throw new ApiException("Response was null which was not expected.", status, objectResponse.Text, headers, null);
@@ -183,7 +185,7 @@ namespace EosRio.HyperionApi
         /// <param name="after">filter after specified date (ISO8601)</param>
         /// <param name="before">filter before specified date (ISO8601)</param>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public async Task<Response2> GetDeltasAsync(int? limit = null, int? skip = null, string code = null, string scope = null, string table = null, string payer = null, string after = null, string before = null, CancellationToken cancellationToken = default)
+        public async Task<GetDeltasResponse> GetDeltasAsync(int? limit = null, int? skip = null, string code = null, string scope = null, string table = null, string payer = null, string after = null, string before = null, CancellationToken cancellationToken = default)
         {
             var urlBuilder = new StringBuilder(BaseUrl != null ? BaseUrl.TrimEnd('/') : "").Append("/v2/history/get_deltas?");
             if (limit != null)
@@ -240,7 +242,7 @@ namespace EosRio.HyperionApi
                 var status = (int)response.StatusCode;
                 if (status == 200)
                 {
-                    var objectResponse = await ReadObjectResponseAsync<Response2>(response, headers, cancellationToken).ConfigureAwait(false);
+                    var objectResponse = await ReadObjectResponseAsync<GetDeltasResponse>(response, headers, cancellationToken).ConfigureAwait(false);
                     if (objectResponse.Object == null)
                     {
                         throw new ApiException("Response was null which was not expected.", status, objectResponse.Text, headers, null);
@@ -261,7 +263,7 @@ namespace EosRio.HyperionApi
         /// <param name="before">filter before specified date (ISO8601)</param>
         /// <param name="version">schedule version</param>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public async Task<Response3> GetScheduleAsync(string producer = null, string key = null, string after = null, string before = null, int? version = null, CancellationToken cancellationToken = default)
+        public async Task<GetScheduleResponse> GetScheduleAsync(string producer = null, string key = null, string after = null, string before = null, int? version = null, CancellationToken cancellationToken = default)
         {
             var urlBuilder = new StringBuilder(BaseUrl != null ? BaseUrl.TrimEnd('/') : "").Append("/v2/history/get_schedule?");
             if (producer != null)
@@ -306,7 +308,7 @@ namespace EosRio.HyperionApi
                 var status = (int)response.StatusCode;
                 if (status == 200)
                 {
-                    var objectResponse = await ReadObjectResponseAsync<Response3>(response, headers, cancellationToken).ConfigureAwait(false);
+                    var objectResponse = await ReadObjectResponseAsync<GetScheduleResponse>(response, headers, cancellationToken).ConfigureAwait(false);
                     if (objectResponse.Object == null)
                     {
                         throw new ApiException("Response was null which was not expected.", status, objectResponse.Text, headers, null);
@@ -324,8 +326,10 @@ namespace EosRio.HyperionApi
         /// <param name="id">transaction id</param>
         /// <returns>Default Response</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public async Task Get_transactionGetAsync(string id, CancellationToken cancellationToken = default)
+        public async Task GetTransactionGetAsync(string id, CancellationToken cancellationToken = default)
         {
+            // TODO return value
+
             if (id == null)
                 throw new ArgumentNullException("id");
     
@@ -362,7 +366,7 @@ namespace EosRio.HyperionApi
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <summary>get actions</summary>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public async Task<Response4> GetActionsPostAsync(object body = null, CancellationToken cancellationToken = default)
+        public async Task<GetActionsResponse2> GetActionsPostAsync(object body = null, CancellationToken cancellationToken = default)
         {
             var urlBuilder = new StringBuilder(BaseUrl != null ? BaseUrl.TrimEnd('/') : "").Append("/v1/history/get_actions");
  
@@ -389,7 +393,7 @@ namespace EosRio.HyperionApi
                 var status = (int)response.StatusCode;
                 if (status == 200)
                 {
-                    var objectResponse = await ReadObjectResponseAsync<Response4>(response, headers, cancellationToken).ConfigureAwait(false);
+                    var objectResponse = await ReadObjectResponseAsync<GetActionsResponse2>(response, headers, cancellationToken).ConfigureAwait(false);
                     if (objectResponse.Object == null)
                     {
                         throw new ApiException("Response was null which was not expected.", status, objectResponse.Text, headers, null);
@@ -408,6 +412,8 @@ namespace EosRio.HyperionApi
         /// <exception cref="ApiException">A server side error occurred.</exception>
         public async Task GetTransactionPostAsync(object body, CancellationToken cancellationToken = default)
         {
+            // TODO return value
+
             if (body == null)
                 throw new ArgumentNullException("body");
     
@@ -446,7 +452,7 @@ namespace EosRio.HyperionApi
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <summary>get block traces</summary>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public async Task<Response5> GetBlockAsync(object body = null, CancellationToken cancellationToken = default)
+        public async Task<GetBlockResponse> GetBlockAsync(object body = null, CancellationToken cancellationToken = default)
         {
             var urlBuilder = new StringBuilder(BaseUrl != null ? BaseUrl.TrimEnd('/') : "").Append("/v1/trace_api/get_block");
  
@@ -473,7 +479,7 @@ namespace EosRio.HyperionApi
                 var status = (int)response.StatusCode;
                 if (status == 200)
                 {
-                    var objectResponse = await ReadObjectResponseAsync<Response5>(response, headers, cancellationToken).ConfigureAwait(false);
+                    var objectResponse = await ReadObjectResponseAsync<GetBlockResponse>(response, headers, cancellationToken).ConfigureAwait(false);
                     if (objectResponse.Object == null)
                     {
                         throw new ApiException("Response was null which was not expected.", status, objectResponse.Text, headers, null);

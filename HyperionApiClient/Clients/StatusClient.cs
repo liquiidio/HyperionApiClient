@@ -24,6 +24,8 @@ namespace EosRio.HyperionApi
         /// <exception cref="ApiException">A server side error occurred.</exception>
         public async Task HealthAsync(CancellationToken cancellationToken = default)
         {
+            // TODO return value
+
             var urlBuilder = new StringBuilder(BaseUrl != null ? BaseUrl.TrimEnd('/') : "").Append("/v2/health");
  
             using (var request = new HttpRequestMessage())

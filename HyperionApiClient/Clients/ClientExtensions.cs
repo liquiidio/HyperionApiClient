@@ -14,7 +14,7 @@ namespace EosRio.HyperionApi
 {
     public class ClientExtensions
     {
-        internal struct ObjectResponseResult<T>
+        internal readonly struct ObjectResponseResult<T>
         {
             public ObjectResponseResult(T responseObject, string responseText)
             {

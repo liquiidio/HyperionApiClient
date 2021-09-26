@@ -28,6 +28,8 @@ namespace EosRio.HyperionApi
         /// <exception cref="ApiException">A server side error occurred.</exception>
         public async Task AbiBinToJsonGetAsync(string code, string action, string binargs, CancellationToken cancellationToken = default)
         {
+            // TODO return value
+
             if (code == null)
                 throw new ArgumentNullException("code");
     
@@ -73,6 +75,8 @@ namespace EosRio.HyperionApi
         /// <exception cref="ApiException">A server side error occurred.</exception>
         public async Task AbiBinToJsonHeadAsync(string code, string action, string binargs, CancellationToken cancellationToken = default)
         {
+            // TODO return value
+
             if (code == null)
                 throw new ArgumentNullException("code");
     
@@ -118,6 +122,8 @@ namespace EosRio.HyperionApi
         /// <exception cref="ApiException">A server side error occurred.</exception>
         public async Task AbiBinToJsonPostAsync(object body, CancellationToken cancellationToken = default)
         {
+            // TODO return value
+
             if (body == null)
                 throw new ArgumentNullException("body");
     
@@ -159,6 +165,8 @@ namespace EosRio.HyperionApi
         /// <exception cref="ApiException">A server side error occurred.</exception>
         public async Task AbiJsonToBinGetAsync(string binargs, CancellationToken cancellationToken = default)
         {
+            // TODO return value
+
             if (binargs == null)
                 throw new ArgumentNullException("binargs");
     
@@ -198,6 +206,8 @@ namespace EosRio.HyperionApi
         /// <exception cref="ApiException">A server side error occurred.</exception>
         public async Task AbiJsonToBinHeadAsync(string binargs, CancellationToken cancellationToken = default)
         {
+            // TODO return value
+
             if (binargs == null)
                 throw new ArgumentNullException("binargs");
     
@@ -237,6 +247,8 @@ namespace EosRio.HyperionApi
         /// <exception cref="ApiException">A server side error occurred.</exception>
         public async Task AbiJsonToBinPostAsync(object body, CancellationToken cancellationToken = default)
         {
+            // TODO return value
+
             if (body == null)
                 throw new ArgumentNullException("body");
     
@@ -278,6 +290,8 @@ namespace EosRio.HyperionApi
         /// <exception cref="ApiException">A server side error occurred.</exception>
         public async Task GetAbiGetAsync(string accountName, CancellationToken cancellationToken = default)
         {
+            // TODO return value
+
             if (accountName == null)
                 throw new ArgumentNullException("accountName");
     
@@ -317,6 +331,8 @@ namespace EosRio.HyperionApi
         /// <exception cref="ApiException">A server side error occurred.</exception>
         public async Task GetAbiHeadAsync(string accountName, CancellationToken cancellationToken = default)
         {
+            // TODO return value
+
             if (accountName == null)
                 throw new ArgumentNullException("accountName");
     
@@ -356,6 +372,8 @@ namespace EosRio.HyperionApi
         /// <exception cref="ApiException">A server side error occurred.</exception>
         public async Task GetAbiPostAsync(object body, CancellationToken cancellationToken = default)
         {
+            // TODO return value
+
             if (body == null)
                 throw new ArgumentNullException("body");
     
@@ -397,6 +415,8 @@ namespace EosRio.HyperionApi
         /// <exception cref="ApiException">A server side error occurred.</exception>
         public async Task GetAccountGetAsync(string accountName, CancellationToken cancellationToken = default)
         {
+            // TODO return value
+
             if (accountName == null)
                 throw new ArgumentNullException("accountName");
     
@@ -436,6 +456,8 @@ namespace EosRio.HyperionApi
         /// <exception cref="ApiException">A server side error occurred.</exception>
         public async Task GetAccountHeadAsync(string accountName, CancellationToken cancellationToken = default)
         {
+            // TODO return value
+
             if (accountName == null)
                 throw new ArgumentNullException("accountName");
     
@@ -475,6 +497,8 @@ namespace EosRio.HyperionApi
         /// <exception cref="ApiException">A server side error occurred.</exception>
         public async Task GetAccountPostAsync(object body, CancellationToken cancellationToken = default)
         {
+            // TODO return value
+
             if (body == null)
                 throw new ArgumentNullException("body");
     
@@ -522,6 +546,8 @@ namespace EosRio.HyperionApi
         /// <exception cref="ApiException">A server side error occurred.</exception>
         public async Task GetActivatedProtocolFeaturesGetAsync(int? lowerBound = null, int? upperBound = null, int? limit = null, bool? searchByBlockNum = null, bool? reverse = null, CancellationToken cancellationToken = default)
         {
+            // TODO return value
+
             var urlBuilder = new StringBuilder(BaseUrl != null ? BaseUrl.TrimEnd('/') : "").Append("/v1/chain/get_activated_protocol_features?");
             if (lowerBound != null)
             {
@@ -583,6 +609,8 @@ namespace EosRio.HyperionApi
         /// <exception cref="ApiException">A server side error occurred.</exception>
         public async Task GetActivatedProtocolFeaturesHeadAsync(int? lowerBound = null, int? upperBound = null, int? limit = null, bool? searchByBlockNum = null, bool? reverse = null, CancellationToken cancellationToken = default)
         {
+            // TODO return value
+
             var urlBuilder = new StringBuilder(BaseUrl != null ? BaseUrl.TrimEnd('/') : "").Append("/v1/chain/get_activated_protocol_features?");
             if (lowerBound != null)
             {
@@ -639,6 +667,8 @@ namespace EosRio.HyperionApi
         /// <exception cref="ApiException">A server side error occurred.</exception>
         public async Task GetActivatedProtocolFeaturesPostAsync(object body = null, CancellationToken cancellationToken = default)
         {
+            // TODO return value
+
             var urlBuilder = new StringBuilder(BaseUrl != null ? BaseUrl.TrimEnd('/') : "").Append("/v1/chain/get_activated_protocol_features");
  
             using (var request = new HttpRequestMessage())
@@ -678,6 +708,8 @@ namespace EosRio.HyperionApi
         /// <exception cref="ApiException">A server side error occurred.</exception>
         public async Task GetBlockGetAsync(string blockNumOrId, CancellationToken cancellationToken = default)
         {
+            // TODO return value
+
             if (blockNumOrId == null)
                 throw new ArgumentNullException("blockNumOrId");
     
@@ -718,6 +750,8 @@ namespace EosRio.HyperionApi
         /// <exception cref="ApiException">A server side error occurred.</exception>
         public async Task GetBlockHeadAsync(string blockNumOrId, CancellationToken cancellationToken = default)
         {
+            // TODO return value
+
             if (blockNumOrId == null)
                 throw new ArgumentNullException("blockNumOrId");
     
@@ -757,6 +791,8 @@ namespace EosRio.HyperionApi
         /// <exception cref="ApiException">A server side error occurred.</exception>
         public async Task GetBlockPostAsync(object body, CancellationToken cancellationToken = default)
         {
+            // TODO return value
+
             if (body == null)
                 throw new ArgumentNullException("body");
     
@@ -799,6 +835,8 @@ namespace EosRio.HyperionApi
         /// <exception cref="ApiException">A server side error occurred.</exception>
         public async Task GetBlockHeaderStateGetAsync(string blockNumOrId, CancellationToken cancellationToken = default)
         {
+            // TODO return value
+
             if (blockNumOrId == null)
                 throw new ArgumentNullException("blockNumOrId");
     
@@ -839,6 +877,8 @@ namespace EosRio.HyperionApi
         /// <exception cref="ApiException">A server side error occurred.</exception>
         public async Task GetBlockHeaderStateHeadAsync(string blockNumOrId, CancellationToken cancellationToken = default)
         {
+            // TODO return value
+
             if (blockNumOrId == null)
                 throw new ArgumentNullException("blockNumOrId");
     
@@ -878,6 +918,8 @@ namespace EosRio.HyperionApi
         /// <exception cref="ApiException">A server side error occurred.</exception>
         public async Task GetBlockHeaderStatePostAsync(object body, CancellationToken cancellationToken = default)
         {
+            // TODO return value
+
             if (body == null)
                 throw new ArgumentNullException("body");
     
@@ -920,6 +962,8 @@ namespace EosRio.HyperionApi
         /// <exception cref="ApiException">A server side error occurred.</exception>
         public async Task GetCodeGetAsync(string accountName, int codeAsWasm, CancellationToken cancellationToken = default)
         {
+            // TODO return value
+
             if (accountName == null)
                 throw new ArgumentNullException("accountName");
 
@@ -960,6 +1004,8 @@ namespace EosRio.HyperionApi
         /// <exception cref="ApiException">A server side error occurred.</exception>
         public async Task GetCodeHeadAsync(string accountName, int codeAsWasm, CancellationToken cancellationToken = default)
         {
+            // TODO return value
+
             if (accountName == null)
                 throw new ArgumentNullException("accountName");
 
@@ -999,6 +1045,8 @@ namespace EosRio.HyperionApi
         /// <exception cref="ApiException">A server side error occurred.</exception>
         public async Task GetCodePostAsync(object body, CancellationToken cancellationToken = default)
         {
+            // TODO return value
+
             if (body == null)
                 throw new ArgumentNullException("body");
     
@@ -1041,6 +1089,8 @@ namespace EosRio.HyperionApi
         /// <exception cref="ApiException">A server side error occurred.</exception>
         public async Task GetCurrencyBalanceGetAsync(string code, string account, string symbol, CancellationToken cancellationToken = default)
         {
+            // TODO return value
+
             if (code == null)
                 throw new ArgumentNullException("code");
     
@@ -1087,6 +1137,8 @@ namespace EosRio.HyperionApi
         /// <exception cref="ApiException">A server side error occurred.</exception>
         public async Task GetCurrencyBalanceHeadAsync(string code, string account, string symbol, CancellationToken cancellationToken = default)
         {
+            // TODO return value
+
             if (code == null)
                 throw new ArgumentNullException("code");
     
@@ -1132,6 +1184,8 @@ namespace EosRio.HyperionApi
         /// <exception cref="ApiException">A server side error occurred.</exception>
         public async Task GetCurrencyBalancePostAsync(object body, CancellationToken cancellationToken = default)
         {
+            // TODO return value
+
             if (body == null)
                 throw new ArgumentNullException("body");
     
@@ -1175,6 +1229,8 @@ namespace EosRio.HyperionApi
         /// <exception cref="ApiException">A server side error occurred.</exception>
         public async Task GetCurrencyStatsGetAsync(string code, string symbol, CancellationToken cancellationToken = default)
         {
+            // TODO return value
+
             if (code == null)
                 throw new ArgumentNullException("code");
     
@@ -1219,6 +1275,8 @@ namespace EosRio.HyperionApi
         /// <exception cref="ApiException">A server side error occurred.</exception>
         public async Task GetCurrencyStatsHeadAsync(string code, string symbol, CancellationToken cancellationToken = default)
         {
+            // TODO return value
+
             if (code == null)
                 throw new ArgumentNullException("code");
     
@@ -1261,6 +1319,8 @@ namespace EosRio.HyperionApi
         /// <exception cref="ApiException">A server side error occurred.</exception>
         public async Task GetCurrencyStatsPostAsync(object body, CancellationToken cancellationToken = default)
         {
+            // TODO return value
+
             if (body == null)
                 throw new ArgumentNullException("body");
     
@@ -1302,6 +1362,8 @@ namespace EosRio.HyperionApi
         /// <exception cref="ApiException">A server side error occurred.</exception>
         public async Task GetInfoGetAsync(CancellationToken cancellationToken = default)
         {
+            // TODO return value
+
             var urlBuilder = new StringBuilder(BaseUrl != null ? BaseUrl.TrimEnd('/') : "").Append("/v1/chain/get_info");
  
             using (var request = new HttpRequestMessage())
@@ -1337,6 +1399,8 @@ namespace EosRio.HyperionApi
         /// <exception cref="ApiException">A server side error occurred.</exception>
         public async Task GetInfoHeadAsync(CancellationToken cancellationToken = default)
         {
+            // TODO return value
+
             var urlBuilder = new StringBuilder(BaseUrl != null ? BaseUrl.TrimEnd('/') : "").Append("/v1/chain/get_info");
  
             using (var request = new HttpRequestMessage())
@@ -1372,6 +1436,8 @@ namespace EosRio.HyperionApi
         /// <exception cref="ApiException">A server side error occurred.</exception>
         public async Task GetInfoPostAsync(CancellationToken cancellationToken = default)
         {
+            // TODO return value
+
             var urlBuilder = new StringBuilder(BaseUrl != null ? BaseUrl.TrimEnd('/') : "").Append("/v1/chain/get_info");
  
             using (var request = new HttpRequestMessage())
@@ -1411,6 +1477,8 @@ namespace EosRio.HyperionApi
         /// <exception cref="ApiException">A server side error occurred.</exception>
         public async Task GetProducersGetAsync(string limit = null, string lowerBound = null, bool? json = null, CancellationToken cancellationToken = default)
         {
+            // TODO return value
+
             var urlBuilder = new StringBuilder(BaseUrl != null ? BaseUrl.TrimEnd('/') : "").Append("/v1/chain/get_producers?");
             if (limit != null)
             {
@@ -1462,6 +1530,8 @@ namespace EosRio.HyperionApi
         /// <exception cref="ApiException">A server side error occurred.</exception>
         public async Task GetProducersHeadAsync(string limit = null, string lowerBound = null, bool? json = null, CancellationToken cancellationToken = default)
         {
+            // TODO return value
+
             var urlBuilder = new StringBuilder(BaseUrl != null ? BaseUrl.TrimEnd('/') : "").Append("/v1/chain/get_producers?");
             if (limit != null)
             {
@@ -1510,6 +1580,8 @@ namespace EosRio.HyperionApi
         /// <exception cref="ApiException">A server side error occurred.</exception>
         public async Task GetProducersPostAsync(object body = null, CancellationToken cancellationToken = default)
         {
+            // TODO return value
+
             var urlBuilder = new StringBuilder(BaseUrl != null ? BaseUrl.TrimEnd('/') : "").Append("/v1/chain/get_producers");
  
             using (var request = new HttpRequestMessage())
@@ -1548,6 +1620,8 @@ namespace EosRio.HyperionApi
         /// <exception cref="ApiException">A server side error occurred.</exception>
         public async Task GetRawAbiGetAsync(string accountName, CancellationToken cancellationToken = default)
         {
+            // TODO return value
+
             if (accountName == null)
                 throw new ArgumentNullException("accountName");
     
@@ -1587,6 +1661,8 @@ namespace EosRio.HyperionApi
         /// <exception cref="ApiException">A server side error occurred.</exception>
         public async Task GetRawAbiHeadAsync(string accountName, CancellationToken cancellationToken = default)
         {
+            // TODO return value
+
             if (accountName == null)
                 throw new ArgumentNullException("accountName");
     
@@ -1626,6 +1702,8 @@ namespace EosRio.HyperionApi
         /// <exception cref="ApiException">A server side error occurred.</exception>
         public async Task GetRawAbiPostAsync(object body, CancellationToken cancellationToken = default)
         {
+            // TODO return value
+
             if (body == null)
                 throw new ArgumentNullException("body");
     
@@ -1667,6 +1745,8 @@ namespace EosRio.HyperionApi
         /// <exception cref="ApiException">A server side error occurred.</exception>
         public async Task GetRawCodeAndAbiGetAsync(string accountName, CancellationToken cancellationToken = default)
         {
+            // TODO return value
+
             if (accountName == null)
                 throw new ArgumentNullException("accountName");
     
@@ -1706,6 +1786,8 @@ namespace EosRio.HyperionApi
         /// <exception cref="ApiException">A server side error occurred.</exception>
         public async Task GetRawCodeAndAbiHeadAsync(string accountName, CancellationToken cancellationToken = default)
         {
+            // TODO return value
+
             if (accountName == null)
                 throw new ArgumentNullException("accountName");
     
@@ -1745,6 +1827,8 @@ namespace EosRio.HyperionApi
         /// <exception cref="ApiException">A server side error occurred.</exception>
         public async Task GetRawCodeAndAbiPostAsync(object body, CancellationToken cancellationToken = default)
         {
+            // TODO return value
+
             if (body == null)
                 throw new ArgumentNullException("body");
     
@@ -1789,6 +1873,8 @@ namespace EosRio.HyperionApi
         /// <exception cref="ApiException">A server side error occurred.</exception>
         public async Task GetScheduledTransactionGetAsync(string lowerBound = null, int? limit = null, bool? json = null, CancellationToken cancellationToken = default)
         {
+            // TODO return value
+
             var urlBuilder = new StringBuilder(BaseUrl != null ? BaseUrl.TrimEnd('/') : "").Append("/v1/chain/get_scheduled_transaction?");
             if (lowerBound != null)
             {
@@ -1840,6 +1926,8 @@ namespace EosRio.HyperionApi
         /// <exception cref="ApiException">A server side error occurred.</exception>
         public async Task GetScheduledTransactionHeadAsync(string lowerBound = null, int? limit = null, bool? json = null, CancellationToken cancellationToken = default)
         {
+            // TODO return value
+
             var urlBuilder = new StringBuilder(BaseUrl != null ? BaseUrl.TrimEnd('/') : "").Append("/v1/chain/get_scheduled_transaction?");
             if (lowerBound != null)
             {
@@ -1888,6 +1976,8 @@ namespace EosRio.HyperionApi
         /// <exception cref="ApiException">A server side error occurred.</exception>
         public async Task GetScheduledTransactionPostAsync(object body = null, CancellationToken cancellationToken = default)
         {
+            // TODO return value
+
             var urlBuilder = new StringBuilder(BaseUrl != null ? BaseUrl.TrimEnd('/') : "").Append("/v1/chain/get_scheduled_transaction");
  
             using (var request = new HttpRequestMessage())
@@ -1932,6 +2022,8 @@ namespace EosRio.HyperionApi
         /// <exception cref="ApiException">A server side error occurred.</exception>
         public async Task GetTableByScopeGetAsync(string code, string table = null, string lowerBound = null, string upperBound = null, int? limit = null, bool? reverse = null, CancellationToken cancellationToken = default)
         {
+            // TODO return value
+
             if (code == null)
                 throw new ArgumentNullException("code");
     
@@ -1997,6 +2089,8 @@ namespace EosRio.HyperionApi
         /// <exception cref="ApiException">A server side error occurred.</exception>
         public async Task GetTableByScopeHeadAsync(string code, string table = null, string lowerBound = null, string upperBound = null, int? limit = null, bool? reverse = null, CancellationToken cancellationToken = default)
         {
+            // TODO return value
+
             if (code == null)
                 throw new ArgumentNullException("code");
     
@@ -2056,6 +2150,8 @@ namespace EosRio.HyperionApi
         /// <exception cref="ApiException">A server side error occurred.</exception>
         public async Task GetTableByScopePostAsync(object body, CancellationToken cancellationToken = default)
         {
+            // TODO return value
+
             if (body == null)
                 throw new ArgumentNullException("body");
     
@@ -2102,6 +2198,8 @@ namespace EosRio.HyperionApi
         /// <exception cref="ApiException">A server side error occurred.</exception>
         public async Task GetTableRowsGetAsync(string code = null, string table = null, string scope = null, string indexPosition = null, string keyType = null, string encodeType = null, string upperBound = null, string lowerBound = null, CancellationToken cancellationToken = default)
         {
+            // TODO return value
+
             var urlBuilder = new StringBuilder(BaseUrl != null ? BaseUrl.TrimEnd('/') : "").Append("/v1/chain/get_table_rows?");
             if (code != null)
             {
@@ -2175,6 +2273,8 @@ namespace EosRio.HyperionApi
         /// <exception cref="ApiException">A server side error occurred.</exception>
         public async Task GetTableRowsHeadAsync(string code = null, string table = null, string scope = null, string indexPosition = null, string keyType = null, string encodeType = null, string upperBound = null, string lowerBound = null, CancellationToken cancellationToken = default)
         {
+            // TODO return value
+
             var urlBuilder = new StringBuilder(BaseUrl != null ? BaseUrl.TrimEnd('/') : "").Append("/v1/chain/get_table_rows?");
             if (code != null)
             {
@@ -2243,6 +2343,8 @@ namespace EosRio.HyperionApi
         /// <exception cref="ApiException">A server side error occurred.</exception>
         public async Task GetTableRowsPostAsync(object body = null, CancellationToken cancellationToken = default)
         {
+            // TODO return value
+
             var urlBuilder = new StringBuilder(BaseUrl != null ? BaseUrl.TrimEnd('/') : "").Append("/v1/chain/get_table_rows");
  
             using (var request = new HttpRequestMessage())
@@ -2281,6 +2383,8 @@ namespace EosRio.HyperionApi
         /// <exception cref="ApiException">A server side error occurred.</exception>
         public async Task PushTransactionAsync(object body = null, CancellationToken cancellationToken = default)
         {
+            // TODO return value
+
             var urlBuilder = new StringBuilder(BaseUrl != null ? BaseUrl.TrimEnd('/') : "").Append("/v1/chain/push_transaction");
  
             using (var request = new HttpRequestMessage())
@@ -2319,6 +2423,8 @@ namespace EosRio.HyperionApi
         /// <exception cref="ApiException">A server side error occurred.</exception>
         public async Task PushTransactionsAsync(IEnumerable<object> body = null, CancellationToken cancellationToken = default)
         {
+            // TODO return value
+
             var urlBuilder = new StringBuilder(BaseUrl != null ? BaseUrl.TrimEnd('/') : "").Append("/v1/chain/push_transactions");
  
             using (var request = new HttpRequestMessage())
@@ -2357,6 +2463,8 @@ namespace EosRio.HyperionApi
         /// <exception cref="ApiException">A server side error occurred.</exception>
         public async Task SendTransactionAsync(object body = null, CancellationToken cancellationToken = default)
         {
+            // TODO return value
+
             var urlBuilder = new StringBuilder(BaseUrl != null ? BaseUrl.TrimEnd('/') : "").Append("/v1/chain/send_transaction");
  
             using (var request = new HttpRequestMessage())
@@ -2395,6 +2503,8 @@ namespace EosRio.HyperionApi
         /// <exception cref="ApiException">A server side error occurred.</exception>
         public async Task GetAsync(CancellationToken cancellationToken = default)
         {
+            // TODO return value
+
             var urlBuilder = new StringBuilder(BaseUrl != null ? BaseUrl.TrimEnd('/') : "").Append("/v1/chain/*");
  
             using (var request = new HttpRequestMessage())
@@ -2430,6 +2540,8 @@ namespace EosRio.HyperionApi
         /// <exception cref="ApiException">A server side error occurred.</exception>
         public async Task PostAsync(CancellationToken cancellationToken = default)
         {
+            // TODO return value
+
             var urlBuilder = new StringBuilder(BaseUrl != null ? BaseUrl.TrimEnd('/') : "").Append("/v1/chain/*");
  
             using (var request = new HttpRequestMessage())

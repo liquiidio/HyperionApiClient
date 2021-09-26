@@ -35,6 +35,8 @@ namespace EosRio.HyperionApi
         /// <exception cref="ApiException">A server side error occurred.</exception>
         public async Task GetProposalsAsync(string proposer = null, string proposal = null, string account = null, string requested = null, string provided = null, bool? executed = null, string track = null, int? skip = null, int? limit = null, CancellationToken cancellationToken = default)
         {
+            // TODO return value
+
             var urlBuilder = new StringBuilder(BaseUrl != null ? BaseUrl.TrimEnd('/') : "").Append("/v2/state/get_proposals?");
             if (proposer != null)
             {
@@ -107,7 +109,7 @@ namespace EosRio.HyperionApi
         /// <param name="skip">skip [n] results</param>
         /// <param name="producer">filter by voted producer (comma separated)</param>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public async Task<Response14> GetVotersAsync(int? limit = null, int? skip = null, string producer = null, CancellationToken cancellationToken = default)
+        public async Task<GetVotersResponse> GetVotersAsync(int? limit = null, int? skip = null, string producer = null, CancellationToken cancellationToken = default)
         {
             var urlBuilder = new StringBuilder(BaseUrl != null ? BaseUrl.TrimEnd('/') : "").Append("/v2/state/get_voters?");
             if (limit != null)
@@ -144,7 +146,7 @@ namespace EosRio.HyperionApi
                 var status = (int)response.StatusCode;
                 if (status == 200)
                 {
-                    var objectResponse = await ReadObjectResponseAsync<Response14>(response, headers, cancellationToken).ConfigureAwait(false);
+                    var objectResponse = await ReadObjectResponseAsync<GetVotersResponse>(response, headers, cancellationToken).ConfigureAwait(false);
                     if (objectResponse.Object == null)
                     {
                         throw new ApiException("Response was null which was not expected.", status, objectResponse.Text, headers, null);

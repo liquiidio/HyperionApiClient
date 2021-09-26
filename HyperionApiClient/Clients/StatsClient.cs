@@ -29,6 +29,8 @@ namespace EosRio.HyperionApi
         /// <exception cref="ApiException">A server side error occurred.</exception>
         public async Task GetActionUsageAsync(string period, string endDate = null, bool? uniqueActors = null, CancellationToken cancellationToken = default)
         {
+            // TODO return value
+
             if (period == null)
                 throw new ArgumentNullException("period");
     
@@ -77,7 +79,7 @@ namespace EosRio.HyperionApi
         /// <param name="before">filter before specified date (ISO8601)</param>
         /// <param name="min_blocks">min. blocks threshold</param>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public async Task<Response15> GetMissedBlocksAsync(string producer = null, string after = null, string before = null, int? minBlocks = null, CancellationToken cancellationToken = default)
+        public async Task<GetMissedBlocksResponse> GetMissedBlocksAsync(string producer = null, string after = null, string before = null, int? minBlocks = null, CancellationToken cancellationToken = default)
         {
             var urlBuilder = new StringBuilder(BaseUrl != null ? BaseUrl.TrimEnd('/') : "").Append("/v2/stats/get_missed_blocks?");
             if (producer != null)
@@ -118,7 +120,7 @@ namespace EosRio.HyperionApi
                 var status = (int)response.StatusCode;
                 if (status == 200)
                 {
-                    var objectResponse = await ReadObjectResponseAsync<Response15>(response, headers, cancellationToken).ConfigureAwait(false);
+                    var objectResponse = await ReadObjectResponseAsync<GetMissedBlocksResponse>(response, headers, cancellationToken).ConfigureAwait(false);
                     if (objectResponse.Object == null)
                     {
                         throw new ApiException("Response was null which was not expected.", status, objectResponse.Text, headers, null);
@@ -139,6 +141,8 @@ namespace EosRio.HyperionApi
         /// <exception cref="ApiException">A server side error occurred.</exception>
         public async Task GetResourceUsageAsync(string code, string action, CancellationToken cancellationToken = default)
         {
+            // TODO return value
+
             if (code == null)
                 throw new ArgumentNullException("code");
     
