@@ -14,7 +14,7 @@ using System.Reflection;
 
 namespace EosRio.HyperionApi
 {
-    public partial class StatusClient 
+    public class StatusClient 
     {
         private string _baseUrl = "https://api.wax.liquidstudios.io/";
         private HttpClient _httpClient;
@@ -36,33 +36,33 @@ namespace EosRio.HyperionApi
         /// <exception cref="ApiException">A server side error occurred.</exception>
         public async Task HealthAsync(CancellationToken cancellationToken = default)
         {
-            var urlBuilder_ = new StringBuilder(BaseUrl != null ? BaseUrl.TrimEnd('/') : "").Append("/v2/health");
+            var urlBuilder = new StringBuilder(BaseUrl != null ? BaseUrl.TrimEnd('/') : "").Append("/v2/health");
  
-            using (var request_ = new HttpRequestMessage())
+            using (var request = new HttpRequestMessage())
             {
-                request_.Method = new HttpMethod("GET");
+                request.Method = new HttpMethod("GET");
 
-                var url_ = urlBuilder_.ToString();
-                request_.RequestUri = new Uri(url_, UriKind.RelativeOrAbsolute);
+                var url = urlBuilder.ToString();
+                request.RequestUri = new Uri(url, UriKind.RelativeOrAbsolute);
 
-                var response_ = await _httpClient.SendAsync(request_, HttpCompletionOption.ResponseHeadersRead, cancellationToken).ConfigureAwait(false);
+                var response = await _httpClient.SendAsync(request, HttpCompletionOption.ResponseHeadersRead, cancellationToken).ConfigureAwait(false);
 
-                var headers_ = Enumerable.ToDictionary(response_.Headers, h_ => h_.Key, h_ => h_.Value);
-                if (response_.Content != null && response_.Content.Headers != null)
+                var headers = Enumerable.ToDictionary(response.Headers, h => h.Key, h => h.Value);
+                if (response.Content != null && response.Content.Headers != null)
                 {
-                    foreach (var item_ in response_.Content.Headers)
-                        headers_[item_.Key] = item_.Value;
+                    foreach (var item in response.Content.Headers)
+                        headers[item.Key] = item.Value;
                 }
 
-                var status_ = (int)response_.StatusCode;
-                if (status_ == 200)
+                var status = (int)response.StatusCode;
+                if (status == 200)
                 {
                     return;
                 }
                 else
                 {
-                    var responseData_ = response_.Content == null ? null : await response_.Content.ReadAsStringAsync().ConfigureAwait(false);
-                    throw new ApiException("The HTTP status code of the response was not expected (" + status_ + ").", status_, responseData_, headers_, null);
+                    var responseData = response.Content == null ? null : await response.Content.ReadAsStringAsync().ConfigureAwait(false);
+                    throw new ApiException("The HTTP status code of the response was not expected (" + status + ").", status, responseData, headers, null);
                 }
             }
         }
@@ -170,7 +170,7 @@ namespace EosRio.HyperionApi
     }
     
     
-    public partial class HistoryClient 
+    public class HistoryClient 
     {
         private string _baseUrl = "https://api.wax.liquidstudios.io/";
         private HttpClient _httpClient;
@@ -198,42 +198,42 @@ namespace EosRio.HyperionApi
             if (contract == null)
                 throw new ArgumentNullException("contract");
     
-            var urlBuilder_ = new StringBuilder(BaseUrl != null ? BaseUrl.TrimEnd('/') : "").Append("/v2/history/get_abi_snapshot?" + Uri.EscapeDataString("contract") + "=").Append(Uri.EscapeDataString(ConvertToString(contract, CultureInfo.InvariantCulture))).Append("&");
+            var urlBuilder = new StringBuilder(BaseUrl != null ? BaseUrl.TrimEnd('/') : "").Append("/v2/history/get_abi_snapshot?" + Uri.EscapeDataString("contract") + "=").Append(Uri.EscapeDataString(ConvertToString(contract, CultureInfo.InvariantCulture))).Append("&");
             if (block != null)
             {
-                urlBuilder_.Append(Uri.EscapeDataString("block") + "=").Append(Uri.EscapeDataString(ConvertToString(block, CultureInfo.InvariantCulture))).Append("&");
+                urlBuilder.Append(Uri.EscapeDataString("block") + "=").Append(Uri.EscapeDataString(ConvertToString(block, CultureInfo.InvariantCulture))).Append("&");
             }
             if (fetch != null)
             {
-                urlBuilder_.Append(Uri.EscapeDataString("fetch") + "=").Append(Uri.EscapeDataString(ConvertToString(fetch, CultureInfo.InvariantCulture))).Append("&");
+                urlBuilder.Append(Uri.EscapeDataString("fetch") + "=").Append(Uri.EscapeDataString(ConvertToString(fetch, CultureInfo.InvariantCulture))).Append("&");
             }
-            urlBuilder_.Length--;
+            urlBuilder.Length--;
  
-            using (var request_ = new HttpRequestMessage())
+            using (var request = new HttpRequestMessage())
             {
-                request_.Method = new HttpMethod("GET");
+                request.Method = new HttpMethod("GET");
 
-                var url_ = urlBuilder_.ToString();
-                request_.RequestUri = new Uri(url_, UriKind.RelativeOrAbsolute);
+                var url = urlBuilder.ToString();
+                request.RequestUri = new Uri(url, UriKind.RelativeOrAbsolute);
 
-                var response_ = await _httpClient.SendAsync(request_, HttpCompletionOption.ResponseHeadersRead, cancellationToken).ConfigureAwait(false);
+                var response = await _httpClient.SendAsync(request, HttpCompletionOption.ResponseHeadersRead, cancellationToken).ConfigureAwait(false);
 
-                var headers_ = Enumerable.ToDictionary(response_.Headers, h_ => h_.Key, h_ => h_.Value);
-                if (response_.Content != null && response_.Content.Headers != null)
+                var headers = Enumerable.ToDictionary(response.Headers, h => h.Key, h => h.Value);
+                if (response.Content != null && response.Content.Headers != null)
                 {
-                    foreach (var item_ in response_.Content.Headers)
-                        headers_[item_.Key] = item_.Value;
+                    foreach (var item in response.Content.Headers)
+                        headers[item.Key] = item.Value;
                 }
 
-                var status_ = (int)response_.StatusCode;
-                if (status_ == 200)
+                var status = (int)response.StatusCode;
+                if (status == 200)
                 {
                     return;
                 }
                 else
                 {
-                    var responseData_ = response_.Content == null ? null : await response_.Content.ReadAsStringAsync().ConfigureAwait(false);
-                    throw new ApiException("The HTTP status code of the response was not expected (" + status_ + ").", status_, responseData_, headers_, null);
+                    var responseData = response.Content == null ? null : await response.Content.ReadAsStringAsync().ConfigureAwait(false);
+                    throw new ApiException("The HTTP status code of the response was not expected (" + status + ").", status, responseData, headers, null);
                 }
             }
         }
@@ -253,90 +253,90 @@ namespace EosRio.HyperionApi
         /// <param name="noBinary">exclude large binary data</param>
         /// <param name="checkLib">perform reversibility check</param>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public async Task<Response> Get_actionsGetAsync(int? limit = null, int? skip = null, string account = null, string track = null, string filter = null, Sort? sort = null, string after = null, string before = null, bool? simple = null, bool? hot_only = null, bool? noBinary = null, bool? checkLib = null, CancellationToken cancellationToken = default)
+        public async Task<Response> Get_actionsGetAsync(int? limit = null, int? skip = null, string account = null, string track = null, string filter = null, Sort? sort = null, string after = null, string before = null, bool? simple = null, bool? hotOnly = null, bool? noBinary = null, bool? checkLib = null, CancellationToken cancellationToken = default)
         {
-            var urlBuilder_ = new StringBuilder(BaseUrl != null ? BaseUrl.TrimEnd('/') : "").Append("/v2/history/get_actions?");
+            var urlBuilder = new StringBuilder(BaseUrl != null ? BaseUrl.TrimEnd('/') : "").Append("/v2/history/get_actions?");
             if (limit != null)
             {
-                urlBuilder_.Append(Uri.EscapeDataString("limit") + "=").Append(Uri.EscapeDataString(ConvertToString(limit, CultureInfo.InvariantCulture))).Append("&");
+                urlBuilder.Append(Uri.EscapeDataString("limit") + "=").Append(Uri.EscapeDataString(ConvertToString(limit, CultureInfo.InvariantCulture))).Append("&");
             }
             if (skip != null)
             {
-                urlBuilder_.Append(Uri.EscapeDataString("skip") + "=").Append(Uri.EscapeDataString(ConvertToString(skip, CultureInfo.InvariantCulture))).Append("&");
+                urlBuilder.Append(Uri.EscapeDataString("skip") + "=").Append(Uri.EscapeDataString(ConvertToString(skip, CultureInfo.InvariantCulture))).Append("&");
             }
             if (account != null)
             {
-                urlBuilder_.Append(Uri.EscapeDataString("account") + "=").Append(Uri.EscapeDataString(ConvertToString(account, CultureInfo.InvariantCulture))).Append("&");
+                urlBuilder.Append(Uri.EscapeDataString("account") + "=").Append(Uri.EscapeDataString(ConvertToString(account, CultureInfo.InvariantCulture))).Append("&");
             }
             if (track != null)
             {
-                urlBuilder_.Append(Uri.EscapeDataString("track") + "=").Append(Uri.EscapeDataString(ConvertToString(track, CultureInfo.InvariantCulture))).Append("&");
+                urlBuilder.Append(Uri.EscapeDataString("track") + "=").Append(Uri.EscapeDataString(ConvertToString(track, CultureInfo.InvariantCulture))).Append("&");
             }
             if (filter != null)
             {
-                urlBuilder_.Append(Uri.EscapeDataString("filter") + "=").Append(Uri.EscapeDataString(ConvertToString(filter, CultureInfo.InvariantCulture))).Append("&");
+                urlBuilder.Append(Uri.EscapeDataString("filter") + "=").Append(Uri.EscapeDataString(ConvertToString(filter, CultureInfo.InvariantCulture))).Append("&");
             }
             if (sort != null)
             {
-                urlBuilder_.Append(Uri.EscapeDataString("sort") + "=").Append(Uri.EscapeDataString(ConvertToString(sort, CultureInfo.InvariantCulture))).Append("&");
+                urlBuilder.Append(Uri.EscapeDataString("sort") + "=").Append(Uri.EscapeDataString(ConvertToString(sort, CultureInfo.InvariantCulture))).Append("&");
             }
             if (after != null)
             {
-                urlBuilder_.Append(Uri.EscapeDataString("after") + "=").Append(Uri.EscapeDataString(ConvertToString(after, CultureInfo.InvariantCulture))).Append("&");
+                urlBuilder.Append(Uri.EscapeDataString("after") + "=").Append(Uri.EscapeDataString(ConvertToString(after, CultureInfo.InvariantCulture))).Append("&");
             }
             if (before != null)
             {
-                urlBuilder_.Append(Uri.EscapeDataString("before") + "=").Append(Uri.EscapeDataString(ConvertToString(before, CultureInfo.InvariantCulture))).Append("&");
+                urlBuilder.Append(Uri.EscapeDataString("before") + "=").Append(Uri.EscapeDataString(ConvertToString(before, CultureInfo.InvariantCulture))).Append("&");
             }
             if (simple != null)
             {
-                urlBuilder_.Append(Uri.EscapeDataString("simple") + "=").Append(Uri.EscapeDataString(ConvertToString(simple, CultureInfo.InvariantCulture))).Append("&");
+                urlBuilder.Append(Uri.EscapeDataString("simple") + "=").Append(Uri.EscapeDataString(ConvertToString(simple, CultureInfo.InvariantCulture))).Append("&");
             }
-            if (hot_only != null)
+            if (hotOnly != null)
             {
-                urlBuilder_.Append(Uri.EscapeDataString("hot_only") + "=").Append(Uri.EscapeDataString(ConvertToString(hot_only, CultureInfo.InvariantCulture))).Append("&");
+                urlBuilder.Append(Uri.EscapeDataString("hot_only") + "=").Append(Uri.EscapeDataString(ConvertToString(hotOnly, CultureInfo.InvariantCulture))).Append("&");
             }
             if (noBinary != null)
             {
-                urlBuilder_.Append(Uri.EscapeDataString("noBinary") + "=").Append(Uri.EscapeDataString(ConvertToString(noBinary, CultureInfo.InvariantCulture))).Append("&");
+                urlBuilder.Append(Uri.EscapeDataString("noBinary") + "=").Append(Uri.EscapeDataString(ConvertToString(noBinary, CultureInfo.InvariantCulture))).Append("&");
             }
             if (checkLib != null)
             {
-                urlBuilder_.Append(Uri.EscapeDataString("checkLib") + "=").Append(Uri.EscapeDataString(ConvertToString(checkLib, CultureInfo.InvariantCulture))).Append("&");
+                urlBuilder.Append(Uri.EscapeDataString("checkLib") + "=").Append(Uri.EscapeDataString(ConvertToString(checkLib, CultureInfo.InvariantCulture))).Append("&");
             }
-            urlBuilder_.Length--;
+            urlBuilder.Length--;
  
-            using (var request_ = new HttpRequestMessage())
+            using (var request = new HttpRequestMessage())
             {
-                request_.Method = new HttpMethod("GET");
-                request_.Headers.Accept.Add(MediaTypeWithQualityHeaderValue.Parse("application/json"));
+                request.Method = new HttpMethod("GET");
+                request.Headers.Accept.Add(MediaTypeWithQualityHeaderValue.Parse("application/json"));
 
-                var url_ = urlBuilder_.ToString();
-                request_.RequestUri = new Uri(url_, UriKind.RelativeOrAbsolute);
+                var url = urlBuilder.ToString();
+                request.RequestUri = new Uri(url, UriKind.RelativeOrAbsolute);
 
-                var response_ = await _httpClient.SendAsync(request_, HttpCompletionOption.ResponseHeadersRead, cancellationToken).ConfigureAwait(false);
+                var response = await _httpClient.SendAsync(request, HttpCompletionOption.ResponseHeadersRead, cancellationToken).ConfigureAwait(false);
 
-                var headers_ = Enumerable.ToDictionary(response_.Headers, h_ => h_.Key, h_ => h_.Value);
-                if (response_.Content != null && response_.Content.Headers != null)
+                var headers = Enumerable.ToDictionary(response.Headers, h => h.Key, h => h.Value);
+                if (response.Content != null && response.Content.Headers != null)
                 {
-                    foreach (var item_ in response_.Content.Headers)
-                        headers_[item_.Key] = item_.Value;
+                    foreach (var item in response.Content.Headers)
+                        headers[item.Key] = item.Value;
                 }
 
-                var status_ = (int)response_.StatusCode;
-                if (status_ == 200)
+                var status = (int)response.StatusCode;
+                if (status == 200)
                 {
-                    var objectResponse_ = await ReadObjectResponseAsync<Response>(response_, headers_, cancellationToken).ConfigureAwait(false);
-                    if (objectResponse_.Object == null)
+                    var objectResponse = await ReadObjectResponseAsync<Response>(response, headers, cancellationToken).ConfigureAwait(false);
+                    if (objectResponse.Object == null)
                     {
-                        throw new ApiException("Response was null which was not expected.", status_, objectResponse_.Text, headers_, null);
+                        throw new ApiException("Response was null which was not expected.", status, objectResponse.Text, headers, null);
                     }
-                    return objectResponse_.Object;
+                    return objectResponse.Object;
                 }
                 else
                 {
-                    var responseData_ = response_.Content == null ? null : await response_.Content.ReadAsStringAsync().ConfigureAwait(false);
-                    throw new ApiException("The HTTP status code of the response was not expected (" + status_ + ").", status_, responseData_, headers_, null);
+                    var responseData = response.Content == null ? null : await response.Content.ReadAsStringAsync().ConfigureAwait(false);
+                    throw new ApiException("The HTTP status code of the response was not expected (" + status + ").", status, responseData, headers, null);
                 }
             }
         }
@@ -354,72 +354,72 @@ namespace EosRio.HyperionApi
         /// <exception cref="ApiException">A server side error occurred.</exception>
         public async Task<Response2> Get_deltasAsync(int? limit = null, int? skip = null, string code = null, string scope = null, string table = null, string payer = null, string after = null, string before = null, CancellationToken cancellationToken = default)
         {
-            var urlBuilder_ = new StringBuilder(BaseUrl != null ? BaseUrl.TrimEnd('/') : "").Append("/v2/history/get_deltas?");
+            var urlBuilder = new StringBuilder(BaseUrl != null ? BaseUrl.TrimEnd('/') : "").Append("/v2/history/get_deltas?");
             if (limit != null)
             {
-                urlBuilder_.Append(Uri.EscapeDataString("limit") + "=").Append(Uri.EscapeDataString(ConvertToString(limit, CultureInfo.InvariantCulture))).Append("&");
+                urlBuilder.Append(Uri.EscapeDataString("limit") + "=").Append(Uri.EscapeDataString(ConvertToString(limit, CultureInfo.InvariantCulture))).Append("&");
             }
             if (skip != null)
             {
-                urlBuilder_.Append(Uri.EscapeDataString("skip") + "=").Append(Uri.EscapeDataString(ConvertToString(skip, CultureInfo.InvariantCulture))).Append("&");
+                urlBuilder.Append(Uri.EscapeDataString("skip") + "=").Append(Uri.EscapeDataString(ConvertToString(skip, CultureInfo.InvariantCulture))).Append("&");
             }
             if (code != null)
             {
-                urlBuilder_.Append(Uri.EscapeDataString("code") + "=").Append(Uri.EscapeDataString(ConvertToString(code, CultureInfo.InvariantCulture))).Append("&");
+                urlBuilder.Append(Uri.EscapeDataString("code") + "=").Append(Uri.EscapeDataString(ConvertToString(code, CultureInfo.InvariantCulture))).Append("&");
             }
             if (scope != null)
             {
-                urlBuilder_.Append(Uri.EscapeDataString("scope") + "=").Append(Uri.EscapeDataString(ConvertToString(scope, CultureInfo.InvariantCulture))).Append("&");
+                urlBuilder.Append(Uri.EscapeDataString("scope") + "=").Append(Uri.EscapeDataString(ConvertToString(scope, CultureInfo.InvariantCulture))).Append("&");
             }
             if (table != null)
             {
-                urlBuilder_.Append(Uri.EscapeDataString("table") + "=").Append(Uri.EscapeDataString(ConvertToString(table, CultureInfo.InvariantCulture))).Append("&");
+                urlBuilder.Append(Uri.EscapeDataString("table") + "=").Append(Uri.EscapeDataString(ConvertToString(table, CultureInfo.InvariantCulture))).Append("&");
             }
             if (payer != null)
             {
-                urlBuilder_.Append(Uri.EscapeDataString("payer") + "=").Append(Uri.EscapeDataString(ConvertToString(payer, CultureInfo.InvariantCulture))).Append("&");
+                urlBuilder.Append(Uri.EscapeDataString("payer") + "=").Append(Uri.EscapeDataString(ConvertToString(payer, CultureInfo.InvariantCulture))).Append("&");
             }
             if (after != null)
             {
-                urlBuilder_.Append(Uri.EscapeDataString("after") + "=").Append(Uri.EscapeDataString(ConvertToString(after, CultureInfo.InvariantCulture))).Append("&");
+                urlBuilder.Append(Uri.EscapeDataString("after") + "=").Append(Uri.EscapeDataString(ConvertToString(after, CultureInfo.InvariantCulture))).Append("&");
             }
             if (before != null)
             {
-                urlBuilder_.Append(Uri.EscapeDataString("before") + "=").Append(Uri.EscapeDataString(ConvertToString(before, CultureInfo.InvariantCulture))).Append("&");
+                urlBuilder.Append(Uri.EscapeDataString("before") + "=").Append(Uri.EscapeDataString(ConvertToString(before, CultureInfo.InvariantCulture))).Append("&");
             }
-            urlBuilder_.Length--;
+            urlBuilder.Length--;
  
-            using (var request_ = new HttpRequestMessage())
+            using (var request = new HttpRequestMessage())
             {
-                request_.Method = new HttpMethod("GET");
-                request_.Headers.Accept.Add(MediaTypeWithQualityHeaderValue.Parse("application/json"));
+                request.Method = new HttpMethod("GET");
+                request.Headers.Accept.Add(MediaTypeWithQualityHeaderValue.Parse("application/json"));
 
-                var url_ = urlBuilder_.ToString();
-                request_.RequestUri = new Uri(url_, UriKind.RelativeOrAbsolute);
+                var url = urlBuilder.ToString();
+                request.RequestUri = new Uri(url, UriKind.RelativeOrAbsolute);
 
-                var response_ = await _httpClient.SendAsync(request_, HttpCompletionOption.ResponseHeadersRead, cancellationToken).ConfigureAwait(false);
+                var response = await _httpClient.SendAsync(request, HttpCompletionOption.ResponseHeadersRead, cancellationToken).ConfigureAwait(false);
 
-                var headers_ = Enumerable.ToDictionary(response_.Headers, h_ => h_.Key, h_ => h_.Value);
-                if (response_.Content != null && response_.Content.Headers != null)
+                var headers = Enumerable.ToDictionary(response.Headers, h => h.Key, h => h.Value);
+                if (response.Content != null && response.Content.Headers != null)
                 {
-                    foreach (var item_ in response_.Content.Headers)
-                        headers_[item_.Key] = item_.Value;
+                    foreach (var item in response.Content.Headers)
+                        headers[item.Key] = item.Value;
                 }
 
-                var status_ = (int)response_.StatusCode;
-                if (status_ == 200)
+                var status = (int)response.StatusCode;
+                if (status == 200)
                 {
-                    var objectResponse_ = await ReadObjectResponseAsync<Response2>(response_, headers_, cancellationToken).ConfigureAwait(false);
-                    if (objectResponse_.Object == null)
+                    var objectResponse = await ReadObjectResponseAsync<Response2>(response, headers, cancellationToken).ConfigureAwait(false);
+                    if (objectResponse.Object == null)
                     {
-                        throw new ApiException("Response was null which was not expected.", status_, objectResponse_.Text, headers_, null);
+                        throw new ApiException("Response was null which was not expected.", status, objectResponse.Text, headers, null);
                     }
-                    return objectResponse_.Object;
+                    return objectResponse.Object;
                 }
                 else
                 {
-                    var responseData_ = response_.Content == null ? null : await response_.Content.ReadAsStringAsync().ConfigureAwait(false);
-                    throw new ApiException("The HTTP status code of the response was not expected (" + status_ + ").", status_, responseData_, headers_, null);
+                    var responseData = response.Content == null ? null : await response.Content.ReadAsStringAsync().ConfigureAwait(false);
+                    throw new ApiException("The HTTP status code of the response was not expected (" + status + ").", status, responseData, headers, null);
                 }
             }
         }
@@ -434,60 +434,60 @@ namespace EosRio.HyperionApi
         /// <exception cref="ApiException">A server side error occurred.</exception>
         public async Task<Response3> Get_scheduleAsync(string producer = null, string key = null, string after = null, string before = null, int? version = null, CancellationToken cancellationToken = default)
         {
-            var urlBuilder_ = new StringBuilder(BaseUrl != null ? BaseUrl.TrimEnd('/') : "").Append("/v2/history/get_schedule?");
+            var urlBuilder = new StringBuilder(BaseUrl != null ? BaseUrl.TrimEnd('/') : "").Append("/v2/history/get_schedule?");
             if (producer != null)
             {
-                urlBuilder_.Append(Uri.EscapeDataString("producer") + "=").Append(Uri.EscapeDataString(ConvertToString(producer, CultureInfo.InvariantCulture))).Append("&");
+                urlBuilder.Append(Uri.EscapeDataString("producer") + "=").Append(Uri.EscapeDataString(ConvertToString(producer, CultureInfo.InvariantCulture))).Append("&");
             }
             if (key != null)
             {
-                urlBuilder_.Append(Uri.EscapeDataString("key") + "=").Append(Uri.EscapeDataString(ConvertToString(key, CultureInfo.InvariantCulture))).Append("&");
+                urlBuilder.Append(Uri.EscapeDataString("key") + "=").Append(Uri.EscapeDataString(ConvertToString(key, CultureInfo.InvariantCulture))).Append("&");
             }
             if (after != null)
             {
-                urlBuilder_.Append(Uri.EscapeDataString("after") + "=").Append(Uri.EscapeDataString(ConvertToString(after, CultureInfo.InvariantCulture))).Append("&");
+                urlBuilder.Append(Uri.EscapeDataString("after") + "=").Append(Uri.EscapeDataString(ConvertToString(after, CultureInfo.InvariantCulture))).Append("&");
             }
             if (before != null)
             {
-                urlBuilder_.Append(Uri.EscapeDataString("before") + "=").Append(Uri.EscapeDataString(ConvertToString(before, CultureInfo.InvariantCulture))).Append("&");
+                urlBuilder.Append(Uri.EscapeDataString("before") + "=").Append(Uri.EscapeDataString(ConvertToString(before, CultureInfo.InvariantCulture))).Append("&");
             }
             if (version != null)
             {
-                urlBuilder_.Append(Uri.EscapeDataString("version") + "=").Append(Uri.EscapeDataString(ConvertToString(version, CultureInfo.InvariantCulture))).Append("&");
+                urlBuilder.Append(Uri.EscapeDataString("version") + "=").Append(Uri.EscapeDataString(ConvertToString(version, CultureInfo.InvariantCulture))).Append("&");
             }
-            urlBuilder_.Length--;
+            urlBuilder.Length--;
  
-            using (var request_ = new HttpRequestMessage())
+            using (var request = new HttpRequestMessage())
             {
-                request_.Method = new HttpMethod("GET");
-                request_.Headers.Accept.Add(MediaTypeWithQualityHeaderValue.Parse("application/json"));
+                request.Method = new HttpMethod("GET");
+                request.Headers.Accept.Add(MediaTypeWithQualityHeaderValue.Parse("application/json"));
 
-                var url_ = urlBuilder_.ToString();
-                request_.RequestUri = new Uri(url_, UriKind.RelativeOrAbsolute);
+                var url = urlBuilder.ToString();
+                request.RequestUri = new Uri(url, UriKind.RelativeOrAbsolute);
 
-                var response_ = await _httpClient.SendAsync(request_, HttpCompletionOption.ResponseHeadersRead, cancellationToken).ConfigureAwait(false);
+                var response = await _httpClient.SendAsync(request, HttpCompletionOption.ResponseHeadersRead, cancellationToken).ConfigureAwait(false);
 
-                var headers_ = Enumerable.ToDictionary(response_.Headers, h_ => h_.Key, h_ => h_.Value);
-                if (response_.Content != null && response_.Content.Headers != null)
+                var headers = Enumerable.ToDictionary(response.Headers, h => h.Key, h => h.Value);
+                if (response.Content != null && response.Content.Headers != null)
                 {
-                    foreach (var item_ in response_.Content.Headers)
-                        headers_[item_.Key] = item_.Value;
+                    foreach (var item in response.Content.Headers)
+                        headers[item.Key] = item.Value;
                 }
 
-                var status_ = (int)response_.StatusCode;
-                if (status_ == 200)
+                var status = (int)response.StatusCode;
+                if (status == 200)
                 {
-                    var objectResponse_ = await ReadObjectResponseAsync<Response3>(response_, headers_, cancellationToken).ConfigureAwait(false);
-                    if (objectResponse_.Object == null)
+                    var objectResponse = await ReadObjectResponseAsync<Response3>(response, headers, cancellationToken).ConfigureAwait(false);
+                    if (objectResponse.Object == null)
                     {
-                        throw new ApiException("Response was null which was not expected.", status_, objectResponse_.Text, headers_, null);
+                        throw new ApiException("Response was null which was not expected.", status, objectResponse.Text, headers, null);
                     }
-                    return objectResponse_.Object;
+                    return objectResponse.Object;
                 }
                 else
                 {
-                    var responseData_ = response_.Content == null ? null : await response_.Content.ReadAsStringAsync().ConfigureAwait(false);
-                    throw new ApiException("The HTTP status code of the response was not expected (" + status_ + ").", status_, responseData_, headers_, null);
+                    var responseData = response.Content == null ? null : await response.Content.ReadAsStringAsync().ConfigureAwait(false);
+                    throw new ApiException("The HTTP status code of the response was not expected (" + status + ").", status, responseData, headers, null);
                 }
             }
         }
@@ -502,34 +502,34 @@ namespace EosRio.HyperionApi
             if (id == null)
                 throw new ArgumentNullException("id");
     
-            var urlBuilder_ = new StringBuilder(BaseUrl != null ? BaseUrl.TrimEnd('/') : "").Append("/v2/history/get_transaction?" + Uri.EscapeDataString("id") + "=").Append(Uri.EscapeDataString(ConvertToString(id, CultureInfo.InvariantCulture))).Append("&");
-            urlBuilder_.Length--;
+            var urlBuilder = new StringBuilder(BaseUrl != null ? BaseUrl.TrimEnd('/') : "").Append("/v2/history/get_transaction?" + Uri.EscapeDataString("id") + "=").Append(Uri.EscapeDataString(ConvertToString(id, CultureInfo.InvariantCulture))).Append("&");
+            urlBuilder.Length--;
  
-            using (var request_ = new HttpRequestMessage())
+            using (var request = new HttpRequestMessage())
             {
-                request_.Method = new HttpMethod("GET");
+                request.Method = new HttpMethod("GET");
 
-                var url_ = urlBuilder_.ToString();
-                request_.RequestUri = new Uri(url_, UriKind.RelativeOrAbsolute);
+                var url = urlBuilder.ToString();
+                request.RequestUri = new Uri(url, UriKind.RelativeOrAbsolute);
 
-                var response_ = await _httpClient.SendAsync(request_, HttpCompletionOption.ResponseHeadersRead, cancellationToken).ConfigureAwait(false);
+                var response = await _httpClient.SendAsync(request, HttpCompletionOption.ResponseHeadersRead, cancellationToken).ConfigureAwait(false);
 
-                var headers_ = Enumerable.ToDictionary(response_.Headers, h_ => h_.Key, h_ => h_.Value);
-                if (response_.Content != null && response_.Content.Headers != null)
+                var headers = Enumerable.ToDictionary(response.Headers, h => h.Key, h => h.Value);
+                if (response.Content != null && response.Content.Headers != null)
                 {
-                    foreach (var item_ in response_.Content.Headers)
-                        headers_[item_.Key] = item_.Value;
+                    foreach (var item in response.Content.Headers)
+                        headers[item.Key] = item.Value;
                 }
 
-                var status_ = (int)response_.StatusCode;
-                if (status_ == 200)
+                var status = (int)response.StatusCode;
+                if (status == 200)
                 {
                     return;
                 }
                 else
                 {
-                    var responseData_ = response_.Content == null ? null : await response_.Content.ReadAsStringAsync().ConfigureAwait(false);
-                    throw new ApiException("The HTTP status code of the response was not expected (" + status_ + ").", status_, responseData_, headers_, null);
+                    var responseData = response.Content == null ? null : await response.Content.ReadAsStringAsync().ConfigureAwait(false);
+                    throw new ApiException("The HTTP status code of the response was not expected (" + status + ").", status, responseData, headers, null);
                 }
             }
         }
@@ -539,42 +539,42 @@ namespace EosRio.HyperionApi
         /// <exception cref="ApiException">A server side error occurred.</exception>
         public async Task<Response4> Get_actionsPostAsync(object body = null, CancellationToken cancellationToken = default)
         {
-            var urlBuilder_ = new StringBuilder(BaseUrl != null ? BaseUrl.TrimEnd('/') : "").Append("/v1/history/get_actions");
+            var urlBuilder = new StringBuilder(BaseUrl != null ? BaseUrl.TrimEnd('/') : "").Append("/v1/history/get_actions");
  
-            using (var request_ = new HttpRequestMessage())
+            using (var request = new HttpRequestMessage())
             {
-                var content_ = new StringContent(JsonConvert.SerializeObject(body));
-                content_.Headers.ContentType = MediaTypeHeaderValue.Parse("application/json");
-                request_.Content = content_;
-                request_.Method = new HttpMethod("POST");
-                request_.Headers.Accept.Add(MediaTypeWithQualityHeaderValue.Parse("application/json"));
+                var content = new StringContent(JsonConvert.SerializeObject(body));
+                content.Headers.ContentType = MediaTypeHeaderValue.Parse("application/json");
+                request.Content = content;
+                request.Method = new HttpMethod("POST");
+                request.Headers.Accept.Add(MediaTypeWithQualityHeaderValue.Parse("application/json"));
 
-                var url_ = urlBuilder_.ToString();
-                request_.RequestUri = new Uri(url_, UriKind.RelativeOrAbsolute);
+                var url = urlBuilder.ToString();
+                request.RequestUri = new Uri(url, UriKind.RelativeOrAbsolute);
 
-                var response_ = await _httpClient.SendAsync(request_, HttpCompletionOption.ResponseHeadersRead, cancellationToken).ConfigureAwait(false);
+                var response = await _httpClient.SendAsync(request, HttpCompletionOption.ResponseHeadersRead, cancellationToken).ConfigureAwait(false);
 
-                var headers_ = Enumerable.ToDictionary(response_.Headers, h_ => h_.Key, h_ => h_.Value);
-                if (response_.Content != null && response_.Content.Headers != null)
+                var headers = Enumerable.ToDictionary(response.Headers, h => h.Key, h => h.Value);
+                if (response.Content != null && response.Content.Headers != null)
                 {
-                    foreach (var item_ in response_.Content.Headers)
-                        headers_[item_.Key] = item_.Value;
+                    foreach (var item in response.Content.Headers)
+                        headers[item.Key] = item.Value;
                 }
 
-                var status_ = (int)response_.StatusCode;
-                if (status_ == 200)
+                var status = (int)response.StatusCode;
+                if (status == 200)
                 {
-                    var objectResponse_ = await ReadObjectResponseAsync<Response4>(response_, headers_, cancellationToken).ConfigureAwait(false);
-                    if (objectResponse_.Object == null)
+                    var objectResponse = await ReadObjectResponseAsync<Response4>(response, headers, cancellationToken).ConfigureAwait(false);
+                    if (objectResponse.Object == null)
                     {
-                        throw new ApiException("Response was null which was not expected.", status_, objectResponse_.Text, headers_, null);
+                        throw new ApiException("Response was null which was not expected.", status, objectResponse.Text, headers, null);
                     }
-                    return objectResponse_.Object;
+                    return objectResponse.Object;
                 }
                 else
                 {
-                    var responseData_ = response_.Content == null ? null : await response_.Content.ReadAsStringAsync().ConfigureAwait(false);
-                    throw new ApiException("The HTTP status code of the response was not expected (" + status_ + ").", status_, responseData_, headers_, null);
+                    var responseData = response.Content == null ? null : await response.Content.ReadAsStringAsync().ConfigureAwait(false);
+                    throw new ApiException("The HTTP status code of the response was not expected (" + status + ").", status, responseData, headers, null);
                 }
             }
         }
@@ -588,36 +588,36 @@ namespace EosRio.HyperionApi
             if (body == null)
                 throw new ArgumentNullException("body");
     
-            var urlBuilder_ = new StringBuilder(BaseUrl != null ? BaseUrl.TrimEnd('/') : "").Append("/v1/history/get_transaction");
+            var urlBuilder = new StringBuilder(BaseUrl != null ? BaseUrl.TrimEnd('/') : "").Append("/v1/history/get_transaction");
  
-            using (var request_ = new HttpRequestMessage())
+            using (var request = new HttpRequestMessage())
             {
-                var content_ = new StringContent(JsonConvert.SerializeObject(body));
-                content_.Headers.ContentType = MediaTypeHeaderValue.Parse("application/json");
-                request_.Content = content_;
-                request_.Method = new HttpMethod("POST");
+                var content = new StringContent(JsonConvert.SerializeObject(body));
+                content.Headers.ContentType = MediaTypeHeaderValue.Parse("application/json");
+                request.Content = content;
+                request.Method = new HttpMethod("POST");
 
-                var url_ = urlBuilder_.ToString();
-                request_.RequestUri = new Uri(url_, UriKind.RelativeOrAbsolute);
+                var url = urlBuilder.ToString();
+                request.RequestUri = new Uri(url, UriKind.RelativeOrAbsolute);
 
-                var response_ = await _httpClient.SendAsync(request_, HttpCompletionOption.ResponseHeadersRead, cancellationToken).ConfigureAwait(false);
+                var response = await _httpClient.SendAsync(request, HttpCompletionOption.ResponseHeadersRead, cancellationToken).ConfigureAwait(false);
 
-                var headers_ = Enumerable.ToDictionary(response_.Headers, h_ => h_.Key, h_ => h_.Value);
-                if (response_.Content != null && response_.Content.Headers != null)
+                var headers = Enumerable.ToDictionary(response.Headers, h => h.Key, h => h.Value);
+                if (response.Content != null && response.Content.Headers != null)
                 {
-                    foreach (var item_ in response_.Content.Headers)
-                        headers_[item_.Key] = item_.Value;
+                    foreach (var item in response.Content.Headers)
+                        headers[item.Key] = item.Value;
                 }
 
-                var status_ = (int)response_.StatusCode;
-                if (status_ == 200)
+                var status = (int)response.StatusCode;
+                if (status == 200)
                 {
                     return;
                 }
                 else
                 {
-                    var responseData_ = response_.Content == null ? null : await response_.Content.ReadAsStringAsync().ConfigureAwait(false);
-                    throw new ApiException("The HTTP status code of the response was not expected (" + status_ + ").", status_, responseData_, headers_, null);
+                    var responseData = response.Content == null ? null : await response.Content.ReadAsStringAsync().ConfigureAwait(false);
+                    throw new ApiException("The HTTP status code of the response was not expected (" + status + ").", status, responseData, headers, null);
                 }
             }
         }
@@ -627,42 +627,42 @@ namespace EosRio.HyperionApi
         /// <exception cref="ApiException">A server side error occurred.</exception>
         public async Task<Response5> Get_blockAsync(object body = null, CancellationToken cancellationToken = default)
         {
-            var urlBuilder_ = new StringBuilder(BaseUrl != null ? BaseUrl.TrimEnd('/') : "").Append("/v1/trace_api/get_block");
+            var urlBuilder = new StringBuilder(BaseUrl != null ? BaseUrl.TrimEnd('/') : "").Append("/v1/trace_api/get_block");
  
-            using (var request_ = new HttpRequestMessage())
+            using (var request = new HttpRequestMessage())
             {
-                var content_ = new StringContent(JsonConvert.SerializeObject(body));
-                content_.Headers.ContentType = MediaTypeHeaderValue.Parse("application/json");
-                request_.Content = content_;
-                request_.Method = new HttpMethod("POST");
-                request_.Headers.Accept.Add(MediaTypeWithQualityHeaderValue.Parse("application/json"));
+                var content = new StringContent(JsonConvert.SerializeObject(body));
+                content.Headers.ContentType = MediaTypeHeaderValue.Parse("application/json");
+                request.Content = content;
+                request.Method = new HttpMethod("POST");
+                request.Headers.Accept.Add(MediaTypeWithQualityHeaderValue.Parse("application/json"));
 
-                var url_ = urlBuilder_.ToString();
-                request_.RequestUri = new Uri(url_, UriKind.RelativeOrAbsolute);
+                var url = urlBuilder.ToString();
+                request.RequestUri = new Uri(url, UriKind.RelativeOrAbsolute);
 
-                var response_ = await _httpClient.SendAsync(request_, HttpCompletionOption.ResponseHeadersRead, cancellationToken).ConfigureAwait(false);
+                var response = await _httpClient.SendAsync(request, HttpCompletionOption.ResponseHeadersRead, cancellationToken).ConfigureAwait(false);
 
-                var headers_ = Enumerable.ToDictionary(response_.Headers, h_ => h_.Key, h_ => h_.Value);
-                if (response_.Content != null && response_.Content.Headers != null)
+                var headers = Enumerable.ToDictionary(response.Headers, h => h.Key, h => h.Value);
+                if (response.Content != null && response.Content.Headers != null)
                 {
-                    foreach (var item_ in response_.Content.Headers)
-                        headers_[item_.Key] = item_.Value;
+                    foreach (var item in response.Content.Headers)
+                        headers[item.Key] = item.Value;
                 }
 
-                var status_ = (int)response_.StatusCode;
-                if (status_ == 200)
+                var status = (int)response.StatusCode;
+                if (status == 200)
                 {
-                    var objectResponse_ = await ReadObjectResponseAsync<Response5>(response_, headers_, cancellationToken).ConfigureAwait(false);
-                    if (objectResponse_.Object == null)
+                    var objectResponse = await ReadObjectResponseAsync<Response5>(response, headers, cancellationToken).ConfigureAwait(false);
+                    if (objectResponse.Object == null)
                     {
-                        throw new ApiException("Response was null which was not expected.", status_, objectResponse_.Text, headers_, null);
+                        throw new ApiException("Response was null which was not expected.", status, objectResponse.Text, headers, null);
                     }
-                    return objectResponse_.Object;
+                    return objectResponse.Object;
                 }
                 else
                 {
-                    var responseData_ = response_.Content == null ? null : await response_.Content.ReadAsStringAsync().ConfigureAwait(false);
-                    throw new ApiException("The HTTP status code of the response was not expected (" + status_ + ").", status_, responseData_, headers_, null);
+                    var responseData = response.Content == null ? null : await response.Content.ReadAsStringAsync().ConfigureAwait(false);
+                    throw new ApiException("The HTTP status code of the response was not expected (" + status + ").", status, responseData, headers, null);
                 }
             }
         }
@@ -770,7 +770,7 @@ namespace EosRio.HyperionApi
     }
     
     
-    public partial class AccountsClient 
+    public class AccountsClient 
     {
         private string _baseUrl = "https://api.wax.liquidstudios.io/";
         private HttpClient _httpClient;
@@ -797,48 +797,48 @@ namespace EosRio.HyperionApi
             if (account == null)
                 throw new ArgumentNullException("account");
     
-            var urlBuilder_ = new StringBuilder(BaseUrl != null ? BaseUrl.TrimEnd('/') : "").Append("/v2/history/get_created_accounts?" + Uri.EscapeDataString("account") + "=").Append(Uri.EscapeDataString(ConvertToString(account, CultureInfo.InvariantCulture))).Append("&");
+            var urlBuilder = new StringBuilder(BaseUrl != null ? BaseUrl.TrimEnd('/') : "").Append("/v2/history/get_created_accounts?" + Uri.EscapeDataString("account") + "=").Append(Uri.EscapeDataString(ConvertToString(account, CultureInfo.InvariantCulture))).Append("&");
             if (limit != null)
             {
-                urlBuilder_.Append(Uri.EscapeDataString("limit") + "=").Append(Uri.EscapeDataString(ConvertToString(limit, CultureInfo.InvariantCulture))).Append("&");
+                urlBuilder.Append(Uri.EscapeDataString("limit") + "=").Append(Uri.EscapeDataString(ConvertToString(limit, CultureInfo.InvariantCulture))).Append("&");
             }
             if (skip != null)
             {
-                urlBuilder_.Append(Uri.EscapeDataString("skip") + "=").Append(Uri.EscapeDataString(ConvertToString(skip, CultureInfo.InvariantCulture))).Append("&");
+                urlBuilder.Append(Uri.EscapeDataString("skip") + "=").Append(Uri.EscapeDataString(ConvertToString(skip, CultureInfo.InvariantCulture))).Append("&");
             }
-            urlBuilder_.Length--;
+            urlBuilder.Length--;
  
-            using (var request_ = new HttpRequestMessage())
+            using (var request = new HttpRequestMessage())
             {
-                request_.Method = new HttpMethod("GET");
-                request_.Headers.Accept.Add(MediaTypeWithQualityHeaderValue.Parse("application/json"));
+                request.Method = new HttpMethod("GET");
+                request.Headers.Accept.Add(MediaTypeWithQualityHeaderValue.Parse("application/json"));
 
-                var url_ = urlBuilder_.ToString();
-                request_.RequestUri = new Uri(url_, UriKind.RelativeOrAbsolute);
+                var url = urlBuilder.ToString();
+                request.RequestUri = new Uri(url, UriKind.RelativeOrAbsolute);
 
-                var response_ = await _httpClient.SendAsync(request_, HttpCompletionOption.ResponseHeadersRead, cancellationToken).ConfigureAwait(false);
+                var response = await _httpClient.SendAsync(request, HttpCompletionOption.ResponseHeadersRead, cancellationToken).ConfigureAwait(false);
 
-                var headers_ = Enumerable.ToDictionary(response_.Headers, h_ => h_.Key, h_ => h_.Value);
-                if (response_.Content != null && response_.Content.Headers != null)
+                var headers = Enumerable.ToDictionary(response.Headers, h => h.Key, h => h.Value);
+                if (response.Content != null && response.Content.Headers != null)
                 {
-                    foreach (var item_ in response_.Content.Headers)
-                        headers_[item_.Key] = item_.Value;
+                    foreach (var item in response.Content.Headers)
+                        headers[item.Key] = item.Value;
                 }
 
-                var status_ = (int)response_.StatusCode;
-                if (status_ == 200)
+                var status = (int)response.StatusCode;
+                if (status == 200)
                 {
-                    var objectResponse_ = await ReadObjectResponseAsync<Response6>(response_, headers_, cancellationToken).ConfigureAwait(false);
-                    if (objectResponse_.Object == null)
+                    var objectResponse = await ReadObjectResponseAsync<Response6>(response, headers, cancellationToken).ConfigureAwait(false);
+                    if (objectResponse.Object == null)
                     {
-                        throw new ApiException("Response was null which was not expected.", status_, objectResponse_.Text, headers_, null);
+                        throw new ApiException("Response was null which was not expected.", status, objectResponse.Text, headers, null);
                     }
-                    return objectResponse_.Object;
+                    return objectResponse.Object;
                 }
                 else
                 {
-                    var responseData_ = response_.Content == null ? null : await response_.Content.ReadAsStringAsync().ConfigureAwait(false);
-                    throw new ApiException("The HTTP status code of the response was not expected (" + status_ + ").", status_, responseData_, headers_, null);
+                    var responseData = response.Content == null ? null : await response.Content.ReadAsStringAsync().ConfigureAwait(false);
+                    throw new ApiException("The HTTP status code of the response was not expected (" + status + ").", status, responseData, headers, null);
                 }
             }
         }
@@ -852,40 +852,40 @@ namespace EosRio.HyperionApi
             if (account == null)
                 throw new ArgumentNullException("account");
     
-            var urlBuilder_ = new StringBuilder(BaseUrl != null ? BaseUrl.TrimEnd('/') : "").Append("/v2/history/get_creator?" + Uri.EscapeDataString("account") + "=").Append(Uri.EscapeDataString(ConvertToString(account, CultureInfo.InvariantCulture))).Append("&");
-            urlBuilder_.Length--;
+            var urlBuilder = new StringBuilder(BaseUrl != null ? BaseUrl.TrimEnd('/') : "").Append("/v2/history/get_creator?" + Uri.EscapeDataString("account") + "=").Append(Uri.EscapeDataString(ConvertToString(account, CultureInfo.InvariantCulture))).Append("&");
+            urlBuilder.Length--;
  
-            using (var request_ = new HttpRequestMessage())
+            using (var request = new HttpRequestMessage())
             {
-                request_.Method = new HttpMethod("GET");
-                request_.Headers.Accept.Add(MediaTypeWithQualityHeaderValue.Parse("application/json"));
+                request.Method = new HttpMethod("GET");
+                request.Headers.Accept.Add(MediaTypeWithQualityHeaderValue.Parse("application/json"));
 
-                var url_ = urlBuilder_.ToString();
-                request_.RequestUri = new Uri(url_, UriKind.RelativeOrAbsolute);
+                var url = urlBuilder.ToString();
+                request.RequestUri = new Uri(url, UriKind.RelativeOrAbsolute);
 
-                var response_ = await _httpClient.SendAsync(request_, HttpCompletionOption.ResponseHeadersRead, cancellationToken).ConfigureAwait(false);
+                var response = await _httpClient.SendAsync(request, HttpCompletionOption.ResponseHeadersRead, cancellationToken).ConfigureAwait(false);
 
-                var headers_ = Enumerable.ToDictionary(response_.Headers, h_ => h_.Key, h_ => h_.Value);
-                if (response_.Content != null && response_.Content.Headers != null)
+                var headers = Enumerable.ToDictionary(response.Headers, h => h.Key, h => h.Value);
+                if (response.Content != null && response.Content.Headers != null)
                 {
-                    foreach (var item_ in response_.Content.Headers)
-                        headers_[item_.Key] = item_.Value;
+                    foreach (var item in response.Content.Headers)
+                        headers[item.Key] = item.Value;
                 }
 
-                var status_ = (int)response_.StatusCode;
-                if (status_ == 200)
+                var status = (int)response.StatusCode;
+                if (status == 200)
                 {
-                    var objectResponse_ = await ReadObjectResponseAsync<Response7>(response_, headers_, cancellationToken).ConfigureAwait(false);
-                    if (objectResponse_.Object == null)
+                    var objectResponse = await ReadObjectResponseAsync<Response7>(response, headers, cancellationToken).ConfigureAwait(false);
+                    if (objectResponse.Object == null)
                     {
-                        throw new ApiException("Response was null which was not expected.", status_, objectResponse_.Text, headers_, null);
+                        throw new ApiException("Response was null which was not expected.", status, objectResponse.Text, headers, null);
                     }
-                    return objectResponse_.Object;
+                    return objectResponse.Object;
                 }
                 else
                 {
-                    var responseData_ = response_.Content == null ? null : await response_.Content.ReadAsStringAsync().ConfigureAwait(false);
-                    throw new ApiException("The HTTP status code of the response was not expected (" + status_ + ").", status_, responseData_, headers_, null);
+                    var responseData = response.Content == null ? null : await response.Content.ReadAsStringAsync().ConfigureAwait(false);
+                    throw new ApiException("The HTTP status code of the response was not expected (" + status + ").", status, responseData, headers, null);
                 }
             }
         }
@@ -901,48 +901,48 @@ namespace EosRio.HyperionApi
             if (account == null)
                 throw new ArgumentNullException("account");
     
-            var urlBuilder_ = new StringBuilder(BaseUrl != null ? BaseUrl.TrimEnd('/') : "").Append("/v2/state/get_account?" + Uri.EscapeDataString("account") + "=").Append(Uri.EscapeDataString(ConvertToString(account, CultureInfo.InvariantCulture))).Append("&");
+            var urlBuilder = new StringBuilder(BaseUrl != null ? BaseUrl.TrimEnd('/') : "").Append("/v2/state/get_account?" + Uri.EscapeDataString("account") + "=").Append(Uri.EscapeDataString(ConvertToString(account, CultureInfo.InvariantCulture))).Append("&");
             if (limit != null)
             {
-                urlBuilder_.Append(Uri.EscapeDataString("limit") + "=").Append(Uri.EscapeDataString(ConvertToString(limit, CultureInfo.InvariantCulture))).Append("&");
+                urlBuilder.Append(Uri.EscapeDataString("limit") + "=").Append(Uri.EscapeDataString(ConvertToString(limit, CultureInfo.InvariantCulture))).Append("&");
             }
             if (skip != null)
             {
-                urlBuilder_.Append(Uri.EscapeDataString("skip") + "=").Append(Uri.EscapeDataString(ConvertToString(skip, CultureInfo.InvariantCulture))).Append("&");
+                urlBuilder.Append(Uri.EscapeDataString("skip") + "=").Append(Uri.EscapeDataString(ConvertToString(skip, CultureInfo.InvariantCulture))).Append("&");
             }
-            urlBuilder_.Length--;
+            urlBuilder.Length--;
  
-            using (var request_ = new HttpRequestMessage())
+            using (var request = new HttpRequestMessage())
             {
-                request_.Method = new HttpMethod("GET");
-                request_.Headers.Accept.Add(MediaTypeWithQualityHeaderValue.Parse("application/json"));
+                request.Method = new HttpMethod("GET");
+                request.Headers.Accept.Add(MediaTypeWithQualityHeaderValue.Parse("application/json"));
 
-                var url_ = urlBuilder_.ToString();
-                request_.RequestUri = new Uri(url_, UriKind.RelativeOrAbsolute);
+                var url = urlBuilder.ToString();
+                request.RequestUri = new Uri(url, UriKind.RelativeOrAbsolute);
 
-                var response_ = await _httpClient.SendAsync(request_, HttpCompletionOption.ResponseHeadersRead, cancellationToken).ConfigureAwait(false);
+                var response = await _httpClient.SendAsync(request, HttpCompletionOption.ResponseHeadersRead, cancellationToken).ConfigureAwait(false);
 
-                var headers_ = Enumerable.ToDictionary(response_.Headers, h_ => h_.Key, h_ => h_.Value);
-                if (response_.Content != null && response_.Content.Headers != null)
+                var headers = Enumerable.ToDictionary(response.Headers, h => h.Key, h => h.Value);
+                if (response.Content != null && response.Content.Headers != null)
                 {
-                    foreach (var item_ in response_.Content.Headers)
-                        headers_[item_.Key] = item_.Value;
+                    foreach (var item in response.Content.Headers)
+                        headers[item.Key] = item.Value;
                 }
 
-                var status_ = (int)response_.StatusCode;
-                if (status_ == 200)
+                var status = (int)response.StatusCode;
+                if (status == 200)
                 {
-                    var objectResponse_ = await ReadObjectResponseAsync<Response8>(response_, headers_, cancellationToken).ConfigureAwait(false);
-                    if (objectResponse_.Object == null)
+                    var objectResponse = await ReadObjectResponseAsync<Response8>(response, headers, cancellationToken).ConfigureAwait(false);
+                    if (objectResponse.Object == null)
                     {
-                        throw new ApiException("Response was null which was not expected.", status_, objectResponse_.Text, headers_, null);
+                        throw new ApiException("Response was null which was not expected.", status, objectResponse.Text, headers, null);
                     }
-                    return objectResponse_.Object;
+                    return objectResponse.Object;
                 }
                 else
                 {
-                    var responseData_ = response_.Content == null ? null : await response_.Content.ReadAsStringAsync().ConfigureAwait(false);
-                    throw new ApiException("The HTTP status code of the response was not expected (" + status_ + ").", status_, responseData_, headers_, null);
+                    var responseData = response.Content == null ? null : await response.Content.ReadAsStringAsync().ConfigureAwait(false);
+                    throw new ApiException("The HTTP status code of the response was not expected (" + status + ").", status, responseData, headers, null);
                 }
             }
         }
@@ -954,57 +954,57 @@ namespace EosRio.HyperionApi
         /// <param name="skip">skip [n] results</param>
         /// <param name="details">include permission details</param>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public async Task<Response9> Get_key_accountsGetAsync(string public_key, int? limit = null, int? skip = null, bool? details = null, CancellationToken cancellationToken = default)
+        public async Task<Response9> Get_key_accountsGetAsync(string publicKey, int? limit = null, int? skip = null, bool? details = null, CancellationToken cancellationToken = default)
         {
-            if (public_key == null)
-                throw new ArgumentNullException("public_key");
+            if (publicKey == null)
+                throw new ArgumentNullException("publicKey");
     
-            var urlBuilder_ = new StringBuilder(BaseUrl != null ? BaseUrl.TrimEnd('/') : "").Append("/v2/state/get_key_accounts?" + Uri.EscapeDataString("public_key") + "=").Append(Uri.EscapeDataString(ConvertToString(public_key, CultureInfo.InvariantCulture))).Append("&");
+            var urlBuilder = new StringBuilder(BaseUrl != null ? BaseUrl.TrimEnd('/') : "").Append("/v2/state/get_key_accounts?" + Uri.EscapeDataString("public_key") + "=").Append(Uri.EscapeDataString(ConvertToString(publicKey, CultureInfo.InvariantCulture))).Append("&");
             if (limit != null)
             {
-                urlBuilder_.Append(Uri.EscapeDataString("limit") + "=").Append(Uri.EscapeDataString(ConvertToString(limit, CultureInfo.InvariantCulture))).Append("&");
+                urlBuilder.Append(Uri.EscapeDataString("limit") + "=").Append(Uri.EscapeDataString(ConvertToString(limit, CultureInfo.InvariantCulture))).Append("&");
             }
             if (skip != null)
             {
-                urlBuilder_.Append(Uri.EscapeDataString("skip") + "=").Append(Uri.EscapeDataString(ConvertToString(skip, CultureInfo.InvariantCulture))).Append("&");
+                urlBuilder.Append(Uri.EscapeDataString("skip") + "=").Append(Uri.EscapeDataString(ConvertToString(skip, CultureInfo.InvariantCulture))).Append("&");
             }
             if (details != null)
             {
-                urlBuilder_.Append(Uri.EscapeDataString("details") + "=").Append(Uri.EscapeDataString(ConvertToString(details, CultureInfo.InvariantCulture))).Append("&");
+                urlBuilder.Append(Uri.EscapeDataString("details") + "=").Append(Uri.EscapeDataString(ConvertToString(details, CultureInfo.InvariantCulture))).Append("&");
             }
-            urlBuilder_.Length--;
+            urlBuilder.Length--;
  
-            using (var request_ = new HttpRequestMessage())
+            using (var request = new HttpRequestMessage())
             {
-                request_.Method = new HttpMethod("GET");
-                request_.Headers.Accept.Add(MediaTypeWithQualityHeaderValue.Parse("application/json"));
+                request.Method = new HttpMethod("GET");
+                request.Headers.Accept.Add(MediaTypeWithQualityHeaderValue.Parse("application/json"));
 
-                var url_ = urlBuilder_.ToString();
-                request_.RequestUri = new Uri(url_, UriKind.RelativeOrAbsolute);
+                var url = urlBuilder.ToString();
+                request.RequestUri = new Uri(url, UriKind.RelativeOrAbsolute);
 
-                var response_ = await _httpClient.SendAsync(request_, HttpCompletionOption.ResponseHeadersRead, cancellationToken).ConfigureAwait(false);
+                var response = await _httpClient.SendAsync(request, HttpCompletionOption.ResponseHeadersRead, cancellationToken).ConfigureAwait(false);
 
-                var headers_ = Enumerable.ToDictionary(response_.Headers, h_ => h_.Key, h_ => h_.Value);
-                if (response_.Content != null && response_.Content.Headers != null)
+                var headers = Enumerable.ToDictionary(response.Headers, h => h.Key, h => h.Value);
+                if (response.Content != null && response.Content.Headers != null)
                 {
-                    foreach (var item_ in response_.Content.Headers)
-                        headers_[item_.Key] = item_.Value;
+                    foreach (var item in response.Content.Headers)
+                        headers[item.Key] = item.Value;
                 }
 
-                var status_ = (int)response_.StatusCode;
-                if (status_ == 200)
+                var status = (int)response.StatusCode;
+                if (status == 200)
                 {
-                    var objectResponse_ = await ReadObjectResponseAsync<Response9>(response_, headers_, cancellationToken).ConfigureAwait(false);
-                    if (objectResponse_.Object == null)
+                    var objectResponse = await ReadObjectResponseAsync<Response9>(response, headers, cancellationToken).ConfigureAwait(false);
+                    if (objectResponse.Object == null)
                     {
-                        throw new ApiException("Response was null which was not expected.", status_, objectResponse_.Text, headers_, null);
+                        throw new ApiException("Response was null which was not expected.", status, objectResponse.Text, headers, null);
                     }
-                    return objectResponse_.Object;
+                    return objectResponse.Object;
                 }
                 else
                 {
-                    var responseData_ = response_.Content == null ? null : await response_.Content.ReadAsStringAsync().ConfigureAwait(false);
-                    throw new ApiException("The HTTP status code of the response was not expected (" + status_ + ").", status_, responseData_, headers_, null);
+                    var responseData = response.Content == null ? null : await response.Content.ReadAsStringAsync().ConfigureAwait(false);
+                    throw new ApiException("The HTTP status code of the response was not expected (" + status + ").", status, responseData, headers, null);
                 }
             }
         }
@@ -1017,42 +1017,42 @@ namespace EosRio.HyperionApi
             if (body == null)
                 throw new ArgumentNullException("body");
     
-            var urlBuilder_ = new StringBuilder(BaseUrl != null ? BaseUrl.TrimEnd('/') : "").Append("/v2/state/get_key_accounts");
+            var urlBuilder = new StringBuilder(BaseUrl != null ? BaseUrl.TrimEnd('/') : "").Append("/v2/state/get_key_accounts");
  
-            using (var request_ = new HttpRequestMessage())
+            using (var request = new HttpRequestMessage())
             {
-                var content_ = new StringContent(JsonConvert.SerializeObject(body));
-                content_.Headers.ContentType = MediaTypeHeaderValue.Parse("application/json");
-                request_.Content = content_;
-                request_.Method = new HttpMethod("POST");
-                request_.Headers.Accept.Add(MediaTypeWithQualityHeaderValue.Parse("application/json"));
+                var content = new StringContent(JsonConvert.SerializeObject(body));
+                content.Headers.ContentType = MediaTypeHeaderValue.Parse("application/json");
+                request.Content = content;
+                request.Method = new HttpMethod("POST");
+                request.Headers.Accept.Add(MediaTypeWithQualityHeaderValue.Parse("application/json"));
 
-                var url_ = urlBuilder_.ToString();
-                request_.RequestUri = new Uri(url_, UriKind.RelativeOrAbsolute);
+                var url = urlBuilder.ToString();
+                request.RequestUri = new Uri(url, UriKind.RelativeOrAbsolute);
 
-                var response_ = await _httpClient.SendAsync(request_, HttpCompletionOption.ResponseHeadersRead, cancellationToken).ConfigureAwait(false);
+                var response = await _httpClient.SendAsync(request, HttpCompletionOption.ResponseHeadersRead, cancellationToken).ConfigureAwait(false);
 
-                var headers_ = Enumerable.ToDictionary(response_.Headers, h_ => h_.Key, h_ => h_.Value);
-                if (response_.Content != null && response_.Content.Headers != null)
+                var headers = Enumerable.ToDictionary(response.Headers, h => h.Key, h => h.Value);
+                if (response.Content != null && response.Content.Headers != null)
                 {
-                    foreach (var item_ in response_.Content.Headers)
-                        headers_[item_.Key] = item_.Value;
+                    foreach (var item in response.Content.Headers)
+                        headers[item.Key] = item.Value;
                 }
 
-                var status_ = (int)response_.StatusCode;
-                if (status_ == 200)
+                var status = (int)response.StatusCode;
+                if (status == 200)
                 {
-                    var objectResponse_ = await ReadObjectResponseAsync<Response10>(response_, headers_, cancellationToken).ConfigureAwait(false);
-                    if (objectResponse_.Object == null)
+                    var objectResponse = await ReadObjectResponseAsync<Response10>(response, headers, cancellationToken).ConfigureAwait(false);
+                    if (objectResponse.Object == null)
                     {
-                        throw new ApiException("Response was null which was not expected.", status_, objectResponse_.Text, headers_, null);
+                        throw new ApiException("Response was null which was not expected.", status, objectResponse.Text, headers, null);
                     }
-                    return objectResponse_.Object;
+                    return objectResponse.Object;
                 }
                 else
                 {
-                    var responseData_ = response_.Content == null ? null : await response_.Content.ReadAsStringAsync().ConfigureAwait(false);
-                    throw new ApiException("The HTTP status code of the response was not expected (" + status_ + ").", status_, responseData_, headers_, null);
+                    var responseData = response.Content == null ? null : await response.Content.ReadAsStringAsync().ConfigureAwait(false);
+                    throw new ApiException("The HTTP status code of the response was not expected (" + status + ").", status, responseData, headers, null);
                 }
             }
         }
@@ -1066,56 +1066,56 @@ namespace EosRio.HyperionApi
         /// <exception cref="ApiException">A server side error occurred.</exception>
         public async Task<Response11> Get_linksAsync(string account = null, string code = null, string action = null, string permission = null, CancellationToken cancellationToken = default)
         {
-            var urlBuilder_ = new StringBuilder(BaseUrl != null ? BaseUrl.TrimEnd('/') : "").Append("/v2/state/get_links?");
+            var urlBuilder = new StringBuilder(BaseUrl != null ? BaseUrl.TrimEnd('/') : "").Append("/v2/state/get_links?");
             if (account != null)
             {
-                urlBuilder_.Append(Uri.EscapeDataString("account") + "=").Append(Uri.EscapeDataString(ConvertToString(account, CultureInfo.InvariantCulture))).Append("&");
+                urlBuilder.Append(Uri.EscapeDataString("account") + "=").Append(Uri.EscapeDataString(ConvertToString(account, CultureInfo.InvariantCulture))).Append("&");
             }
             if (code != null)
             {
-                urlBuilder_.Append(Uri.EscapeDataString("code") + "=").Append(Uri.EscapeDataString(ConvertToString(code, CultureInfo.InvariantCulture))).Append("&");
+                urlBuilder.Append(Uri.EscapeDataString("code") + "=").Append(Uri.EscapeDataString(ConvertToString(code, CultureInfo.InvariantCulture))).Append("&");
             }
             if (action != null)
             {
-                urlBuilder_.Append(Uri.EscapeDataString("action") + "=").Append(Uri.EscapeDataString(ConvertToString(action, CultureInfo.InvariantCulture))).Append("&");
+                urlBuilder.Append(Uri.EscapeDataString("action") + "=").Append(Uri.EscapeDataString(ConvertToString(action, CultureInfo.InvariantCulture))).Append("&");
             }
             if (permission != null)
             {
-                urlBuilder_.Append(Uri.EscapeDataString("permission") + "=").Append(Uri.EscapeDataString(ConvertToString(permission, CultureInfo.InvariantCulture))).Append("&");
+                urlBuilder.Append(Uri.EscapeDataString("permission") + "=").Append(Uri.EscapeDataString(ConvertToString(permission, CultureInfo.InvariantCulture))).Append("&");
             }
-            urlBuilder_.Length--;
+            urlBuilder.Length--;
  
-            using (var request_ = new HttpRequestMessage())
+            using (var request = new HttpRequestMessage())
             {
-                request_.Method = new HttpMethod("GET");
-                request_.Headers.Accept.Add(MediaTypeWithQualityHeaderValue.Parse("application/json"));
+                request.Method = new HttpMethod("GET");
+                request.Headers.Accept.Add(MediaTypeWithQualityHeaderValue.Parse("application/json"));
 
-                var url_ = urlBuilder_.ToString();
-                request_.RequestUri = new Uri(url_, UriKind.RelativeOrAbsolute);
+                var url = urlBuilder.ToString();
+                request.RequestUri = new Uri(url, UriKind.RelativeOrAbsolute);
 
-                var response_ = await _httpClient.SendAsync(request_, HttpCompletionOption.ResponseHeadersRead, cancellationToken).ConfigureAwait(false);
+                var response = await _httpClient.SendAsync(request, HttpCompletionOption.ResponseHeadersRead, cancellationToken).ConfigureAwait(false);
 
-                var headers_ = Enumerable.ToDictionary(response_.Headers, h_ => h_.Key, h_ => h_.Value);
-                if (response_.Content != null && response_.Content.Headers != null)
+                var headers = Enumerable.ToDictionary(response.Headers, h => h.Key, h => h.Value);
+                if (response.Content != null && response.Content.Headers != null)
                 {
-                    foreach (var item_ in response_.Content.Headers)
-                        headers_[item_.Key] = item_.Value;
+                    foreach (var item in response.Content.Headers)
+                        headers[item.Key] = item.Value;
                 }
 
-                var status_ = (int)response_.StatusCode;
-                if (status_ == 200)
+                var status = (int)response.StatusCode;
+                if (status == 200)
                 {
-                    var objectResponse_ = await ReadObjectResponseAsync<Response11>(response_, headers_, cancellationToken).ConfigureAwait(false);
-                    if (objectResponse_.Object == null)
+                    var objectResponse = await ReadObjectResponseAsync<Response11>(response, headers, cancellationToken).ConfigureAwait(false);
+                    if (objectResponse.Object == null)
                     {
-                        throw new ApiException("Response was null which was not expected.", status_, objectResponse_.Text, headers_, null);
+                        throw new ApiException("Response was null which was not expected.", status, objectResponse.Text, headers, null);
                     }
-                    return objectResponse_.Object;
+                    return objectResponse.Object;
                 }
                 else
                 {
-                    var responseData_ = response_.Content == null ? null : await response_.Content.ReadAsStringAsync().ConfigureAwait(false);
-                    throw new ApiException("The HTTP status code of the response was not expected (" + status_ + ").", status_, responseData_, headers_, null);
+                    var responseData = response.Content == null ? null : await response.Content.ReadAsStringAsync().ConfigureAwait(false);
+                    throw new ApiException("The HTTP status code of the response was not expected (" + status + ").", status, responseData, headers, null);
                 }
             }
         }
@@ -1132,42 +1132,42 @@ namespace EosRio.HyperionApi
             if (account == null)
                 throw new ArgumentNullException("account");
     
-            var urlBuilder_ = new StringBuilder(BaseUrl != null ? BaseUrl.TrimEnd('/') : "").Append("/v2/state/get_tokens?" + Uri.EscapeDataString("account") + "=").Append(Uri.EscapeDataString(ConvertToString(account, CultureInfo.InvariantCulture))).Append("&");
+            var urlBuilder = new StringBuilder(BaseUrl != null ? BaseUrl.TrimEnd('/') : "").Append("/v2/state/get_tokens?" + Uri.EscapeDataString("account") + "=").Append(Uri.EscapeDataString(ConvertToString(account, CultureInfo.InvariantCulture))).Append("&");
             if (limit != null)
             {
-                urlBuilder_.Append(Uri.EscapeDataString("limit") + "=").Append(Uri.EscapeDataString(ConvertToString(limit, CultureInfo.InvariantCulture))).Append("&");
+                urlBuilder.Append(Uri.EscapeDataString("limit") + "=").Append(Uri.EscapeDataString(ConvertToString(limit, CultureInfo.InvariantCulture))).Append("&");
             }
             if (skip != null)
             {
-                urlBuilder_.Append(Uri.EscapeDataString("skip") + "=").Append(Uri.EscapeDataString(ConvertToString(skip, CultureInfo.InvariantCulture))).Append("&");
+                urlBuilder.Append(Uri.EscapeDataString("skip") + "=").Append(Uri.EscapeDataString(ConvertToString(skip, CultureInfo.InvariantCulture))).Append("&");
             }
-            urlBuilder_.Length--;
+            urlBuilder.Length--;
  
-            using (var request_ = new HttpRequestMessage())
+            using (var request = new HttpRequestMessage())
             {
-                request_.Method = new HttpMethod("GET");
+                request.Method = new HttpMethod("GET");
 
-                var url_ = urlBuilder_.ToString();
-                request_.RequestUri = new Uri(url_, UriKind.RelativeOrAbsolute);
+                var url = urlBuilder.ToString();
+                request.RequestUri = new Uri(url, UriKind.RelativeOrAbsolute);
 
-                var response_ = await _httpClient.SendAsync(request_, HttpCompletionOption.ResponseHeadersRead, cancellationToken).ConfigureAwait(false);
+                var response = await _httpClient.SendAsync(request, HttpCompletionOption.ResponseHeadersRead, cancellationToken).ConfigureAwait(false);
 
-                var headers_ = Enumerable.ToDictionary(response_.Headers, h_ => h_.Key, h_ => h_.Value);
-                if (response_.Content != null && response_.Content.Headers != null)
+                var headers = Enumerable.ToDictionary(response.Headers, h => h.Key, h => h.Value);
+                if (response.Content != null && response.Content.Headers != null)
                 {
-                    foreach (var item_ in response_.Content.Headers)
-                        headers_[item_.Key] = item_.Value;
+                    foreach (var item in response.Content.Headers)
+                        headers[item.Key] = item.Value;
                 }
 
-                var status_ = (int)response_.StatusCode;
-                if (status_ == 200)
+                var status = (int)response.StatusCode;
+                if (status == 200)
                 {
                     return;
                 }
                 else
                 {
-                    var responseData_ = response_.Content == null ? null : await response_.Content.ReadAsStringAsync().ConfigureAwait(false);
-                    throw new ApiException("The HTTP status code of the response was not expected (" + status_ + ").", status_, responseData_, headers_, null);
+                    var responseData = response.Content == null ? null : await response.Content.ReadAsStringAsync().ConfigureAwait(false);
+                    throw new ApiException("The HTTP status code of the response was not expected (" + status + ").", status, responseData, headers, null);
                 }
             }
         }
@@ -1180,42 +1180,42 @@ namespace EosRio.HyperionApi
             if (body == null)
                 throw new ArgumentNullException("body");
     
-            var urlBuilder_ = new StringBuilder(BaseUrl != null ? BaseUrl.TrimEnd('/') : "").Append("/v1/history/get_controlled_accounts");
+            var urlBuilder = new StringBuilder(BaseUrl != null ? BaseUrl.TrimEnd('/') : "").Append("/v1/history/get_controlled_accounts");
  
-            using (var request_ = new HttpRequestMessage())
+            using (var request = new HttpRequestMessage())
             {
-                var content_ = new StringContent(JsonConvert.SerializeObject(body));
-                content_.Headers.ContentType = MediaTypeHeaderValue.Parse("application/json");
-                request_.Content = content_;
-                request_.Method = new HttpMethod("POST");
-                request_.Headers.Accept.Add(MediaTypeWithQualityHeaderValue.Parse("application/json"));
+                var content = new StringContent(JsonConvert.SerializeObject(body));
+                content.Headers.ContentType = MediaTypeHeaderValue.Parse("application/json");
+                request.Content = content;
+                request.Method = new HttpMethod("POST");
+                request.Headers.Accept.Add(MediaTypeWithQualityHeaderValue.Parse("application/json"));
 
-                var url_ = urlBuilder_.ToString();
-                request_.RequestUri = new Uri(url_, UriKind.RelativeOrAbsolute);
+                var url = urlBuilder.ToString();
+                request.RequestUri = new Uri(url, UriKind.RelativeOrAbsolute);
 
-                var response_ = await _httpClient.SendAsync(request_, HttpCompletionOption.ResponseHeadersRead, cancellationToken).ConfigureAwait(false);
+                var response = await _httpClient.SendAsync(request, HttpCompletionOption.ResponseHeadersRead, cancellationToken).ConfigureAwait(false);
 
-                var headers_ = Enumerable.ToDictionary(response_.Headers, h_ => h_.Key, h_ => h_.Value);
-                if (response_.Content != null && response_.Content.Headers != null)
+                var headers = Enumerable.ToDictionary(response.Headers, h => h.Key, h => h.Value);
+                if (response.Content != null && response.Content.Headers != null)
                 {
-                    foreach (var item_ in response_.Content.Headers)
-                        headers_[item_.Key] = item_.Value;
+                    foreach (var item in response.Content.Headers)
+                        headers[item.Key] = item.Value;
                 }
 
-                var status_ = (int)response_.StatusCode;
-                if (status_ == 200)
+                var status = (int)response.StatusCode;
+                if (status == 200)
                 {
-                    var objectResponse_ = await ReadObjectResponseAsync<Response12>(response_, headers_, cancellationToken).ConfigureAwait(false);
-                    if (objectResponse_.Object == null)
+                    var objectResponse = await ReadObjectResponseAsync<Response12>(response, headers, cancellationToken).ConfigureAwait(false);
+                    if (objectResponse.Object == null)
                     {
-                        throw new ApiException("Response was null which was not expected.", status_, objectResponse_.Text, headers_, null);
+                        throw new ApiException("Response was null which was not expected.", status, objectResponse.Text, headers, null);
                     }
-                    return objectResponse_.Object;
+                    return objectResponse.Object;
                 }
                 else
                 {
-                    var responseData_ = response_.Content == null ? null : await response_.Content.ReadAsStringAsync().ConfigureAwait(false);
-                    throw new ApiException("The HTTP status code of the response was not expected (" + status_ + ").", status_, responseData_, headers_, null);
+                    var responseData = response.Content == null ? null : await response.Content.ReadAsStringAsync().ConfigureAwait(false);
+                    throw new ApiException("The HTTP status code of the response was not expected (" + status + ").", status, responseData, headers, null);
                 }
             }
         }
@@ -1228,42 +1228,42 @@ namespace EosRio.HyperionApi
             if (body == null)
                 throw new ArgumentNullException("body");
     
-            var urlBuilder_ = new StringBuilder(BaseUrl != null ? BaseUrl.TrimEnd('/') : "").Append("/v1/history/get_key_accounts");
+            var urlBuilder = new StringBuilder(BaseUrl != null ? BaseUrl.TrimEnd('/') : "").Append("/v1/history/get_key_accounts");
  
-            using (var request_ = new HttpRequestMessage())
+            using (var request = new HttpRequestMessage())
             {
-                var content_ = new StringContent(JsonConvert.SerializeObject(body));
-                content_.Headers.ContentType = MediaTypeHeaderValue.Parse("application/json");
-                request_.Content = content_;
-                request_.Method = new HttpMethod("POST");
-                request_.Headers.Accept.Add(MediaTypeWithQualityHeaderValue.Parse("application/json"));
+                var content = new StringContent(JsonConvert.SerializeObject(body));
+                content.Headers.ContentType = MediaTypeHeaderValue.Parse("application/json");
+                request.Content = content;
+                request.Method = new HttpMethod("POST");
+                request.Headers.Accept.Add(MediaTypeWithQualityHeaderValue.Parse("application/json"));
 
-                var url_ = urlBuilder_.ToString();
-                request_.RequestUri = new Uri(url_, UriKind.RelativeOrAbsolute);
+                var url = urlBuilder.ToString();
+                request.RequestUri = new Uri(url, UriKind.RelativeOrAbsolute);
 
-                var response_ = await _httpClient.SendAsync(request_, HttpCompletionOption.ResponseHeadersRead, cancellationToken).ConfigureAwait(false);
+                var response = await _httpClient.SendAsync(request, HttpCompletionOption.ResponseHeadersRead, cancellationToken).ConfigureAwait(false);
 
-                var headers_ = Enumerable.ToDictionary(response_.Headers, h_ => h_.Key, h_ => h_.Value);
-                if (response_.Content != null && response_.Content.Headers != null)
+                var headers = Enumerable.ToDictionary(response.Headers, h => h.Key, h => h.Value);
+                if (response.Content != null && response.Content.Headers != null)
                 {
-                    foreach (var item_ in response_.Content.Headers)
-                        headers_[item_.Key] = item_.Value;
+                    foreach (var item in response.Content.Headers)
+                        headers[item.Key] = item.Value;
                 }
 
-                var status_ = (int)response_.StatusCode;
-                if (status_ == 200)
+                var status = (int)response.StatusCode;
+                if (status == 200)
                 {
-                    var objectResponse_ = await ReadObjectResponseAsync<Response13>(response_, headers_, cancellationToken).ConfigureAwait(false);
-                    if (objectResponse_.Object == null)
+                    var objectResponse = await ReadObjectResponseAsync<Response13>(response, headers, cancellationToken).ConfigureAwait(false);
+                    if (objectResponse.Object == null)
                     {
-                        throw new ApiException("Response was null which was not expected.", status_, objectResponse_.Text, headers_, null);
+                        throw new ApiException("Response was null which was not expected.", status, objectResponse.Text, headers, null);
                     }
-                    return objectResponse_.Object;
+                    return objectResponse.Object;
                 }
                 else
                 {
-                    var responseData_ = response_.Content == null ? null : await response_.Content.ReadAsStringAsync().ConfigureAwait(false);
-                    throw new ApiException("The HTTP status code of the response was not expected (" + status_ + ").", status_, responseData_, headers_, null);
+                    var responseData = response.Content == null ? null : await response.Content.ReadAsStringAsync().ConfigureAwait(false);
+                    throw new ApiException("The HTTP status code of the response was not expected (" + status + ").", status, responseData, headers, null);
                 }
             }
         }
@@ -1371,7 +1371,7 @@ namespace EosRio.HyperionApi
     }
     
     
-    public partial class SystemClient 
+    public class SystemClient 
     {
         private string _baseUrl = "https://api.wax.liquidstudios.io/";
         private HttpClient _httpClient;
@@ -1402,70 +1402,70 @@ namespace EosRio.HyperionApi
         /// <exception cref="ApiException">A server side error occurred.</exception>
         public async Task Get_proposalsAsync(string proposer = null, string proposal = null, string account = null, string requested = null, string provided = null, bool? executed = null, string track = null, int? skip = null, int? limit = null, CancellationToken cancellationToken = default)
         {
-            var urlBuilder_ = new StringBuilder(BaseUrl != null ? BaseUrl.TrimEnd('/') : "").Append("/v2/state/get_proposals?");
+            var urlBuilder = new StringBuilder(BaseUrl != null ? BaseUrl.TrimEnd('/') : "").Append("/v2/state/get_proposals?");
             if (proposer != null)
             {
-                urlBuilder_.Append(Uri.EscapeDataString("proposer") + "=").Append(Uri.EscapeDataString(ConvertToString(proposer, CultureInfo.InvariantCulture))).Append("&");
+                urlBuilder.Append(Uri.EscapeDataString("proposer") + "=").Append(Uri.EscapeDataString(ConvertToString(proposer, CultureInfo.InvariantCulture))).Append("&");
             }
             if (proposal != null)
             {
-                urlBuilder_.Append(Uri.EscapeDataString("proposal") + "=").Append(Uri.EscapeDataString(ConvertToString(proposal, CultureInfo.InvariantCulture))).Append("&");
+                urlBuilder.Append(Uri.EscapeDataString("proposal") + "=").Append(Uri.EscapeDataString(ConvertToString(proposal, CultureInfo.InvariantCulture))).Append("&");
             }
             if (account != null)
             {
-                urlBuilder_.Append(Uri.EscapeDataString("account") + "=").Append(Uri.EscapeDataString(ConvertToString(account, CultureInfo.InvariantCulture))).Append("&");
+                urlBuilder.Append(Uri.EscapeDataString("account") + "=").Append(Uri.EscapeDataString(ConvertToString(account, CultureInfo.InvariantCulture))).Append("&");
             }
             if (requested != null)
             {
-                urlBuilder_.Append(Uri.EscapeDataString("requested") + "=").Append(Uri.EscapeDataString(ConvertToString(requested, CultureInfo.InvariantCulture))).Append("&");
+                urlBuilder.Append(Uri.EscapeDataString("requested") + "=").Append(Uri.EscapeDataString(ConvertToString(requested, CultureInfo.InvariantCulture))).Append("&");
             }
             if (provided != null)
             {
-                urlBuilder_.Append(Uri.EscapeDataString("provided") + "=").Append(Uri.EscapeDataString(ConvertToString(provided, CultureInfo.InvariantCulture))).Append("&");
+                urlBuilder.Append(Uri.EscapeDataString("provided") + "=").Append(Uri.EscapeDataString(ConvertToString(provided, CultureInfo.InvariantCulture))).Append("&");
             }
             if (executed != null)
             {
-                urlBuilder_.Append(Uri.EscapeDataString("executed") + "=").Append(Uri.EscapeDataString(ConvertToString(executed, CultureInfo.InvariantCulture))).Append("&");
+                urlBuilder.Append(Uri.EscapeDataString("executed") + "=").Append(Uri.EscapeDataString(ConvertToString(executed, CultureInfo.InvariantCulture))).Append("&");
             }
             if (track != null)
             {
-                urlBuilder_.Append(Uri.EscapeDataString("track") + "=").Append(Uri.EscapeDataString(ConvertToString(track, CultureInfo.InvariantCulture))).Append("&");
+                urlBuilder.Append(Uri.EscapeDataString("track") + "=").Append(Uri.EscapeDataString(ConvertToString(track, CultureInfo.InvariantCulture))).Append("&");
             }
             if (skip != null)
             {
-                urlBuilder_.Append(Uri.EscapeDataString("skip") + "=").Append(Uri.EscapeDataString(ConvertToString(skip, CultureInfo.InvariantCulture))).Append("&");
+                urlBuilder.Append(Uri.EscapeDataString("skip") + "=").Append(Uri.EscapeDataString(ConvertToString(skip, CultureInfo.InvariantCulture))).Append("&");
             }
             if (limit != null)
             {
-                urlBuilder_.Append(Uri.EscapeDataString("limit") + "=").Append(Uri.EscapeDataString(ConvertToString(limit, CultureInfo.InvariantCulture))).Append("&");
+                urlBuilder.Append(Uri.EscapeDataString("limit") + "=").Append(Uri.EscapeDataString(ConvertToString(limit, CultureInfo.InvariantCulture))).Append("&");
             }
-            urlBuilder_.Length--;
+            urlBuilder.Length--;
  
-            using (var request_ = new HttpRequestMessage())
+            using (var request = new HttpRequestMessage())
             {
-                request_.Method = new HttpMethod("GET");
+                request.Method = new HttpMethod("GET");
 
-                var url_ = urlBuilder_.ToString();
-                request_.RequestUri = new Uri(url_, UriKind.RelativeOrAbsolute);
+                var url = urlBuilder.ToString();
+                request.RequestUri = new Uri(url, UriKind.RelativeOrAbsolute);
 
-                var response_ = await _httpClient.SendAsync(request_, HttpCompletionOption.ResponseHeadersRead, cancellationToken).ConfigureAwait(false);
+                var response = await _httpClient.SendAsync(request, HttpCompletionOption.ResponseHeadersRead, cancellationToken).ConfigureAwait(false);
 
-                var headers_ = Enumerable.ToDictionary(response_.Headers, h_ => h_.Key, h_ => h_.Value);
-                if (response_.Content != null && response_.Content.Headers != null)
+                var headers = Enumerable.ToDictionary(response.Headers, h => h.Key, h => h.Value);
+                if (response.Content != null && response.Content.Headers != null)
                 {
-                    foreach (var item_ in response_.Content.Headers)
-                        headers_[item_.Key] = item_.Value;
+                    foreach (var item in response.Content.Headers)
+                        headers[item.Key] = item.Value;
                 }
 
-                var status_ = (int)response_.StatusCode;
-                if (status_ == 200)
+                var status = (int)response.StatusCode;
+                if (status == 200)
                 {
                     return;
                 }
                 else
                 {
-                    var responseData_ = response_.Content == null ? null : await response_.Content.ReadAsStringAsync().ConfigureAwait(false);
-                    throw new ApiException("The HTTP status code of the response was not expected (" + status_ + ").", status_, responseData_, headers_, null);
+                    var responseData = response.Content == null ? null : await response.Content.ReadAsStringAsync().ConfigureAwait(false);
+                    throw new ApiException("The HTTP status code of the response was not expected (" + status + ").", status, responseData, headers, null);
                 }
             }
         }
@@ -1478,52 +1478,52 @@ namespace EosRio.HyperionApi
         /// <exception cref="ApiException">A server side error occurred.</exception>
         public async Task<Response14> Get_votersAsync(int? limit = null, int? skip = null, string producer = null, CancellationToken cancellationToken = default)
         {
-            var urlBuilder_ = new StringBuilder(BaseUrl != null ? BaseUrl.TrimEnd('/') : "").Append("/v2/state/get_voters?");
+            var urlBuilder = new StringBuilder(BaseUrl != null ? BaseUrl.TrimEnd('/') : "").Append("/v2/state/get_voters?");
             if (limit != null)
             {
-                urlBuilder_.Append(Uri.EscapeDataString("limit") + "=").Append(Uri.EscapeDataString(ConvertToString(limit, CultureInfo.InvariantCulture))).Append("&");
+                urlBuilder.Append(Uri.EscapeDataString("limit") + "=").Append(Uri.EscapeDataString(ConvertToString(limit, CultureInfo.InvariantCulture))).Append("&");
             }
             if (skip != null)
             {
-                urlBuilder_.Append(Uri.EscapeDataString("skip") + "=").Append(Uri.EscapeDataString(ConvertToString(skip, CultureInfo.InvariantCulture))).Append("&");
+                urlBuilder.Append(Uri.EscapeDataString("skip") + "=").Append(Uri.EscapeDataString(ConvertToString(skip, CultureInfo.InvariantCulture))).Append("&");
             }
             if (producer != null)
             {
-                urlBuilder_.Append(Uri.EscapeDataString("producer") + "=").Append(Uri.EscapeDataString(ConvertToString(producer, CultureInfo.InvariantCulture))).Append("&");
+                urlBuilder.Append(Uri.EscapeDataString("producer") + "=").Append(Uri.EscapeDataString(ConvertToString(producer, CultureInfo.InvariantCulture))).Append("&");
             }
-            urlBuilder_.Length--;
+            urlBuilder.Length--;
  
-            using (var request_ = new HttpRequestMessage())
+            using (var request = new HttpRequestMessage())
             {
-                request_.Method = new HttpMethod("GET");
-                request_.Headers.Accept.Add(MediaTypeWithQualityHeaderValue.Parse("application/json"));
+                request.Method = new HttpMethod("GET");
+                request.Headers.Accept.Add(MediaTypeWithQualityHeaderValue.Parse("application/json"));
 
-                var url_ = urlBuilder_.ToString();
-                request_.RequestUri = new Uri(url_, UriKind.RelativeOrAbsolute);
+                var url = urlBuilder.ToString();
+                request.RequestUri = new Uri(url, UriKind.RelativeOrAbsolute);
 
-                var response_ = await _httpClient.SendAsync(request_, HttpCompletionOption.ResponseHeadersRead, cancellationToken).ConfigureAwait(false);
+                var response = await _httpClient.SendAsync(request, HttpCompletionOption.ResponseHeadersRead, cancellationToken).ConfigureAwait(false);
 
-                var headers_ = Enumerable.ToDictionary(response_.Headers, h_ => h_.Key, h_ => h_.Value);
-                if (response_.Content != null && response_.Content.Headers != null)
+                var headers = Enumerable.ToDictionary(response.Headers, h => h.Key, h => h.Value);
+                if (response.Content != null && response.Content.Headers != null)
                 {
-                    foreach (var item_ in response_.Content.Headers)
-                        headers_[item_.Key] = item_.Value;
+                    foreach (var item in response.Content.Headers)
+                        headers[item.Key] = item.Value;
                 }
 
-                var status_ = (int)response_.StatusCode;
-                if (status_ == 200)
+                var status = (int)response.StatusCode;
+                if (status == 200)
                 {
-                    var objectResponse_ = await ReadObjectResponseAsync<Response14>(response_, headers_, cancellationToken).ConfigureAwait(false);
-                    if (objectResponse_.Object == null)
+                    var objectResponse = await ReadObjectResponseAsync<Response14>(response, headers, cancellationToken).ConfigureAwait(false);
+                    if (objectResponse.Object == null)
                     {
-                        throw new ApiException("Response was null which was not expected.", status_, objectResponse_.Text, headers_, null);
+                        throw new ApiException("Response was null which was not expected.", status, objectResponse.Text, headers, null);
                     }
-                    return objectResponse_.Object;
+                    return objectResponse.Object;
                 }
                 else
                 {
-                    var responseData_ = response_.Content == null ? null : await response_.Content.ReadAsStringAsync().ConfigureAwait(false);
-                    throw new ApiException("The HTTP status code of the response was not expected (" + status_ + ").", status_, responseData_, headers_, null);
+                    var responseData = response.Content == null ? null : await response.Content.ReadAsStringAsync().ConfigureAwait(false);
+                    throw new ApiException("The HTTP status code of the response was not expected (" + status + ").", status, responseData, headers, null);
                 }
             }
         }
@@ -1631,7 +1631,7 @@ namespace EosRio.HyperionApi
     }
     
     
-    public partial class StatsClient 
+    public class StatsClient 
     {
         private string _baseUrl = "https://api.wax.liquidstudios.io/";
         private HttpClient _httpClient;
@@ -1654,47 +1654,47 @@ namespace EosRio.HyperionApi
         /// <param name="unique_actors">compute unique actors</param>
         /// <returns>Default Response</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public async Task Get_action_usageAsync(string period, string end_date = null, bool? unique_actors = null, CancellationToken cancellationToken = default)
+        public async Task Get_action_usageAsync(string period, string endDate = null, bool? uniqueActors = null, CancellationToken cancellationToken = default)
         {
             if (period == null)
                 throw new ArgumentNullException("period");
     
-            var urlBuilder_ = new StringBuilder(BaseUrl != null ? BaseUrl.TrimEnd('/') : "").Append("/v2/stats/get_action_usage?" + Uri.EscapeDataString("period") + "=").Append(Uri.EscapeDataString(ConvertToString(period, CultureInfo.InvariantCulture))).Append("&");
-            if (end_date != null)
+            var urlBuilder = new StringBuilder(BaseUrl != null ? BaseUrl.TrimEnd('/') : "").Append("/v2/stats/get_action_usage?" + Uri.EscapeDataString("period") + "=").Append(Uri.EscapeDataString(ConvertToString(period, CultureInfo.InvariantCulture))).Append("&");
+            if (endDate != null)
             {
-                urlBuilder_.Append(Uri.EscapeDataString("end_date") + "=").Append(Uri.EscapeDataString(ConvertToString(end_date, CultureInfo.InvariantCulture))).Append("&");
+                urlBuilder.Append(Uri.EscapeDataString("end_date") + "=").Append(Uri.EscapeDataString(ConvertToString(endDate, CultureInfo.InvariantCulture))).Append("&");
             }
-            if (unique_actors != null)
+            if (uniqueActors != null)
             {
-                urlBuilder_.Append(Uri.EscapeDataString("unique_actors") + "=").Append(Uri.EscapeDataString(ConvertToString(unique_actors, CultureInfo.InvariantCulture))).Append("&");
+                urlBuilder.Append(Uri.EscapeDataString("unique_actors") + "=").Append(Uri.EscapeDataString(ConvertToString(uniqueActors, CultureInfo.InvariantCulture))).Append("&");
             }
-            urlBuilder_.Length--;
+            urlBuilder.Length--;
  
-            using (var request_ = new HttpRequestMessage())
+            using (var request = new HttpRequestMessage())
             {
-                request_.Method = new HttpMethod("GET");
+                request.Method = new HttpMethod("GET");
 
-                var url_ = urlBuilder_.ToString();
-                request_.RequestUri = new Uri(url_, UriKind.RelativeOrAbsolute);
+                var url = urlBuilder.ToString();
+                request.RequestUri = new Uri(url, UriKind.RelativeOrAbsolute);
 
-                var response_ = await _httpClient.SendAsync(request_, HttpCompletionOption.ResponseHeadersRead, cancellationToken).ConfigureAwait(false);
+                var response = await _httpClient.SendAsync(request, HttpCompletionOption.ResponseHeadersRead, cancellationToken).ConfigureAwait(false);
 
-                var headers_ = Enumerable.ToDictionary(response_.Headers, h_ => h_.Key, h_ => h_.Value);
-                if (response_.Content != null && response_.Content.Headers != null)
+                var headers = Enumerable.ToDictionary(response.Headers, h => h.Key, h => h.Value);
+                if (response.Content != null && response.Content.Headers != null)
                 {
-                    foreach (var item_ in response_.Content.Headers)
-                        headers_[item_.Key] = item_.Value;
+                    foreach (var item in response.Content.Headers)
+                        headers[item.Key] = item.Value;
                 }
 
-                var status_ = (int)response_.StatusCode;
-                if (status_ == 200)
+                var status = (int)response.StatusCode;
+                if (status == 200)
                 {
                     return;
                 }
                 else
                 {
-                    var responseData_ = response_.Content == null ? null : await response_.Content.ReadAsStringAsync().ConfigureAwait(false);
-                    throw new ApiException("The HTTP status code of the response was not expected (" + status_ + ").", status_, responseData_, headers_, null);
+                    var responseData = response.Content == null ? null : await response.Content.ReadAsStringAsync().ConfigureAwait(false);
+                    throw new ApiException("The HTTP status code of the response was not expected (" + status + ").", status, responseData, headers, null);
                 }
             }
         }
@@ -1706,58 +1706,58 @@ namespace EosRio.HyperionApi
         /// <param name="before">filter before specified date (ISO8601)</param>
         /// <param name="min_blocks">min. blocks threshold</param>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public async Task<Response15> Get_missed_blocksAsync(string producer = null, string after = null, string before = null, int? min_blocks = null, CancellationToken cancellationToken = default)
+        public async Task<Response15> Get_missed_blocksAsync(string producer = null, string after = null, string before = null, int? minBlocks = null, CancellationToken cancellationToken = default)
         {
-            var urlBuilder_ = new StringBuilder(BaseUrl != null ? BaseUrl.TrimEnd('/') : "").Append("/v2/stats/get_missed_blocks?");
+            var urlBuilder = new StringBuilder(BaseUrl != null ? BaseUrl.TrimEnd('/') : "").Append("/v2/stats/get_missed_blocks?");
             if (producer != null)
             {
-                urlBuilder_.Append(Uri.EscapeDataString("producer") + "=").Append(Uri.EscapeDataString(ConvertToString(producer, CultureInfo.InvariantCulture))).Append("&");
+                urlBuilder.Append(Uri.EscapeDataString("producer") + "=").Append(Uri.EscapeDataString(ConvertToString(producer, CultureInfo.InvariantCulture))).Append("&");
             }
             if (after != null)
             {
-                urlBuilder_.Append(Uri.EscapeDataString("after") + "=").Append(Uri.EscapeDataString(ConvertToString(after, CultureInfo.InvariantCulture))).Append("&");
+                urlBuilder.Append(Uri.EscapeDataString("after") + "=").Append(Uri.EscapeDataString(ConvertToString(after, CultureInfo.InvariantCulture))).Append("&");
             }
             if (before != null)
             {
-                urlBuilder_.Append(Uri.EscapeDataString("before") + "=").Append(Uri.EscapeDataString(ConvertToString(before, CultureInfo.InvariantCulture))).Append("&");
+                urlBuilder.Append(Uri.EscapeDataString("before") + "=").Append(Uri.EscapeDataString(ConvertToString(before, CultureInfo.InvariantCulture))).Append("&");
             }
-            if (min_blocks != null)
+            if (minBlocks != null)
             {
-                urlBuilder_.Append(Uri.EscapeDataString("min_blocks") + "=").Append(Uri.EscapeDataString(ConvertToString(min_blocks, CultureInfo.InvariantCulture))).Append("&");
+                urlBuilder.Append(Uri.EscapeDataString("min_blocks") + "=").Append(Uri.EscapeDataString(ConvertToString(minBlocks, CultureInfo.InvariantCulture))).Append("&");
             }
-            urlBuilder_.Length--;
+            urlBuilder.Length--;
  
-            using (var request_ = new HttpRequestMessage())
+            using (var request = new HttpRequestMessage())
             {
-                request_.Method = new HttpMethod("GET");
-                request_.Headers.Accept.Add(MediaTypeWithQualityHeaderValue.Parse("application/json"));
+                request.Method = new HttpMethod("GET");
+                request.Headers.Accept.Add(MediaTypeWithQualityHeaderValue.Parse("application/json"));
 
-                var url_ = urlBuilder_.ToString();
-                request_.RequestUri = new Uri(url_, UriKind.RelativeOrAbsolute);
+                var url = urlBuilder.ToString();
+                request.RequestUri = new Uri(url, UriKind.RelativeOrAbsolute);
 
-                var response_ = await _httpClient.SendAsync(request_, HttpCompletionOption.ResponseHeadersRead, cancellationToken).ConfigureAwait(false);
+                var response = await _httpClient.SendAsync(request, HttpCompletionOption.ResponseHeadersRead, cancellationToken).ConfigureAwait(false);
 
-                var headers_ = Enumerable.ToDictionary(response_.Headers, h_ => h_.Key, h_ => h_.Value);
-                if (response_.Content != null && response_.Content.Headers != null)
+                var headers = Enumerable.ToDictionary(response.Headers, h => h.Key, h => h.Value);
+                if (response.Content != null && response.Content.Headers != null)
                 {
-                    foreach (var item_ in response_.Content.Headers)
-                        headers_[item_.Key] = item_.Value;
+                    foreach (var item in response.Content.Headers)
+                        headers[item.Key] = item.Value;
                 }
 
-                var status_ = (int)response_.StatusCode;
-                if (status_ == 200)
+                var status = (int)response.StatusCode;
+                if (status == 200)
                 {
-                    var objectResponse_ = await ReadObjectResponseAsync<Response15>(response_, headers_, cancellationToken).ConfigureAwait(false);
-                    if (objectResponse_.Object == null)
+                    var objectResponse = await ReadObjectResponseAsync<Response15>(response, headers, cancellationToken).ConfigureAwait(false);
+                    if (objectResponse.Object == null)
                     {
-                        throw new ApiException("Response was null which was not expected.", status_, objectResponse_.Text, headers_, null);
+                        throw new ApiException("Response was null which was not expected.", status, objectResponse.Text, headers, null);
                     }
-                    return objectResponse_.Object;
+                    return objectResponse.Object;
                 }
                 else
                 {
-                    var responseData_ = response_.Content == null ? null : await response_.Content.ReadAsStringAsync().ConfigureAwait(false);
-                    throw new ApiException("The HTTP status code of the response was not expected (" + status_ + ").", status_, responseData_, headers_, null);
+                    var responseData = response.Content == null ? null : await response.Content.ReadAsStringAsync().ConfigureAwait(false);
+                    throw new ApiException("The HTTP status code of the response was not expected (" + status + ").", status, responseData, headers, null);
                 }
             }
         }
@@ -1776,34 +1776,34 @@ namespace EosRio.HyperionApi
             if (action == null)
                 throw new ArgumentNullException("action");
     
-            var urlBuilder_ = new StringBuilder(BaseUrl != null ? BaseUrl.TrimEnd('/') : "").Append("/v2/stats/get_resource_usage?" + Uri.EscapeDataString("code") + "=").Append(Uri.EscapeDataString(ConvertToString(code, CultureInfo.InvariantCulture))).Append("&" + Uri.EscapeDataString("action") + "=").Append(Uri.EscapeDataString(ConvertToString(action, CultureInfo.InvariantCulture))).Append("&");
-            urlBuilder_.Length--;
+            var urlBuilder = new StringBuilder(BaseUrl != null ? BaseUrl.TrimEnd('/') : "").Append("/v2/stats/get_resource_usage?" + Uri.EscapeDataString("code") + "=").Append(Uri.EscapeDataString(ConvertToString(code, CultureInfo.InvariantCulture))).Append("&" + Uri.EscapeDataString("action") + "=").Append(Uri.EscapeDataString(ConvertToString(action, CultureInfo.InvariantCulture))).Append("&");
+            urlBuilder.Length--;
  
-            using (var request_ = new HttpRequestMessage())
+            using (var request = new HttpRequestMessage())
             {
-                request_.Method = new HttpMethod("GET");
+                request.Method = new HttpMethod("GET");
 
-                var url_ = urlBuilder_.ToString();
-                request_.RequestUri = new Uri(url_, UriKind.RelativeOrAbsolute);
+                var url = urlBuilder.ToString();
+                request.RequestUri = new Uri(url, UriKind.RelativeOrAbsolute);
 
-                var response_ = await _httpClient.SendAsync(request_, HttpCompletionOption.ResponseHeadersRead, cancellationToken).ConfigureAwait(false);
+                var response = await _httpClient.SendAsync(request, HttpCompletionOption.ResponseHeadersRead, cancellationToken).ConfigureAwait(false);
 
-                var headers_ = Enumerable.ToDictionary(response_.Headers, h_ => h_.Key, h_ => h_.Value);
-                if (response_.Content != null && response_.Content.Headers != null)
+                var headers = Enumerable.ToDictionary(response.Headers, h => h.Key, h => h.Value);
+                if (response.Content != null && response.Content.Headers != null)
                 {
-                    foreach (var item_ in response_.Content.Headers)
-                        headers_[item_.Key] = item_.Value;
+                    foreach (var item in response.Content.Headers)
+                        headers[item.Key] = item.Value;
                 }
 
-                var status_ = (int)response_.StatusCode;
-                if (status_ == 200)
+                var status = (int)response.StatusCode;
+                if (status == 200)
                 {
                     return;
                 }
                 else
                 {
-                    var responseData_ = response_.Content == null ? null : await response_.Content.ReadAsStringAsync().ConfigureAwait(false);
-                    throw new ApiException("The HTTP status code of the response was not expected (" + status_ + ").", status_, responseData_, headers_, null);
+                    var responseData = response.Content == null ? null : await response.Content.ReadAsStringAsync().ConfigureAwait(false);
+                    throw new ApiException("The HTTP status code of the response was not expected (" + status + ").", status, responseData, headers, null);
                 }
             }
         }
@@ -1911,7 +1911,7 @@ namespace EosRio.HyperionApi
     }
     
     
-    public partial class ChainClient 
+    public class ChainClient 
     {
         private string _baseUrl = "https://api.wax.liquidstudios.io/";
         private HttpClient _httpClient;
@@ -1942,34 +1942,34 @@ namespace EosRio.HyperionApi
             if (binargs == null)
                 throw new ArgumentNullException("binargs");
     
-            var urlBuilder_ = new StringBuilder(BaseUrl != null ? BaseUrl.TrimEnd('/') : "").Append("/v1/chain/abi_bin_to_json?" + Uri.EscapeDataString("code") + "=").Append(Uri.EscapeDataString(ConvertToString(code, CultureInfo.InvariantCulture))).Append("&" + Uri.EscapeDataString("action") + "=").Append(Uri.EscapeDataString(ConvertToString(action, CultureInfo.InvariantCulture))).Append("&" + Uri.EscapeDataString("binargs") + "=").Append(Uri.EscapeDataString(ConvertToString(binargs, CultureInfo.InvariantCulture))).Append("&");
-            urlBuilder_.Length--;
+            var urlBuilder = new StringBuilder(BaseUrl != null ? BaseUrl.TrimEnd('/') : "").Append("/v1/chain/abi_bin_to_json?" + Uri.EscapeDataString("code") + "=").Append(Uri.EscapeDataString(ConvertToString(code, CultureInfo.InvariantCulture))).Append("&" + Uri.EscapeDataString("action") + "=").Append(Uri.EscapeDataString(ConvertToString(action, CultureInfo.InvariantCulture))).Append("&" + Uri.EscapeDataString("binargs") + "=").Append(Uri.EscapeDataString(ConvertToString(binargs, CultureInfo.InvariantCulture))).Append("&");
+            urlBuilder.Length--;
  
-            using (var request_ = new HttpRequestMessage())
+            using (var request = new HttpRequestMessage())
             {
-                request_.Method = new HttpMethod("GET");
+                request.Method = new HttpMethod("GET");
 
-                var url_ = urlBuilder_.ToString();
-                request_.RequestUri = new Uri(url_, UriKind.RelativeOrAbsolute);
+                var url = urlBuilder.ToString();
+                request.RequestUri = new Uri(url, UriKind.RelativeOrAbsolute);
 
-                var response_ = await _httpClient.SendAsync(request_, HttpCompletionOption.ResponseHeadersRead, cancellationToken).ConfigureAwait(false);
+                var response = await _httpClient.SendAsync(request, HttpCompletionOption.ResponseHeadersRead, cancellationToken).ConfigureAwait(false);
 
-                var headers_ = Enumerable.ToDictionary(response_.Headers, h_ => h_.Key, h_ => h_.Value);
-                if (response_.Content != null && response_.Content.Headers != null)
+                var headers = Enumerable.ToDictionary(response.Headers, h => h.Key, h => h.Value);
+                if (response.Content != null && response.Content.Headers != null)
                 {
-                    foreach (var item_ in response_.Content.Headers)
-                        headers_[item_.Key] = item_.Value;
+                    foreach (var item in response.Content.Headers)
+                        headers[item.Key] = item.Value;
                 }
 
-                var status_ = (int)response_.StatusCode;
-                if (status_ == 200)
+                var status = (int)response.StatusCode;
+                if (status == 200)
                 {
                     return;
                 }
                 else
                 {
-                    var responseData_ = response_.Content == null ? null : await response_.Content.ReadAsStringAsync().ConfigureAwait(false);
-                    throw new ApiException("The HTTP status code of the response was not expected (" + status_ + ").", status_, responseData_, headers_, null);
+                    var responseData = response.Content == null ? null : await response.Content.ReadAsStringAsync().ConfigureAwait(false);
+                    throw new ApiException("The HTTP status code of the response was not expected (" + status + ").", status, responseData, headers, null);
                 }
             }
         }
@@ -1989,34 +1989,34 @@ namespace EosRio.HyperionApi
             if (binargs == null)
                 throw new ArgumentNullException("binargs");
     
-            var urlBuilder_ = new StringBuilder(BaseUrl != null ? BaseUrl.TrimEnd('/') : "").Append("/v1/chain/abi_bin_to_json?" + Uri.EscapeDataString("code") + "=").Append(Uri.EscapeDataString(ConvertToString(code, CultureInfo.InvariantCulture))).Append("&" + Uri.EscapeDataString("action") + "=").Append(Uri.EscapeDataString(ConvertToString(action, CultureInfo.InvariantCulture))).Append("&" + Uri.EscapeDataString("binargs") + "=").Append(Uri.EscapeDataString(ConvertToString(binargs, CultureInfo.InvariantCulture))).Append("&");
-            urlBuilder_.Length--;
+            var urlBuilder = new StringBuilder(BaseUrl != null ? BaseUrl.TrimEnd('/') : "").Append("/v1/chain/abi_bin_to_json?" + Uri.EscapeDataString("code") + "=").Append(Uri.EscapeDataString(ConvertToString(code, CultureInfo.InvariantCulture))).Append("&" + Uri.EscapeDataString("action") + "=").Append(Uri.EscapeDataString(ConvertToString(action, CultureInfo.InvariantCulture))).Append("&" + Uri.EscapeDataString("binargs") + "=").Append(Uri.EscapeDataString(ConvertToString(binargs, CultureInfo.InvariantCulture))).Append("&");
+            urlBuilder.Length--;
  
-            using (var request_ = new HttpRequestMessage())
+            using (var request = new HttpRequestMessage())
             {
-                request_.Method = new HttpMethod("HEAD");
+                request.Method = new HttpMethod("HEAD");
 
-                var url_ = urlBuilder_.ToString();
-                request_.RequestUri = new Uri(url_, UriKind.RelativeOrAbsolute);
+                var url = urlBuilder.ToString();
+                request.RequestUri = new Uri(url, UriKind.RelativeOrAbsolute);
 
-                var response_ = await _httpClient.SendAsync(request_, HttpCompletionOption.ResponseHeadersRead, cancellationToken).ConfigureAwait(false);
+                var response = await _httpClient.SendAsync(request, HttpCompletionOption.ResponseHeadersRead, cancellationToken).ConfigureAwait(false);
 
-                var headers_ = Enumerable.ToDictionary(response_.Headers, h_ => h_.Key, h_ => h_.Value);
-                if (response_.Content != null && response_.Content.Headers != null)
+                var headers = Enumerable.ToDictionary(response.Headers, h => h.Key, h => h.Value);
+                if (response.Content != null && response.Content.Headers != null)
                 {
-                    foreach (var item_ in response_.Content.Headers)
-                        headers_[item_.Key] = item_.Value;
+                    foreach (var item in response.Content.Headers)
+                        headers[item.Key] = item.Value;
                 }
 
-                var status_ = (int)response_.StatusCode;
-                if (status_ == 200)
+                var status = (int)response.StatusCode;
+                if (status == 200)
                 {
                     return;
                 }
                 else
                 {
-                    var responseData_ = response_.Content == null ? null : await response_.Content.ReadAsStringAsync().ConfigureAwait(false);
-                    throw new ApiException("The HTTP status code of the response was not expected (" + status_ + ").", status_, responseData_, headers_, null);
+                    var responseData = response.Content == null ? null : await response.Content.ReadAsStringAsync().ConfigureAwait(false);
+                    throw new ApiException("The HTTP status code of the response was not expected (" + status + ").", status, responseData, headers, null);
                 }
             }
         }
@@ -2030,36 +2030,36 @@ namespace EosRio.HyperionApi
             if (body == null)
                 throw new ArgumentNullException("body");
     
-            var urlBuilder_ = new StringBuilder(BaseUrl != null ? BaseUrl.TrimEnd('/') : "").Append("/v1/chain/abi_bin_to_json");
+            var urlBuilder = new StringBuilder(BaseUrl != null ? BaseUrl.TrimEnd('/') : "").Append("/v1/chain/abi_bin_to_json");
  
-            using (var request_ = new HttpRequestMessage())
+            using (var request = new HttpRequestMessage())
             {
-                var content_ = new StringContent(JsonConvert.SerializeObject(body));
-                content_.Headers.ContentType = MediaTypeHeaderValue.Parse("application/json");
-                request_.Content = content_;
-                request_.Method = new HttpMethod("POST");
+                var content = new StringContent(JsonConvert.SerializeObject(body));
+                content.Headers.ContentType = MediaTypeHeaderValue.Parse("application/json");
+                request.Content = content;
+                request.Method = new HttpMethod("POST");
 
-                var url_ = urlBuilder_.ToString();
-                request_.RequestUri = new Uri(url_, UriKind.RelativeOrAbsolute);
+                var url = urlBuilder.ToString();
+                request.RequestUri = new Uri(url, UriKind.RelativeOrAbsolute);
 
-                var response_ = await _httpClient.SendAsync(request_, HttpCompletionOption.ResponseHeadersRead, cancellationToken).ConfigureAwait(false);
+                var response = await _httpClient.SendAsync(request, HttpCompletionOption.ResponseHeadersRead, cancellationToken).ConfigureAwait(false);
 
-                var headers_ = Enumerable.ToDictionary(response_.Headers, h_ => h_.Key, h_ => h_.Value);
-                if (response_.Content != null && response_.Content.Headers != null)
+                var headers = Enumerable.ToDictionary(response.Headers, h => h.Key, h => h.Value);
+                if (response.Content != null && response.Content.Headers != null)
                 {
-                    foreach (var item_ in response_.Content.Headers)
-                        headers_[item_.Key] = item_.Value;
+                    foreach (var item in response.Content.Headers)
+                        headers[item.Key] = item.Value;
                 }
 
-                var status_ = (int)response_.StatusCode;
-                if (status_ == 200)
+                var status = (int)response.StatusCode;
+                if (status == 200)
                 {
                     return;
                 }
                 else
                 {
-                    var responseData_ = response_.Content == null ? null : await response_.Content.ReadAsStringAsync().ConfigureAwait(false);
-                    throw new ApiException("The HTTP status code of the response was not expected (" + status_ + ").", status_, responseData_, headers_, null);
+                    var responseData = response.Content == null ? null : await response.Content.ReadAsStringAsync().ConfigureAwait(false);
+                    throw new ApiException("The HTTP status code of the response was not expected (" + status + ").", status, responseData, headers, null);
                 }
             }
         }
@@ -2073,34 +2073,34 @@ namespace EosRio.HyperionApi
             if (binargs == null)
                 throw new ArgumentNullException("binargs");
     
-            var urlBuilder_ = new StringBuilder(BaseUrl != null ? BaseUrl.TrimEnd('/') : "").Append("/v1/chain/abi_json_to_bin?" + Uri.EscapeDataString("binargs") + "=").Append(Uri.EscapeDataString(ConvertToString(binargs, CultureInfo.InvariantCulture))).Append("&");
-            urlBuilder_.Length--;
+            var urlBuilder = new StringBuilder(BaseUrl != null ? BaseUrl.TrimEnd('/') : "").Append("/v1/chain/abi_json_to_bin?" + Uri.EscapeDataString("binargs") + "=").Append(Uri.EscapeDataString(ConvertToString(binargs, CultureInfo.InvariantCulture))).Append("&");
+            urlBuilder.Length--;
  
-            using (var request_ = new HttpRequestMessage())
+            using (var request = new HttpRequestMessage())
             {
-                request_.Method = new HttpMethod("GET");
+                request.Method = new HttpMethod("GET");
 
-                var url_ = urlBuilder_.ToString();
-                request_.RequestUri = new Uri(url_, UriKind.RelativeOrAbsolute);
+                var url = urlBuilder.ToString();
+                request.RequestUri = new Uri(url, UriKind.RelativeOrAbsolute);
 
-                var response_ = await _httpClient.SendAsync(request_, HttpCompletionOption.ResponseHeadersRead, cancellationToken).ConfigureAwait(false);
+                var response = await _httpClient.SendAsync(request, HttpCompletionOption.ResponseHeadersRead, cancellationToken).ConfigureAwait(false);
 
-                var headers_ = Enumerable.ToDictionary(response_.Headers, h_ => h_.Key, h_ => h_.Value);
-                if (response_.Content != null && response_.Content.Headers != null)
+                var headers = Enumerable.ToDictionary(response.Headers, h => h.Key, h => h.Value);
+                if (response.Content != null && response.Content.Headers != null)
                 {
-                    foreach (var item_ in response_.Content.Headers)
-                        headers_[item_.Key] = item_.Value;
+                    foreach (var item in response.Content.Headers)
+                        headers[item.Key] = item.Value;
                 }
 
-                var status_ = (int)response_.StatusCode;
-                if (status_ == 200)
+                var status = (int)response.StatusCode;
+                if (status == 200)
                 {
                     return;
                 }
                 else
                 {
-                    var responseData_ = response_.Content == null ? null : await response_.Content.ReadAsStringAsync().ConfigureAwait(false);
-                    throw new ApiException("The HTTP status code of the response was not expected (" + status_ + ").", status_, responseData_, headers_, null);
+                    var responseData = response.Content == null ? null : await response.Content.ReadAsStringAsync().ConfigureAwait(false);
+                    throw new ApiException("The HTTP status code of the response was not expected (" + status + ").", status, responseData, headers, null);
                 }
             }
         }
@@ -2114,34 +2114,34 @@ namespace EosRio.HyperionApi
             if (binargs == null)
                 throw new ArgumentNullException("binargs");
     
-            var urlBuilder_ = new StringBuilder(BaseUrl != null ? BaseUrl.TrimEnd('/') : "").Append("/v1/chain/abi_json_to_bin?" + Uri.EscapeDataString("binargs") + "=").Append(Uri.EscapeDataString(ConvertToString(binargs, CultureInfo.InvariantCulture))).Append("&");
-            urlBuilder_.Length--;
+            var urlBuilder = new StringBuilder(BaseUrl != null ? BaseUrl.TrimEnd('/') : "").Append("/v1/chain/abi_json_to_bin?" + Uri.EscapeDataString("binargs") + "=").Append(Uri.EscapeDataString(ConvertToString(binargs, CultureInfo.InvariantCulture))).Append("&");
+            urlBuilder.Length--;
  
-            using (var request_ = new HttpRequestMessage())
+            using (var request = new HttpRequestMessage())
             {
-                request_.Method = new HttpMethod("HEAD");
+                request.Method = new HttpMethod("HEAD");
 
-                var url_ = urlBuilder_.ToString();
-                request_.RequestUri = new Uri(url_, UriKind.RelativeOrAbsolute);
+                var url = urlBuilder.ToString();
+                request.RequestUri = new Uri(url, UriKind.RelativeOrAbsolute);
 
-                var response_ = await _httpClient.SendAsync(request_, HttpCompletionOption.ResponseHeadersRead, cancellationToken).ConfigureAwait(false);
+                var response = await _httpClient.SendAsync(request, HttpCompletionOption.ResponseHeadersRead, cancellationToken).ConfigureAwait(false);
 
-                var headers_ = Enumerable.ToDictionary(response_.Headers, h_ => h_.Key, h_ => h_.Value);
-                if (response_.Content != null && response_.Content.Headers != null)
+                var headers = Enumerable.ToDictionary(response.Headers, h => h.Key, h => h.Value);
+                if (response.Content != null && response.Content.Headers != null)
                 {
-                    foreach (var item_ in response_.Content.Headers)
-                        headers_[item_.Key] = item_.Value;
+                    foreach (var item in response.Content.Headers)
+                        headers[item.Key] = item.Value;
                 }
 
-                var status_ = (int)response_.StatusCode;
-                if (status_ == 200)
+                var status = (int)response.StatusCode;
+                if (status == 200)
                 {
                     return;
                 }
                 else
                 {
-                    var responseData_ = response_.Content == null ? null : await response_.Content.ReadAsStringAsync().ConfigureAwait(false);
-                    throw new ApiException("The HTTP status code of the response was not expected (" + status_ + ").", status_, responseData_, headers_, null);
+                    var responseData = response.Content == null ? null : await response.Content.ReadAsStringAsync().ConfigureAwait(false);
+                    throw new ApiException("The HTTP status code of the response was not expected (" + status + ").", status, responseData, headers, null);
                 }
             }
         }
@@ -2155,36 +2155,36 @@ namespace EosRio.HyperionApi
             if (body == null)
                 throw new ArgumentNullException("body");
     
-            var urlBuilder_ = new StringBuilder(BaseUrl != null ? BaseUrl.TrimEnd('/') : "").Append("/v1/chain/abi_json_to_bin");
+            var urlBuilder = new StringBuilder(BaseUrl != null ? BaseUrl.TrimEnd('/') : "").Append("/v1/chain/abi_json_to_bin");
  
-            using (var request_ = new HttpRequestMessage())
+            using (var request = new HttpRequestMessage())
             {
-                var content_ = new StringContent(JsonConvert.SerializeObject(body));
-                content_.Headers.ContentType = MediaTypeHeaderValue.Parse("application/json");
-                request_.Content = content_;
-                request_.Method = new HttpMethod("POST");
+                var content = new StringContent(JsonConvert.SerializeObject(body));
+                content.Headers.ContentType = MediaTypeHeaderValue.Parse("application/json");
+                request.Content = content;
+                request.Method = new HttpMethod("POST");
 
-                var url_ = urlBuilder_.ToString();
-                request_.RequestUri = new Uri(url_, UriKind.RelativeOrAbsolute);
+                var url = urlBuilder.ToString();
+                request.RequestUri = new Uri(url, UriKind.RelativeOrAbsolute);
 
-                var response_ = await _httpClient.SendAsync(request_, HttpCompletionOption.ResponseHeadersRead, cancellationToken).ConfigureAwait(false);
+                var response = await _httpClient.SendAsync(request, HttpCompletionOption.ResponseHeadersRead, cancellationToken).ConfigureAwait(false);
 
-                var headers_ = Enumerable.ToDictionary(response_.Headers, h_ => h_.Key, h_ => h_.Value);
-                if (response_.Content != null && response_.Content.Headers != null)
+                var headers = Enumerable.ToDictionary(response.Headers, h => h.Key, h => h.Value);
+                if (response.Content != null && response.Content.Headers != null)
                 {
-                    foreach (var item_ in response_.Content.Headers)
-                        headers_[item_.Key] = item_.Value;
+                    foreach (var item in response.Content.Headers)
+                        headers[item.Key] = item.Value;
                 }
 
-                var status_ = (int)response_.StatusCode;
-                if (status_ == 200)
+                var status = (int)response.StatusCode;
+                if (status == 200)
                 {
                     return;
                 }
                 else
                 {
-                    var responseData_ = response_.Content == null ? null : await response_.Content.ReadAsStringAsync().ConfigureAwait(false);
-                    throw new ApiException("The HTTP status code of the response was not expected (" + status_ + ").", status_, responseData_, headers_, null);
+                    var responseData = response.Content == null ? null : await response.Content.ReadAsStringAsync().ConfigureAwait(false);
+                    throw new ApiException("The HTTP status code of the response was not expected (" + status + ").", status, responseData, headers, null);
                 }
             }
         }
@@ -2193,39 +2193,39 @@ namespace EosRio.HyperionApi
         /// <summary>Retrieves the ABI for a contract based on its account name</summary>
         /// <returns>Default Response</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public async Task Get_abiGetAsync(Name account_name, CancellationToken cancellationToken = default)
+        public async Task Get_abiGetAsync(Name accountName, CancellationToken cancellationToken = default)
         {
-            if (account_name == null)
-                throw new ArgumentNullException("account_name");
+            if (accountName == null)
+                throw new ArgumentNullException("accountName");
     
-            var urlBuilder_ = new StringBuilder(BaseUrl != null ? BaseUrl.TrimEnd('/') : "").Append("/v1/chain/get_abi?" + Uri.EscapeDataString("account_name") + "=").Append(Uri.EscapeDataString(ConvertToString(account_name, CultureInfo.InvariantCulture))).Append("&");
-            urlBuilder_.Length--;
+            var urlBuilder = new StringBuilder(BaseUrl != null ? BaseUrl.TrimEnd('/') : "").Append("/v1/chain/get_abi?" + Uri.EscapeDataString("account_name") + "=").Append(Uri.EscapeDataString(ConvertToString(accountName, CultureInfo.InvariantCulture))).Append("&");
+            urlBuilder.Length--;
  
-            using (var request_ = new HttpRequestMessage())
+            using (var request = new HttpRequestMessage())
             {
-                request_.Method = new HttpMethod("GET");
+                request.Method = new HttpMethod("GET");
 
-                var url_ = urlBuilder_.ToString();
-                request_.RequestUri = new Uri(url_, UriKind.RelativeOrAbsolute);
+                var url = urlBuilder.ToString();
+                request.RequestUri = new Uri(url, UriKind.RelativeOrAbsolute);
 
-                var response_ = await _httpClient.SendAsync(request_, HttpCompletionOption.ResponseHeadersRead, cancellationToken).ConfigureAwait(false);
+                var response = await _httpClient.SendAsync(request, HttpCompletionOption.ResponseHeadersRead, cancellationToken).ConfigureAwait(false);
 
-                var headers_ = Enumerable.ToDictionary(response_.Headers, h_ => h_.Key, h_ => h_.Value);
-                if (response_.Content != null && response_.Content.Headers != null)
+                var headers = Enumerable.ToDictionary(response.Headers, h => h.Key, h => h.Value);
+                if (response.Content != null && response.Content.Headers != null)
                 {
-                    foreach (var item_ in response_.Content.Headers)
-                        headers_[item_.Key] = item_.Value;
+                    foreach (var item in response.Content.Headers)
+                        headers[item.Key] = item.Value;
                 }
 
-                var status_ = (int)response_.StatusCode;
-                if (status_ == 200)
+                var status = (int)response.StatusCode;
+                if (status == 200)
                 {
                     return;
                 }
                 else
                 {
-                    var responseData_ = response_.Content == null ? null : await response_.Content.ReadAsStringAsync().ConfigureAwait(false);
-                    throw new ApiException("The HTTP status code of the response was not expected (" + status_ + ").", status_, responseData_, headers_, null);
+                    var responseData = response.Content == null ? null : await response.Content.ReadAsStringAsync().ConfigureAwait(false);
+                    throw new ApiException("The HTTP status code of the response was not expected (" + status + ").", status, responseData, headers, null);
                 }
             }
         }
@@ -2234,39 +2234,39 @@ namespace EosRio.HyperionApi
         /// <summary>Retrieves the ABI for a contract based on its account name</summary>
         /// <returns>Default Response</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public async Task Get_abiHeadAsync(Name account_name, CancellationToken cancellationToken = default)
+        public async Task Get_abiHeadAsync(Name accountName, CancellationToken cancellationToken = default)
         {
-            if (account_name == null)
-                throw new ArgumentNullException("account_name");
+            if (accountName == null)
+                throw new ArgumentNullException("accountName");
     
-            var urlBuilder_ = new StringBuilder(BaseUrl != null ? BaseUrl.TrimEnd('/') : "").Append("/v1/chain/get_abi?" + Uri.EscapeDataString("account_name") + "=").Append(Uri.EscapeDataString(ConvertToString(account_name, CultureInfo.InvariantCulture))).Append("&");
-            urlBuilder_.Length--;
+            var urlBuilder = new StringBuilder(BaseUrl != null ? BaseUrl.TrimEnd('/') : "").Append("/v1/chain/get_abi?" + Uri.EscapeDataString("account_name") + "=").Append(Uri.EscapeDataString(ConvertToString(accountName, CultureInfo.InvariantCulture))).Append("&");
+            urlBuilder.Length--;
  
-            using (var request_ = new HttpRequestMessage())
+            using (var request = new HttpRequestMessage())
             {
-                request_.Method = new HttpMethod("HEAD");
+                request.Method = new HttpMethod("HEAD");
 
-                var url_ = urlBuilder_.ToString();
-                request_.RequestUri = new Uri(url_, UriKind.RelativeOrAbsolute);
+                var url = urlBuilder.ToString();
+                request.RequestUri = new Uri(url, UriKind.RelativeOrAbsolute);
 
-                var response_ = await _httpClient.SendAsync(request_, HttpCompletionOption.ResponseHeadersRead, cancellationToken).ConfigureAwait(false);
+                var response = await _httpClient.SendAsync(request, HttpCompletionOption.ResponseHeadersRead, cancellationToken).ConfigureAwait(false);
 
-                var headers_ = Enumerable.ToDictionary(response_.Headers, h_ => h_.Key, h_ => h_.Value);
-                if (response_.Content != null && response_.Content.Headers != null)
+                var headers = Enumerable.ToDictionary(response.Headers, h => h.Key, h => h.Value);
+                if (response.Content != null && response.Content.Headers != null)
                 {
-                    foreach (var item_ in response_.Content.Headers)
-                        headers_[item_.Key] = item_.Value;
+                    foreach (var item in response.Content.Headers)
+                        headers[item.Key] = item.Value;
                 }
 
-                var status_ = (int)response_.StatusCode;
-                if (status_ == 200)
+                var status = (int)response.StatusCode;
+                if (status == 200)
                 {
                     return;
                 }
                 else
                 {
-                    var responseData_ = response_.Content == null ? null : await response_.Content.ReadAsStringAsync().ConfigureAwait(false);
-                    throw new ApiException("The HTTP status code of the response was not expected (" + status_ + ").", status_, responseData_, headers_, null);
+                    var responseData = response.Content == null ? null : await response.Content.ReadAsStringAsync().ConfigureAwait(false);
+                    throw new ApiException("The HTTP status code of the response was not expected (" + status + ").", status, responseData, headers, null);
                 }
             }
         }
@@ -2280,36 +2280,36 @@ namespace EosRio.HyperionApi
             if (body == null)
                 throw new ArgumentNullException("body");
     
-            var urlBuilder_ = new StringBuilder(BaseUrl != null ? BaseUrl.TrimEnd('/') : "").Append("/v1/chain/get_abi");
+            var urlBuilder = new StringBuilder(BaseUrl != null ? BaseUrl.TrimEnd('/') : "").Append("/v1/chain/get_abi");
  
-            using (var request_ = new HttpRequestMessage())
+            using (var request = new HttpRequestMessage())
             {
-                var content_ = new StringContent(JsonConvert.SerializeObject(body));
-                content_.Headers.ContentType = MediaTypeHeaderValue.Parse("application/json");
-                request_.Content = content_;
-                request_.Method = new HttpMethod("POST");
+                var content = new StringContent(JsonConvert.SerializeObject(body));
+                content.Headers.ContentType = MediaTypeHeaderValue.Parse("application/json");
+                request.Content = content;
+                request.Method = new HttpMethod("POST");
 
-                var url_ = urlBuilder_.ToString();
-                request_.RequestUri = new Uri(url_, UriKind.RelativeOrAbsolute);
+                var url = urlBuilder.ToString();
+                request.RequestUri = new Uri(url, UriKind.RelativeOrAbsolute);
 
-                var response_ = await _httpClient.SendAsync(request_, HttpCompletionOption.ResponseHeadersRead, cancellationToken).ConfigureAwait(false);
+                var response = await _httpClient.SendAsync(request, HttpCompletionOption.ResponseHeadersRead, cancellationToken).ConfigureAwait(false);
 
-                var headers_ = Enumerable.ToDictionary(response_.Headers, h_ => h_.Key, h_ => h_.Value);
-                if (response_.Content != null && response_.Content.Headers != null)
+                var headers = Enumerable.ToDictionary(response.Headers, h => h.Key, h => h.Value);
+                if (response.Content != null && response.Content.Headers != null)
                 {
-                    foreach (var item_ in response_.Content.Headers)
-                        headers_[item_.Key] = item_.Value;
+                    foreach (var item in response.Content.Headers)
+                        headers[item.Key] = item.Value;
                 }
 
-                var status_ = (int)response_.StatusCode;
-                if (status_ == 200)
+                var status = (int)response.StatusCode;
+                if (status == 200)
                 {
                     return;
                 }
                 else
                 {
-                    var responseData_ = response_.Content == null ? null : await response_.Content.ReadAsStringAsync().ConfigureAwait(false);
-                    throw new ApiException("The HTTP status code of the response was not expected (" + status_ + ").", status_, responseData_, headers_, null);
+                    var responseData = response.Content == null ? null : await response.Content.ReadAsStringAsync().ConfigureAwait(false);
+                    throw new ApiException("The HTTP status code of the response was not expected (" + status + ").", status, responseData, headers, null);
                 }
             }
         }
@@ -2318,39 +2318,39 @@ namespace EosRio.HyperionApi
         /// <summary>Returns an object containing various details about a specific account on the blockchain.</summary>
         /// <returns>Default Response</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public async Task Get_accountGetAsync(Name account_name, CancellationToken cancellationToken = default)
+        public async Task Get_accountGetAsync(Name accountName, CancellationToken cancellationToken = default)
         {
-            if (account_name == null)
-                throw new ArgumentNullException("account_name");
+            if (accountName == null)
+                throw new ArgumentNullException("accountName");
     
-            var urlBuilder_ = new StringBuilder(BaseUrl != null ? BaseUrl.TrimEnd('/') : "").Append("/v1/chain/get_account?" + Uri.EscapeDataString("account_name") + "=").Append(Uri.EscapeDataString(ConvertToString(account_name, CultureInfo.InvariantCulture))).Append("&");
-            urlBuilder_.Length--;
+            var urlBuilder = new StringBuilder(BaseUrl != null ? BaseUrl.TrimEnd('/') : "").Append("/v1/chain/get_account?" + Uri.EscapeDataString("account_name") + "=").Append(Uri.EscapeDataString(ConvertToString(accountName, CultureInfo.InvariantCulture))).Append("&");
+            urlBuilder.Length--;
  
-            using (var request_ = new HttpRequestMessage())
+            using (var request = new HttpRequestMessage())
             {
-                request_.Method = new HttpMethod("GET");
+                request.Method = new HttpMethod("GET");
 
-                var url_ = urlBuilder_.ToString();
-                request_.RequestUri = new Uri(url_, UriKind.RelativeOrAbsolute);
+                var url = urlBuilder.ToString();
+                request.RequestUri = new Uri(url, UriKind.RelativeOrAbsolute);
 
-                var response_ = await _httpClient.SendAsync(request_, HttpCompletionOption.ResponseHeadersRead, cancellationToken).ConfigureAwait(false);
+                var response = await _httpClient.SendAsync(request, HttpCompletionOption.ResponseHeadersRead, cancellationToken).ConfigureAwait(false);
 
-                var headers_ = Enumerable.ToDictionary(response_.Headers, h_ => h_.Key, h_ => h_.Value);
-                if (response_.Content != null && response_.Content.Headers != null)
+                var headers = Enumerable.ToDictionary(response.Headers, h => h.Key, h => h.Value);
+                if (response.Content != null && response.Content.Headers != null)
                 {
-                    foreach (var item_ in response_.Content.Headers)
-                        headers_[item_.Key] = item_.Value;
+                    foreach (var item in response.Content.Headers)
+                        headers[item.Key] = item.Value;
                 }
 
-                var status_ = (int)response_.StatusCode;
-                if (status_ == 200)
+                var status = (int)response.StatusCode;
+                if (status == 200)
                 {
                     return;
                 }
                 else
                 {
-                    var responseData_ = response_.Content == null ? null : await response_.Content.ReadAsStringAsync().ConfigureAwait(false);
-                    throw new ApiException("The HTTP status code of the response was not expected (" + status_ + ").", status_, responseData_, headers_, null);
+                    var responseData = response.Content == null ? null : await response.Content.ReadAsStringAsync().ConfigureAwait(false);
+                    throw new ApiException("The HTTP status code of the response was not expected (" + status + ").", status, responseData, headers, null);
                 }
             }
         }
@@ -2359,39 +2359,39 @@ namespace EosRio.HyperionApi
         /// <summary>Returns an object containing various details about a specific account on the blockchain.</summary>
         /// <returns>Default Response</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public async Task Get_accountHeadAsync(Name account_name, CancellationToken cancellationToken = default)
+        public async Task Get_accountHeadAsync(Name accountName, CancellationToken cancellationToken = default)
         {
-            if (account_name == null)
-                throw new ArgumentNullException("account_name");
+            if (accountName == null)
+                throw new ArgumentNullException("accountName");
     
-            var urlBuilder_ = new StringBuilder(BaseUrl != null ? BaseUrl.TrimEnd('/') : "").Append("/v1/chain/get_account?" + Uri.EscapeDataString("account_name") + "=").Append(Uri.EscapeDataString(ConvertToString(account_name, CultureInfo.InvariantCulture))).Append("&");
-            urlBuilder_.Length--;
+            var urlBuilder = new StringBuilder(BaseUrl != null ? BaseUrl.TrimEnd('/') : "").Append("/v1/chain/get_account?" + Uri.EscapeDataString("account_name") + "=").Append(Uri.EscapeDataString(ConvertToString(accountName, CultureInfo.InvariantCulture))).Append("&");
+            urlBuilder.Length--;
  
-            using (var request_ = new HttpRequestMessage())
+            using (var request = new HttpRequestMessage())
             {
-                request_.Method = new HttpMethod("HEAD");
+                request.Method = new HttpMethod("HEAD");
 
-                var url_ = urlBuilder_.ToString();
-                request_.RequestUri = new Uri(url_, UriKind.RelativeOrAbsolute);
+                var url = urlBuilder.ToString();
+                request.RequestUri = new Uri(url, UriKind.RelativeOrAbsolute);
 
-                var response_ = await _httpClient.SendAsync(request_, HttpCompletionOption.ResponseHeadersRead, cancellationToken).ConfigureAwait(false);
+                var response = await _httpClient.SendAsync(request, HttpCompletionOption.ResponseHeadersRead, cancellationToken).ConfigureAwait(false);
 
-                var headers_ = Enumerable.ToDictionary(response_.Headers, h_ => h_.Key, h_ => h_.Value);
-                if (response_.Content != null && response_.Content.Headers != null)
+                var headers = Enumerable.ToDictionary(response.Headers, h => h.Key, h => h.Value);
+                if (response.Content != null && response.Content.Headers != null)
                 {
-                    foreach (var item_ in response_.Content.Headers)
-                        headers_[item_.Key] = item_.Value;
+                    foreach (var item in response.Content.Headers)
+                        headers[item.Key] = item.Value;
                 }
 
-                var status_ = (int)response_.StatusCode;
-                if (status_ == 200)
+                var status = (int)response.StatusCode;
+                if (status == 200)
                 {
                     return;
                 }
                 else
                 {
-                    var responseData_ = response_.Content == null ? null : await response_.Content.ReadAsStringAsync().ConfigureAwait(false);
-                    throw new ApiException("The HTTP status code of the response was not expected (" + status_ + ").", status_, responseData_, headers_, null);
+                    var responseData = response.Content == null ? null : await response.Content.ReadAsStringAsync().ConfigureAwait(false);
+                    throw new ApiException("The HTTP status code of the response was not expected (" + status + ").", status, responseData, headers, null);
                 }
             }
         }
@@ -2405,36 +2405,36 @@ namespace EosRio.HyperionApi
             if (body == null)
                 throw new ArgumentNullException("body");
     
-            var urlBuilder_ = new StringBuilder(BaseUrl != null ? BaseUrl.TrimEnd('/') : "").Append("/v1/chain/get_account");
+            var urlBuilder = new StringBuilder(BaseUrl != null ? BaseUrl.TrimEnd('/') : "").Append("/v1/chain/get_account");
  
-                using (var request_ = new HttpRequestMessage())
+                using (var request = new HttpRequestMessage())
                 {
-                    var content_ = new StringContent(JsonConvert.SerializeObject(body));
-                    content_.Headers.ContentType = MediaTypeHeaderValue.Parse("application/json");
-                    request_.Content = content_;
-                    request_.Method = new HttpMethod("POST");
+                    var content = new StringContent(JsonConvert.SerializeObject(body));
+                    content.Headers.ContentType = MediaTypeHeaderValue.Parse("application/json");
+                    request.Content = content;
+                    request.Method = new HttpMethod("POST");
 
-                    var url_ = urlBuilder_.ToString();
-                    request_.RequestUri = new Uri(url_, UriKind.RelativeOrAbsolute);
+                    var url = urlBuilder.ToString();
+                    request.RequestUri = new Uri(url, UriKind.RelativeOrAbsolute);
 
-                    var response_ = await _httpClient.SendAsync(request_, HttpCompletionOption.ResponseHeadersRead, cancellationToken).ConfigureAwait(false);
+                    var response = await _httpClient.SendAsync(request, HttpCompletionOption.ResponseHeadersRead, cancellationToken).ConfigureAwait(false);
 
-                        var headers_ = Enumerable.ToDictionary(response_.Headers, h_ => h_.Key, h_ => h_.Value);
-                        if (response_.Content != null && response_.Content.Headers != null)
+                        var headers = Enumerable.ToDictionary(response.Headers, h => h.Key, h => h.Value);
+                        if (response.Content != null && response.Content.Headers != null)
                         {
-                            foreach (var item_ in response_.Content.Headers)
-                                headers_[item_.Key] = item_.Value;
+                            foreach (var item in response.Content.Headers)
+                                headers[item.Key] = item.Value;
                         }
 
-                        var status_ = (int)response_.StatusCode;
-                        if (status_ == 200)
+                        var status = (int)response.StatusCode;
+                        if (status == 200)
                         {
                             return;
                         }
                         else
                         {
-                            var responseData_ = response_.Content == null ? null : await response_.Content.ReadAsStringAsync().ConfigureAwait(false);
-                            throw new ApiException("The HTTP status code of the response was not expected (" + status_ + ").", status_, responseData_, headers_, null);
+                            var responseData = response.Content == null ? null : await response.Content.ReadAsStringAsync().ConfigureAwait(false);
+                            throw new ApiException("The HTTP status code of the response was not expected (" + status + ").", status, responseData, headers, null);
                         }
 
                 }
@@ -2449,56 +2449,56 @@ namespace EosRio.HyperionApi
         /// <param name="reverse">Flag to indicate it has to search in reverse</param>
         /// <returns>Default Response</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public async Task Get_activated_protocol_featuresGetAsync(int? lower_bound = null, int? upper_bound = null, int? limit = null, bool? search_by_block_num = null, bool? reverse = null, CancellationToken cancellationToken = default)
+        public async Task Get_activated_protocol_featuresGetAsync(int? lowerBound = null, int? upperBound = null, int? limit = null, bool? searchByBlockNum = null, bool? reverse = null, CancellationToken cancellationToken = default)
         {
-            var urlBuilder_ = new StringBuilder(BaseUrl != null ? BaseUrl.TrimEnd('/') : "").Append("/v1/chain/get_activated_protocol_features?");
-            if (lower_bound != null)
+            var urlBuilder = new StringBuilder(BaseUrl != null ? BaseUrl.TrimEnd('/') : "").Append("/v1/chain/get_activated_protocol_features?");
+            if (lowerBound != null)
             {
-                urlBuilder_.Append(Uri.EscapeDataString("lower_bound") + "=").Append(Uri.EscapeDataString(ConvertToString(lower_bound, CultureInfo.InvariantCulture))).Append("&");
+                urlBuilder.Append(Uri.EscapeDataString("lower_bound") + "=").Append(Uri.EscapeDataString(ConvertToString(lowerBound, CultureInfo.InvariantCulture))).Append("&");
             }
-            if (upper_bound != null)
+            if (upperBound != null)
             {
-                urlBuilder_.Append(Uri.EscapeDataString("upper_bound") + "=").Append(Uri.EscapeDataString(ConvertToString(upper_bound, CultureInfo.InvariantCulture))).Append("&");
+                urlBuilder.Append(Uri.EscapeDataString("upper_bound") + "=").Append(Uri.EscapeDataString(ConvertToString(upperBound, CultureInfo.InvariantCulture))).Append("&");
             }
             if (limit != null)
             {
-                urlBuilder_.Append(Uri.EscapeDataString("limit") + "=").Append(Uri.EscapeDataString(ConvertToString(limit, CultureInfo.InvariantCulture))).Append("&");
+                urlBuilder.Append(Uri.EscapeDataString("limit") + "=").Append(Uri.EscapeDataString(ConvertToString(limit, CultureInfo.InvariantCulture))).Append("&");
             }
-            if (search_by_block_num != null)
+            if (searchByBlockNum != null)
             {
-                urlBuilder_.Append(Uri.EscapeDataString("search_by_block_num") + "=").Append(Uri.EscapeDataString(ConvertToString(search_by_block_num, CultureInfo.InvariantCulture))).Append("&");
+                urlBuilder.Append(Uri.EscapeDataString("search_by_block_num") + "=").Append(Uri.EscapeDataString(ConvertToString(searchByBlockNum, CultureInfo.InvariantCulture))).Append("&");
             }
             if (reverse != null)
             {
-                urlBuilder_.Append(Uri.EscapeDataString("reverse") + "=").Append(Uri.EscapeDataString(ConvertToString(reverse, CultureInfo.InvariantCulture))).Append("&");
+                urlBuilder.Append(Uri.EscapeDataString("reverse") + "=").Append(Uri.EscapeDataString(ConvertToString(reverse, CultureInfo.InvariantCulture))).Append("&");
             }
-            urlBuilder_.Length--;
+            urlBuilder.Length--;
  
-            using (var request_ = new HttpRequestMessage())
+            using (var request = new HttpRequestMessage())
             {
-                request_.Method = new HttpMethod("GET");
+                request.Method = new HttpMethod("GET");
 
-                var url_ = urlBuilder_.ToString();
-                request_.RequestUri = new Uri(url_, UriKind.RelativeOrAbsolute);
+                var url = urlBuilder.ToString();
+                request.RequestUri = new Uri(url, UriKind.RelativeOrAbsolute);
 
-                var response_ = await _httpClient.SendAsync(request_, HttpCompletionOption.ResponseHeadersRead, cancellationToken).ConfigureAwait(false);
+                var response = await _httpClient.SendAsync(request, HttpCompletionOption.ResponseHeadersRead, cancellationToken).ConfigureAwait(false);
 
-                var headers_ = Enumerable.ToDictionary(response_.Headers, h_ => h_.Key, h_ => h_.Value);
-                if (response_.Content != null && response_.Content.Headers != null)
+                var headers = Enumerable.ToDictionary(response.Headers, h => h.Key, h => h.Value);
+                if (response.Content != null && response.Content.Headers != null)
                 {
-                    foreach (var item_ in response_.Content.Headers)
-                        headers_[item_.Key] = item_.Value;
+                    foreach (var item in response.Content.Headers)
+                        headers[item.Key] = item.Value;
                 }
 
-                var status_ = (int)response_.StatusCode;
-                if (status_ == 200)
+                var status = (int)response.StatusCode;
+                if (status == 200)
                 {
                     return;
                 }
                 else
                 {
-                    var responseData_ = response_.Content == null ? null : await response_.Content.ReadAsStringAsync().ConfigureAwait(false);
-                    throw new ApiException("The HTTP status code of the response was not expected (" + status_ + ").", status_, responseData_, headers_, null);
+                    var responseData = response.Content == null ? null : await response.Content.ReadAsStringAsync().ConfigureAwait(false);
+                    throw new ApiException("The HTTP status code of the response was not expected (" + status + ").", status, responseData, headers, null);
                 }
             }
         }
@@ -2512,56 +2512,56 @@ namespace EosRio.HyperionApi
         /// <param name="reverse">Flag to indicate it has to search in reverse</param>
         /// <returns>Default Response</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public async Task Get_activated_protocol_featuresHeadAsync(int? lower_bound = null, int? upper_bound = null, int? limit = null, bool? search_by_block_num = null, bool? reverse = null, CancellationToken cancellationToken = default)
+        public async Task Get_activated_protocol_featuresHeadAsync(int? lowerBound = null, int? upperBound = null, int? limit = null, bool? searchByBlockNum = null, bool? reverse = null, CancellationToken cancellationToken = default)
         {
-            var urlBuilder_ = new StringBuilder(BaseUrl != null ? BaseUrl.TrimEnd('/') : "").Append("/v1/chain/get_activated_protocol_features?");
-            if (lower_bound != null)
+            var urlBuilder = new StringBuilder(BaseUrl != null ? BaseUrl.TrimEnd('/') : "").Append("/v1/chain/get_activated_protocol_features?");
+            if (lowerBound != null)
             {
-                urlBuilder_.Append(Uri.EscapeDataString("lower_bound") + "=").Append(Uri.EscapeDataString(ConvertToString(lower_bound, CultureInfo.InvariantCulture))).Append("&");
+                urlBuilder.Append(Uri.EscapeDataString("lower_bound") + "=").Append(Uri.EscapeDataString(ConvertToString(lowerBound, CultureInfo.InvariantCulture))).Append("&");
             }
-            if (upper_bound != null)
+            if (upperBound != null)
             {
-                urlBuilder_.Append(Uri.EscapeDataString("upper_bound") + "=").Append(Uri.EscapeDataString(ConvertToString(upper_bound, CultureInfo.InvariantCulture))).Append("&");
+                urlBuilder.Append(Uri.EscapeDataString("upper_bound") + "=").Append(Uri.EscapeDataString(ConvertToString(upperBound, CultureInfo.InvariantCulture))).Append("&");
             }
             if (limit != null)
             {
-                urlBuilder_.Append(Uri.EscapeDataString("limit") + "=").Append(Uri.EscapeDataString(ConvertToString(limit, CultureInfo.InvariantCulture))).Append("&");
+                urlBuilder.Append(Uri.EscapeDataString("limit") + "=").Append(Uri.EscapeDataString(ConvertToString(limit, CultureInfo.InvariantCulture))).Append("&");
             }
-            if (search_by_block_num != null)
+            if (searchByBlockNum != null)
             {
-                urlBuilder_.Append(Uri.EscapeDataString("search_by_block_num") + "=").Append(Uri.EscapeDataString(ConvertToString(search_by_block_num, CultureInfo.InvariantCulture))).Append("&");
+                urlBuilder.Append(Uri.EscapeDataString("search_by_block_num") + "=").Append(Uri.EscapeDataString(ConvertToString(searchByBlockNum, CultureInfo.InvariantCulture))).Append("&");
             }
             if (reverse != null)
             {
-                urlBuilder_.Append(Uri.EscapeDataString("reverse") + "=").Append(Uri.EscapeDataString(ConvertToString(reverse, CultureInfo.InvariantCulture))).Append("&");
+                urlBuilder.Append(Uri.EscapeDataString("reverse") + "=").Append(Uri.EscapeDataString(ConvertToString(reverse, CultureInfo.InvariantCulture))).Append("&");
             }
-            urlBuilder_.Length--;
+            urlBuilder.Length--;
  
-            using (var request_ = new HttpRequestMessage())
+            using (var request = new HttpRequestMessage())
             {
-                request_.Method = new HttpMethod("HEAD");
+                request.Method = new HttpMethod("HEAD");
 
-                var url_ = urlBuilder_.ToString();
-                request_.RequestUri = new Uri(url_, UriKind.RelativeOrAbsolute);
+                var url = urlBuilder.ToString();
+                request.RequestUri = new Uri(url, UriKind.RelativeOrAbsolute);
 
-                var response_ = await _httpClient.SendAsync(request_, HttpCompletionOption.ResponseHeadersRead, cancellationToken).ConfigureAwait(false);
+                var response = await _httpClient.SendAsync(request, HttpCompletionOption.ResponseHeadersRead, cancellationToken).ConfigureAwait(false);
 
-                var headers_ = Enumerable.ToDictionary(response_.Headers, h_ => h_.Key, h_ => h_.Value);
-                if (response_.Content != null && response_.Content.Headers != null)
+                var headers = Enumerable.ToDictionary(response.Headers, h => h.Key, h => h.Value);
+                if (response.Content != null && response.Content.Headers != null)
                 {
-                    foreach (var item_ in response_.Content.Headers)
-                        headers_[item_.Key] = item_.Value;
+                    foreach (var item in response.Content.Headers)
+                        headers[item.Key] = item.Value;
                 }
 
-                var status_ = (int)response_.StatusCode;
-                if (status_ == 200)
+                var status = (int)response.StatusCode;
+                if (status == 200)
                 {
                     return;
                 }
                 else
                 {
-                    var responseData_ = response_.Content == null ? null : await response_.Content.ReadAsStringAsync().ConfigureAwait(false);
-                    throw new ApiException("The HTTP status code of the response was not expected (" + status_ + ").", status_, responseData_, headers_, null);
+                    var responseData = response.Content == null ? null : await response.Content.ReadAsStringAsync().ConfigureAwait(false);
+                    throw new ApiException("The HTTP status code of the response was not expected (" + status + ").", status, responseData, headers, null);
                 }
             }
         }
@@ -2572,36 +2572,36 @@ namespace EosRio.HyperionApi
         /// <exception cref="ApiException">A server side error occurred.</exception>
         public async Task Get_activated_protocol_featuresPostAsync(object body = null, CancellationToken cancellationToken = default)
         {
-            var urlBuilder_ = new StringBuilder(BaseUrl != null ? BaseUrl.TrimEnd('/') : "").Append("/v1/chain/get_activated_protocol_features");
+            var urlBuilder = new StringBuilder(BaseUrl != null ? BaseUrl.TrimEnd('/') : "").Append("/v1/chain/get_activated_protocol_features");
  
-            using (var request_ = new HttpRequestMessage())
+            using (var request = new HttpRequestMessage())
             {
-                var content_ = new StringContent(JsonConvert.SerializeObject(body));
-                content_.Headers.ContentType = MediaTypeHeaderValue.Parse("application/json");
-                request_.Content = content_;
-                request_.Method = new HttpMethod("POST");
+                var content = new StringContent(JsonConvert.SerializeObject(body));
+                content.Headers.ContentType = MediaTypeHeaderValue.Parse("application/json");
+                request.Content = content;
+                request.Method = new HttpMethod("POST");
 
-                var url_ = urlBuilder_.ToString();
-                request_.RequestUri = new Uri(url_, UriKind.RelativeOrAbsolute);
+                var url = urlBuilder.ToString();
+                request.RequestUri = new Uri(url, UriKind.RelativeOrAbsolute);
 
-                var response_ = await _httpClient.SendAsync(request_, HttpCompletionOption.ResponseHeadersRead, cancellationToken).ConfigureAwait(false);
+                var response = await _httpClient.SendAsync(request, HttpCompletionOption.ResponseHeadersRead, cancellationToken).ConfigureAwait(false);
 
-                var headers_ = Enumerable.ToDictionary(response_.Headers, h_ => h_.Key, h_ => h_.Value);
-                if (response_.Content != null && response_.Content.Headers != null)
+                var headers = Enumerable.ToDictionary(response.Headers, h => h.Key, h => h.Value);
+                if (response.Content != null && response.Content.Headers != null)
                 {
-                    foreach (var item_ in response_.Content.Headers)
-                        headers_[item_.Key] = item_.Value;
+                    foreach (var item in response.Content.Headers)
+                        headers[item.Key] = item.Value;
                 }
 
-                var status_ = (int)response_.StatusCode;
-                if (status_ == 200)
+                var status = (int)response.StatusCode;
+                if (status == 200)
                 {
                     return;
                 }
                 else
                 {
-                    var responseData_ = response_.Content == null ? null : await response_.Content.ReadAsStringAsync().ConfigureAwait(false);
-                    throw new ApiException("The HTTP status code of the response was not expected (" + status_ + ").", status_, responseData_, headers_, null);
+                    var responseData = response.Content == null ? null : await response.Content.ReadAsStringAsync().ConfigureAwait(false);
+                    throw new ApiException("The HTTP status code of the response was not expected (" + status + ").", status, responseData, headers, null);
                 }
             }
         }
@@ -2611,39 +2611,39 @@ namespace EosRio.HyperionApi
         /// <param name="block_num_or_id">Provide a `block number` or a `block id`</param>
         /// <returns>Default Response</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public async Task Get_blockGetAsync(string block_num_or_id, CancellationToken cancellationToken = default)
+        public async Task Get_blockGetAsync(string blockNumOrId, CancellationToken cancellationToken = default)
         {
-            if (block_num_or_id == null)
-                throw new ArgumentNullException("block_num_or_id");
+            if (blockNumOrId == null)
+                throw new ArgumentNullException("blockNumOrId");
     
-            var urlBuilder_ = new StringBuilder(BaseUrl != null ? BaseUrl.TrimEnd('/') : "").Append("/v1/chain/get_block?" + Uri.EscapeDataString("block_num_or_id") + "=").Append(Uri.EscapeDataString(ConvertToString(block_num_or_id, CultureInfo.InvariantCulture))).Append("&");
-            urlBuilder_.Length--;
+            var urlBuilder = new StringBuilder(BaseUrl != null ? BaseUrl.TrimEnd('/') : "").Append("/v1/chain/get_block?" + Uri.EscapeDataString("block_num_or_id") + "=").Append(Uri.EscapeDataString(ConvertToString(blockNumOrId, CultureInfo.InvariantCulture))).Append("&");
+            urlBuilder.Length--;
  
-            using (var request_ = new HttpRequestMessage())
+            using (var request = new HttpRequestMessage())
             {
-                request_.Method = new HttpMethod("GET");
+                request.Method = new HttpMethod("GET");
 
-                var url_ = urlBuilder_.ToString();
-                request_.RequestUri = new Uri(url_, UriKind.RelativeOrAbsolute);
+                var url = urlBuilder.ToString();
+                request.RequestUri = new Uri(url, UriKind.RelativeOrAbsolute);
 
-                var response_ = await _httpClient.SendAsync(request_, HttpCompletionOption.ResponseHeadersRead, cancellationToken).ConfigureAwait(false);
+                var response = await _httpClient.SendAsync(request, HttpCompletionOption.ResponseHeadersRead, cancellationToken).ConfigureAwait(false);
 
-                var headers_ = Enumerable.ToDictionary(response_.Headers, h_ => h_.Key, h_ => h_.Value);
-                if (response_.Content != null && response_.Content.Headers != null)
+                var headers = Enumerable.ToDictionary(response.Headers, h => h.Key, h => h.Value);
+                if (response.Content != null && response.Content.Headers != null)
                 {
-                    foreach (var item_ in response_.Content.Headers)
-                        headers_[item_.Key] = item_.Value;
+                    foreach (var item in response.Content.Headers)
+                        headers[item.Key] = item.Value;
                 }
 
-                var status_ = (int)response_.StatusCode;
-                if (status_ == 200)
+                var status = (int)response.StatusCode;
+                if (status == 200)
                 {
                     return;
                 }
                 else
                 {
-                    var responseData_ = response_.Content == null ? null : await response_.Content.ReadAsStringAsync().ConfigureAwait(false);
-                    throw new ApiException("The HTTP status code of the response was not expected (" + status_ + ").", status_, responseData_, headers_, null);
+                    var responseData = response.Content == null ? null : await response.Content.ReadAsStringAsync().ConfigureAwait(false);
+                    throw new ApiException("The HTTP status code of the response was not expected (" + status + ").", status, responseData, headers, null);
                 }
             }
         }
@@ -2653,39 +2653,39 @@ namespace EosRio.HyperionApi
         /// <param name="block_num_or_id">Provide a `block number` or a `block id`</param>
         /// <returns>Default Response</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public async Task Get_blockHeadAsync(string block_num_or_id, CancellationToken cancellationToken = default)
+        public async Task Get_blockHeadAsync(string blockNumOrId, CancellationToken cancellationToken = default)
         {
-            if (block_num_or_id == null)
-                throw new ArgumentNullException("block_num_or_id");
+            if (blockNumOrId == null)
+                throw new ArgumentNullException("blockNumOrId");
     
-            var urlBuilder_ = new StringBuilder(BaseUrl != null ? BaseUrl.TrimEnd('/') : "").Append("/v1/chain/get_block?" + Uri.EscapeDataString("block_num_or_id") + "=").Append(Uri.EscapeDataString(ConvertToString(block_num_or_id, CultureInfo.InvariantCulture))).Append("&");
-            urlBuilder_.Length--;
+            var urlBuilder = new StringBuilder(BaseUrl != null ? BaseUrl.TrimEnd('/') : "").Append("/v1/chain/get_block?" + Uri.EscapeDataString("block_num_or_id") + "=").Append(Uri.EscapeDataString(ConvertToString(blockNumOrId, CultureInfo.InvariantCulture))).Append("&");
+            urlBuilder.Length--;
  
-            using (var request_ = new HttpRequestMessage())
+            using (var request = new HttpRequestMessage())
             {
-                request_.Method = new HttpMethod("HEAD");
+                request.Method = new HttpMethod("HEAD");
 
-                var url_ = urlBuilder_.ToString();
-                request_.RequestUri = new Uri(url_, UriKind.RelativeOrAbsolute);
+                var url = urlBuilder.ToString();
+                request.RequestUri = new Uri(url, UriKind.RelativeOrAbsolute);
 
-                var response_ = await _httpClient.SendAsync(request_, HttpCompletionOption.ResponseHeadersRead, cancellationToken).ConfigureAwait(false);
+                var response = await _httpClient.SendAsync(request, HttpCompletionOption.ResponseHeadersRead, cancellationToken).ConfigureAwait(false);
 
-                var headers_ = Enumerable.ToDictionary(response_.Headers, h_ => h_.Key, h_ => h_.Value);
-                if (response_.Content != null && response_.Content.Headers != null)
+                var headers = Enumerable.ToDictionary(response.Headers, h => h.Key, h => h.Value);
+                if (response.Content != null && response.Content.Headers != null)
                 {
-                    foreach (var item_ in response_.Content.Headers)
-                        headers_[item_.Key] = item_.Value;
+                    foreach (var item in response.Content.Headers)
+                        headers[item.Key] = item.Value;
                 }
 
-                var status_ = (int)response_.StatusCode;
-                if (status_ == 200)
+                var status = (int)response.StatusCode;
+                if (status == 200)
                 {
                     return;
                 }
                 else
                 {
-                    var responseData_ = response_.Content == null ? null : await response_.Content.ReadAsStringAsync().ConfigureAwait(false);
-                    throw new ApiException("The HTTP status code of the response was not expected (" + status_ + ").", status_, responseData_, headers_, null);
+                    var responseData = response.Content == null ? null : await response.Content.ReadAsStringAsync().ConfigureAwait(false);
+                    throw new ApiException("The HTTP status code of the response was not expected (" + status + ").", status, responseData, headers, null);
                 }
             }
         }
@@ -2699,36 +2699,36 @@ namespace EosRio.HyperionApi
             if (body == null)
                 throw new ArgumentNullException("body");
     
-            var urlBuilder_ = new StringBuilder(BaseUrl != null ? BaseUrl.TrimEnd('/') : "").Append("/v1/chain/get_block");
+            var urlBuilder = new StringBuilder(BaseUrl != null ? BaseUrl.TrimEnd('/') : "").Append("/v1/chain/get_block");
  
-            using (var request_ = new HttpRequestMessage())
+            using (var request = new HttpRequestMessage())
             {
-                var content_ = new StringContent(JsonConvert.SerializeObject(body));
-                content_.Headers.ContentType = MediaTypeHeaderValue.Parse("application/json");
-                request_.Content = content_;
-                request_.Method = new HttpMethod("POST");
+                var content = new StringContent(JsonConvert.SerializeObject(body));
+                content.Headers.ContentType = MediaTypeHeaderValue.Parse("application/json");
+                request.Content = content;
+                request.Method = new HttpMethod("POST");
 
-                var url_ = urlBuilder_.ToString();
-                request_.RequestUri = new Uri(url_, UriKind.RelativeOrAbsolute);
+                var url = urlBuilder.ToString();
+                request.RequestUri = new Uri(url, UriKind.RelativeOrAbsolute);
 
-                var response_ = await _httpClient.SendAsync(request_, HttpCompletionOption.ResponseHeadersRead, cancellationToken).ConfigureAwait(false);
+                var response = await _httpClient.SendAsync(request, HttpCompletionOption.ResponseHeadersRead, cancellationToken).ConfigureAwait(false);
 
-                var headers_ = Enumerable.ToDictionary(response_.Headers, h_ => h_.Key, h_ => h_.Value);
-                if (response_.Content != null && response_.Content.Headers != null)
+                var headers = Enumerable.ToDictionary(response.Headers, h => h.Key, h => h.Value);
+                if (response.Content != null && response.Content.Headers != null)
                 {
-                    foreach (var item_ in response_.Content.Headers)
-                        headers_[item_.Key] = item_.Value;
+                    foreach (var item in response.Content.Headers)
+                        headers[item.Key] = item.Value;
                 }
 
-                var status_ = (int)response_.StatusCode;
-                if (status_ == 200)
+                var status = (int)response.StatusCode;
+                if (status == 200)
                 {
                     return;
                 }
                 else
                 {
-                    var responseData_ = response_.Content == null ? null : await response_.Content.ReadAsStringAsync().ConfigureAwait(false);
-                    throw new ApiException("The HTTP status code of the response was not expected (" + status_ + ").", status_, responseData_, headers_, null);
+                    var responseData = response.Content == null ? null : await response.Content.ReadAsStringAsync().ConfigureAwait(false);
+                    throw new ApiException("The HTTP status code of the response was not expected (" + status + ").", status, responseData, headers, null);
                 }
             }
         }
@@ -2738,39 +2738,39 @@ namespace EosRio.HyperionApi
         /// <param name="block_num_or_id">Provide a block_number or a block_id</param>
         /// <returns>Default Response</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public async Task Get_block_header_stateGetAsync(string block_num_or_id, CancellationToken cancellationToken = default)
+        public async Task Get_block_header_stateGetAsync(string blockNumOrId, CancellationToken cancellationToken = default)
         {
-            if (block_num_or_id == null)
-                throw new ArgumentNullException("block_num_or_id");
+            if (blockNumOrId == null)
+                throw new ArgumentNullException("blockNumOrId");
     
-            var urlBuilder_ = new StringBuilder(BaseUrl != null ? BaseUrl.TrimEnd('/') : "").Append("/v1/chain/get_block_header_state?" + Uri.EscapeDataString("block_num_or_id") + "=").Append(Uri.EscapeDataString(ConvertToString(block_num_or_id, CultureInfo.InvariantCulture))).Append("&");
-            urlBuilder_.Length--;
+            var urlBuilder = new StringBuilder(BaseUrl != null ? BaseUrl.TrimEnd('/') : "").Append("/v1/chain/get_block_header_state?" + Uri.EscapeDataString("block_num_or_id") + "=").Append(Uri.EscapeDataString(ConvertToString(blockNumOrId, CultureInfo.InvariantCulture))).Append("&");
+            urlBuilder.Length--;
  
-            using (var request_ = new HttpRequestMessage())
+            using (var request = new HttpRequestMessage())
             {
-                request_.Method = new HttpMethod("GET");
+                request.Method = new HttpMethod("GET");
 
-                var url_ = urlBuilder_.ToString();
-                request_.RequestUri = new Uri(url_, UriKind.RelativeOrAbsolute);
+                var url = urlBuilder.ToString();
+                request.RequestUri = new Uri(url, UriKind.RelativeOrAbsolute);
 
-                var response_ = await _httpClient.SendAsync(request_, HttpCompletionOption.ResponseHeadersRead, cancellationToken).ConfigureAwait(false);
+                var response = await _httpClient.SendAsync(request, HttpCompletionOption.ResponseHeadersRead, cancellationToken).ConfigureAwait(false);
 
-                var headers_ = Enumerable.ToDictionary(response_.Headers, h_ => h_.Key, h_ => h_.Value);
-                if (response_.Content != null && response_.Content.Headers != null)
+                var headers = Enumerable.ToDictionary(response.Headers, h => h.Key, h => h.Value);
+                if (response.Content != null && response.Content.Headers != null)
                 {
-                    foreach (var item_ in response_.Content.Headers)
-                        headers_[item_.Key] = item_.Value;
+                    foreach (var item in response.Content.Headers)
+                        headers[item.Key] = item.Value;
                 }
 
-                var status_ = (int)response_.StatusCode;
-                if (status_ == 200)
+                var status = (int)response.StatusCode;
+                if (status == 200)
                 {
                     return;
                 }
                 else
                 {
-                    var responseData_ = response_.Content == null ? null : await response_.Content.ReadAsStringAsync().ConfigureAwait(false);
-                    throw new ApiException("The HTTP status code of the response was not expected (" + status_ + ").", status_, responseData_, headers_, null);
+                    var responseData = response.Content == null ? null : await response.Content.ReadAsStringAsync().ConfigureAwait(false);
+                    throw new ApiException("The HTTP status code of the response was not expected (" + status + ").", status, responseData, headers, null);
                 }
             }
         }
@@ -2780,39 +2780,39 @@ namespace EosRio.HyperionApi
         /// <param name="block_num_or_id">Provide a block_number or a block_id</param>
         /// <returns>Default Response</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public async Task Get_block_header_stateHeadAsync(string block_num_or_id, CancellationToken cancellationToken = default)
+        public async Task Get_block_header_stateHeadAsync(string blockNumOrId, CancellationToken cancellationToken = default)
         {
-            if (block_num_or_id == null)
-                throw new ArgumentNullException("block_num_or_id");
+            if (blockNumOrId == null)
+                throw new ArgumentNullException("blockNumOrId");
     
-            var urlBuilder_ = new StringBuilder(BaseUrl != null ? BaseUrl.TrimEnd('/') : "").Append("/v1/chain/get_block_header_state?" + Uri.EscapeDataString("block_num_or_id") + "=").Append(Uri.EscapeDataString(ConvertToString(block_num_or_id, CultureInfo.InvariantCulture))).Append("&");
-            urlBuilder_.Length--;
+            var urlBuilder = new StringBuilder(BaseUrl != null ? BaseUrl.TrimEnd('/') : "").Append("/v1/chain/get_block_header_state?" + Uri.EscapeDataString("block_num_or_id") + "=").Append(Uri.EscapeDataString(ConvertToString(blockNumOrId, CultureInfo.InvariantCulture))).Append("&");
+            urlBuilder.Length--;
  
-            using (var request_ = new HttpRequestMessage())
+            using (var request = new HttpRequestMessage())
             {
-                request_.Method = new HttpMethod("HEAD");
+                request.Method = new HttpMethod("HEAD");
 
-                var url_ = urlBuilder_.ToString();
-                request_.RequestUri = new Uri(url_, UriKind.RelativeOrAbsolute);
+                var url = urlBuilder.ToString();
+                request.RequestUri = new Uri(url, UriKind.RelativeOrAbsolute);
 
-                var response_ = await _httpClient.SendAsync(request_, HttpCompletionOption.ResponseHeadersRead, cancellationToken).ConfigureAwait(false);
+                var response = await _httpClient.SendAsync(request, HttpCompletionOption.ResponseHeadersRead, cancellationToken).ConfigureAwait(false);
 
-                var headers_ = Enumerable.ToDictionary(response_.Headers, h_ => h_.Key, h_ => h_.Value);
-                if (response_.Content != null && response_.Content.Headers != null)
+                var headers = Enumerable.ToDictionary(response.Headers, h => h.Key, h => h.Value);
+                if (response.Content != null && response.Content.Headers != null)
                 {
-                    foreach (var item_ in response_.Content.Headers)
-                        headers_[item_.Key] = item_.Value;
+                    foreach (var item in response.Content.Headers)
+                        headers[item.Key] = item.Value;
                 }
 
-                var status_ = (int)response_.StatusCode;
-                if (status_ == 200)
+                var status = (int)response.StatusCode;
+                if (status == 200)
                 {
                     return;
                 }
                 else
                 {
-                    var responseData_ = response_.Content == null ? null : await response_.Content.ReadAsStringAsync().ConfigureAwait(false);
-                    throw new ApiException("The HTTP status code of the response was not expected (" + status_ + ").", status_, responseData_, headers_, null);
+                    var responseData = response.Content == null ? null : await response.Content.ReadAsStringAsync().ConfigureAwait(false);
+                    throw new ApiException("The HTTP status code of the response was not expected (" + status + ").", status, responseData, headers, null);
                 }
             }
         }
@@ -2826,36 +2826,36 @@ namespace EosRio.HyperionApi
             if (body == null)
                 throw new ArgumentNullException("body");
     
-            var urlBuilder_ = new StringBuilder(BaseUrl != null ? BaseUrl.TrimEnd('/') : "").Append("/v1/chain/get_block_header_state");
+            var urlBuilder = new StringBuilder(BaseUrl != null ? BaseUrl.TrimEnd('/') : "").Append("/v1/chain/get_block_header_state");
  
-            using (var request_ = new HttpRequestMessage())
+            using (var request = new HttpRequestMessage())
             {
-                var content_ = new StringContent(JsonConvert.SerializeObject(body));
-                content_.Headers.ContentType = MediaTypeHeaderValue.Parse("application/json");
-                request_.Content = content_;
-                request_.Method = new HttpMethod("POST");
+                var content = new StringContent(JsonConvert.SerializeObject(body));
+                content.Headers.ContentType = MediaTypeHeaderValue.Parse("application/json");
+                request.Content = content;
+                request.Method = new HttpMethod("POST");
 
-                var url_ = urlBuilder_.ToString();
-                request_.RequestUri = new Uri(url_, UriKind.RelativeOrAbsolute);
+                var url = urlBuilder.ToString();
+                request.RequestUri = new Uri(url, UriKind.RelativeOrAbsolute);
 
-                var response_ = await _httpClient.SendAsync(request_, HttpCompletionOption.ResponseHeadersRead, cancellationToken).ConfigureAwait(false);
+                var response = await _httpClient.SendAsync(request, HttpCompletionOption.ResponseHeadersRead, cancellationToken).ConfigureAwait(false);
 
-                var headers_ = Enumerable.ToDictionary(response_.Headers, h_ => h_.Key, h_ => h_.Value);
-                if (response_.Content != null && response_.Content.Headers != null)
+                var headers = Enumerable.ToDictionary(response.Headers, h => h.Key, h => h.Value);
+                if (response.Content != null && response.Content.Headers != null)
                 {
-                    foreach (var item_ in response_.Content.Headers)
-                        headers_[item_.Key] = item_.Value;
+                    foreach (var item in response.Content.Headers)
+                        headers[item.Key] = item.Value;
                 }
 
-                var status_ = (int)response_.StatusCode;
-                if (status_ == 200)
+                var status = (int)response.StatusCode;
+                if (status == 200)
                 {
                     return;
                 }
                 else
                 {
-                    var responseData_ = response_.Content == null ? null : await response_.Content.ReadAsStringAsync().ConfigureAwait(false);
-                    throw new ApiException("The HTTP status code of the response was not expected (" + status_ + ").", status_, responseData_, headers_, null);
+                    var responseData = response.Content == null ? null : await response.Content.ReadAsStringAsync().ConfigureAwait(false);
+                    throw new ApiException("The HTTP status code of the response was not expected (" + status + ").", status, responseData, headers, null);
                 }
             }
         }
@@ -2865,39 +2865,39 @@ namespace EosRio.HyperionApi
         /// <param name="code_as_wasm">This must be 1 (true)</param>
         /// <returns>Default Response</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public async Task Get_codeGetAsync(Name account_name, int code_as_wasm, CancellationToken cancellationToken = default)
+        public async Task Get_codeGetAsync(Name accountName, int codeAsWasm, CancellationToken cancellationToken = default)
         {
-            if (account_name == null)
-                throw new ArgumentNullException("account_name");
+            if (accountName == null)
+                throw new ArgumentNullException("accountName");
 
-            var urlBuilder_ = new StringBuilder(BaseUrl != null ? BaseUrl.TrimEnd('/') : "").Append("/v1/chain/get_code?" + Uri.EscapeDataString("account_name") + "=").Append(Uri.EscapeDataString(ConvertToString(account_name, CultureInfo.InvariantCulture))).Append("&" + Uri.EscapeDataString("code_as_wasm") + "=").Append(Uri.EscapeDataString(ConvertToString(code_as_wasm, CultureInfo.InvariantCulture))).Append("&");
-            urlBuilder_.Length--;
+            var urlBuilder = new StringBuilder(BaseUrl != null ? BaseUrl.TrimEnd('/') : "").Append("/v1/chain/get_code?" + Uri.EscapeDataString("account_name") + "=").Append(Uri.EscapeDataString(ConvertToString(accountName, CultureInfo.InvariantCulture))).Append("&" + Uri.EscapeDataString("code_as_wasm") + "=").Append(Uri.EscapeDataString(ConvertToString(codeAsWasm, CultureInfo.InvariantCulture))).Append("&");
+            urlBuilder.Length--;
  
-            using (var request_ = new HttpRequestMessage())
+            using (var request = new HttpRequestMessage())
             {
-                request_.Method = new HttpMethod("GET");
+                request.Method = new HttpMethod("GET");
 
-                var url_ = urlBuilder_.ToString();
-                request_.RequestUri = new Uri(url_, UriKind.RelativeOrAbsolute);
+                var url = urlBuilder.ToString();
+                request.RequestUri = new Uri(url, UriKind.RelativeOrAbsolute);
 
-                var response_ = await _httpClient.SendAsync(request_, HttpCompletionOption.ResponseHeadersRead, cancellationToken).ConfigureAwait(false);
+                var response = await _httpClient.SendAsync(request, HttpCompletionOption.ResponseHeadersRead, cancellationToken).ConfigureAwait(false);
 
-                var headers_ = Enumerable.ToDictionary(response_.Headers, h_ => h_.Key, h_ => h_.Value);
-                if (response_.Content != null && response_.Content.Headers != null)
+                var headers = Enumerable.ToDictionary(response.Headers, h => h.Key, h => h.Value);
+                if (response.Content != null && response.Content.Headers != null)
                 {
-                    foreach (var item_ in response_.Content.Headers)
-                        headers_[item_.Key] = item_.Value;
+                    foreach (var item in response.Content.Headers)
+                        headers[item.Key] = item.Value;
                 }
 
-                var status_ = (int)response_.StatusCode;
-                if (status_ == 200)
+                var status = (int)response.StatusCode;
+                if (status == 200)
                 {
                     return;
                 }
                 else
                 {
-                    var responseData_ = response_.Content == null ? null : await response_.Content.ReadAsStringAsync().ConfigureAwait(false);
-                    throw new ApiException("The HTTP status code of the response was not expected (" + status_ + ").", status_, responseData_, headers_, null);
+                    var responseData = response.Content == null ? null : await response.Content.ReadAsStringAsync().ConfigureAwait(false);
+                    throw new ApiException("The HTTP status code of the response was not expected (" + status + ").", status, responseData, headers, null);
                 }
             }
         }
@@ -2907,39 +2907,39 @@ namespace EosRio.HyperionApi
         /// <param name="code_as_wasm">This must be 1 (true)</param>
         /// <returns>Default Response</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public async Task Get_codeHeadAsync(Name account_name, int code_as_wasm, CancellationToken cancellationToken = default)
+        public async Task Get_codeHeadAsync(Name accountName, int codeAsWasm, CancellationToken cancellationToken = default)
         {
-            if (account_name == null)
-                throw new ArgumentNullException("account_name");
+            if (accountName == null)
+                throw new ArgumentNullException("accountName");
 
-            var urlBuilder_ = new StringBuilder(BaseUrl != null ? BaseUrl.TrimEnd('/') : "").Append("/v1/chain/get_code?" + Uri.EscapeDataString("account_name") + "=").Append(Uri.EscapeDataString(ConvertToString(account_name, CultureInfo.InvariantCulture))).Append("&" + Uri.EscapeDataString("code_as_wasm") + "=").Append(Uri.EscapeDataString(ConvertToString(code_as_wasm, CultureInfo.InvariantCulture))).Append("&");
-            urlBuilder_.Length--;
+            var urlBuilder = new StringBuilder(BaseUrl != null ? BaseUrl.TrimEnd('/') : "").Append("/v1/chain/get_code?" + Uri.EscapeDataString("account_name") + "=").Append(Uri.EscapeDataString(ConvertToString(accountName, CultureInfo.InvariantCulture))).Append("&" + Uri.EscapeDataString("code_as_wasm") + "=").Append(Uri.EscapeDataString(ConvertToString(codeAsWasm, CultureInfo.InvariantCulture))).Append("&");
+            urlBuilder.Length--;
  
-            using (var request_ = new HttpRequestMessage())
+            using (var request = new HttpRequestMessage())
             {
-                request_.Method = new HttpMethod("HEAD");
+                request.Method = new HttpMethod("HEAD");
 
-                var url_ = urlBuilder_.ToString();
-                request_.RequestUri = new Uri(url_, UriKind.RelativeOrAbsolute);
+                var url = urlBuilder.ToString();
+                request.RequestUri = new Uri(url, UriKind.RelativeOrAbsolute);
 
-                var response_ = await _httpClient.SendAsync(request_, HttpCompletionOption.ResponseHeadersRead, cancellationToken).ConfigureAwait(false);
+                var response = await _httpClient.SendAsync(request, HttpCompletionOption.ResponseHeadersRead, cancellationToken).ConfigureAwait(false);
 
-                var headers_ = Enumerable.ToDictionary(response_.Headers, h_ => h_.Key, h_ => h_.Value);
-                if (response_.Content != null && response_.Content.Headers != null)
+                var headers = Enumerable.ToDictionary(response.Headers, h => h.Key, h => h.Value);
+                if (response.Content != null && response.Content.Headers != null)
                 {
-                    foreach (var item_ in response_.Content.Headers)
-                        headers_[item_.Key] = item_.Value;
+                    foreach (var item in response.Content.Headers)
+                        headers[item.Key] = item.Value;
                 }
 
-                var status_ = (int)response_.StatusCode;
-                if (status_ == 200)
+                var status = (int)response.StatusCode;
+                if (status == 200)
                 {
                     return;
                 }
                 else
                 {
-                    var responseData_ = response_.Content == null ? null : await response_.Content.ReadAsStringAsync().ConfigureAwait(false);
-                    throw new ApiException("The HTTP status code of the response was not expected (" + status_ + ").", status_, responseData_, headers_, null);
+                    var responseData = response.Content == null ? null : await response.Content.ReadAsStringAsync().ConfigureAwait(false);
+                    throw new ApiException("The HTTP status code of the response was not expected (" + status + ").", status, responseData, headers, null);
                 }
             }
         }
@@ -2953,36 +2953,36 @@ namespace EosRio.HyperionApi
             if (body == null)
                 throw new ArgumentNullException("body");
     
-            var urlBuilder_ = new StringBuilder(BaseUrl != null ? BaseUrl.TrimEnd('/') : "").Append("/v1/chain/get_code");
+            var urlBuilder = new StringBuilder(BaseUrl != null ? BaseUrl.TrimEnd('/') : "").Append("/v1/chain/get_code");
  
-            using (var request_ = new HttpRequestMessage())
+            using (var request = new HttpRequestMessage())
             {
-                var content_ = new StringContent(JsonConvert.SerializeObject(body));
-                content_.Headers.ContentType = MediaTypeHeaderValue.Parse("application/json");
-                request_.Content = content_;
-                request_.Method = new HttpMethod("POST");
+                var content = new StringContent(JsonConvert.SerializeObject(body));
+                content.Headers.ContentType = MediaTypeHeaderValue.Parse("application/json");
+                request.Content = content;
+                request.Method = new HttpMethod("POST");
 
-                var url_ = urlBuilder_.ToString();
-                request_.RequestUri = new Uri(url_, UriKind.RelativeOrAbsolute);
+                var url = urlBuilder.ToString();
+                request.RequestUri = new Uri(url, UriKind.RelativeOrAbsolute);
 
-                var response_ = await _httpClient.SendAsync(request_, HttpCompletionOption.ResponseHeadersRead, cancellationToken).ConfigureAwait(false);
+                var response = await _httpClient.SendAsync(request, HttpCompletionOption.ResponseHeadersRead, cancellationToken).ConfigureAwait(false);
 
-                var headers_ = Enumerable.ToDictionary(response_.Headers, h_ => h_.Key, h_ => h_.Value);
-                if (response_.Content != null && response_.Content.Headers != null)
+                var headers = Enumerable.ToDictionary(response.Headers, h => h.Key, h => h.Value);
+                if (response.Content != null && response.Content.Headers != null)
                 {
-                    foreach (var item_ in response_.Content.Headers)
-                        headers_[item_.Key] = item_.Value;
+                    foreach (var item in response.Content.Headers)
+                        headers[item.Key] = item.Value;
                 }
 
-                var status_ = (int)response_.StatusCode;
-                if (status_ == 200)
+                var status = (int)response.StatusCode;
+                if (status == 200)
                 {
                     return;
                 }
                 else
                 {
-                    var responseData_ = response_.Content == null ? null : await response_.Content.ReadAsStringAsync().ConfigureAwait(false);
-                    throw new ApiException("The HTTP status code of the response was not expected (" + status_ + ").", status_, responseData_, headers_, null);
+                    var responseData = response.Content == null ? null : await response.Content.ReadAsStringAsync().ConfigureAwait(false);
+                    throw new ApiException("The HTTP status code of the response was not expected (" + status + ").", status, responseData, headers, null);
                 }
             }
         }
@@ -3003,34 +3003,34 @@ namespace EosRio.HyperionApi
             if (symbol == null)
                 throw new ArgumentNullException("symbol");
     
-            var urlBuilder_ = new StringBuilder(BaseUrl != null ? BaseUrl.TrimEnd('/') : "").Append("/v1/chain/get_currency_balance?" + Uri.EscapeDataString("code") + "=").Append(Uri.EscapeDataString(ConvertToString(code, CultureInfo.InvariantCulture))).Append("&" + Uri.EscapeDataString("account") + "=").Append(Uri.EscapeDataString(ConvertToString(account, CultureInfo.InvariantCulture))).Append("&" + Uri.EscapeDataString("symbol") + "=").Append(Uri.EscapeDataString(ConvertToString(symbol, CultureInfo.InvariantCulture))).Append("&");
-            urlBuilder_.Length--;
+            var urlBuilder = new StringBuilder(BaseUrl != null ? BaseUrl.TrimEnd('/') : "").Append("/v1/chain/get_currency_balance?" + Uri.EscapeDataString("code") + "=").Append(Uri.EscapeDataString(ConvertToString(code, CultureInfo.InvariantCulture))).Append("&" + Uri.EscapeDataString("account") + "=").Append(Uri.EscapeDataString(ConvertToString(account, CultureInfo.InvariantCulture))).Append("&" + Uri.EscapeDataString("symbol") + "=").Append(Uri.EscapeDataString(ConvertToString(symbol, CultureInfo.InvariantCulture))).Append("&");
+            urlBuilder.Length--;
  
-            using (var request_ = new HttpRequestMessage())
+            using (var request = new HttpRequestMessage())
             {
-                request_.Method = new HttpMethod("GET");
+                request.Method = new HttpMethod("GET");
 
-                var url_ = urlBuilder_.ToString();
-                request_.RequestUri = new Uri(url_, UriKind.RelativeOrAbsolute);
+                var url = urlBuilder.ToString();
+                request.RequestUri = new Uri(url, UriKind.RelativeOrAbsolute);
 
-                var response_ = await _httpClient.SendAsync(request_, HttpCompletionOption.ResponseHeadersRead, cancellationToken).ConfigureAwait(false);
+                var response = await _httpClient.SendAsync(request, HttpCompletionOption.ResponseHeadersRead, cancellationToken).ConfigureAwait(false);
 
-                var headers_ = Enumerable.ToDictionary(response_.Headers, h_ => h_.Key, h_ => h_.Value);
-                if (response_.Content != null && response_.Content.Headers != null)
+                var headers = Enumerable.ToDictionary(response.Headers, h => h.Key, h => h.Value);
+                if (response.Content != null && response.Content.Headers != null)
                 {
-                    foreach (var item_ in response_.Content.Headers)
-                        headers_[item_.Key] = item_.Value;
+                    foreach (var item in response.Content.Headers)
+                        headers[item.Key] = item.Value;
                 }
 
-                var status_ = (int)response_.StatusCode;
-                if (status_ == 200)
+                var status = (int)response.StatusCode;
+                if (status == 200)
                 {
                     return;
                 }
                 else
                 {
-                    var responseData_ = response_.Content == null ? null : await response_.Content.ReadAsStringAsync().ConfigureAwait(false);
-                    throw new ApiException("The HTTP status code of the response was not expected (" + status_ + ").", status_, responseData_, headers_, null);
+                    var responseData = response.Content == null ? null : await response.Content.ReadAsStringAsync().ConfigureAwait(false);
+                    throw new ApiException("The HTTP status code of the response was not expected (" + status + ").", status, responseData, headers, null);
                 }
             }
         }
@@ -3051,34 +3051,34 @@ namespace EosRio.HyperionApi
             if (symbol == null)
                 throw new ArgumentNullException("symbol");
     
-            var urlBuilder_ = new StringBuilder(BaseUrl != null ? BaseUrl.TrimEnd('/') : "").Append("/v1/chain/get_currency_balance?" + Uri.EscapeDataString("code") + "=").Append(Uri.EscapeDataString(ConvertToString(code, CultureInfo.InvariantCulture))).Append("&" + Uri.EscapeDataString("account") + "=").Append(Uri.EscapeDataString(ConvertToString(account, CultureInfo.InvariantCulture))).Append("&" + Uri.EscapeDataString("symbol") + "=").Append(Uri.EscapeDataString(ConvertToString(symbol, CultureInfo.InvariantCulture))).Append("&");
-            urlBuilder_.Length--;
+            var urlBuilder = new StringBuilder(BaseUrl != null ? BaseUrl.TrimEnd('/') : "").Append("/v1/chain/get_currency_balance?" + Uri.EscapeDataString("code") + "=").Append(Uri.EscapeDataString(ConvertToString(code, CultureInfo.InvariantCulture))).Append("&" + Uri.EscapeDataString("account") + "=").Append(Uri.EscapeDataString(ConvertToString(account, CultureInfo.InvariantCulture))).Append("&" + Uri.EscapeDataString("symbol") + "=").Append(Uri.EscapeDataString(ConvertToString(symbol, CultureInfo.InvariantCulture))).Append("&");
+            urlBuilder.Length--;
  
-            using (var request_ = new HttpRequestMessage())
+            using (var request = new HttpRequestMessage())
             {
-                request_.Method = new HttpMethod("HEAD");
+                request.Method = new HttpMethod("HEAD");
 
-                var url_ = urlBuilder_.ToString();
-                request_.RequestUri = new Uri(url_, UriKind.RelativeOrAbsolute);
+                var url = urlBuilder.ToString();
+                request.RequestUri = new Uri(url, UriKind.RelativeOrAbsolute);
 
-                var response_ = await _httpClient.SendAsync(request_, HttpCompletionOption.ResponseHeadersRead, cancellationToken).ConfigureAwait(false);
+                var response = await _httpClient.SendAsync(request, HttpCompletionOption.ResponseHeadersRead, cancellationToken).ConfigureAwait(false);
 
-                var headers_ = Enumerable.ToDictionary(response_.Headers, h_ => h_.Key, h_ => h_.Value);
-                if (response_.Content != null && response_.Content.Headers != null)
+                var headers = Enumerable.ToDictionary(response.Headers, h => h.Key, h => h.Value);
+                if (response.Content != null && response.Content.Headers != null)
                 {
-                    foreach (var item_ in response_.Content.Headers)
-                        headers_[item_.Key] = item_.Value;
+                    foreach (var item in response.Content.Headers)
+                        headers[item.Key] = item.Value;
                 }
 
-                var status_ = (int)response_.StatusCode;
-                if (status_ == 200)
+                var status = (int)response.StatusCode;
+                if (status == 200)
                 {
                     return;
                 }
                 else
                 {
-                    var responseData_ = response_.Content == null ? null : await response_.Content.ReadAsStringAsync().ConfigureAwait(false);
-                    throw new ApiException("The HTTP status code of the response was not expected (" + status_ + ").", status_, responseData_, headers_, null);
+                    var responseData = response.Content == null ? null : await response.Content.ReadAsStringAsync().ConfigureAwait(false);
+                    throw new ApiException("The HTTP status code of the response was not expected (" + status + ").", status, responseData, headers, null);
                 }
             }
         }
@@ -3092,36 +3092,36 @@ namespace EosRio.HyperionApi
             if (body == null)
                 throw new ArgumentNullException("body");
     
-            var urlBuilder_ = new StringBuilder(BaseUrl != null ? BaseUrl.TrimEnd('/') : "").Append("/v1/chain/get_currency_balance");
+            var urlBuilder = new StringBuilder(BaseUrl != null ? BaseUrl.TrimEnd('/') : "").Append("/v1/chain/get_currency_balance");
  
-            using (var request_ = new HttpRequestMessage())
+            using (var request = new HttpRequestMessage())
             {
-                var content_ = new StringContent(JsonConvert.SerializeObject(body));
-                content_.Headers.ContentType = MediaTypeHeaderValue.Parse("application/json");
-                request_.Content = content_;
-                request_.Method = new HttpMethod("POST");
+                var content = new StringContent(JsonConvert.SerializeObject(body));
+                content.Headers.ContentType = MediaTypeHeaderValue.Parse("application/json");
+                request.Content = content;
+                request.Method = new HttpMethod("POST");
 
-                var url_ = urlBuilder_.ToString();
-                request_.RequestUri = new Uri(url_, UriKind.RelativeOrAbsolute);
+                var url = urlBuilder.ToString();
+                request.RequestUri = new Uri(url, UriKind.RelativeOrAbsolute);
 
-                var response_ = await _httpClient.SendAsync(request_, HttpCompletionOption.ResponseHeadersRead, cancellationToken).ConfigureAwait(false);
+                var response = await _httpClient.SendAsync(request, HttpCompletionOption.ResponseHeadersRead, cancellationToken).ConfigureAwait(false);
 
-                var headers_ = Enumerable.ToDictionary(response_.Headers, h_ => h_.Key, h_ => h_.Value);
-                if (response_.Content != null && response_.Content.Headers != null)
+                var headers = Enumerable.ToDictionary(response.Headers, h => h.Key, h => h.Value);
+                if (response.Content != null && response.Content.Headers != null)
                 {
-                    foreach (var item_ in response_.Content.Headers)
-                        headers_[item_.Key] = item_.Value;
+                    foreach (var item in response.Content.Headers)
+                        headers[item.Key] = item.Value;
                 }
 
-                var status_ = (int)response_.StatusCode;
-                if (status_ == 200)
+                var status = (int)response.StatusCode;
+                if (status == 200)
                 {
                     return;
                 }
                 else
                 {
-                    var responseData_ = response_.Content == null ? null : await response_.Content.ReadAsStringAsync().ConfigureAwait(false);
-                    throw new ApiException("The HTTP status code of the response was not expected (" + status_ + ").", status_, responseData_, headers_, null);
+                    var responseData = response.Content == null ? null : await response.Content.ReadAsStringAsync().ConfigureAwait(false);
+                    throw new ApiException("The HTTP status code of the response was not expected (" + status + ").", status, responseData, headers, null);
                 }
             }
         }
@@ -3140,34 +3140,34 @@ namespace EosRio.HyperionApi
             if (symbol == null)
                 throw new ArgumentNullException("symbol");
     
-            var urlBuilder_ = new StringBuilder(BaseUrl != null ? BaseUrl.TrimEnd('/') : "").Append("/v1/chain/get_currency_stats?" + Uri.EscapeDataString("code") + "=").Append(Uri.EscapeDataString(ConvertToString(code, CultureInfo.InvariantCulture))).Append("&" + Uri.EscapeDataString("symbol") + "=").Append(Uri.EscapeDataString(ConvertToString(symbol, CultureInfo.InvariantCulture))).Append("&");
-            urlBuilder_.Length--;
+            var urlBuilder = new StringBuilder(BaseUrl != null ? BaseUrl.TrimEnd('/') : "").Append("/v1/chain/get_currency_stats?" + Uri.EscapeDataString("code") + "=").Append(Uri.EscapeDataString(ConvertToString(code, CultureInfo.InvariantCulture))).Append("&" + Uri.EscapeDataString("symbol") + "=").Append(Uri.EscapeDataString(ConvertToString(symbol, CultureInfo.InvariantCulture))).Append("&");
+            urlBuilder.Length--;
  
-            using (var request_ = new HttpRequestMessage())
+            using (var request = new HttpRequestMessage())
             {
-                request_.Method = new HttpMethod("GET");
+                request.Method = new HttpMethod("GET");
 
-                var url_ = urlBuilder_.ToString();
-                request_.RequestUri = new Uri(url_, UriKind.RelativeOrAbsolute);
+                var url = urlBuilder.ToString();
+                request.RequestUri = new Uri(url, UriKind.RelativeOrAbsolute);
 
-                var response_ = await _httpClient.SendAsync(request_, HttpCompletionOption.ResponseHeadersRead, cancellationToken).ConfigureAwait(false);
+                var response = await _httpClient.SendAsync(request, HttpCompletionOption.ResponseHeadersRead, cancellationToken).ConfigureAwait(false);
 
-                var headers_ = Enumerable.ToDictionary(response_.Headers, h_ => h_.Key, h_ => h_.Value);
-                if (response_.Content != null && response_.Content.Headers != null)
+                var headers = Enumerable.ToDictionary(response.Headers, h => h.Key, h => h.Value);
+                if (response.Content != null && response.Content.Headers != null)
                 {
-                    foreach (var item_ in response_.Content.Headers)
-                        headers_[item_.Key] = item_.Value;
+                    foreach (var item in response.Content.Headers)
+                        headers[item.Key] = item.Value;
                 }
 
-                var status_ = (int)response_.StatusCode;
-                if (status_ == 200)
+                var status = (int)response.StatusCode;
+                if (status == 200)
                 {
                     return;
                 }
                 else
                 {
-                    var responseData_ = response_.Content == null ? null : await response_.Content.ReadAsStringAsync().ConfigureAwait(false);
-                    throw new ApiException("The HTTP status code of the response was not expected (" + status_ + ").", status_, responseData_, headers_, null);
+                    var responseData = response.Content == null ? null : await response.Content.ReadAsStringAsync().ConfigureAwait(false);
+                    throw new ApiException("The HTTP status code of the response was not expected (" + status + ").", status, responseData, headers, null);
                 }
             }
         }
@@ -3186,34 +3186,34 @@ namespace EosRio.HyperionApi
             if (symbol == null)
                 throw new ArgumentNullException("symbol");
     
-            var urlBuilder_ = new StringBuilder(BaseUrl != null ? BaseUrl.TrimEnd('/') : "").Append("/v1/chain/get_currency_stats?" + Uri.EscapeDataString("code") + "=").Append(Uri.EscapeDataString(ConvertToString(code, CultureInfo.InvariantCulture))).Append("&" + Uri.EscapeDataString("symbol") + "=").Append(Uri.EscapeDataString(ConvertToString(symbol, CultureInfo.InvariantCulture))).Append("&");
-            urlBuilder_.Length--;
+            var urlBuilder = new StringBuilder(BaseUrl != null ? BaseUrl.TrimEnd('/') : "").Append("/v1/chain/get_currency_stats?" + Uri.EscapeDataString("code") + "=").Append(Uri.EscapeDataString(ConvertToString(code, CultureInfo.InvariantCulture))).Append("&" + Uri.EscapeDataString("symbol") + "=").Append(Uri.EscapeDataString(ConvertToString(symbol, CultureInfo.InvariantCulture))).Append("&");
+            urlBuilder.Length--;
  
-            using (var request_ = new HttpRequestMessage())
+            using (var request = new HttpRequestMessage())
             {
-                request_.Method = new HttpMethod("HEAD");
+                request.Method = new HttpMethod("HEAD");
 
-                var url_ = urlBuilder_.ToString();
-                request_.RequestUri = new Uri(url_, UriKind.RelativeOrAbsolute);
+                var url = urlBuilder.ToString();
+                request.RequestUri = new Uri(url, UriKind.RelativeOrAbsolute);
 
-                var response_ = await _httpClient.SendAsync(request_, HttpCompletionOption.ResponseHeadersRead, cancellationToken).ConfigureAwait(false);
+                var response = await _httpClient.SendAsync(request, HttpCompletionOption.ResponseHeadersRead, cancellationToken).ConfigureAwait(false);
 
-                var headers_ = Enumerable.ToDictionary(response_.Headers, h_ => h_.Key, h_ => h_.Value);
-                if (response_.Content != null && response_.Content.Headers != null)
+                var headers = Enumerable.ToDictionary(response.Headers, h => h.Key, h => h.Value);
+                if (response.Content != null && response.Content.Headers != null)
                 {
-                    foreach (var item_ in response_.Content.Headers)
-                        headers_[item_.Key] = item_.Value;
+                    foreach (var item in response.Content.Headers)
+                        headers[item.Key] = item.Value;
                 }
 
-                var status_ = (int)response_.StatusCode;
-                if (status_ == 200)
+                var status = (int)response.StatusCode;
+                if (status == 200)
                 {
                     return;
                 }
                 else
                 {
-                    var responseData_ = response_.Content == null ? null : await response_.Content.ReadAsStringAsync().ConfigureAwait(false);
-                    throw new ApiException("The HTTP status code of the response was not expected (" + status_ + ").", status_, responseData_, headers_, null);
+                    var responseData = response.Content == null ? null : await response.Content.ReadAsStringAsync().ConfigureAwait(false);
+                    throw new ApiException("The HTTP status code of the response was not expected (" + status + ").", status, responseData, headers, null);
                 }
             }
         }
@@ -3227,36 +3227,36 @@ namespace EosRio.HyperionApi
             if (body == null)
                 throw new ArgumentNullException("body");
     
-            var urlBuilder_ = new StringBuilder(BaseUrl != null ? BaseUrl.TrimEnd('/') : "").Append("/v1/chain/get_currency_stats");
+            var urlBuilder = new StringBuilder(BaseUrl != null ? BaseUrl.TrimEnd('/') : "").Append("/v1/chain/get_currency_stats");
  
-            using (var request_ = new HttpRequestMessage())
+            using (var request = new HttpRequestMessage())
             {
-                var content_ = new StringContent(JsonConvert.SerializeObject(body));
-                content_.Headers.ContentType = MediaTypeHeaderValue.Parse("application/json");
-                request_.Content = content_;
-                request_.Method = new HttpMethod("POST");
+                var content = new StringContent(JsonConvert.SerializeObject(body));
+                content.Headers.ContentType = MediaTypeHeaderValue.Parse("application/json");
+                request.Content = content;
+                request.Method = new HttpMethod("POST");
 
-                var url_ = urlBuilder_.ToString();
-                request_.RequestUri = new Uri(url_, UriKind.RelativeOrAbsolute);
+                var url = urlBuilder.ToString();
+                request.RequestUri = new Uri(url, UriKind.RelativeOrAbsolute);
 
-                var response_ = await _httpClient.SendAsync(request_, HttpCompletionOption.ResponseHeadersRead, cancellationToken).ConfigureAwait(false);
+                var response = await _httpClient.SendAsync(request, HttpCompletionOption.ResponseHeadersRead, cancellationToken).ConfigureAwait(false);
 
-                var headers_ = Enumerable.ToDictionary(response_.Headers, h_ => h_.Key, h_ => h_.Value);
-                if (response_.Content != null && response_.Content.Headers != null)
+                var headers = Enumerable.ToDictionary(response.Headers, h => h.Key, h => h.Value);
+                if (response.Content != null && response.Content.Headers != null)
                 {
-                    foreach (var item_ in response_.Content.Headers)
-                        headers_[item_.Key] = item_.Value;
+                    foreach (var item in response.Content.Headers)
+                        headers[item.Key] = item.Value;
                 }
 
-                var status_ = (int)response_.StatusCode;
-                if (status_ == 200)
+                var status = (int)response.StatusCode;
+                if (status == 200)
                 {
                     return;
                 }
                 else
                 {
-                    var responseData_ = response_.Content == null ? null : await response_.Content.ReadAsStringAsync().ConfigureAwait(false);
-                    throw new ApiException("The HTTP status code of the response was not expected (" + status_ + ").", status_, responseData_, headers_, null);
+                    var responseData = response.Content == null ? null : await response.Content.ReadAsStringAsync().ConfigureAwait(false);
+                    throw new ApiException("The HTTP status code of the response was not expected (" + status + ").", status, responseData, headers, null);
                 }
             }
         }
@@ -3267,33 +3267,33 @@ namespace EosRio.HyperionApi
         /// <exception cref="ApiException">A server side error occurred.</exception>
         public async Task Get_infoGetAsync(CancellationToken cancellationToken = default)
         {
-            var urlBuilder_ = new StringBuilder(BaseUrl != null ? BaseUrl.TrimEnd('/') : "").Append("/v1/chain/get_info");
+            var urlBuilder = new StringBuilder(BaseUrl != null ? BaseUrl.TrimEnd('/') : "").Append("/v1/chain/get_info");
  
-            using (var request_ = new HttpRequestMessage())
+            using (var request = new HttpRequestMessage())
             {
-                request_.Method = new HttpMethod("GET");
+                request.Method = new HttpMethod("GET");
 
-                var url_ = urlBuilder_.ToString();
-                request_.RequestUri = new Uri(url_, UriKind.RelativeOrAbsolute);
+                var url = urlBuilder.ToString();
+                request.RequestUri = new Uri(url, UriKind.RelativeOrAbsolute);
 
-                var response_ = await _httpClient.SendAsync(request_, HttpCompletionOption.ResponseHeadersRead, cancellationToken).ConfigureAwait(false);
+                var response = await _httpClient.SendAsync(request, HttpCompletionOption.ResponseHeadersRead, cancellationToken).ConfigureAwait(false);
 
-                var headers_ = Enumerable.ToDictionary(response_.Headers, h_ => h_.Key, h_ => h_.Value);
-                if (response_.Content != null && response_.Content.Headers != null)
+                var headers = Enumerable.ToDictionary(response.Headers, h => h.Key, h => h.Value);
+                if (response.Content != null && response.Content.Headers != null)
                 {
-                    foreach (var item_ in response_.Content.Headers)
-                        headers_[item_.Key] = item_.Value;
+                    foreach (var item in response.Content.Headers)
+                        headers[item.Key] = item.Value;
                 }
 
-                var status_ = (int)response_.StatusCode;
-                if (status_ == 200)
+                var status = (int)response.StatusCode;
+                if (status == 200)
                 {
                     return;
                 }
                 else
                 {
-                    var responseData_ = response_.Content == null ? null : await response_.Content.ReadAsStringAsync().ConfigureAwait(false);
-                    throw new ApiException("The HTTP status code of the response was not expected (" + status_ + ").", status_, responseData_, headers_, null);
+                    var responseData = response.Content == null ? null : await response.Content.ReadAsStringAsync().ConfigureAwait(false);
+                    throw new ApiException("The HTTP status code of the response was not expected (" + status + ").", status, responseData, headers, null);
                 }
             }
         }
@@ -3304,33 +3304,33 @@ namespace EosRio.HyperionApi
         /// <exception cref="ApiException">A server side error occurred.</exception>
         public async Task Get_infoHeadAsync(CancellationToken cancellationToken = default)
         {
-            var urlBuilder_ = new StringBuilder(BaseUrl != null ? BaseUrl.TrimEnd('/') : "").Append("/v1/chain/get_info");
+            var urlBuilder = new StringBuilder(BaseUrl != null ? BaseUrl.TrimEnd('/') : "").Append("/v1/chain/get_info");
  
-            using (var request_ = new HttpRequestMessage())
+            using (var request = new HttpRequestMessage())
             {
-                request_.Method = new HttpMethod("HEAD");
+                request.Method = new HttpMethod("HEAD");
 
-                var url_ = urlBuilder_.ToString();
-                request_.RequestUri = new Uri(url_, UriKind.RelativeOrAbsolute);
+                var url = urlBuilder.ToString();
+                request.RequestUri = new Uri(url, UriKind.RelativeOrAbsolute);
 
-                var response_ = await _httpClient.SendAsync(request_, HttpCompletionOption.ResponseHeadersRead, cancellationToken).ConfigureAwait(false);
+                var response = await _httpClient.SendAsync(request, HttpCompletionOption.ResponseHeadersRead, cancellationToken).ConfigureAwait(false);
 
-                var headers_ = Enumerable.ToDictionary(response_.Headers, h_ => h_.Key, h_ => h_.Value);
-                if (response_.Content != null && response_.Content.Headers != null)
+                var headers = Enumerable.ToDictionary(response.Headers, h => h.Key, h => h.Value);
+                if (response.Content != null && response.Content.Headers != null)
                 {
-                    foreach (var item_ in response_.Content.Headers)
-                        headers_[item_.Key] = item_.Value;
+                    foreach (var item in response.Content.Headers)
+                        headers[item.Key] = item.Value;
                 }
 
-                var status_ = (int)response_.StatusCode;
-                if (status_ == 200)
+                var status = (int)response.StatusCode;
+                if (status == 200)
                 {
                     return;
                 }
                 else
                 {
-                    var responseData_ = response_.Content == null ? null : await response_.Content.ReadAsStringAsync().ConfigureAwait(false);
-                    throw new ApiException("The HTTP status code of the response was not expected (" + status_ + ").", status_, responseData_, headers_, null);
+                    var responseData = response.Content == null ? null : await response.Content.ReadAsStringAsync().ConfigureAwait(false);
+                    throw new ApiException("The HTTP status code of the response was not expected (" + status + ").", status, responseData, headers, null);
                 }
             }
         }
@@ -3341,34 +3341,34 @@ namespace EosRio.HyperionApi
         /// <exception cref="ApiException">A server side error occurred.</exception>
         public async Task Get_infoPostAsync(CancellationToken cancellationToken = default)
         {
-            var urlBuilder_ = new StringBuilder(BaseUrl != null ? BaseUrl.TrimEnd('/') : "").Append("/v1/chain/get_info");
+            var urlBuilder = new StringBuilder(BaseUrl != null ? BaseUrl.TrimEnd('/') : "").Append("/v1/chain/get_info");
  
-            using (var request_ = new HttpRequestMessage())
+            using (var request = new HttpRequestMessage())
             {
-                request_.Content = new StringContent(string.Empty, Encoding.UTF8, "application/json");
-                request_.Method = new HttpMethod("POST");
+                request.Content = new StringContent(string.Empty, Encoding.UTF8, "application/json");
+                request.Method = new HttpMethod("POST");
 
-                var url_ = urlBuilder_.ToString();
-                request_.RequestUri = new Uri(url_, UriKind.RelativeOrAbsolute);
+                var url = urlBuilder.ToString();
+                request.RequestUri = new Uri(url, UriKind.RelativeOrAbsolute);
 
-                var response_ = await _httpClient.SendAsync(request_, HttpCompletionOption.ResponseHeadersRead, cancellationToken).ConfigureAwait(false);
+                var response = await _httpClient.SendAsync(request, HttpCompletionOption.ResponseHeadersRead, cancellationToken).ConfigureAwait(false);
 
-                var headers_ = Enumerable.ToDictionary(response_.Headers, h_ => h_.Key, h_ => h_.Value);
-                if (response_.Content != null && response_.Content.Headers != null)
+                var headers = Enumerable.ToDictionary(response.Headers, h => h.Key, h => h.Value);
+                if (response.Content != null && response.Content.Headers != null)
                 {
-                    foreach (var item_ in response_.Content.Headers)
-                        headers_[item_.Key] = item_.Value;
+                    foreach (var item in response.Content.Headers)
+                        headers[item.Key] = item.Value;
                 }
 
-                var status_ = (int)response_.StatusCode;
-                if (status_ == 200)
+                var status = (int)response.StatusCode;
+                if (status == 200)
                 {
                     return;
                 }
                 else
                 {
-                    var responseData_ = response_.Content == null ? null : await response_.Content.ReadAsStringAsync().ConfigureAwait(false);
-                    throw new ApiException("The HTTP status code of the response was not expected (" + status_ + ").", status_, responseData_, headers_, null);
+                    var responseData = response.Content == null ? null : await response.Content.ReadAsStringAsync().ConfigureAwait(false);
+                    throw new ApiException("The HTTP status code of the response was not expected (" + status + ").", status, responseData, headers, null);
                 }
             }
         }
@@ -3380,48 +3380,48 @@ namespace EosRio.HyperionApi
         /// <param name="json">return result in JSON format</param>
         /// <returns>Default Response</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public async Task Get_producersGetAsync(string limit = null, string lower_bound = null, bool? json = null, CancellationToken cancellationToken = default)
+        public async Task Get_producersGetAsync(string limit = null, string lowerBound = null, bool? json = null, CancellationToken cancellationToken = default)
         {
-            var urlBuilder_ = new StringBuilder(BaseUrl != null ? BaseUrl.TrimEnd('/') : "").Append("/v1/chain/get_producers?");
+            var urlBuilder = new StringBuilder(BaseUrl != null ? BaseUrl.TrimEnd('/') : "").Append("/v1/chain/get_producers?");
             if (limit != null)
             {
-                urlBuilder_.Append(Uri.EscapeDataString("limit") + "=").Append(Uri.EscapeDataString(ConvertToString(limit, CultureInfo.InvariantCulture))).Append("&");
+                urlBuilder.Append(Uri.EscapeDataString("limit") + "=").Append(Uri.EscapeDataString(ConvertToString(limit, CultureInfo.InvariantCulture))).Append("&");
             }
-            if (lower_bound != null)
+            if (lowerBound != null)
             {
-                urlBuilder_.Append(Uri.EscapeDataString("lower_bound") + "=").Append(Uri.EscapeDataString(ConvertToString(lower_bound, CultureInfo.InvariantCulture))).Append("&");
+                urlBuilder.Append(Uri.EscapeDataString("lower_bound") + "=").Append(Uri.EscapeDataString(ConvertToString(lowerBound, CultureInfo.InvariantCulture))).Append("&");
             }
             if (json != null)
             {
-                urlBuilder_.Append(Uri.EscapeDataString("json") + "=").Append(Uri.EscapeDataString(ConvertToString(json, CultureInfo.InvariantCulture))).Append("&");
+                urlBuilder.Append(Uri.EscapeDataString("json") + "=").Append(Uri.EscapeDataString(ConvertToString(json, CultureInfo.InvariantCulture))).Append("&");
             }
-            urlBuilder_.Length--;
+            urlBuilder.Length--;
  
-            using (var request_ = new HttpRequestMessage())
+            using (var request = new HttpRequestMessage())
             {
-                request_.Method = new HttpMethod("GET");
+                request.Method = new HttpMethod("GET");
 
-                var url_ = urlBuilder_.ToString();
-                request_.RequestUri = new Uri(url_, UriKind.RelativeOrAbsolute);
+                var url = urlBuilder.ToString();
+                request.RequestUri = new Uri(url, UriKind.RelativeOrAbsolute);
 
-                var response_ = await _httpClient.SendAsync(request_, HttpCompletionOption.ResponseHeadersRead, cancellationToken).ConfigureAwait(false);
+                var response = await _httpClient.SendAsync(request, HttpCompletionOption.ResponseHeadersRead, cancellationToken).ConfigureAwait(false);
 
-                var headers_ = Enumerable.ToDictionary(response_.Headers, h_ => h_.Key, h_ => h_.Value);
-                if (response_.Content != null && response_.Content.Headers != null)
+                var headers = Enumerable.ToDictionary(response.Headers, h => h.Key, h => h.Value);
+                if (response.Content != null && response.Content.Headers != null)
                 {
-                    foreach (var item_ in response_.Content.Headers)
-                        headers_[item_.Key] = item_.Value;
+                    foreach (var item in response.Content.Headers)
+                        headers[item.Key] = item.Value;
                 }
 
-                var status_ = (int)response_.StatusCode;
-                if (status_ == 200)
+                var status = (int)response.StatusCode;
+                if (status == 200)
                 {
                     return;
                 }
                 else
                 {
-                    var responseData_ = response_.Content == null ? null : await response_.Content.ReadAsStringAsync().ConfigureAwait(false);
-                    throw new ApiException("The HTTP status code of the response was not expected (" + status_ + ").", status_, responseData_, headers_, null);
+                    var responseData = response.Content == null ? null : await response.Content.ReadAsStringAsync().ConfigureAwait(false);
+                    throw new ApiException("The HTTP status code of the response was not expected (" + status + ").", status, responseData, headers, null);
                 }
             }
         }
@@ -3433,48 +3433,48 @@ namespace EosRio.HyperionApi
         /// <param name="json">return result in JSON format</param>
         /// <returns>Default Response</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public async Task Get_producersHeadAsync(string limit = null, string lower_bound = null, bool? json = null, CancellationToken cancellationToken = default)
+        public async Task Get_producersHeadAsync(string limit = null, string lowerBound = null, bool? json = null, CancellationToken cancellationToken = default)
         {
-            var urlBuilder_ = new StringBuilder(BaseUrl != null ? BaseUrl.TrimEnd('/') : "").Append("/v1/chain/get_producers?");
+            var urlBuilder = new StringBuilder(BaseUrl != null ? BaseUrl.TrimEnd('/') : "").Append("/v1/chain/get_producers?");
             if (limit != null)
             {
-                urlBuilder_.Append(Uri.EscapeDataString("limit") + "=").Append(Uri.EscapeDataString(ConvertToString(limit, CultureInfo.InvariantCulture))).Append("&");
+                urlBuilder.Append(Uri.EscapeDataString("limit") + "=").Append(Uri.EscapeDataString(ConvertToString(limit, CultureInfo.InvariantCulture))).Append("&");
             }
-            if (lower_bound != null)
+            if (lowerBound != null)
             {
-                urlBuilder_.Append(Uri.EscapeDataString("lower_bound") + "=").Append(Uri.EscapeDataString(ConvertToString(lower_bound, CultureInfo.InvariantCulture))).Append("&");
+                urlBuilder.Append(Uri.EscapeDataString("lower_bound") + "=").Append(Uri.EscapeDataString(ConvertToString(lowerBound, CultureInfo.InvariantCulture))).Append("&");
             }
             if (json != null)
             {
-                urlBuilder_.Append(Uri.EscapeDataString("json") + "=").Append(Uri.EscapeDataString(ConvertToString(json, CultureInfo.InvariantCulture))).Append("&");
+                urlBuilder.Append(Uri.EscapeDataString("json") + "=").Append(Uri.EscapeDataString(ConvertToString(json, CultureInfo.InvariantCulture))).Append("&");
             }
-            urlBuilder_.Length--;
+            urlBuilder.Length--;
  
-            using (var request_ = new HttpRequestMessage())
+            using (var request = new HttpRequestMessage())
             {
-                request_.Method = new HttpMethod("HEAD");
+                request.Method = new HttpMethod("HEAD");
 
-                var url_ = urlBuilder_.ToString();
-                request_.RequestUri = new Uri(url_, UriKind.RelativeOrAbsolute);
+                var url = urlBuilder.ToString();
+                request.RequestUri = new Uri(url, UriKind.RelativeOrAbsolute);
 
-                var response_ = await _httpClient.SendAsync(request_, HttpCompletionOption.ResponseHeadersRead, cancellationToken).ConfigureAwait(false);
+                var response = await _httpClient.SendAsync(request, HttpCompletionOption.ResponseHeadersRead, cancellationToken).ConfigureAwait(false);
 
-                var headers_ = Enumerable.ToDictionary(response_.Headers, h_ => h_.Key, h_ => h_.Value);
-                if (response_.Content != null && response_.Content.Headers != null)
+                var headers = Enumerable.ToDictionary(response.Headers, h => h.Key, h => h.Value);
+                if (response.Content != null && response.Content.Headers != null)
                 {
-                    foreach (var item_ in response_.Content.Headers)
-                        headers_[item_.Key] = item_.Value;
+                    foreach (var item in response.Content.Headers)
+                        headers[item.Key] = item.Value;
                 }
 
-                var status_ = (int)response_.StatusCode;
-                if (status_ == 200)
+                var status = (int)response.StatusCode;
+                if (status == 200)
                 {
                     return;
                 }
                 else
                 {
-                    var responseData_ = response_.Content == null ? null : await response_.Content.ReadAsStringAsync().ConfigureAwait(false);
-                    throw new ApiException("The HTTP status code of the response was not expected (" + status_ + ").", status_, responseData_, headers_, null);
+                    var responseData = response.Content == null ? null : await response.Content.ReadAsStringAsync().ConfigureAwait(false);
+                    throw new ApiException("The HTTP status code of the response was not expected (" + status + ").", status, responseData, headers, null);
                 }
             }
         }
@@ -3485,36 +3485,36 @@ namespace EosRio.HyperionApi
         /// <exception cref="ApiException">A server side error occurred.</exception>
         public async Task Get_producersPostAsync(object body = null, CancellationToken cancellationToken = default)
         {
-            var urlBuilder_ = new StringBuilder(BaseUrl != null ? BaseUrl.TrimEnd('/') : "").Append("/v1/chain/get_producers");
+            var urlBuilder = new StringBuilder(BaseUrl != null ? BaseUrl.TrimEnd('/') : "").Append("/v1/chain/get_producers");
  
-            using (var request_ = new HttpRequestMessage())
+            using (var request = new HttpRequestMessage())
             {
-                var content_ = new StringContent(JsonConvert.SerializeObject(body));
-                content_.Headers.ContentType = MediaTypeHeaderValue.Parse("application/json");
-                request_.Content = content_;
-                request_.Method = new HttpMethod("POST");
+                var content = new StringContent(JsonConvert.SerializeObject(body));
+                content.Headers.ContentType = MediaTypeHeaderValue.Parse("application/json");
+                request.Content = content;
+                request.Method = new HttpMethod("POST");
 
-                var url_ = urlBuilder_.ToString();
-                request_.RequestUri = new Uri(url_, UriKind.RelativeOrAbsolute);
+                var url = urlBuilder.ToString();
+                request.RequestUri = new Uri(url, UriKind.RelativeOrAbsolute);
 
-                var response_ = await _httpClient.SendAsync(request_, HttpCompletionOption.ResponseHeadersRead, cancellationToken).ConfigureAwait(false);
+                var response = await _httpClient.SendAsync(request, HttpCompletionOption.ResponseHeadersRead, cancellationToken).ConfigureAwait(false);
 
-                var headers_ = Enumerable.ToDictionary(response_.Headers, h_ => h_.Key, h_ => h_.Value);
-                if (response_.Content != null && response_.Content.Headers != null)
+                var headers = Enumerable.ToDictionary(response.Headers, h => h.Key, h => h.Value);
+                if (response.Content != null && response.Content.Headers != null)
                 {
-                    foreach (var item_ in response_.Content.Headers)
-                        headers_[item_.Key] = item_.Value;
+                    foreach (var item in response.Content.Headers)
+                        headers[item.Key] = item.Value;
                 }
 
-                var status_ = (int)response_.StatusCode;
-                if (status_ == 200)
+                var status = (int)response.StatusCode;
+                if (status == 200)
                 {
                     return;
                 }
                 else
                 {
-                    var responseData_ = response_.Content == null ? null : await response_.Content.ReadAsStringAsync().ConfigureAwait(false);
-                    throw new ApiException("The HTTP status code of the response was not expected (" + status_ + ").", status_, responseData_, headers_, null);
+                    var responseData = response.Content == null ? null : await response.Content.ReadAsStringAsync().ConfigureAwait(false);
+                    throw new ApiException("The HTTP status code of the response was not expected (" + status + ").", status, responseData, headers, null);
                 }
             }
         }
@@ -3523,39 +3523,39 @@ namespace EosRio.HyperionApi
         /// <summary>Retrieves raw ABI for a contract based on account name</summary>
         /// <returns>Default Response</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public async Task Get_raw_abiGetAsync(Name account_name, CancellationToken cancellationToken = default)
+        public async Task Get_raw_abiGetAsync(Name accountName, CancellationToken cancellationToken = default)
         {
-            if (account_name == null)
-                throw new ArgumentNullException("account_name");
+            if (accountName == null)
+                throw new ArgumentNullException("accountName");
     
-            var urlBuilder_ = new StringBuilder(BaseUrl != null ? BaseUrl.TrimEnd('/') : "").Append("/v1/chain/get_raw_abi?" + Uri.EscapeDataString("account_name") + "=").Append(Uri.EscapeDataString(ConvertToString(account_name, CultureInfo.InvariantCulture))).Append("&");
-            urlBuilder_.Length--;
+            var urlBuilder = new StringBuilder(BaseUrl != null ? BaseUrl.TrimEnd('/') : "").Append("/v1/chain/get_raw_abi?" + Uri.EscapeDataString("account_name") + "=").Append(Uri.EscapeDataString(ConvertToString(accountName, CultureInfo.InvariantCulture))).Append("&");
+            urlBuilder.Length--;
  
-            using (var request_ = new HttpRequestMessage())
+            using (var request = new HttpRequestMessage())
             {
-                request_.Method = new HttpMethod("GET");
+                request.Method = new HttpMethod("GET");
 
-                var url_ = urlBuilder_.ToString();
-                request_.RequestUri = new Uri(url_, UriKind.RelativeOrAbsolute);
+                var url = urlBuilder.ToString();
+                request.RequestUri = new Uri(url, UriKind.RelativeOrAbsolute);
 
-                var response_ = await _httpClient.SendAsync(request_, HttpCompletionOption.ResponseHeadersRead, cancellationToken).ConfigureAwait(false);
+                var response = await _httpClient.SendAsync(request, HttpCompletionOption.ResponseHeadersRead, cancellationToken).ConfigureAwait(false);
 
-                var headers_ = Enumerable.ToDictionary(response_.Headers, h_ => h_.Key, h_ => h_.Value);
-                if (response_.Content != null && response_.Content.Headers != null)
+                var headers = Enumerable.ToDictionary(response.Headers, h => h.Key, h => h.Value);
+                if (response.Content != null && response.Content.Headers != null)
                 {
-                    foreach (var item_ in response_.Content.Headers)
-                        headers_[item_.Key] = item_.Value;
+                    foreach (var item in response.Content.Headers)
+                        headers[item.Key] = item.Value;
                 }
 
-                var status_ = (int)response_.StatusCode;
-                if (status_ == 200)
+                var status = (int)response.StatusCode;
+                if (status == 200)
                 {
                     return;
                 }
                 else
                 {
-                    var responseData_ = response_.Content == null ? null : await response_.Content.ReadAsStringAsync().ConfigureAwait(false);
-                    throw new ApiException("The HTTP status code of the response was not expected (" + status_ + ").", status_, responseData_, headers_, null);
+                    var responseData = response.Content == null ? null : await response.Content.ReadAsStringAsync().ConfigureAwait(false);
+                    throw new ApiException("The HTTP status code of the response was not expected (" + status + ").", status, responseData, headers, null);
                 }
             }
         }
@@ -3564,39 +3564,39 @@ namespace EosRio.HyperionApi
         /// <summary>Retrieves raw ABI for a contract based on account name</summary>
         /// <returns>Default Response</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public async Task Get_raw_abiHeadAsync(Name account_name, CancellationToken cancellationToken = default)
+        public async Task Get_raw_abiHeadAsync(Name accountName, CancellationToken cancellationToken = default)
         {
-            if (account_name == null)
-                throw new ArgumentNullException("account_name");
+            if (accountName == null)
+                throw new ArgumentNullException("accountName");
     
-            var urlBuilder_ = new StringBuilder(BaseUrl != null ? BaseUrl.TrimEnd('/') : "").Append("/v1/chain/get_raw_abi?" + Uri.EscapeDataString("account_name") + "=").Append(Uri.EscapeDataString(ConvertToString(account_name, CultureInfo.InvariantCulture))).Append("&");
-            urlBuilder_.Length--;
+            var urlBuilder = new StringBuilder(BaseUrl != null ? BaseUrl.TrimEnd('/') : "").Append("/v1/chain/get_raw_abi?" + Uri.EscapeDataString("account_name") + "=").Append(Uri.EscapeDataString(ConvertToString(accountName, CultureInfo.InvariantCulture))).Append("&");
+            urlBuilder.Length--;
  
-            using (var request_ = new HttpRequestMessage())
+            using (var request = new HttpRequestMessage())
             {
-                request_.Method = new HttpMethod("HEAD");
+                request.Method = new HttpMethod("HEAD");
 
-                var url_ = urlBuilder_.ToString();
-                request_.RequestUri = new Uri(url_, UriKind.RelativeOrAbsolute);
+                var url = urlBuilder.ToString();
+                request.RequestUri = new Uri(url, UriKind.RelativeOrAbsolute);
 
-                var response_ = await _httpClient.SendAsync(request_, HttpCompletionOption.ResponseHeadersRead, cancellationToken).ConfigureAwait(false);
+                var response = await _httpClient.SendAsync(request, HttpCompletionOption.ResponseHeadersRead, cancellationToken).ConfigureAwait(false);
 
-                var headers_ = Enumerable.ToDictionary(response_.Headers, h_ => h_.Key, h_ => h_.Value);
-                if (response_.Content != null && response_.Content.Headers != null)
+                var headers = Enumerable.ToDictionary(response.Headers, h => h.Key, h => h.Value);
+                if (response.Content != null && response.Content.Headers != null)
                 {
-                    foreach (var item_ in response_.Content.Headers)
-                        headers_[item_.Key] = item_.Value;
+                    foreach (var item in response.Content.Headers)
+                        headers[item.Key] = item.Value;
                 }
 
-                var status_ = (int)response_.StatusCode;
-                if (status_ == 200)
+                var status = (int)response.StatusCode;
+                if (status == 200)
                 {
                     return;
                 }
                 else
                 {
-                    var responseData_ = response_.Content == null ? null : await response_.Content.ReadAsStringAsync().ConfigureAwait(false);
-                    throw new ApiException("The HTTP status code of the response was not expected (" + status_ + ").", status_, responseData_, headers_, null);
+                    var responseData = response.Content == null ? null : await response.Content.ReadAsStringAsync().ConfigureAwait(false);
+                    throw new ApiException("The HTTP status code of the response was not expected (" + status + ").", status, responseData, headers, null);
                 }
             }
         }
@@ -3610,36 +3610,36 @@ namespace EosRio.HyperionApi
             if (body == null)
                 throw new ArgumentNullException("body");
     
-            var urlBuilder_ = new StringBuilder(BaseUrl != null ? BaseUrl.TrimEnd('/') : "").Append("/v1/chain/get_raw_abi");
+            var urlBuilder = new StringBuilder(BaseUrl != null ? BaseUrl.TrimEnd('/') : "").Append("/v1/chain/get_raw_abi");
  
-            using (var request_ = new HttpRequestMessage())
+            using (var request = new HttpRequestMessage())
             {
-                var content_ = new StringContent(JsonConvert.SerializeObject(body));
-                content_.Headers.ContentType = MediaTypeHeaderValue.Parse("application/json");
-                request_.Content = content_;
-                request_.Method = new HttpMethod("POST");
+                var content = new StringContent(JsonConvert.SerializeObject(body));
+                content.Headers.ContentType = MediaTypeHeaderValue.Parse("application/json");
+                request.Content = content;
+                request.Method = new HttpMethod("POST");
 
-                var url_ = urlBuilder_.ToString();
-                request_.RequestUri = new Uri(url_, UriKind.RelativeOrAbsolute);
+                var url = urlBuilder.ToString();
+                request.RequestUri = new Uri(url, UriKind.RelativeOrAbsolute);
 
-                var response_ = await _httpClient.SendAsync(request_, HttpCompletionOption.ResponseHeadersRead, cancellationToken).ConfigureAwait(false);
+                var response = await _httpClient.SendAsync(request, HttpCompletionOption.ResponseHeadersRead, cancellationToken).ConfigureAwait(false);
 
-                var headers_ = Enumerable.ToDictionary(response_.Headers, h_ => h_.Key, h_ => h_.Value);
-                if (response_.Content != null && response_.Content.Headers != null)
+                var headers = Enumerable.ToDictionary(response.Headers, h => h.Key, h => h.Value);
+                if (response.Content != null && response.Content.Headers != null)
                 {
-                    foreach (var item_ in response_.Content.Headers)
-                        headers_[item_.Key] = item_.Value;
+                    foreach (var item in response.Content.Headers)
+                        headers[item.Key] = item.Value;
                 }
 
-                var status_ = (int)response_.StatusCode;
-                if (status_ == 200)
+                var status = (int)response.StatusCode;
+                if (status == 200)
                 {
                     return;
                 }
                 else
                 {
-                    var responseData_ = response_.Content == null ? null : await response_.Content.ReadAsStringAsync().ConfigureAwait(false);
-                    throw new ApiException("The HTTP status code of the response was not expected (" + status_ + ").", status_, responseData_, headers_, null);
+                    var responseData = response.Content == null ? null : await response.Content.ReadAsStringAsync().ConfigureAwait(false);
+                    throw new ApiException("The HTTP status code of the response was not expected (" + status + ").", status, responseData, headers, null);
                 }
             }
         }
@@ -3648,39 +3648,39 @@ namespace EosRio.HyperionApi
         /// <summary>Retrieves raw code and ABI for a contract based on account name</summary>
         /// <returns>Default Response</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public async Task Get_raw_code_and_abiGetAsync(Name account_name, CancellationToken cancellationToken = default)
+        public async Task Get_raw_code_and_abiGetAsync(Name accountName, CancellationToken cancellationToken = default)
         {
-            if (account_name == null)
-                throw new ArgumentNullException("account_name");
+            if (accountName == null)
+                throw new ArgumentNullException("accountName");
     
-            var urlBuilder_ = new StringBuilder(BaseUrl != null ? BaseUrl.TrimEnd('/') : "").Append("/v1/chain/get_raw_code_and_abi?" + Uri.EscapeDataString("account_name") + "=").Append(Uri.EscapeDataString(ConvertToString(account_name, CultureInfo.InvariantCulture))).Append("&");
-            urlBuilder_.Length--;
+            var urlBuilder = new StringBuilder(BaseUrl != null ? BaseUrl.TrimEnd('/') : "").Append("/v1/chain/get_raw_code_and_abi?" + Uri.EscapeDataString("account_name") + "=").Append(Uri.EscapeDataString(ConvertToString(accountName, CultureInfo.InvariantCulture))).Append("&");
+            urlBuilder.Length--;
  
-            using (var request_ = new HttpRequestMessage())
+            using (var request = new HttpRequestMessage())
             {
-                request_.Method = new HttpMethod("GET");
+                request.Method = new HttpMethod("GET");
 
-                var url_ = urlBuilder_.ToString();
-                request_.RequestUri = new Uri(url_, UriKind.RelativeOrAbsolute);
+                var url = urlBuilder.ToString();
+                request.RequestUri = new Uri(url, UriKind.RelativeOrAbsolute);
 
-                var response_ = await _httpClient.SendAsync(request_, HttpCompletionOption.ResponseHeadersRead, cancellationToken).ConfigureAwait(false);
+                var response = await _httpClient.SendAsync(request, HttpCompletionOption.ResponseHeadersRead, cancellationToken).ConfigureAwait(false);
 
-                var headers_ = Enumerable.ToDictionary(response_.Headers, h_ => h_.Key, h_ => h_.Value);
-                if (response_.Content != null && response_.Content.Headers != null)
+                var headers = Enumerable.ToDictionary(response.Headers, h => h.Key, h => h.Value);
+                if (response.Content != null && response.Content.Headers != null)
                 {
-                    foreach (var item_ in response_.Content.Headers)
-                        headers_[item_.Key] = item_.Value;
+                    foreach (var item in response.Content.Headers)
+                        headers[item.Key] = item.Value;
                 }
 
-                var status_ = (int)response_.StatusCode;
-                if (status_ == 200)
+                var status = (int)response.StatusCode;
+                if (status == 200)
                 {
                     return;
                 }
                 else
                 {
-                    var responseData_ = response_.Content == null ? null : await response_.Content.ReadAsStringAsync().ConfigureAwait(false);
-                    throw new ApiException("The HTTP status code of the response was not expected (" + status_ + ").", status_, responseData_, headers_, null);
+                    var responseData = response.Content == null ? null : await response.Content.ReadAsStringAsync().ConfigureAwait(false);
+                    throw new ApiException("The HTTP status code of the response was not expected (" + status + ").", status, responseData, headers, null);
                 }
             }
         }
@@ -3689,39 +3689,39 @@ namespace EosRio.HyperionApi
         /// <summary>Retrieves raw code and ABI for a contract based on account name</summary>
         /// <returns>Default Response</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public async Task Get_raw_code_and_abiHeadAsync(Name account_name, CancellationToken cancellationToken = default)
+        public async Task Get_raw_code_and_abiHeadAsync(Name accountName, CancellationToken cancellationToken = default)
         {
-            if (account_name == null)
-                throw new ArgumentNullException("account_name");
+            if (accountName == null)
+                throw new ArgumentNullException("accountName");
     
-            var urlBuilder_ = new StringBuilder(BaseUrl != null ? BaseUrl.TrimEnd('/') : "").Append("/v1/chain/get_raw_code_and_abi?" + Uri.EscapeDataString("account_name") + "=").Append(Uri.EscapeDataString(ConvertToString(account_name, CultureInfo.InvariantCulture))).Append("&");
-            urlBuilder_.Length--;
+            var urlBuilder = new StringBuilder(BaseUrl != null ? BaseUrl.TrimEnd('/') : "").Append("/v1/chain/get_raw_code_and_abi?" + Uri.EscapeDataString("account_name") + "=").Append(Uri.EscapeDataString(ConvertToString(accountName, CultureInfo.InvariantCulture))).Append("&");
+            urlBuilder.Length--;
  
-            using (var request_ = new HttpRequestMessage())
+            using (var request = new HttpRequestMessage())
             {
-                request_.Method = new HttpMethod("HEAD");
+                request.Method = new HttpMethod("HEAD");
 
-                var url_ = urlBuilder_.ToString();
-                request_.RequestUri = new Uri(url_, UriKind.RelativeOrAbsolute);
+                var url = urlBuilder.ToString();
+                request.RequestUri = new Uri(url, UriKind.RelativeOrAbsolute);
 
-                var response_ = await _httpClient.SendAsync(request_, HttpCompletionOption.ResponseHeadersRead, cancellationToken).ConfigureAwait(false);
+                var response = await _httpClient.SendAsync(request, HttpCompletionOption.ResponseHeadersRead, cancellationToken).ConfigureAwait(false);
 
-                var headers_ = Enumerable.ToDictionary(response_.Headers, h_ => h_.Key, h_ => h_.Value);
-                if (response_.Content != null && response_.Content.Headers != null)
+                var headers = Enumerable.ToDictionary(response.Headers, h => h.Key, h => h.Value);
+                if (response.Content != null && response.Content.Headers != null)
                 {
-                    foreach (var item_ in response_.Content.Headers)
-                        headers_[item_.Key] = item_.Value;
+                    foreach (var item in response.Content.Headers)
+                        headers[item.Key] = item.Value;
                 }
 
-                var status_ = (int)response_.StatusCode;
-                if (status_ == 200)
+                var status = (int)response.StatusCode;
+                if (status == 200)
                 {
                     return;
                 }
                 else
                 {
-                    var responseData_ = response_.Content == null ? null : await response_.Content.ReadAsStringAsync().ConfigureAwait(false);
-                    throw new ApiException("The HTTP status code of the response was not expected (" + status_ + ").", status_, responseData_, headers_, null);
+                    var responseData = response.Content == null ? null : await response.Content.ReadAsStringAsync().ConfigureAwait(false);
+                    throw new ApiException("The HTTP status code of the response was not expected (" + status + ").", status, responseData, headers, null);
                 }
             }
         }
@@ -3735,36 +3735,36 @@ namespace EosRio.HyperionApi
             if (body == null)
                 throw new ArgumentNullException("body");
     
-            var urlBuilder_ = new StringBuilder(BaseUrl != null ? BaseUrl.TrimEnd('/') : "").Append("/v1/chain/get_raw_code_and_abi");
+            var urlBuilder = new StringBuilder(BaseUrl != null ? BaseUrl.TrimEnd('/') : "").Append("/v1/chain/get_raw_code_and_abi");
  
-            using (var request_ = new HttpRequestMessage())
+            using (var request = new HttpRequestMessage())
             {
-                var content_ = new StringContent(JsonConvert.SerializeObject(body));
-                content_.Headers.ContentType = MediaTypeHeaderValue.Parse("application/json");
-                request_.Content = content_;
-                request_.Method = new HttpMethod("POST");
+                var content = new StringContent(JsonConvert.SerializeObject(body));
+                content.Headers.ContentType = MediaTypeHeaderValue.Parse("application/json");
+                request.Content = content;
+                request.Method = new HttpMethod("POST");
 
-                var url_ = urlBuilder_.ToString();
-                request_.RequestUri = new Uri(url_, UriKind.RelativeOrAbsolute);
+                var url = urlBuilder.ToString();
+                request.RequestUri = new Uri(url, UriKind.RelativeOrAbsolute);
 
-                var response_ = await _httpClient.SendAsync(request_, HttpCompletionOption.ResponseHeadersRead, cancellationToken).ConfigureAwait(false);
+                var response = await _httpClient.SendAsync(request, HttpCompletionOption.ResponseHeadersRead, cancellationToken).ConfigureAwait(false);
 
-                var headers_ = Enumerable.ToDictionary(response_.Headers, h_ => h_.Key, h_ => h_.Value);
-                if (response_.Content != null && response_.Content.Headers != null)
+                var headers = Enumerable.ToDictionary(response.Headers, h => h.Key, h => h.Value);
+                if (response.Content != null && response.Content.Headers != null)
                 {
-                    foreach (var item_ in response_.Content.Headers)
-                        headers_[item_.Key] = item_.Value;
+                    foreach (var item in response.Content.Headers)
+                        headers[item.Key] = item.Value;
                 }
 
-                var status_ = (int)response_.StatusCode;
-                if (status_ == 200)
+                var status = (int)response.StatusCode;
+                if (status == 200)
                 {
                     return;
                 }
                 else
                 {
-                    var responseData_ = response_.Content == null ? null : await response_.Content.ReadAsStringAsync().ConfigureAwait(false);
-                    throw new ApiException("The HTTP status code of the response was not expected (" + status_ + ").", status_, responseData_, headers_, null);
+                    var responseData = response.Content == null ? null : await response.Content.ReadAsStringAsync().ConfigureAwait(false);
+                    throw new ApiException("The HTTP status code of the response was not expected (" + status + ").", status, responseData, headers, null);
                 }
             }
         }
@@ -3776,48 +3776,48 @@ namespace EosRio.HyperionApi
         /// <param name="json">true/false whether the packed transaction is converted to json</param>
         /// <returns>Default Response</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public async Task Get_scheduled_transactionGetAsync(string lower_bound = null, int? limit = null, bool? json = null, CancellationToken cancellationToken = default)
+        public async Task Get_scheduled_transactionGetAsync(string lowerBound = null, int? limit = null, bool? json = null, CancellationToken cancellationToken = default)
         {
-            var urlBuilder_ = new StringBuilder(BaseUrl != null ? BaseUrl.TrimEnd('/') : "").Append("/v1/chain/get_scheduled_transaction?");
-            if (lower_bound != null)
+            var urlBuilder = new StringBuilder(BaseUrl != null ? BaseUrl.TrimEnd('/') : "").Append("/v1/chain/get_scheduled_transaction?");
+            if (lowerBound != null)
             {
-                urlBuilder_.Append(Uri.EscapeDataString("lower_bound") + "=").Append(Uri.EscapeDataString(ConvertToString(lower_bound, CultureInfo.InvariantCulture))).Append("&");
+                urlBuilder.Append(Uri.EscapeDataString("lower_bound") + "=").Append(Uri.EscapeDataString(ConvertToString(lowerBound, CultureInfo.InvariantCulture))).Append("&");
             }
             if (limit != null)
             {
-                urlBuilder_.Append(Uri.EscapeDataString("limit") + "=").Append(Uri.EscapeDataString(ConvertToString(limit, CultureInfo.InvariantCulture))).Append("&");
+                urlBuilder.Append(Uri.EscapeDataString("limit") + "=").Append(Uri.EscapeDataString(ConvertToString(limit, CultureInfo.InvariantCulture))).Append("&");
             }
             if (json != null)
             {
-                urlBuilder_.Append(Uri.EscapeDataString("json") + "=").Append(Uri.EscapeDataString(ConvertToString(json, CultureInfo.InvariantCulture))).Append("&");
+                urlBuilder.Append(Uri.EscapeDataString("json") + "=").Append(Uri.EscapeDataString(ConvertToString(json, CultureInfo.InvariantCulture))).Append("&");
             }
-            urlBuilder_.Length--;
+            urlBuilder.Length--;
  
-            using (var request_ = new HttpRequestMessage())
+            using (var request = new HttpRequestMessage())
             {
-                request_.Method = new HttpMethod("GET");
+                request.Method = new HttpMethod("GET");
 
-                var url_ = urlBuilder_.ToString();
-                request_.RequestUri = new Uri(url_, UriKind.RelativeOrAbsolute);
+                var url = urlBuilder.ToString();
+                request.RequestUri = new Uri(url, UriKind.RelativeOrAbsolute);
 
-                var response_ = await _httpClient.SendAsync(request_, HttpCompletionOption.ResponseHeadersRead, cancellationToken).ConfigureAwait(false);
+                var response = await _httpClient.SendAsync(request, HttpCompletionOption.ResponseHeadersRead, cancellationToken).ConfigureAwait(false);
 
-                var headers_ = Enumerable.ToDictionary(response_.Headers, h_ => h_.Key, h_ => h_.Value);
-                if (response_.Content != null && response_.Content.Headers != null)
+                var headers = Enumerable.ToDictionary(response.Headers, h => h.Key, h => h.Value);
+                if (response.Content != null && response.Content.Headers != null)
                 {
-                    foreach (var item_ in response_.Content.Headers)
-                        headers_[item_.Key] = item_.Value;
+                    foreach (var item in response.Content.Headers)
+                        headers[item.Key] = item.Value;
                 }
 
-                var status_ = (int)response_.StatusCode;
-                if (status_ == 200)
+                var status = (int)response.StatusCode;
+                if (status == 200)
                 {
                     return;
                 }
                 else
                 {
-                    var responseData_ = response_.Content == null ? null : await response_.Content.ReadAsStringAsync().ConfigureAwait(false);
-                    throw new ApiException("The HTTP status code of the response was not expected (" + status_ + ").", status_, responseData_, headers_, null);
+                    var responseData = response.Content == null ? null : await response.Content.ReadAsStringAsync().ConfigureAwait(false);
+                    throw new ApiException("The HTTP status code of the response was not expected (" + status + ").", status, responseData, headers, null);
                 }
             }
         }
@@ -3829,48 +3829,48 @@ namespace EosRio.HyperionApi
         /// <param name="json">true/false whether the packed transaction is converted to json</param>
         /// <returns>Default Response</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public async Task Get_scheduled_transactionHeadAsync(string lower_bound = null, int? limit = null, bool? json = null, CancellationToken cancellationToken = default)
+        public async Task Get_scheduled_transactionHeadAsync(string lowerBound = null, int? limit = null, bool? json = null, CancellationToken cancellationToken = default)
         {
-            var urlBuilder_ = new StringBuilder(BaseUrl != null ? BaseUrl.TrimEnd('/') : "").Append("/v1/chain/get_scheduled_transaction?");
-            if (lower_bound != null)
+            var urlBuilder = new StringBuilder(BaseUrl != null ? BaseUrl.TrimEnd('/') : "").Append("/v1/chain/get_scheduled_transaction?");
+            if (lowerBound != null)
             {
-                urlBuilder_.Append(Uri.EscapeDataString("lower_bound") + "=").Append(Uri.EscapeDataString(ConvertToString(lower_bound, CultureInfo.InvariantCulture))).Append("&");
+                urlBuilder.Append(Uri.EscapeDataString("lower_bound") + "=").Append(Uri.EscapeDataString(ConvertToString(lowerBound, CultureInfo.InvariantCulture))).Append("&");
             }
             if (limit != null)
             {
-                urlBuilder_.Append(Uri.EscapeDataString("limit") + "=").Append(Uri.EscapeDataString(ConvertToString(limit, CultureInfo.InvariantCulture))).Append("&");
+                urlBuilder.Append(Uri.EscapeDataString("limit") + "=").Append(Uri.EscapeDataString(ConvertToString(limit, CultureInfo.InvariantCulture))).Append("&");
             }
             if (json != null)
             {
-                urlBuilder_.Append(Uri.EscapeDataString("json") + "=").Append(Uri.EscapeDataString(ConvertToString(json, CultureInfo.InvariantCulture))).Append("&");
+                urlBuilder.Append(Uri.EscapeDataString("json") + "=").Append(Uri.EscapeDataString(ConvertToString(json, CultureInfo.InvariantCulture))).Append("&");
             }
-            urlBuilder_.Length--;
+            urlBuilder.Length--;
  
-            using (var request_ = new HttpRequestMessage())
+            using (var request = new HttpRequestMessage())
             {
-                request_.Method = new HttpMethod("HEAD");
+                request.Method = new HttpMethod("HEAD");
 
-                var url_ = urlBuilder_.ToString();
-                request_.RequestUri = new Uri(url_, UriKind.RelativeOrAbsolute);
+                var url = urlBuilder.ToString();
+                request.RequestUri = new Uri(url, UriKind.RelativeOrAbsolute);
 
-                var response_ = await _httpClient.SendAsync(request_, HttpCompletionOption.ResponseHeadersRead, cancellationToken).ConfigureAwait(false);
+                var response = await _httpClient.SendAsync(request, HttpCompletionOption.ResponseHeadersRead, cancellationToken).ConfigureAwait(false);
 
-                var headers_ = Enumerable.ToDictionary(response_.Headers, h_ => h_.Key, h_ => h_.Value);
-                if (response_.Content != null && response_.Content.Headers != null)
+                var headers = Enumerable.ToDictionary(response.Headers, h => h.Key, h => h.Value);
+                if (response.Content != null && response.Content.Headers != null)
                 {
-                    foreach (var item_ in response_.Content.Headers)
-                        headers_[item_.Key] = item_.Value;
+                    foreach (var item in response.Content.Headers)
+                        headers[item.Key] = item.Value;
                 }
 
-                var status_ = (int)response_.StatusCode;
-                if (status_ == 200)
+                var status = (int)response.StatusCode;
+                if (status == 200)
                 {
                     return;
                 }
                 else
                 {
-                    var responseData_ = response_.Content == null ? null : await response_.Content.ReadAsStringAsync().ConfigureAwait(false);
-                    throw new ApiException("The HTTP status code of the response was not expected (" + status_ + ").", status_, responseData_, headers_, null);
+                    var responseData = response.Content == null ? null : await response.Content.ReadAsStringAsync().ConfigureAwait(false);
+                    throw new ApiException("The HTTP status code of the response was not expected (" + status + ").", status, responseData, headers, null);
                 }
             }
         }
@@ -3881,36 +3881,36 @@ namespace EosRio.HyperionApi
         /// <exception cref="ApiException">A server side error occurred.</exception>
         public async Task Get_scheduled_transactionPostAsync(object body = null, CancellationToken cancellationToken = default)
         {
-            var urlBuilder_ = new StringBuilder(BaseUrl != null ? BaseUrl.TrimEnd('/') : "").Append("/v1/chain/get_scheduled_transaction");
+            var urlBuilder = new StringBuilder(BaseUrl != null ? BaseUrl.TrimEnd('/') : "").Append("/v1/chain/get_scheduled_transaction");
  
-            using (var request_ = new HttpRequestMessage())
+            using (var request = new HttpRequestMessage())
             {
-                var content_ = new StringContent(JsonConvert.SerializeObject(body));
-                content_.Headers.ContentType = MediaTypeHeaderValue.Parse("application/json");
-                request_.Content = content_;
-                request_.Method = new HttpMethod("POST");
+                var content = new StringContent(JsonConvert.SerializeObject(body));
+                content.Headers.ContentType = MediaTypeHeaderValue.Parse("application/json");
+                request.Content = content;
+                request.Method = new HttpMethod("POST");
 
-                var url_ = urlBuilder_.ToString();
-                request_.RequestUri = new Uri(url_, UriKind.RelativeOrAbsolute);
+                var url = urlBuilder.ToString();
+                request.RequestUri = new Uri(url, UriKind.RelativeOrAbsolute);
 
-                var response_ = await _httpClient.SendAsync(request_, HttpCompletionOption.ResponseHeadersRead, cancellationToken).ConfigureAwait(false);
+                var response = await _httpClient.SendAsync(request, HttpCompletionOption.ResponseHeadersRead, cancellationToken).ConfigureAwait(false);
 
-                var headers_ = Enumerable.ToDictionary(response_.Headers, h_ => h_.Key, h_ => h_.Value);
-                if (response_.Content != null && response_.Content.Headers != null)
+                var headers = Enumerable.ToDictionary(response.Headers, h => h.Key, h => h.Value);
+                if (response.Content != null && response.Content.Headers != null)
                 {
-                    foreach (var item_ in response_.Content.Headers)
-                        headers_[item_.Key] = item_.Value;
+                    foreach (var item in response.Content.Headers)
+                        headers[item.Key] = item.Value;
                 }
 
-                var status_ = (int)response_.StatusCode;
-                if (status_ == 200)
+                var status = (int)response.StatusCode;
+                if (status == 200)
                 {
                     return;
                 }
                 else
                 {
-                    var responseData_ = response_.Content == null ? null : await response_.Content.ReadAsStringAsync().ConfigureAwait(false);
-                    throw new ApiException("The HTTP status code of the response was not expected (" + status_ + ").", status_, responseData_, headers_, null);
+                    var responseData = response.Content == null ? null : await response.Content.ReadAsStringAsync().ConfigureAwait(false);
+                    throw new ApiException("The HTTP status code of the response was not expected (" + status + ").", status, responseData, headers, null);
                 }
             }
         }
@@ -3925,59 +3925,59 @@ namespace EosRio.HyperionApi
         /// <param name="reverse">Reverse the order of returned results</param>
         /// <returns>Default Response</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public async Task Get_table_by_scopeGetAsync(string code, string table = null, string lower_bound = null, string upper_bound = null, int? limit = null, bool? reverse = null, CancellationToken cancellationToken = default)
+        public async Task Get_table_by_scopeGetAsync(string code, string table = null, string lowerBound = null, string upperBound = null, int? limit = null, bool? reverse = null, CancellationToken cancellationToken = default)
         {
             if (code == null)
                 throw new ArgumentNullException("code");
     
-            var urlBuilder_ = new StringBuilder(BaseUrl != null ? BaseUrl.TrimEnd('/') : "").Append("/v1/chain/get_table_by_scope?" + Uri.EscapeDataString("code") + "=").Append(Uri.EscapeDataString(ConvertToString(code, CultureInfo.InvariantCulture))).Append("&");
+            var urlBuilder = new StringBuilder(BaseUrl != null ? BaseUrl.TrimEnd('/') : "").Append("/v1/chain/get_table_by_scope?" + Uri.EscapeDataString("code") + "=").Append(Uri.EscapeDataString(ConvertToString(code, CultureInfo.InvariantCulture))).Append("&");
             if (table != null)
             {
-                urlBuilder_.Append(Uri.EscapeDataString("table") + "=").Append(Uri.EscapeDataString(ConvertToString(table, CultureInfo.InvariantCulture))).Append("&");
+                urlBuilder.Append(Uri.EscapeDataString("table") + "=").Append(Uri.EscapeDataString(ConvertToString(table, CultureInfo.InvariantCulture))).Append("&");
             }
-            if (lower_bound != null)
+            if (lowerBound != null)
             {
-                urlBuilder_.Append(Uri.EscapeDataString("lower_bound") + "=").Append(Uri.EscapeDataString(ConvertToString(lower_bound, CultureInfo.InvariantCulture))).Append("&");
+                urlBuilder.Append(Uri.EscapeDataString("lower_bound") + "=").Append(Uri.EscapeDataString(ConvertToString(lowerBound, CultureInfo.InvariantCulture))).Append("&");
             }
-            if (upper_bound != null)
+            if (upperBound != null)
             {
-                urlBuilder_.Append(Uri.EscapeDataString("upper_bound") + "=").Append(Uri.EscapeDataString(ConvertToString(upper_bound, CultureInfo.InvariantCulture))).Append("&");
+                urlBuilder.Append(Uri.EscapeDataString("upper_bound") + "=").Append(Uri.EscapeDataString(ConvertToString(upperBound, CultureInfo.InvariantCulture))).Append("&");
             }
             if (limit != null)
             {
-                urlBuilder_.Append(Uri.EscapeDataString("limit") + "=").Append(Uri.EscapeDataString(ConvertToString(limit, CultureInfo.InvariantCulture))).Append("&");
+                urlBuilder.Append(Uri.EscapeDataString("limit") + "=").Append(Uri.EscapeDataString(ConvertToString(limit, CultureInfo.InvariantCulture))).Append("&");
             }
             if (reverse != null)
             {
-                urlBuilder_.Append(Uri.EscapeDataString("reverse") + "=").Append(Uri.EscapeDataString(ConvertToString(reverse, CultureInfo.InvariantCulture))).Append("&");
+                urlBuilder.Append(Uri.EscapeDataString("reverse") + "=").Append(Uri.EscapeDataString(ConvertToString(reverse, CultureInfo.InvariantCulture))).Append("&");
             }
-            urlBuilder_.Length--;
+            urlBuilder.Length--;
  
-            using (var request_ = new HttpRequestMessage())
+            using (var request = new HttpRequestMessage())
             {
-                request_.Method = new HttpMethod("GET");
+                request.Method = new HttpMethod("GET");
 
-                var url_ = urlBuilder_.ToString();
-                request_.RequestUri = new Uri(url_, UriKind.RelativeOrAbsolute);
+                var url = urlBuilder.ToString();
+                request.RequestUri = new Uri(url, UriKind.RelativeOrAbsolute);
 
-                var response_ = await _httpClient.SendAsync(request_, HttpCompletionOption.ResponseHeadersRead, cancellationToken).ConfigureAwait(false);
+                var response = await _httpClient.SendAsync(request, HttpCompletionOption.ResponseHeadersRead, cancellationToken).ConfigureAwait(false);
 
-                var headers_ = Enumerable.ToDictionary(response_.Headers, h_ => h_.Key, h_ => h_.Value);
-                if (response_.Content != null && response_.Content.Headers != null)
+                var headers = Enumerable.ToDictionary(response.Headers, h => h.Key, h => h.Value);
+                if (response.Content != null && response.Content.Headers != null)
                 {
-                    foreach (var item_ in response_.Content.Headers)
-                        headers_[item_.Key] = item_.Value;
+                    foreach (var item in response.Content.Headers)
+                        headers[item.Key] = item.Value;
                 }
 
-                var status_ = (int)response_.StatusCode;
-                if (status_ == 200)
+                var status = (int)response.StatusCode;
+                if (status == 200)
                 {
                     return;
                 }
                 else
                 {
-                    var responseData_ = response_.Content == null ? null : await response_.Content.ReadAsStringAsync().ConfigureAwait(false);
-                    throw new ApiException("The HTTP status code of the response was not expected (" + status_ + ").", status_, responseData_, headers_, null);
+                    var responseData = response.Content == null ? null : await response.Content.ReadAsStringAsync().ConfigureAwait(false);
+                    throw new ApiException("The HTTP status code of the response was not expected (" + status + ").", status, responseData, headers, null);
                 }
             }
         }
@@ -3992,59 +3992,59 @@ namespace EosRio.HyperionApi
         /// <param name="reverse">Reverse the order of returned results</param>
         /// <returns>Default Response</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public async Task Get_table_by_scopeHeadAsync(string code, string table = null, string lower_bound = null, string upper_bound = null, int? limit = null, bool? reverse = null, CancellationToken cancellationToken = default)
+        public async Task Get_table_by_scopeHeadAsync(string code, string table = null, string lowerBound = null, string upperBound = null, int? limit = null, bool? reverse = null, CancellationToken cancellationToken = default)
         {
             if (code == null)
                 throw new ArgumentNullException("code");
     
-            var urlBuilder_ = new StringBuilder(BaseUrl != null ? BaseUrl.TrimEnd('/') : "").Append("/v1/chain/get_table_by_scope?" + Uri.EscapeDataString("code") + "=").Append(Uri.EscapeDataString(ConvertToString(code, CultureInfo.InvariantCulture))).Append("&");
+            var urlBuilder = new StringBuilder(BaseUrl != null ? BaseUrl.TrimEnd('/') : "").Append("/v1/chain/get_table_by_scope?" + Uri.EscapeDataString("code") + "=").Append(Uri.EscapeDataString(ConvertToString(code, CultureInfo.InvariantCulture))).Append("&");
             if (table != null)
             {
-                urlBuilder_.Append(Uri.EscapeDataString("table") + "=").Append(Uri.EscapeDataString(ConvertToString(table, CultureInfo.InvariantCulture))).Append("&");
+                urlBuilder.Append(Uri.EscapeDataString("table") + "=").Append(Uri.EscapeDataString(ConvertToString(table, CultureInfo.InvariantCulture))).Append("&");
             }
-            if (lower_bound != null)
+            if (lowerBound != null)
             {
-                urlBuilder_.Append(Uri.EscapeDataString("lower_bound") + "=").Append(Uri.EscapeDataString(ConvertToString(lower_bound, CultureInfo.InvariantCulture))).Append("&");
+                urlBuilder.Append(Uri.EscapeDataString("lower_bound") + "=").Append(Uri.EscapeDataString(ConvertToString(lowerBound, CultureInfo.InvariantCulture))).Append("&");
             }
-            if (upper_bound != null)
+            if (upperBound != null)
             {
-                urlBuilder_.Append(Uri.EscapeDataString("upper_bound") + "=").Append(Uri.EscapeDataString(ConvertToString(upper_bound, CultureInfo.InvariantCulture))).Append("&");
+                urlBuilder.Append(Uri.EscapeDataString("upper_bound") + "=").Append(Uri.EscapeDataString(ConvertToString(upperBound, CultureInfo.InvariantCulture))).Append("&");
             }
             if (limit != null)
             {
-                urlBuilder_.Append(Uri.EscapeDataString("limit") + "=").Append(Uri.EscapeDataString(ConvertToString(limit, CultureInfo.InvariantCulture))).Append("&");
+                urlBuilder.Append(Uri.EscapeDataString("limit") + "=").Append(Uri.EscapeDataString(ConvertToString(limit, CultureInfo.InvariantCulture))).Append("&");
             }
             if (reverse != null)
             {
-                urlBuilder_.Append(Uri.EscapeDataString("reverse") + "=").Append(Uri.EscapeDataString(ConvertToString(reverse, CultureInfo.InvariantCulture))).Append("&");
+                urlBuilder.Append(Uri.EscapeDataString("reverse") + "=").Append(Uri.EscapeDataString(ConvertToString(reverse, CultureInfo.InvariantCulture))).Append("&");
             }
-            urlBuilder_.Length--;
+            urlBuilder.Length--;
  
-            using (var request_ = new HttpRequestMessage())
+            using (var request = new HttpRequestMessage())
             {
-                request_.Method = new HttpMethod("HEAD");
+                request.Method = new HttpMethod("HEAD");
 
-                var url_ = urlBuilder_.ToString();
-                request_.RequestUri = new Uri(url_, UriKind.RelativeOrAbsolute);
+                var url = urlBuilder.ToString();
+                request.RequestUri = new Uri(url, UriKind.RelativeOrAbsolute);
 
-                var response_ = await _httpClient.SendAsync(request_, HttpCompletionOption.ResponseHeadersRead, cancellationToken).ConfigureAwait(false);
+                var response = await _httpClient.SendAsync(request, HttpCompletionOption.ResponseHeadersRead, cancellationToken).ConfigureAwait(false);
 
-                var headers_ = Enumerable.ToDictionary(response_.Headers, h_ => h_.Key, h_ => h_.Value);
-                if (response_.Content != null && response_.Content.Headers != null)
+                var headers = Enumerable.ToDictionary(response.Headers, h => h.Key, h => h.Value);
+                if (response.Content != null && response.Content.Headers != null)
                 {
-                    foreach (var item_ in response_.Content.Headers)
-                        headers_[item_.Key] = item_.Value;
+                    foreach (var item in response.Content.Headers)
+                        headers[item.Key] = item.Value;
                 }
 
-                var status_ = (int)response_.StatusCode;
-                if (status_ == 200)
+                var status = (int)response.StatusCode;
+                if (status == 200)
                 {
                     return;
                 }
                 else
                 {
-                    var responseData_ = response_.Content == null ? null : await response_.Content.ReadAsStringAsync().ConfigureAwait(false);
-                    throw new ApiException("The HTTP status code of the response was not expected (" + status_ + ").", status_, responseData_, headers_, null);
+                    var responseData = response.Content == null ? null : await response.Content.ReadAsStringAsync().ConfigureAwait(false);
+                    throw new ApiException("The HTTP status code of the response was not expected (" + status + ").", status, responseData, headers, null);
                 }
             }
         }
@@ -4058,36 +4058,36 @@ namespace EosRio.HyperionApi
             if (body == null)
                 throw new ArgumentNullException("body");
     
-            var urlBuilder_ = new StringBuilder(BaseUrl != null ? BaseUrl.TrimEnd('/') : "").Append("/v1/chain/get_table_by_scope");
+            var urlBuilder = new StringBuilder(BaseUrl != null ? BaseUrl.TrimEnd('/') : "").Append("/v1/chain/get_table_by_scope");
  
-            using (var request_ = new HttpRequestMessage())
+            using (var request = new HttpRequestMessage())
             {
-                var content_ = new StringContent(JsonConvert.SerializeObject(body));
-                content_.Headers.ContentType = MediaTypeHeaderValue.Parse("application/json");
-                request_.Content = content_;
-                request_.Method = new HttpMethod("POST");
+                var content = new StringContent(JsonConvert.SerializeObject(body));
+                content.Headers.ContentType = MediaTypeHeaderValue.Parse("application/json");
+                request.Content = content;
+                request.Method = new HttpMethod("POST");
 
-                var url_ = urlBuilder_.ToString();
-                request_.RequestUri = new Uri(url_, UriKind.RelativeOrAbsolute);
+                var url = urlBuilder.ToString();
+                request.RequestUri = new Uri(url, UriKind.RelativeOrAbsolute);
 
-                var response_ = await _httpClient.SendAsync(request_, HttpCompletionOption.ResponseHeadersRead, cancellationToken).ConfigureAwait(false);
+                var response = await _httpClient.SendAsync(request, HttpCompletionOption.ResponseHeadersRead, cancellationToken).ConfigureAwait(false);
 
-                var headers_ = Enumerable.ToDictionary(response_.Headers, h_ => h_.Key, h_ => h_.Value);
-                if (response_.Content != null && response_.Content.Headers != null)
+                var headers = Enumerable.ToDictionary(response.Headers, h => h.Key, h => h.Value);
+                if (response.Content != null && response.Content.Headers != null)
                 {
-                    foreach (var item_ in response_.Content.Headers)
-                        headers_[item_.Key] = item_.Value;
+                    foreach (var item in response.Content.Headers)
+                        headers[item.Key] = item.Value;
                 }
 
-                var status_ = (int)response_.StatusCode;
-                if (status_ == 200)
+                var status = (int)response.StatusCode;
+                if (status == 200)
                 {
                     return;
                 }
                 else
                 {
-                    var responseData_ = response_.Content == null ? null : await response_.Content.ReadAsStringAsync().ConfigureAwait(false);
-                    throw new ApiException("The HTTP status code of the response was not expected (" + status_ + ").", status_, responseData_, headers_, null);
+                    var responseData = response.Content == null ? null : await response.Content.ReadAsStringAsync().ConfigureAwait(false);
+                    throw new ApiException("The HTTP status code of the response was not expected (" + status + ").", status, responseData, headers, null);
                 }
             }
         }
@@ -4101,68 +4101,68 @@ namespace EosRio.HyperionApi
         /// <param name="key_type">Type of key specified by index_position (for example - `uint64_t` or `name`)</param>
         /// <returns>Default Response</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public async Task Get_table_rowsGetAsync(string code = null, string table = null, string scope = null, string index_position = null, string key_type = null, string encode_type = null, string upper_bound = null, string lower_bound = null, CancellationToken cancellationToken = default)
+        public async Task Get_table_rowsGetAsync(string code = null, string table = null, string scope = null, string indexPosition = null, string keyType = null, string encodeType = null, string upperBound = null, string lowerBound = null, CancellationToken cancellationToken = default)
         {
-            var urlBuilder_ = new StringBuilder(BaseUrl != null ? BaseUrl.TrimEnd('/') : "").Append("/v1/chain/get_table_rows?");
+            var urlBuilder = new StringBuilder(BaseUrl != null ? BaseUrl.TrimEnd('/') : "").Append("/v1/chain/get_table_rows?");
             if (code != null)
             {
-                urlBuilder_.Append(Uri.EscapeDataString("code") + "=").Append(Uri.EscapeDataString(ConvertToString(code, CultureInfo.InvariantCulture))).Append("&");
+                urlBuilder.Append(Uri.EscapeDataString("code") + "=").Append(Uri.EscapeDataString(ConvertToString(code, CultureInfo.InvariantCulture))).Append("&");
             }
             if (table != null)
             {
-                urlBuilder_.Append(Uri.EscapeDataString("table") + "=").Append(Uri.EscapeDataString(ConvertToString(table, CultureInfo.InvariantCulture))).Append("&");
+                urlBuilder.Append(Uri.EscapeDataString("table") + "=").Append(Uri.EscapeDataString(ConvertToString(table, CultureInfo.InvariantCulture))).Append("&");
             }
             if (scope != null)
             {
-                urlBuilder_.Append(Uri.EscapeDataString("scope") + "=").Append(Uri.EscapeDataString(ConvertToString(scope, CultureInfo.InvariantCulture))).Append("&");
+                urlBuilder.Append(Uri.EscapeDataString("scope") + "=").Append(Uri.EscapeDataString(ConvertToString(scope, CultureInfo.InvariantCulture))).Append("&");
             }
-            if (index_position != null)
+            if (indexPosition != null)
             {
-                urlBuilder_.Append(Uri.EscapeDataString("index_position") + "=").Append(Uri.EscapeDataString(ConvertToString(index_position, CultureInfo.InvariantCulture))).Append("&");
+                urlBuilder.Append(Uri.EscapeDataString("index_position") + "=").Append(Uri.EscapeDataString(ConvertToString(indexPosition, CultureInfo.InvariantCulture))).Append("&");
             }
-            if (key_type != null)
+            if (keyType != null)
             {
-                urlBuilder_.Append(Uri.EscapeDataString("key_type") + "=").Append(Uri.EscapeDataString(ConvertToString(key_type, CultureInfo.InvariantCulture))).Append("&");
+                urlBuilder.Append(Uri.EscapeDataString("key_type") + "=").Append(Uri.EscapeDataString(ConvertToString(keyType, CultureInfo.InvariantCulture))).Append("&");
             }
-            if (encode_type != null)
+            if (encodeType != null)
             {
-                urlBuilder_.Append(Uri.EscapeDataString("encode_type") + "=").Append(Uri.EscapeDataString(ConvertToString(encode_type, CultureInfo.InvariantCulture))).Append("&");
+                urlBuilder.Append(Uri.EscapeDataString("encode_type") + "=").Append(Uri.EscapeDataString(ConvertToString(encodeType, CultureInfo.InvariantCulture))).Append("&");
             }
-            if (upper_bound != null)
+            if (upperBound != null)
             {
-                urlBuilder_.Append(Uri.EscapeDataString("upper_bound") + "=").Append(Uri.EscapeDataString(ConvertToString(upper_bound, CultureInfo.InvariantCulture))).Append("&");
+                urlBuilder.Append(Uri.EscapeDataString("upper_bound") + "=").Append(Uri.EscapeDataString(ConvertToString(upperBound, CultureInfo.InvariantCulture))).Append("&");
             }
-            if (lower_bound != null)
+            if (lowerBound != null)
             {
-                urlBuilder_.Append(Uri.EscapeDataString("lower_bound") + "=").Append(Uri.EscapeDataString(ConvertToString(lower_bound, CultureInfo.InvariantCulture))).Append("&");
+                urlBuilder.Append(Uri.EscapeDataString("lower_bound") + "=").Append(Uri.EscapeDataString(ConvertToString(lowerBound, CultureInfo.InvariantCulture))).Append("&");
             }
-            urlBuilder_.Length--;
+            urlBuilder.Length--;
  
-            using (var request_ = new HttpRequestMessage())
+            using (var request = new HttpRequestMessage())
             {
-                request_.Method = new HttpMethod("GET");
+                request.Method = new HttpMethod("GET");
 
-                var url_ = urlBuilder_.ToString();
-                request_.RequestUri = new Uri(url_, UriKind.RelativeOrAbsolute);
+                var url = urlBuilder.ToString();
+                request.RequestUri = new Uri(url, UriKind.RelativeOrAbsolute);
 
-                var response_ = await _httpClient.SendAsync(request_, HttpCompletionOption.ResponseHeadersRead, cancellationToken).ConfigureAwait(false);
+                var response = await _httpClient.SendAsync(request, HttpCompletionOption.ResponseHeadersRead, cancellationToken).ConfigureAwait(false);
 
-                var headers_ = Enumerable.ToDictionary(response_.Headers, h_ => h_.Key, h_ => h_.Value);
-                if (response_.Content != null && response_.Content.Headers != null)
+                var headers = Enumerable.ToDictionary(response.Headers, h => h.Key, h => h.Value);
+                if (response.Content != null && response.Content.Headers != null)
                 {
-                    foreach (var item_ in response_.Content.Headers)
-                        headers_[item_.Key] = item_.Value;
+                    foreach (var item in response.Content.Headers)
+                        headers[item.Key] = item.Value;
                 }
 
-                var status_ = (int)response_.StatusCode;
-                if (status_ == 200)
+                var status = (int)response.StatusCode;
+                if (status == 200)
                 {
                     return;
                 }
                 else
                 {
-                    var responseData_ = response_.Content == null ? null : await response_.Content.ReadAsStringAsync().ConfigureAwait(false);
-                    throw new ApiException("The HTTP status code of the response was not expected (" + status_ + ").", status_, responseData_, headers_, null);
+                    var responseData = response.Content == null ? null : await response.Content.ReadAsStringAsync().ConfigureAwait(false);
+                    throw new ApiException("The HTTP status code of the response was not expected (" + status + ").", status, responseData, headers, null);
                 }
             }
         }
@@ -4176,68 +4176,68 @@ namespace EosRio.HyperionApi
         /// <param name="key_type">Type of key specified by index_position (for example - `uint64_t` or `name`)</param>
         /// <returns>Default Response</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public async Task Get_table_rowsHeadAsync(string code = null, string table = null, string scope = null, string index_position = null, string key_type = null, string encode_type = null, string upper_bound = null, string lower_bound = null, CancellationToken cancellationToken = default)
+        public async Task Get_table_rowsHeadAsync(string code = null, string table = null, string scope = null, string indexPosition = null, string keyType = null, string encodeType = null, string upperBound = null, string lowerBound = null, CancellationToken cancellationToken = default)
         {
-            var urlBuilder_ = new StringBuilder(BaseUrl != null ? BaseUrl.TrimEnd('/') : "").Append("/v1/chain/get_table_rows?");
+            var urlBuilder = new StringBuilder(BaseUrl != null ? BaseUrl.TrimEnd('/') : "").Append("/v1/chain/get_table_rows?");
             if (code != null)
             {
-                urlBuilder_.Append(Uri.EscapeDataString("code") + "=").Append(Uri.EscapeDataString(ConvertToString(code, CultureInfo.InvariantCulture))).Append("&");
+                urlBuilder.Append(Uri.EscapeDataString("code") + "=").Append(Uri.EscapeDataString(ConvertToString(code, CultureInfo.InvariantCulture))).Append("&");
             }
             if (table != null)
             {
-                urlBuilder_.Append(Uri.EscapeDataString("table") + "=").Append(Uri.EscapeDataString(ConvertToString(table, CultureInfo.InvariantCulture))).Append("&");
+                urlBuilder.Append(Uri.EscapeDataString("table") + "=").Append(Uri.EscapeDataString(ConvertToString(table, CultureInfo.InvariantCulture))).Append("&");
             }
             if (scope != null)
             {
-                urlBuilder_.Append(Uri.EscapeDataString("scope") + "=").Append(Uri.EscapeDataString(ConvertToString(scope, CultureInfo.InvariantCulture))).Append("&");
+                urlBuilder.Append(Uri.EscapeDataString("scope") + "=").Append(Uri.EscapeDataString(ConvertToString(scope, CultureInfo.InvariantCulture))).Append("&");
             }
-            if (index_position != null)
+            if (indexPosition != null)
             {
-                urlBuilder_.Append(Uri.EscapeDataString("index_position") + "=").Append(Uri.EscapeDataString(ConvertToString(index_position, CultureInfo.InvariantCulture))).Append("&");
+                urlBuilder.Append(Uri.EscapeDataString("index_position") + "=").Append(Uri.EscapeDataString(ConvertToString(indexPosition, CultureInfo.InvariantCulture))).Append("&");
             }
-            if (key_type != null)
+            if (keyType != null)
             {
-                urlBuilder_.Append(Uri.EscapeDataString("key_type") + "=").Append(Uri.EscapeDataString(ConvertToString(key_type, CultureInfo.InvariantCulture))).Append("&");
+                urlBuilder.Append(Uri.EscapeDataString("key_type") + "=").Append(Uri.EscapeDataString(ConvertToString(keyType, CultureInfo.InvariantCulture))).Append("&");
             }
-            if (encode_type != null)
+            if (encodeType != null)
             {
-                urlBuilder_.Append(Uri.EscapeDataString("encode_type") + "=").Append(Uri.EscapeDataString(ConvertToString(encode_type, CultureInfo.InvariantCulture))).Append("&");
+                urlBuilder.Append(Uri.EscapeDataString("encode_type") + "=").Append(Uri.EscapeDataString(ConvertToString(encodeType, CultureInfo.InvariantCulture))).Append("&");
             }
-            if (upper_bound != null)
+            if (upperBound != null)
             {
-                urlBuilder_.Append(Uri.EscapeDataString("upper_bound") + "=").Append(Uri.EscapeDataString(ConvertToString(upper_bound, CultureInfo.InvariantCulture))).Append("&");
+                urlBuilder.Append(Uri.EscapeDataString("upper_bound") + "=").Append(Uri.EscapeDataString(ConvertToString(upperBound, CultureInfo.InvariantCulture))).Append("&");
             }
-            if (lower_bound != null)
+            if (lowerBound != null)
             {
-                urlBuilder_.Append(Uri.EscapeDataString("lower_bound") + "=").Append(Uri.EscapeDataString(ConvertToString(lower_bound, CultureInfo.InvariantCulture))).Append("&");
+                urlBuilder.Append(Uri.EscapeDataString("lower_bound") + "=").Append(Uri.EscapeDataString(ConvertToString(lowerBound, CultureInfo.InvariantCulture))).Append("&");
             }
-            urlBuilder_.Length--;
+            urlBuilder.Length--;
  
-            using (var request_ = new HttpRequestMessage())
+            using (var request = new HttpRequestMessage())
             {
-                request_.Method = new HttpMethod("HEAD");
+                request.Method = new HttpMethod("HEAD");
 
-                var url_ = urlBuilder_.ToString();
-                request_.RequestUri = new Uri(url_, UriKind.RelativeOrAbsolute);
+                var url = urlBuilder.ToString();
+                request.RequestUri = new Uri(url, UriKind.RelativeOrAbsolute);
 
-                var response_ = await _httpClient.SendAsync(request_, HttpCompletionOption.ResponseHeadersRead, cancellationToken).ConfigureAwait(false);
+                var response = await _httpClient.SendAsync(request, HttpCompletionOption.ResponseHeadersRead, cancellationToken).ConfigureAwait(false);
 
-                var headers_ = Enumerable.ToDictionary(response_.Headers, h_ => h_.Key, h_ => h_.Value);
-                if (response_.Content != null && response_.Content.Headers != null)
+                var headers = Enumerable.ToDictionary(response.Headers, h => h.Key, h => h.Value);
+                if (response.Content != null && response.Content.Headers != null)
                 {
-                    foreach (var item_ in response_.Content.Headers)
-                        headers_[item_.Key] = item_.Value;
+                    foreach (var item in response.Content.Headers)
+                        headers[item.Key] = item.Value;
                 }
 
-                var status_ = (int)response_.StatusCode;
-                if (status_ == 200)
+                var status = (int)response.StatusCode;
+                if (status == 200)
                 {
                     return;
                 }
                 else
                 {
-                    var responseData_ = response_.Content == null ? null : await response_.Content.ReadAsStringAsync().ConfigureAwait(false);
-                    throw new ApiException("The HTTP status code of the response was not expected (" + status_ + ").", status_, responseData_, headers_, null);
+                    var responseData = response.Content == null ? null : await response.Content.ReadAsStringAsync().ConfigureAwait(false);
+                    throw new ApiException("The HTTP status code of the response was not expected (" + status + ").", status, responseData, headers, null);
                 }
             }
         }
@@ -4248,36 +4248,36 @@ namespace EosRio.HyperionApi
         /// <exception cref="ApiException">A server side error occurred.</exception>
         public async Task Get_table_rowsPostAsync(object body = null, CancellationToken cancellationToken = default)
         {
-            var urlBuilder_ = new StringBuilder(BaseUrl != null ? BaseUrl.TrimEnd('/') : "").Append("/v1/chain/get_table_rows");
+            var urlBuilder = new StringBuilder(BaseUrl != null ? BaseUrl.TrimEnd('/') : "").Append("/v1/chain/get_table_rows");
  
-            using (var request_ = new HttpRequestMessage())
+            using (var request = new HttpRequestMessage())
             {
-                var content_ = new StringContent(JsonConvert.SerializeObject(body));
-                content_.Headers.ContentType = MediaTypeHeaderValue.Parse("application/json");
-                request_.Content = content_;
-                request_.Method = new HttpMethod("POST");
+                var content = new StringContent(JsonConvert.SerializeObject(body));
+                content.Headers.ContentType = MediaTypeHeaderValue.Parse("application/json");
+                request.Content = content;
+                request.Method = new HttpMethod("POST");
 
-                var url_ = urlBuilder_.ToString();
-                request_.RequestUri = new Uri(url_, UriKind.RelativeOrAbsolute);
+                var url = urlBuilder.ToString();
+                request.RequestUri = new Uri(url, UriKind.RelativeOrAbsolute);
 
-                var response_ = await _httpClient.SendAsync(request_, HttpCompletionOption.ResponseHeadersRead, cancellationToken).ConfigureAwait(false);
+                var response = await _httpClient.SendAsync(request, HttpCompletionOption.ResponseHeadersRead, cancellationToken).ConfigureAwait(false);
 
-                var headers_ = Enumerable.ToDictionary(response_.Headers, h_ => h_.Key, h_ => h_.Value);
-                if (response_.Content != null && response_.Content.Headers != null)
+                var headers = Enumerable.ToDictionary(response.Headers, h => h.Key, h => h.Value);
+                if (response.Content != null && response.Content.Headers != null)
                 {
-                    foreach (var item_ in response_.Content.Headers)
-                        headers_[item_.Key] = item_.Value;
+                    foreach (var item in response.Content.Headers)
+                        headers[item.Key] = item.Value;
                 }
 
-                var status_ = (int)response_.StatusCode;
-                if (status_ == 200)
+                var status = (int)response.StatusCode;
+                if (status == 200)
                 {
                     return;
                 }
                 else
                 {
-                    var responseData_ = response_.Content == null ? null : await response_.Content.ReadAsStringAsync().ConfigureAwait(false);
-                    throw new ApiException("The HTTP status code of the response was not expected (" + status_ + ").", status_, responseData_, headers_, null);
+                    var responseData = response.Content == null ? null : await response.Content.ReadAsStringAsync().ConfigureAwait(false);
+                    throw new ApiException("The HTTP status code of the response was not expected (" + status + ").", status, responseData, headers, null);
                 }
             }
         }
@@ -4288,36 +4288,36 @@ namespace EosRio.HyperionApi
         /// <exception cref="ApiException">A server side error occurred.</exception>
         public async Task Push_transactionAsync(object body = null, CancellationToken cancellationToken = default)
         {
-            var urlBuilder_ = new StringBuilder(BaseUrl != null ? BaseUrl.TrimEnd('/') : "").Append("/v1/chain/push_transaction");
+            var urlBuilder = new StringBuilder(BaseUrl != null ? BaseUrl.TrimEnd('/') : "").Append("/v1/chain/push_transaction");
  
-            using (var request_ = new HttpRequestMessage())
+            using (var request = new HttpRequestMessage())
             {
-                var content_ = new StringContent(JsonConvert.SerializeObject(body));
-                content_.Headers.ContentType = MediaTypeHeaderValue.Parse("application/json");
-                request_.Content = content_;
-                request_.Method = new HttpMethod("POST");
+                var content = new StringContent(JsonConvert.SerializeObject(body));
+                content.Headers.ContentType = MediaTypeHeaderValue.Parse("application/json");
+                request.Content = content;
+                request.Method = new HttpMethod("POST");
 
-                var url_ = urlBuilder_.ToString();
-                request_.RequestUri = new Uri(url_, UriKind.RelativeOrAbsolute);
+                var url = urlBuilder.ToString();
+                request.RequestUri = new Uri(url, UriKind.RelativeOrAbsolute);
 
-                var response_ = await _httpClient.SendAsync(request_, HttpCompletionOption.ResponseHeadersRead, cancellationToken).ConfigureAwait(false);
+                var response = await _httpClient.SendAsync(request, HttpCompletionOption.ResponseHeadersRead, cancellationToken).ConfigureAwait(false);
 
-                var headers_ = Enumerable.ToDictionary(response_.Headers, h_ => h_.Key, h_ => h_.Value);
-                if (response_.Content != null && response_.Content.Headers != null)
+                var headers = Enumerable.ToDictionary(response.Headers, h => h.Key, h => h.Value);
+                if (response.Content != null && response.Content.Headers != null)
                 {
-                    foreach (var item_ in response_.Content.Headers)
-                        headers_[item_.Key] = item_.Value;
+                    foreach (var item in response.Content.Headers)
+                        headers[item.Key] = item.Value;
                 }
 
-                var status_ = (int)response_.StatusCode;
-                if (status_ == 200)
+                var status = (int)response.StatusCode;
+                if (status == 200)
                 {
                     return;
                 }
                 else
                 {
-                    var responseData_ = response_.Content == null ? null : await response_.Content.ReadAsStringAsync().ConfigureAwait(false);
-                    throw new ApiException("The HTTP status code of the response was not expected (" + status_ + ").", status_, responseData_, headers_, null);
+                    var responseData = response.Content == null ? null : await response.Content.ReadAsStringAsync().ConfigureAwait(false);
+                    throw new ApiException("The HTTP status code of the response was not expected (" + status + ").", status, responseData, headers, null);
                 }
             }
         }
@@ -4328,36 +4328,36 @@ namespace EosRio.HyperionApi
         /// <exception cref="ApiException">A server side error occurred.</exception>
         public async Task Push_transactionsAsync(IEnumerable<object> body = null, CancellationToken cancellationToken = default)
         {
-            var urlBuilder_ = new StringBuilder(BaseUrl != null ? BaseUrl.TrimEnd('/') : "").Append("/v1/chain/push_transactions");
+            var urlBuilder = new StringBuilder(BaseUrl != null ? BaseUrl.TrimEnd('/') : "").Append("/v1/chain/push_transactions");
  
-            using (var request_ = new HttpRequestMessage())
+            using (var request = new HttpRequestMessage())
             {
-                var content_ = new StringContent(JsonConvert.SerializeObject(body));
-                content_.Headers.ContentType = MediaTypeHeaderValue.Parse("application/json");
-                request_.Content = content_;
-                request_.Method = new HttpMethod("POST");
+                var content = new StringContent(JsonConvert.SerializeObject(body));
+                content.Headers.ContentType = MediaTypeHeaderValue.Parse("application/json");
+                request.Content = content;
+                request.Method = new HttpMethod("POST");
 
-                var url_ = urlBuilder_.ToString();
-                request_.RequestUri = new Uri(url_, UriKind.RelativeOrAbsolute);
+                var url = urlBuilder.ToString();
+                request.RequestUri = new Uri(url, UriKind.RelativeOrAbsolute);
 
-                var response_ = await _httpClient.SendAsync(request_, HttpCompletionOption.ResponseHeadersRead, cancellationToken).ConfigureAwait(false);
+                var response = await _httpClient.SendAsync(request, HttpCompletionOption.ResponseHeadersRead, cancellationToken).ConfigureAwait(false);
 
-                var headers_ = Enumerable.ToDictionary(response_.Headers, h_ => h_.Key, h_ => h_.Value);
-                if (response_.Content != null && response_.Content.Headers != null)
+                var headers = Enumerable.ToDictionary(response.Headers, h => h.Key, h => h.Value);
+                if (response.Content != null && response.Content.Headers != null)
                 {
-                    foreach (var item_ in response_.Content.Headers)
-                        headers_[item_.Key] = item_.Value;
+                    foreach (var item in response.Content.Headers)
+                        headers[item.Key] = item.Value;
                 }
 
-                var status_ = (int)response_.StatusCode;
-                if (status_ == 200)
+                var status = (int)response.StatusCode;
+                if (status == 200)
                 {
                     return;
                 }
                 else
                 {
-                    var responseData_ = response_.Content == null ? null : await response_.Content.ReadAsStringAsync().ConfigureAwait(false);
-                    throw new ApiException("The HTTP status code of the response was not expected (" + status_ + ").", status_, responseData_, headers_, null);
+                    var responseData = response.Content == null ? null : await response.Content.ReadAsStringAsync().ConfigureAwait(false);
+                    throw new ApiException("The HTTP status code of the response was not expected (" + status + ").", status, responseData, headers, null);
                 }
             }
         }
@@ -4368,36 +4368,36 @@ namespace EosRio.HyperionApi
         /// <exception cref="ApiException">A server side error occurred.</exception>
         public async Task Send_transactionAsync(object body = null, CancellationToken cancellationToken = default)
         {
-            var urlBuilder_ = new StringBuilder(BaseUrl != null ? BaseUrl.TrimEnd('/') : "").Append("/v1/chain/send_transaction");
+            var urlBuilder = new StringBuilder(BaseUrl != null ? BaseUrl.TrimEnd('/') : "").Append("/v1/chain/send_transaction");
  
-            using (var request_ = new HttpRequestMessage())
+            using (var request = new HttpRequestMessage())
             {
-                var content_ = new StringContent(JsonConvert.SerializeObject(body));
-                content_.Headers.ContentType = MediaTypeHeaderValue.Parse("application/json");
-                request_.Content = content_;
-                request_.Method = new HttpMethod("POST");
+                var content = new StringContent(JsonConvert.SerializeObject(body));
+                content.Headers.ContentType = MediaTypeHeaderValue.Parse("application/json");
+                request.Content = content;
+                request.Method = new HttpMethod("POST");
 
-                var url_ = urlBuilder_.ToString();
-                request_.RequestUri = new Uri(url_, UriKind.RelativeOrAbsolute);
+                var url = urlBuilder.ToString();
+                request.RequestUri = new Uri(url, UriKind.RelativeOrAbsolute);
 
-                var response_ = await _httpClient.SendAsync(request_, HttpCompletionOption.ResponseHeadersRead, cancellationToken).ConfigureAwait(false);
+                var response = await _httpClient.SendAsync(request, HttpCompletionOption.ResponseHeadersRead, cancellationToken).ConfigureAwait(false);
 
-                var headers_ = Enumerable.ToDictionary(response_.Headers, h_ => h_.Key, h_ => h_.Value);
-                if (response_.Content != null && response_.Content.Headers != null)
+                var headers = Enumerable.ToDictionary(response.Headers, h => h.Key, h => h.Value);
+                if (response.Content != null && response.Content.Headers != null)
                 {
-                    foreach (var item_ in response_.Content.Headers)
-                        headers_[item_.Key] = item_.Value;
+                    foreach (var item in response.Content.Headers)
+                        headers[item.Key] = item.Value;
                 }
 
-                var status_ = (int)response_.StatusCode;
-                if (status_ == 200)
+                var status = (int)response.StatusCode;
+                if (status == 200)
                 {
                     return;
                 }
                 else
                 {
-                    var responseData_ = response_.Content == null ? null : await response_.Content.ReadAsStringAsync().ConfigureAwait(false);
-                    throw new ApiException("The HTTP status code of the response was not expected (" + status_ + ").", status_, responseData_, headers_, null);
+                    var responseData = response.Content == null ? null : await response.Content.ReadAsStringAsync().ConfigureAwait(false);
+                    throw new ApiException("The HTTP status code of the response was not expected (" + status + ").", status, responseData, headers, null);
                 }
             }
         }
@@ -4408,33 +4408,33 @@ namespace EosRio.HyperionApi
         /// <exception cref="ApiException">A server side error occurred.</exception>
         public async Task GetAsync(CancellationToken cancellationToken = default)
         {
-            var urlBuilder_ = new StringBuilder(BaseUrl != null ? BaseUrl.TrimEnd('/') : "").Append("/v1/chain/*");
+            var urlBuilder = new StringBuilder(BaseUrl != null ? BaseUrl.TrimEnd('/') : "").Append("/v1/chain/*");
  
-            using (var request_ = new HttpRequestMessage())
+            using (var request = new HttpRequestMessage())
             {
-                request_.Method = new HttpMethod("GET");
+                request.Method = new HttpMethod("GET");
 
-                var url_ = urlBuilder_.ToString();
-                request_.RequestUri = new Uri(url_, UriKind.RelativeOrAbsolute);
+                var url = urlBuilder.ToString();
+                request.RequestUri = new Uri(url, UriKind.RelativeOrAbsolute);
 
-                var response_ = await _httpClient.SendAsync(request_, HttpCompletionOption.ResponseHeadersRead, cancellationToken).ConfigureAwait(false);
+                var response = await _httpClient.SendAsync(request, HttpCompletionOption.ResponseHeadersRead, cancellationToken).ConfigureAwait(false);
 
-                var headers_ = Enumerable.ToDictionary(response_.Headers, h_ => h_.Key, h_ => h_.Value);
-                if (response_.Content != null && response_.Content.Headers != null)
+                var headers = Enumerable.ToDictionary(response.Headers, h => h.Key, h => h.Value);
+                if (response.Content != null && response.Content.Headers != null)
                 {
-                    foreach (var item_ in response_.Content.Headers)
-                        headers_[item_.Key] = item_.Value;
+                    foreach (var item in response.Content.Headers)
+                        headers[item.Key] = item.Value;
                 }
 
-                var status_ = (int)response_.StatusCode;
-                if (status_ == 200)
+                var status = (int)response.StatusCode;
+                if (status == 200)
                 {
                     return;
                 }
                 else
                 {
-                    var responseData_ = response_.Content == null ? null : await response_.Content.ReadAsStringAsync().ConfigureAwait(false);
-                    throw new ApiException("The HTTP status code of the response was not expected (" + status_ + ").", status_, responseData_, headers_, null);
+                    var responseData = response.Content == null ? null : await response.Content.ReadAsStringAsync().ConfigureAwait(false);
+                    throw new ApiException("The HTTP status code of the response was not expected (" + status + ").", status, responseData, headers, null);
                 }
             }
         }
@@ -4445,34 +4445,34 @@ namespace EosRio.HyperionApi
         /// <exception cref="ApiException">A server side error occurred.</exception>
         public async Task PostAsync(CancellationToken cancellationToken = default)
         {
-            var urlBuilder_ = new StringBuilder(BaseUrl != null ? BaseUrl.TrimEnd('/') : "").Append("/v1/chain/*");
+            var urlBuilder = new StringBuilder(BaseUrl != null ? BaseUrl.TrimEnd('/') : "").Append("/v1/chain/*");
  
-            using (var request_ = new HttpRequestMessage())
+            using (var request = new HttpRequestMessage())
             {
-                request_.Content = new StringContent(string.Empty, Encoding.UTF8, "application/json");
-                request_.Method = new HttpMethod("POST");
+                request.Content = new StringContent(string.Empty, Encoding.UTF8, "application/json");
+                request.Method = new HttpMethod("POST");
 
-                var url_ = urlBuilder_.ToString();
-                request_.RequestUri = new Uri(url_, UriKind.RelativeOrAbsolute);
+                var url = urlBuilder.ToString();
+                request.RequestUri = new Uri(url, UriKind.RelativeOrAbsolute);
 
-                var response_ = await _httpClient.SendAsync(request_, HttpCompletionOption.ResponseHeadersRead, cancellationToken).ConfigureAwait(false);
+                var response = await _httpClient.SendAsync(request, HttpCompletionOption.ResponseHeadersRead, cancellationToken).ConfigureAwait(false);
 
-                var headers_ = Enumerable.ToDictionary(response_.Headers, h_ => h_.Key, h_ => h_.Value);
-                if (response_.Content != null && response_.Content.Headers != null)
+                var headers = Enumerable.ToDictionary(response.Headers, h => h.Key, h => h.Value);
+                if (response.Content != null && response.Content.Headers != null)
                 {
-                    foreach (var item_ in response_.Content.Headers)
-                        headers_[item_.Key] = item_.Value;
+                    foreach (var item in response.Content.Headers)
+                        headers[item.Key] = item.Value;
                 }
 
-                var status_ = (int)response_.StatusCode;
-                if (status_ == 200)
+                var status = (int)response.StatusCode;
+                if (status == 200)
                 {
                     return;
                 }
                 else
                 {
-                    var responseData_ = response_.Content == null ? null : await response_.Content.ReadAsStringAsync().ConfigureAwait(false);
-                    throw new ApiException("The HTTP status code of the response was not expected (" + status_ + ").", status_, responseData_, headers_, null);
+                    var responseData = response.Content == null ? null : await response.Content.ReadAsStringAsync().ConfigureAwait(false);
+                    throw new ApiException("The HTTP status code of the response was not expected (" + status + ").", status, responseData, headers, null);
                 }
             }
         }
@@ -4580,7 +4580,7 @@ namespace EosRio.HyperionApi
     }
     
     
-    public partial class InternalClient 
+    public class InternalClient 
     {
         private string _baseUrl = "https://api.wax.liquidstudios.io/";
         private HttpClient _httpClient;
@@ -4601,33 +4601,33 @@ namespace EosRio.HyperionApi
         /// <exception cref="ApiException">A server side error occurred.</exception>
         public async Task Stream_httpClientjsAsync(CancellationToken cancellationToken = default)
         {
-            var urlBuilder_ = new StringBuilder(BaseUrl != null ? BaseUrl.TrimEnd('/') : "").Append("/stream-client.js");
+            var urlBuilder = new StringBuilder(BaseUrl != null ? BaseUrl.TrimEnd('/') : "").Append("/stream-client.js");
  
-            using (var request_ = new HttpRequestMessage())
+            using (var request = new HttpRequestMessage())
             {
-                request_.Method = new HttpMethod("GET");
+                request.Method = new HttpMethod("GET");
 
-                var url_ = urlBuilder_.ToString();
-                request_.RequestUri = new Uri(url_, UriKind.RelativeOrAbsolute);
+                var url = urlBuilder.ToString();
+                request.RequestUri = new Uri(url, UriKind.RelativeOrAbsolute);
 
-                var response_ = await _httpClient.SendAsync(request_, HttpCompletionOption.ResponseHeadersRead, cancellationToken).ConfigureAwait(false);
+                var response = await _httpClient.SendAsync(request, HttpCompletionOption.ResponseHeadersRead, cancellationToken).ConfigureAwait(false);
 
-                var headers_ = Enumerable.ToDictionary(response_.Headers, h_ => h_.Key, h_ => h_.Value);
-                if (response_.Content != null && response_.Content.Headers != null)
+                var headers = Enumerable.ToDictionary(response.Headers, h => h.Key, h => h.Value);
+                if (response.Content != null && response.Content.Headers != null)
                 {
-                    foreach (var item_ in response_.Content.Headers)
-                        headers_[item_.Key] = item_.Value;
+                    foreach (var item in response.Content.Headers)
+                        headers[item.Key] = item.Value;
                 }
 
-                var status_ = (int)response_.StatusCode;
-                if (status_ == 200)
+                var status = (int)response.StatusCode;
+                if (status == 200)
                 {
                     return;
                 }
                 else
                 {
-                    var responseData_ = response_.Content == null ? null : await response_.Content.ReadAsStringAsync().ConfigureAwait(false);
-                    throw new ApiException("The HTTP status code of the response was not expected (" + status_ + ").", status_, responseData_, headers_, null);
+                    var responseData = response.Content == null ? null : await response.Content.ReadAsStringAsync().ConfigureAwait(false);
+                    throw new ApiException("The HTTP status code of the response was not expected (" + status + ").", status, responseData, headers, null);
                 }
             }
         }
@@ -4751,30 +4751,30 @@ namespace EosRio.HyperionApi
     
     }
 
-    public partial class Body 
+    public class Body 
     {
         /// <summary>public key</summary>
         [JsonProperty("public_key", Required = Required.Always)]
-        public string Public_key { get; set; }
+        public string PublicKey { get; set; }
     }
 
-    public partial class Name 
+    public class Name 
     {
 
     
     
     }
 
-    public partial class Response 
+    public class Response 
     {
         [JsonProperty("query_time_ms", Required = Required.DisallowNull, NullValueHandling = NullValueHandling.Ignore)]
-        public double Query_time_ms { get; set; }
+        public double QueryTimeMs { get; set; }
     
         [JsonProperty("cached", Required = Required.DisallowNull, NullValueHandling = NullValueHandling.Ignore)]
         public bool Cached { get; set; }
     
         [JsonProperty("hot_only", Required = Required.DisallowNull, NullValueHandling = NullValueHandling.Ignore)]
-        public bool Hot_only { get; set; }
+        public bool HotOnly { get; set; }
     
         [JsonProperty("lib", Required = Required.DisallowNull, NullValueHandling = NullValueHandling.Ignore)]
         public double Lib { get; set; }
@@ -4783,7 +4783,7 @@ namespace EosRio.HyperionApi
         public Total Total { get; set; }
     
         [JsonProperty("simple_actions", Required = Required.DisallowNull, NullValueHandling = NullValueHandling.Ignore)]
-        public ICollection<Simple_actions> Simple_actions { get; set; }
+        public ICollection<SimpleActions> SimpleActions { get; set; }
     
         [JsonProperty("actions", Required = Required.DisallowNull, NullValueHandling = NullValueHandling.Ignore)]
         public ICollection<Actions> Actions { get; set; }
@@ -4793,49 +4793,49 @@ namespace EosRio.HyperionApi
     
     }
 
-    public partial class Response2 
+    public class Response2 
     {
         [JsonProperty("query_time_ms", Required = Required.DisallowNull, NullValueHandling = NullValueHandling.Ignore)]
-        public double Query_time_ms { get; set; }
+        public double QueryTimeMs { get; set; }
     
         [JsonProperty("cached", Required = Required.DisallowNull, NullValueHandling = NullValueHandling.Ignore)]
         public bool Cached { get; set; }
     
         [JsonProperty("hot_only", Required = Required.DisallowNull, NullValueHandling = NullValueHandling.Ignore)]
-        public bool Hot_only { get; set; }
+        public bool HotOnly { get; set; }
     
         [JsonProperty("lib", Required = Required.DisallowNull, NullValueHandling = NullValueHandling.Ignore)]
         public double Lib { get; set; }
     
         [JsonProperty("total", Required = Required.DisallowNull, NullValueHandling = NullValueHandling.Ignore)]
-        public Total2 Total { get; set; }
+        public Total Total { get; set; }
     
         [JsonProperty("deltas", Required = Required.DisallowNull, NullValueHandling = NullValueHandling.Ignore)]
         public ICollection<Deltas> Deltas { get; set; }
     }
 
-    public partial class Response3 
+    public class Response3 
     {
         [JsonProperty("query_time_ms", Required = Required.DisallowNull, NullValueHandling = NullValueHandling.Ignore)]
-        public double Query_time_ms { get; set; }
+        public double QueryTimeMs { get; set; }
     
         [JsonProperty("cached", Required = Required.DisallowNull, NullValueHandling = NullValueHandling.Ignore)]
         public bool Cached { get; set; }
     
         [JsonProperty("hot_only", Required = Required.DisallowNull, NullValueHandling = NullValueHandling.Ignore)]
-        public bool Hot_only { get; set; }
+        public bool HotOnly { get; set; }
     
         [JsonProperty("lib", Required = Required.DisallowNull, NullValueHandling = NullValueHandling.Ignore)]
         public double Lib { get; set; }
     
         [JsonProperty("total", Required = Required.DisallowNull, NullValueHandling = NullValueHandling.Ignore)]
-        public Total3 Total { get; set; }
+        public Total Total { get; set; }
     
         [JsonProperty("timestamp", Required = Required.DisallowNull, NullValueHandling = NullValueHandling.Ignore)]
         public string Timestamp { get; set; }
     
         [JsonProperty("block_num", Required = Required.DisallowNull, NullValueHandling = NullValueHandling.Ignore)]
-        public double Block_num { get; set; }
+        public double BlockNum { get; set; }
     
         [JsonProperty("version", Required = Required.DisallowNull, NullValueHandling = NullValueHandling.Ignore)]
         public double Version { get; set; }
@@ -4844,34 +4844,34 @@ namespace EosRio.HyperionApi
         public ICollection<Producers> Producers { get; set; }
     }
 
-    public partial class Response4 
+    public class Response4 
     {
         [JsonProperty("query_time", Required = Required.DisallowNull, NullValueHandling = NullValueHandling.Ignore)]
-        public double Query_time { get; set; }
+        public double QueryTime { get; set; }
     
         [JsonProperty("last_irreversible_block", Required = Required.DisallowNull, NullValueHandling = NullValueHandling.Ignore)]
-        public double Last_irreversible_block { get; set; }
+        public double LastIrreversibleBlock { get; set; }
     
         [JsonProperty("actions", Required = Required.DisallowNull, NullValueHandling = NullValueHandling.Ignore)]
         public ICollection<Actions2> Actions { get; set; }
     }
 
-    public partial class Response5 
+    public class Response5 
     {
         [JsonProperty("query_time_ms", Required = Required.DisallowNull, NullValueHandling = NullValueHandling.Ignore)]
-        public double Query_time_ms { get; set; }
+        public double QueryTimeMs { get; set; }
     
         [JsonProperty("cached", Required = Required.DisallowNull, NullValueHandling = NullValueHandling.Ignore)]
         public bool Cached { get; set; }
     
         [JsonProperty("hot_only", Required = Required.DisallowNull, NullValueHandling = NullValueHandling.Ignore)]
-        public bool Hot_only { get; set; }
+        public bool HotOnly { get; set; }
     
         [JsonProperty("lib", Required = Required.DisallowNull, NullValueHandling = NullValueHandling.Ignore)]
         public double Lib { get; set; }
     
         [JsonProperty("total", Required = Required.DisallowNull, NullValueHandling = NullValueHandling.Ignore)]
-        public Total4 Total { get; set; }
+        public Total Total { get; set; }
     
         [JsonProperty("id", Required = Required.DisallowNull, NullValueHandling = NullValueHandling.Ignore)]
         public string Id { get; set; }
@@ -4880,7 +4880,7 @@ namespace EosRio.HyperionApi
         public int Number { get; set; }
     
         [JsonProperty("previous_id", Required = Required.DisallowNull, NullValueHandling = NullValueHandling.Ignore)]
-        public string Previous_id { get; set; }
+        public string PreviousId { get; set; }
     
         [JsonProperty("status", Required = Required.DisallowNull, NullValueHandling = NullValueHandling.Ignore)]
         public string Status { get; set; }
@@ -4895,46 +4895,46 @@ namespace EosRio.HyperionApi
         public ICollection<Transactions> Transactions { get; set; }
     }
 
-    public partial class Response6 
+    public class Response6 
     {
         [JsonProperty("query_time_ms", Required = Required.DisallowNull, NullValueHandling = NullValueHandling.Ignore)]
-        public double Query_time_ms { get; set; }
+        public double QueryTimeMs { get; set; }
     
         [JsonProperty("cached", Required = Required.DisallowNull, NullValueHandling = NullValueHandling.Ignore)]
         public bool Cached { get; set; }
     
         [JsonProperty("hot_only", Required = Required.DisallowNull, NullValueHandling = NullValueHandling.Ignore)]
-        public bool Hot_only { get; set; }
+        public bool HotOnly { get; set; }
     
         [JsonProperty("lib", Required = Required.DisallowNull, NullValueHandling = NullValueHandling.Ignore)]
         public double Lib { get; set; }
     
         [JsonProperty("total", Required = Required.DisallowNull, NullValueHandling = NullValueHandling.Ignore)]
-        public Total5 Total { get; set; }
+        public Total Total { get; set; }
     
         [JsonProperty("query_time", Required = Required.DisallowNull, NullValueHandling = NullValueHandling.Ignore)]
-        public double Query_time { get; set; }
+        public double QueryTime { get; set; }
     
         [JsonProperty("accounts", Required = Required.DisallowNull, NullValueHandling = NullValueHandling.Ignore)]
         public ICollection<Accounts> Accounts { get; set; }
     }
 
-    public partial class Response7 
+    public class Response7 
     {
         [JsonProperty("query_time_ms", Required = Required.DisallowNull, NullValueHandling = NullValueHandling.Ignore)]
-        public double Query_time_ms { get; set; }
+        public double QueryTimeMs { get; set; }
     
         [JsonProperty("cached", Required = Required.DisallowNull, NullValueHandling = NullValueHandling.Ignore)]
         public bool Cached { get; set; }
     
         [JsonProperty("hot_only", Required = Required.DisallowNull, NullValueHandling = NullValueHandling.Ignore)]
-        public bool Hot_only { get; set; }
+        public bool HotOnly { get; set; }
     
         [JsonProperty("lib", Required = Required.DisallowNull, NullValueHandling = NullValueHandling.Ignore)]
         public double Lib { get; set; }
     
         [JsonProperty("total", Required = Required.DisallowNull, NullValueHandling = NullValueHandling.Ignore)]
-        public Total6 Total { get; set; }
+        public Total Total { get; set; }
     
         [JsonProperty("account", Required = Required.DisallowNull, NullValueHandling = NullValueHandling.Ignore)]
         public string Account { get; set; }
@@ -4946,31 +4946,31 @@ namespace EosRio.HyperionApi
         public string Timestamp { get; set; }
     
         [JsonProperty("block_num", Required = Required.DisallowNull, NullValueHandling = NullValueHandling.Ignore)]
-        public int Block_num { get; set; }
+        public int BlockNum { get; set; }
     
         [JsonProperty("trx_id", Required = Required.DisallowNull, NullValueHandling = NullValueHandling.Ignore)]
-        public string Trx_id { get; set; }
+        public string TrxId { get; set; }
     
         [JsonProperty("indirect_creator", Required = Required.DisallowNull, NullValueHandling = NullValueHandling.Ignore)]
-        public string Indirect_creator { get; set; }
+        public string IndirectCreator { get; set; }
     }
 
-    public partial class Response8 
+    public class Response8 
     {
         [JsonProperty("query_time_ms", Required = Required.DisallowNull, NullValueHandling = NullValueHandling.Ignore)]
-        public double Query_time_ms { get; set; }
+        public double QueryTimeMs { get; set; }
     
         [JsonProperty("cached", Required = Required.DisallowNull, NullValueHandling = NullValueHandling.Ignore)]
         public bool Cached { get; set; }
     
         [JsonProperty("hot_only", Required = Required.DisallowNull, NullValueHandling = NullValueHandling.Ignore)]
-        public bool Hot_only { get; set; }
+        public bool HotOnly { get; set; }
     
         [JsonProperty("lib", Required = Required.DisallowNull, NullValueHandling = NullValueHandling.Ignore)]
         public double Lib { get; set; }
     
         [JsonProperty("total", Required = Required.DisallowNull, NullValueHandling = NullValueHandling.Ignore)]
-        public Total7 Total { get; set; }
+        public Total Total { get; set; }
     
         [JsonProperty("account", Required = Required.DisallowNull, NullValueHandling = NullValueHandling.Ignore)]
         public object Account { get; set; }
@@ -4982,97 +4982,97 @@ namespace EosRio.HyperionApi
         public ICollection<Tokens> Tokens { get; set; }
     
         [JsonProperty("total_actions", Required = Required.DisallowNull, NullValueHandling = NullValueHandling.Ignore)]
-        public double Total_actions { get; set; }
+        public double TotalActions { get; set; }
     
         [JsonProperty("actions", Required = Required.DisallowNull, NullValueHandling = NullValueHandling.Ignore)]
         public ICollection<Actions3> Actions { get; set; }
     }
 
-    public partial class Response9 
+    public class Response9 
     {
         [JsonProperty("account_names", Required = Required.DisallowNull, NullValueHandling = NullValueHandling.Ignore)]
-        public ICollection<string> Account_names { get; set; }
+        public ICollection<string> AccountNames { get; set; }
     
         [JsonProperty("permissions", Required = Required.DisallowNull, NullValueHandling = NullValueHandling.Ignore)]
         public ICollection<Permissions> Permissions { get; set; }
     }
 
-    public partial class Response10 
+    public class Response10 
     {
         [JsonProperty("account_names", Required = Required.DisallowNull, NullValueHandling = NullValueHandling.Ignore)]
-        public ICollection<string> Account_names { get; set; }
+        public ICollection<string> AccountNames { get; set; }
     }
 
-    public partial class Response11 
+    public class Response11 
     {
         [JsonProperty("query_time_ms", Required = Required.DisallowNull, NullValueHandling = NullValueHandling.Ignore)]
-        public double Query_time_ms { get; set; }
+        public double QueryTimeMs { get; set; }
     
         [JsonProperty("cached", Required = Required.DisallowNull, NullValueHandling = NullValueHandling.Ignore)]
         public bool Cached { get; set; }
     
         [JsonProperty("hot_only", Required = Required.DisallowNull, NullValueHandling = NullValueHandling.Ignore)]
-        public bool Hot_only { get; set; }
+        public bool HotOnly { get; set; }
     
         [JsonProperty("lib", Required = Required.DisallowNull, NullValueHandling = NullValueHandling.Ignore)]
         public double Lib { get; set; }
     
         [JsonProperty("total", Required = Required.DisallowNull, NullValueHandling = NullValueHandling.Ignore)]
-        public Total8 Total { get; set; }
+        public Total Total { get; set; }
     
         [JsonProperty("links", Required = Required.DisallowNull, NullValueHandling = NullValueHandling.Ignore)]
         public ICollection<Links2> Links { get; set; }
     }
 
-    public partial class Response12 
+    public class Response12 
     {
         [JsonProperty("controlled_accounts", Required = Required.DisallowNull, NullValueHandling = NullValueHandling.Ignore)]
-        public ICollection<string> Controlled_accounts { get; set; }
+        public ICollection<string> ControlledAccounts { get; set; }
     }
 
-    public partial class Response13 
+    public class Response13 
     {
         [JsonProperty("account_names", Required = Required.DisallowNull, NullValueHandling = NullValueHandling.Ignore)]
-        public ICollection<string> Account_names { get; set; }
+        public ICollection<string> AccountNames { get; set; }
     }
 
-    public partial class Response14 
+    public class Response14 
     {
         [JsonProperty("query_time_ms", Required = Required.DisallowNull, NullValueHandling = NullValueHandling.Ignore)]
-        public double Query_time_ms { get; set; }
+        public double QueryTimeMs { get; set; }
     
         [JsonProperty("cached", Required = Required.DisallowNull, NullValueHandling = NullValueHandling.Ignore)]
         public bool Cached { get; set; }
     
         [JsonProperty("hot_only", Required = Required.DisallowNull, NullValueHandling = NullValueHandling.Ignore)]
-        public bool Hot_only { get; set; }
+        public bool HotOnly { get; set; }
     
         [JsonProperty("lib", Required = Required.DisallowNull, NullValueHandling = NullValueHandling.Ignore)]
         public double Lib { get; set; }
     
         [JsonProperty("total", Required = Required.DisallowNull, NullValueHandling = NullValueHandling.Ignore)]
-        public Total9 Total { get; set; }
+        public Total Total { get; set; }
     
         [JsonProperty("voters", Required = Required.DisallowNull, NullValueHandling = NullValueHandling.Ignore)]
         public ICollection<Voters> Voters { get; set; }
     }
 
-    public partial class Response15 
+    public class Response15 
     {
         [JsonProperty("query_time_ms", Required = Required.DisallowNull, NullValueHandling = NullValueHandling.Ignore)]
-        public double Query_time_ms { get; set; }
+        public double QueryTimeMs { get; set; }
     
         [JsonProperty("cached", Required = Required.DisallowNull, NullValueHandling = NullValueHandling.Ignore)]
         public bool Cached { get; set; }
     
         [JsonProperty("hot_only", Required = Required.DisallowNull, NullValueHandling = NullValueHandling.Ignore)]
-        public bool Hot_only { get; set; }
+        public bool HotOnly { get; set; }
     
         [JsonProperty("lib", Required = Required.DisallowNull, NullValueHandling = NullValueHandling.Ignore)]
         public double Lib { get; set; }
     
         [JsonProperty("total", Required = Required.DisallowNull, NullValueHandling = NullValueHandling.Ignore)]
-        public Total10 Total { get; set; }
+        public Total Total { get; set; }
     
         [JsonProperty("stats", Required = Required.DisallowNull, NullValueHandling = NullValueHandling.Ignore)]
         public Stats Stats { get; set; }
@@ -5081,7 +5081,7 @@ namespace EosRio.HyperionApi
         public ICollection<Events> Events { get; set; }
     }
 
-    public partial class Total 
+    public class Total 
     {
         [JsonProperty("value", Required = Required.DisallowNull, NullValueHandling = NullValueHandling.Ignore)]
         public double Value { get; set; }
@@ -5090,7 +5090,7 @@ namespace EosRio.HyperionApi
         public string Relation { get; set; }
     }
 
-    public partial class Simple_actions 
+    public class SimpleActions 
     {
         [JsonProperty("block", Required = Required.DisallowNull, NullValueHandling = NullValueHandling.Ignore)]
         public double Block { get; set; }
@@ -5114,13 +5114,13 @@ namespace EosRio.HyperionApi
         public string Notified { get; set; }
     
         [JsonProperty("transaction_id", Required = Required.DisallowNull, NullValueHandling = NullValueHandling.Ignore)]
-        public string Transaction_id { get; set; }
+        public string TransactionId { get; set; }
     
         [JsonProperty("data", Required = Required.DisallowNull, NullValueHandling = NullValueHandling.Ignore)]
         public object Data { get; set; }
     }
 
-    public partial class Actions 
+    public class Actions 
     {
         [JsonProperty("@timestamp", Required = Required.DisallowNull, NullValueHandling = NullValueHandling.Ignore)]
         public string timestamp { get; set; }
@@ -5129,10 +5129,10 @@ namespace EosRio.HyperionApi
         public string Timestamp { get; set; }
     
         [JsonProperty("block_num", Required = Required.DisallowNull, NullValueHandling = NullValueHandling.Ignore)]
-        public double Block_num { get; set; }
+        public double BlockNum { get; set; }
     
         [JsonProperty("trx_id", Required = Required.DisallowNull, NullValueHandling = NullValueHandling.Ignore)]
-        public string Trx_id { get; set; }
+        public string TrxId { get; set; }
     
         [JsonProperty("act", Required = Required.DisallowNull, NullValueHandling = NullValueHandling.Ignore)]
         public Act Act { get; set; }
@@ -5141,16 +5141,16 @@ namespace EosRio.HyperionApi
         public ICollection<string> Notified { get; set; }
     
         [JsonProperty("cpu_usage_us", Required = Required.DisallowNull, NullValueHandling = NullValueHandling.Ignore)]
-        public double Cpu_usage_us { get; set; }
+        public double CpuUsageUs { get; set; }
     
         [JsonProperty("net_usage_words", Required = Required.DisallowNull, NullValueHandling = NullValueHandling.Ignore)]
-        public double Net_usage_words { get; set; }
+        public double NetUsageWords { get; set; }
     
         [JsonProperty("account_ram_deltas", Required = Required.DisallowNull, NullValueHandling = NullValueHandling.Ignore)]
-        public ICollection<Account_ram_deltas> Account_ram_deltas { get; set; }
+        public ICollection<AccountRamDeltas> AccountRamDeltas { get; set; }
     
         [JsonProperty("global_sequence", Required = Required.DisallowNull, NullValueHandling = NullValueHandling.Ignore)]
-        public double Global_sequence { get; set; }
+        public double GlobalSequence { get; set; }
     
         [JsonProperty("receiver", Required = Required.DisallowNull, NullValueHandling = NullValueHandling.Ignore)]
         public string Receiver { get; set; }
@@ -5162,22 +5162,13 @@ namespace EosRio.HyperionApi
         public double Parent { get; set; }
     
         [JsonProperty("action_ordinal", Required = Required.DisallowNull, NullValueHandling = NullValueHandling.Ignore)]
-        public double Action_ordinal { get; set; }
+        public double ActionOrdinal { get; set; }
     
         [JsonProperty("creator_action_ordinal", Required = Required.DisallowNull, NullValueHandling = NullValueHandling.Ignore)]
-        public double Creator_action_ordinal { get; set; }
+        public double CreatorActionOrdinal { get; set; }
     }
 
-    public partial class Total2 
-    {
-        [JsonProperty("value", Required = Required.DisallowNull, NullValueHandling = NullValueHandling.Ignore)]
-        public double Value { get; set; }
-    
-        [JsonProperty("relation", Required = Required.DisallowNull, NullValueHandling = NullValueHandling.Ignore)]
-        public string Relation { get; set; }
-    }
-
-    public partial class Deltas 
+    public class Deltas 
     {
         [JsonProperty("timestamp", Required = Required.DisallowNull, NullValueHandling = NullValueHandling.Ignore)]
         public string Timestamp { get; set; }
@@ -5192,7 +5183,7 @@ namespace EosRio.HyperionApi
         public string Table { get; set; }
     
         [JsonProperty("primary_key", Required = Required.DisallowNull, NullValueHandling = NullValueHandling.Ignore)]
-        public string Primary_key { get; set; }
+        public string PrimaryKey { get; set; }
     
         [JsonProperty("payer", Required = Required.DisallowNull, NullValueHandling = NullValueHandling.Ignore)]
         public string Payer { get; set; }
@@ -5201,64 +5192,46 @@ namespace EosRio.HyperionApi
         public bool Present { get; set; }
     
         [JsonProperty("block_num", Required = Required.DisallowNull, NullValueHandling = NullValueHandling.Ignore)]
-        public double Block_num { get; set; }
+        public double BlockNum { get; set; }
     
         [JsonProperty("block_id", Required = Required.DisallowNull, NullValueHandling = NullValueHandling.Ignore)]
-        public string Block_id { get; set; }
+        public string BlockId { get; set; }
     
         [JsonProperty("data", Required = Required.DisallowNull, NullValueHandling = NullValueHandling.Ignore)]
         public object Data { get; set; }
     }
 
-    public partial class Total3 
-    {
-        [JsonProperty("value", Required = Required.DisallowNull, NullValueHandling = NullValueHandling.Ignore)]
-        public double Value { get; set; }
-    
-        [JsonProperty("relation", Required = Required.DisallowNull, NullValueHandling = NullValueHandling.Ignore)]
-        public string Relation { get; set; }
-    }
-
-    public partial class Producers 
+    public class Producers 
     {
         [JsonProperty("producer_name", Required = Required.DisallowNull, NullValueHandling = NullValueHandling.Ignore)]
-        public string Producer_name { get; set; }
+        public string ProducerName { get; set; }
     
         [JsonProperty("block_signing_key", Required = Required.DisallowNull, NullValueHandling = NullValueHandling.Ignore)]
-        public string Block_signing_key { get; set; }
+        public string BlockSigningKey { get; set; }
     
         [JsonProperty("legacy_key", Required = Required.DisallowNull, NullValueHandling = NullValueHandling.Ignore)]
-        public string Legacy_key { get; set; }
+        public string LegacyKey { get; set; }
     }
 
-    public partial class Actions2 
+    public class Actions2 
     {
         [JsonProperty("account_action_seq", Required = Required.DisallowNull, NullValueHandling = NullValueHandling.Ignore)]
-        public double Account_action_seq { get; set; }
+        public double AccountActionSeq { get; set; }
     
         [JsonProperty("global_action_seq", Required = Required.DisallowNull, NullValueHandling = NullValueHandling.Ignore)]
-        public double Global_action_seq { get; set; }
+        public double GlobalActionSeq { get; set; }
     
         [JsonProperty("block_num", Required = Required.DisallowNull, NullValueHandling = NullValueHandling.Ignore)]
-        public double Block_num { get; set; }
+        public double BlockNum { get; set; }
     
         [JsonProperty("block_time", Required = Required.DisallowNull, NullValueHandling = NullValueHandling.Ignore)]
-        public string Block_time { get; set; }
+        public string BlockTime { get; set; }
     
         [JsonProperty("action_trace", Required = Required.DisallowNull, NullValueHandling = NullValueHandling.Ignore)]
-        public Action_trace Action_trace { get; set; }
+        public ActionTrace ActionTrace { get; set; }
     }
 
-    public partial class Total4 
-    {
-        [JsonProperty("value", Required = Required.DisallowNull, NullValueHandling = NullValueHandling.Ignore)]
-        public double Value { get; set; }
-    
-        [JsonProperty("relation", Required = Required.DisallowNull, NullValueHandling = NullValueHandling.Ignore)]
-        public string Relation { get; set; }
-    }
-
-    public partial class Transactions 
+    public class Transactions 
     {
         [JsonProperty("id", Required = Required.DisallowNull, NullValueHandling = NullValueHandling.Ignore)]
         public string Id { get; set; }
@@ -5267,16 +5240,7 @@ namespace EosRio.HyperionApi
         public ICollection<Actions4> Actions { get; set; }
     }
 
-    public partial class Total5 
-    {
-        [JsonProperty("value", Required = Required.DisallowNull, NullValueHandling = NullValueHandling.Ignore)]
-        public double Value { get; set; }
-    
-        [JsonProperty("relation", Required = Required.DisallowNull, NullValueHandling = NullValueHandling.Ignore)]
-        public string Relation { get; set; }
-    }
-
-    public partial class Accounts 
+    public class Accounts 
     {
         [JsonProperty("name", Required = Required.DisallowNull, NullValueHandling = NullValueHandling.Ignore)]
         public string Name { get; set; }
@@ -5285,28 +5249,10 @@ namespace EosRio.HyperionApi
         public string Timestamp { get; set; }
     
         [JsonProperty("trx_id", Required = Required.DisallowNull, NullValueHandling = NullValueHandling.Ignore)]
-        public string Trx_id { get; set; }
+        public string TrxId { get; set; }
     }
 
-    public partial class Total6 
-    {
-        [JsonProperty("value", Required = Required.DisallowNull, NullValueHandling = NullValueHandling.Ignore)]
-        public double Value { get; set; }
-    
-        [JsonProperty("relation", Required = Required.DisallowNull, NullValueHandling = NullValueHandling.Ignore)]
-        public string Relation { get; set; }
-    }
-
-    public partial class Total7 
-    {
-        [JsonProperty("value", Required = Required.DisallowNull, NullValueHandling = NullValueHandling.Ignore)]
-        public double Value { get; set; }
-    
-        [JsonProperty("relation", Required = Required.DisallowNull, NullValueHandling = NullValueHandling.Ignore)]
-        public string Relation { get; set; }
-    }
-
-    public partial class Links 
+    public class Links 
     {
         [JsonProperty("timestamp", Required = Required.DisallowNull, NullValueHandling = NullValueHandling.Ignore)]
         public string Timestamp { get; set; }
@@ -5321,7 +5267,7 @@ namespace EosRio.HyperionApi
         public string Action { get; set; }
     }
 
-    public partial class Tokens 
+    public class Tokens 
     {
         [JsonProperty("symbol", Required = Required.DisallowNull, NullValueHandling = NullValueHandling.Ignore)]
         public string Symbol { get; set; }
@@ -5336,7 +5282,7 @@ namespace EosRio.HyperionApi
         public string Contract { get; set; }
     }
 
-    public partial class Actions3 
+    public class Actions3 
     {
         [JsonProperty("@timestamp", Required = Required.DisallowNull, NullValueHandling = NullValueHandling.Ignore)]
         public string timestamp { get; set; }
@@ -5345,10 +5291,10 @@ namespace EosRio.HyperionApi
         public string Timestamp { get; set; }
     
         [JsonProperty("block_num", Required = Required.DisallowNull, NullValueHandling = NullValueHandling.Ignore)]
-        public double Block_num { get; set; }
+        public double BlockNum { get; set; }
     
         [JsonProperty("trx_id", Required = Required.DisallowNull, NullValueHandling = NullValueHandling.Ignore)]
-        public string Trx_id { get; set; }
+        public string TrxId { get; set; }
     
         [JsonProperty("act", Required = Required.DisallowNull, NullValueHandling = NullValueHandling.Ignore)]
         public Act2 Act { get; set; }
@@ -5357,16 +5303,16 @@ namespace EosRio.HyperionApi
         public ICollection<string> Notified { get; set; }
     
         [JsonProperty("cpu_usage_us", Required = Required.DisallowNull, NullValueHandling = NullValueHandling.Ignore)]
-        public double Cpu_usage_us { get; set; }
+        public double CpuUsageUs { get; set; }
     
         [JsonProperty("net_usage_words", Required = Required.DisallowNull, NullValueHandling = NullValueHandling.Ignore)]
-        public double Net_usage_words { get; set; }
+        public double NetUsageWords { get; set; }
     
         [JsonProperty("account_ram_deltas", Required = Required.DisallowNull, NullValueHandling = NullValueHandling.Ignore)]
-        public ICollection<Account_ram_deltas2> Account_ram_deltas { get; set; }
+        public ICollection<AccountRamDeltas2> AccountRamDeltas { get; set; }
     
         [JsonProperty("global_sequence", Required = Required.DisallowNull, NullValueHandling = NullValueHandling.Ignore)]
-        public double Global_sequence { get; set; }
+        public double GlobalSequence { get; set; }
     
         [JsonProperty("receiver", Required = Required.DisallowNull, NullValueHandling = NullValueHandling.Ignore)]
         public string Receiver { get; set; }
@@ -5378,25 +5324,25 @@ namespace EosRio.HyperionApi
         public double Parent { get; set; }
     
         [JsonProperty("action_ordinal", Required = Required.DisallowNull, NullValueHandling = NullValueHandling.Ignore)]
-        public double Action_ordinal { get; set; }
+        public double ActionOrdinal { get; set; }
     
         [JsonProperty("creator_action_ordinal", Required = Required.DisallowNull, NullValueHandling = NullValueHandling.Ignore)]
-        public double Creator_action_ordinal { get; set; }
+        public double CreatorActionOrdinal { get; set; }
     }
 
-    public partial class Permissions 
+    public class Permissions 
     {
         [JsonProperty("owner", Required = Required.DisallowNull, NullValueHandling = NullValueHandling.Ignore)]
         public string Owner { get; set; }
     
         [JsonProperty("block_num", Required = Required.DisallowNull, NullValueHandling = NullValueHandling.Ignore)]
-        public int Block_num { get; set; }
+        public int BlockNum { get; set; }
     
         [JsonProperty("parent", Required = Required.DisallowNull, NullValueHandling = NullValueHandling.Ignore)]
         public string Parent { get; set; }
     
         [JsonProperty("last_updated", Required = Required.DisallowNull, NullValueHandling = NullValueHandling.Ignore)]
-        public string Last_updated { get; set; }
+        public string LastUpdated { get; set; }
     
         [JsonProperty("auth", Required = Required.DisallowNull, NullValueHandling = NullValueHandling.Ignore)]
         public object Auth { get; set; }
@@ -5408,19 +5354,10 @@ namespace EosRio.HyperionApi
         public bool Present { get; set; }
     }
 
-    public partial class Total8 
-    {
-        [JsonProperty("value", Required = Required.DisallowNull, NullValueHandling = NullValueHandling.Ignore)]
-        public double Value { get; set; }
-    
-        [JsonProperty("relation", Required = Required.DisallowNull, NullValueHandling = NullValueHandling.Ignore)]
-        public string Relation { get; set; }
-    }
-
-    public partial class Links2 
+    public class Links2 
     {
         [JsonProperty("block_num", Required = Required.DisallowNull, NullValueHandling = NullValueHandling.Ignore)]
-        public double Block_num { get; set; }
+        public double BlockNum { get; set; }
     
         [JsonProperty("timestamp", Required = Required.DisallowNull, NullValueHandling = NullValueHandling.Ignore)]
         public string Timestamp { get; set; }
@@ -5441,16 +5378,7 @@ namespace EosRio.HyperionApi
         public bool Irreversible { get; set; }
     }
 
-    public partial class Total9 
-    {
-        [JsonProperty("value", Required = Required.DisallowNull, NullValueHandling = NullValueHandling.Ignore)]
-        public double Value { get; set; }
-    
-        [JsonProperty("relation", Required = Required.DisallowNull, NullValueHandling = NullValueHandling.Ignore)]
-        public string Relation { get; set; }
-    }
-
-    public partial class Voters 
+    public class Voters 
     {
         [JsonProperty("account", Required = Required.DisallowNull, NullValueHandling = NullValueHandling.Ignore)]
         public string Account { get; set; }
@@ -5459,37 +5387,28 @@ namespace EosRio.HyperionApi
         public double Weight { get; set; }
     
         [JsonProperty("last_vote", Required = Required.DisallowNull, NullValueHandling = NullValueHandling.Ignore)]
-        public double Last_vote { get; set; }
+        public double LastVote { get; set; }
     
         [JsonProperty("data", Required = Required.DisallowNull, NullValueHandling = NullValueHandling.Ignore)]
         public object Data { get; set; }
     }
 
-    public partial class Total10 
-    {
-        [JsonProperty("value", Required = Required.DisallowNull, NullValueHandling = NullValueHandling.Ignore)]
-        public double Value { get; set; }
-    
-        [JsonProperty("relation", Required = Required.DisallowNull, NullValueHandling = NullValueHandling.Ignore)]
-        public string Relation { get; set; }
-    }
-
-    public partial class Stats 
+    public class Stats 
     {
         [JsonProperty("by_producer", Required = Required.DisallowNull, NullValueHandling = NullValueHandling.Ignore)]
-        public object By_producer { get; set; }
+        public object ByProducer { get; set; }
     }
 
-    public partial class Events 
+    public class Events 
     {
         [JsonProperty("@timestamp", Required = Required.DisallowNull, NullValueHandling = NullValueHandling.Ignore)]
         public string Timestamp { get; set; }
     
         [JsonProperty("last_block", Required = Required.DisallowNull, NullValueHandling = NullValueHandling.Ignore)]
-        public double Last_block { get; set; }
+        public double LastBlock { get; set; }
     
         [JsonProperty("schedule_version", Required = Required.DisallowNull, NullValueHandling = NullValueHandling.Ignore)]
-        public double Schedule_version { get; set; }
+        public double ScheduleVersion { get; set; }
     
         [JsonProperty("size", Required = Required.DisallowNull, NullValueHandling = NullValueHandling.Ignore)]
         public double Size { get; set; }
@@ -5498,7 +5417,7 @@ namespace EosRio.HyperionApi
         public string Producer { get; set; }
     }
 
-    public partial class Act 
+    public class Act 
     {
         [JsonProperty("account", Required = Required.DisallowNull, NullValueHandling = NullValueHandling.Ignore)]
         public string Account { get; set; }
@@ -5507,7 +5426,7 @@ namespace EosRio.HyperionApi
         public string Name { get; set; }
     }
 
-    public partial class Account_ram_deltas 
+    public class AccountRamDeltas 
     {
         [JsonProperty("account", Required = Required.DisallowNull, NullValueHandling = NullValueHandling.Ignore)]
         public string Account { get; set; }
@@ -5516,13 +5435,13 @@ namespace EosRio.HyperionApi
         public double Delta { get; set; }
     }
 
-    public partial class Action_trace 
+    public class ActionTrace 
     {
         [JsonProperty("action_ordinal", Required = Required.DisallowNull, NullValueHandling = NullValueHandling.Ignore)]
-        public double Action_ordinal { get; set; }
+        public double ActionOrdinal { get; set; }
     
         [JsonProperty("creator_action_ordinal", Required = Required.DisallowNull, NullValueHandling = NullValueHandling.Ignore)]
-        public double Creator_action_ordinal { get; set; }
+        public double CreatorActionOrdinal { get; set; }
     
         [JsonProperty("receipt", Required = Required.DisallowNull, NullValueHandling = NullValueHandling.Ignore)]
         public Receipt Receipt { get; set; }
@@ -5534,16 +5453,16 @@ namespace EosRio.HyperionApi
         public Act3 Act { get; set; }
     
         [JsonProperty("trx_id", Required = Required.DisallowNull, NullValueHandling = NullValueHandling.Ignore)]
-        public string Trx_id { get; set; }
+        public string TrxId { get; set; }
     
         [JsonProperty("block_num", Required = Required.DisallowNull, NullValueHandling = NullValueHandling.Ignore)]
-        public double Block_num { get; set; }
+        public double BlockNum { get; set; }
     
         [JsonProperty("block_time", Required = Required.DisallowNull, NullValueHandling = NullValueHandling.Ignore)]
-        public string Block_time { get; set; }
+        public string BlockTime { get; set; }
     }
 
-    public partial class Actions4 
+    public class Actions4 
     {
         [JsonProperty("receiver", Required = Required.DisallowNull, NullValueHandling = NullValueHandling.Ignore)]
         public string Receiver { get; set; }
@@ -5561,7 +5480,7 @@ namespace EosRio.HyperionApi
         public object Data { get; set; }
     }
 
-    public partial class Act2 
+    public class Act2 
     {
         [JsonProperty("account", Required = Required.DisallowNull, NullValueHandling = NullValueHandling.Ignore)]
         public string Account { get; set; }
@@ -5570,7 +5489,7 @@ namespace EosRio.HyperionApi
         public string Name { get; set; }
     }
 
-    public partial class Account_ram_deltas2 
+    public class AccountRamDeltas2 
     {
         [JsonProperty("account", Required = Required.DisallowNull, NullValueHandling = NullValueHandling.Ignore)]
         public string Account { get; set; }
@@ -5579,22 +5498,22 @@ namespace EosRio.HyperionApi
         public double Delta { get; set; }
     }
 
-    public partial class Receipt 
+    public class Receipt 
     {
         [JsonProperty("receiver", Required = Required.DisallowNull, NullValueHandling = NullValueHandling.Ignore)]
         public string Receiver { get; set; }
     
         [JsonProperty("global_sequence", Required = Required.DisallowNull, NullValueHandling = NullValueHandling.Ignore)]
-        public double Global_sequence { get; set; }
+        public double GlobalSequence { get; set; }
     
         [JsonProperty("recv_sequence", Required = Required.DisallowNull, NullValueHandling = NullValueHandling.Ignore)]
-        public double Recv_sequence { get; set; }
+        public double RecvSequence { get; set; }
     
         [JsonProperty("auth_sequence", Required = Required.DisallowNull, NullValueHandling = NullValueHandling.Ignore)]
-        public ICollection<Auth_sequence> Auth_sequence { get; set; }
+        public ICollection<AuthSequence> AuthSequence { get; set; }
     }
 
-    public partial class Act3 
+    public class Act3 
     {
         [JsonProperty("account", Required = Required.DisallowNull, NullValueHandling = NullValueHandling.Ignore)]
         public string Account { get; set; }
@@ -5609,10 +5528,10 @@ namespace EosRio.HyperionApi
         public object Data { get; set; }
     
         [JsonProperty("hex_data", Required = Required.DisallowNull, NullValueHandling = NullValueHandling.Ignore)]
-        public string Hex_data { get; set; }
+        public string HexData { get; set; }
     }
 
-    public partial class Authorization 
+    public class Authorization 
     {
         [JsonProperty("account", Required = Required.DisallowNull, NullValueHandling = NullValueHandling.Ignore)]
         public string Account { get; set; }
@@ -5621,7 +5540,7 @@ namespace EosRio.HyperionApi
         public string Permission { get; set; }
     }
 
-    public partial class Auth_sequence 
+    public class AuthSequence 
     {
         [JsonProperty("account", Required = Required.DisallowNull, NullValueHandling = NullValueHandling.Ignore)]
         public string Account { get; set; }
@@ -5631,7 +5550,7 @@ namespace EosRio.HyperionApi
     }
 
     
-    public partial class ApiException : Exception
+    public class ApiException : Exception
     {
         public int StatusCode { get; private set; }
 
@@ -5654,7 +5573,7 @@ namespace EosRio.HyperionApi
     }
 
     
-    public partial class ApiException<TResult> : ApiException
+    public class ApiException<TResult> : ApiException
     {
         public TResult Result { get; private set; }
 
