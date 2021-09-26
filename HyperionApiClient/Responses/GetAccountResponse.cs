@@ -21,7 +21,7 @@ namespace EosRio.HyperionApi
         public Total Total { get; set; }
     
         [JsonProperty("account", Required = Required.DisallowNull, NullValueHandling = NullValueHandling.Ignore)]
-        public object Account { get; set; }
+        public Account2 Account { get; set; }
     
         [JsonProperty("links", Required = Required.DisallowNull, NullValueHandling = NullValueHandling.Ignore)]
         public ICollection<Link> Links { get; set; }

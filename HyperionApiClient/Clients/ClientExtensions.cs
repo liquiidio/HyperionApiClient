@@ -53,13 +53,9 @@ namespace EosRio.HyperionApi
 
             try
             {
-                using (var responseStream = await response.Content.ReadAsStreamAsync().ConfigureAwait(false))
-                using (var streamReader = new StreamReader(responseStream))
-                using (var jsonTextReader = new JsonTextReader(streamReader))
-                {
-                    var typedBody = JsonConvert.DeserializeObject<T>(jsonTextReader.ToString());
-                    return new ObjectResponseResult<T>(typedBody, string.Empty);
-                }
+                string jsonString = await response.Content.ReadAsStringAsync();
+                var typedBody = JsonConvert.DeserializeObject<T>(jsonString);
+                return new ObjectResponseResult<T>(typedBody, string.Empty);
             }
             catch (JsonException exception)
             {

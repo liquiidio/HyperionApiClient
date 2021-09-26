@@ -6,6 +6,7 @@ using System.Net.Http.Headers;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using HyperionApiClient.Models;
 using Newtonsoft.Json;
 
 namespace EosRio.HyperionApi
@@ -236,7 +237,7 @@ namespace EosRio.HyperionApi
             }
         }
     
-        /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
+        /*/// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <summary>get accounts by public key</summary>
         /// <exception cref="ApiException">A server side error occurred.</exception>
         public async Task<GetKeyAccountsResponse> GetKeyAccountsPostAsync(Body body, CancellationToken cancellationToken = default)
@@ -280,7 +281,7 @@ namespace EosRio.HyperionApi
                 var responseData = response.Content == null ? null : await response.Content.ReadAsStringAsync().ConfigureAwait(false);
                 throw new ApiException("The HTTP status code of the response was not expected (" + status + ").", status, responseData, headers, null);
             }
-        }
+        }*/
     
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <summary>get permission links</summary>
@@ -350,7 +351,7 @@ namespace EosRio.HyperionApi
         /// <param name="skip">skip [n] results</param>
         /// <returns>Default Response</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public async Task GetTokensAsync(string account, int? limit = null, int? skip = null, CancellationToken cancellationToken = default)
+        public async Task<GetTokensResponse> GetTokensAsync(string account, int? limit = null, int? skip = null, CancellationToken cancellationToken = default)
         {
             // TODO return value?!
 
@@ -387,7 +388,12 @@ namespace EosRio.HyperionApi
                 var status = (int)response.StatusCode;
                 if (status == 200)
                 {
-                    return;
+                    var objectResponse = await ReadObjectResponseAsync<GetTokensResponse>(response, headers, cancellationToken).ConfigureAwait(false);
+                    if (objectResponse.Object == null)
+                    {
+                        throw new ApiException("Response was null which was not expected.", status, objectResponse.Text, headers, null);
+                    }
+                    return objectResponse.Object;
                 }
 
                 var responseData = response.Content == null ? null : await response.Content.ReadAsStringAsync().ConfigureAwait(false);
@@ -398,16 +404,16 @@ namespace EosRio.HyperionApi
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <summary>get controlled accounts by controlling accounts</summary>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public async Task<GetControlledAccountsResponse> GetControlledAccountsAsync(object body, CancellationToken cancellationToken = default)
+        public async Task<GetControlledAccountsResponse> GetControlledAccountsAsync(string controllingAccount, CancellationToken cancellationToken = default)
         {
-            if (body == null)
-                throw new ArgumentNullException("body");
+            if (controllingAccount == null)
+                throw new ArgumentNullException("controllingAccount");
     
             var urlBuilder = new StringBuilder(BaseUrl != null ? BaseUrl.TrimEnd('/') : "").Append("/v1/history/get_controlled_accounts");
  
             using (var request = new HttpRequestMessage())
             {
-                var content = new StringContent(JsonConvert.SerializeObject(body));
+                var content = new StringContent($"{{\"controlling_account\":\"{controllingAccount}\"}}");
                 content.Headers.ContentType = MediaTypeHeaderValue.Parse("application/json");
                 request.Content = content;
                 request.Method = new HttpMethod("POST");
@@ -444,16 +450,16 @@ namespace EosRio.HyperionApi
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <summary>get accounts by public key</summary>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public async Task<GetKeyAccountsResponse> GetKeyAccountsPostAsync(object body, CancellationToken cancellationToken = default)
+        public async Task<GetKeyAccountsResponse> GetKeyAccountsPostAsync(string publicKey, CancellationToken cancellationToken = default)
         {
-            if (body == null)
-                throw new ArgumentNullException("body");
+            if (publicKey == null)
+                throw new ArgumentNullException("publicKey");
     
             var urlBuilder = new StringBuilder(BaseUrl != null ? BaseUrl.TrimEnd('/') : "").Append("/v1/history/get_key_accounts");
  
             using (var request = new HttpRequestMessage())
             {
-                var content = new StringContent(JsonConvert.SerializeObject(body));
+                var content = new StringContent($"{{\"public_key\":\"{publicKey}\"}}");
                 content.Headers.ContentType = MediaTypeHeaderValue.Parse("application/json");
                 request.Content = content;
                 request.Method = new HttpMethod("POST");

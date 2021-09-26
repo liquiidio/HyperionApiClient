@@ -1,0 +1,10 @@
+M:\Source\Repos\HyperionApiClient\HyperionApiClient\bin\Debug\netcoreapp3.1\HyperionApiClient.deps.json
+M:\Source\Repos\HyperionApiClient\HyperionApiClient\bin\Debug\netcoreapp3.1\HyperionApiClient.dll
+M:\Source\Repos\HyperionApiClient\HyperionApiClient\bin\Debug\netcoreapp3.1\HyperionApiClient.pdb
+M:\Source\Repos\HyperionApiClient\HyperionApiClient\obj\Debug\netcoreapp3.1\HyperionApiClient.csproj.AssemblyReference.cache
+M:\Source\Repos\HyperionApiClient\HyperionApiClient\obj\Debug\netcoreapp3.1\HyperionApiClient.GeneratedMSBuildEditorConfig.editorconfig
+M:\Source\Repos\HyperionApiClient\HyperionApiClient\obj\Debug\netcoreapp3.1\HyperionApiClient.AssemblyInfoInputs.cache
+M:\Source\Repos\HyperionApiClient\HyperionApiClient\obj\Debug\netcoreapp3.1\HyperionApiClient.AssemblyInfo.cs
+M:\Source\Repos\HyperionApiClient\HyperionApiClient\obj\Debug\netcoreapp3.1\HyperionApiClient.csproj.CoreCompileInputs.cache
+M:\Source\Repos\HyperionApiClient\HyperionApiClient\obj\Debug\netcoreapp3.1\HyperionApiClient.dll
+M:\Source\Repos\HyperionApiClient\HyperionApiClient\obj\Debug\netcoreapp3.1\HyperionApiClient.pdb
