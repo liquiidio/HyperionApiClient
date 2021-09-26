@@ -24,6 +24,6 @@ namespace EosRio.HyperionApi
         public Stats Stats { get; set; }
     
         [JsonProperty("events", Required = Required.DisallowNull, NullValueHandling = NullValueHandling.Ignore)]
-        public ICollection<Events> Events { get; set; }
+        public ICollection<Event> Events { get; set; }
     }
 }

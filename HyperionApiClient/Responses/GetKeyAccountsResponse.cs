@@ -6,7 +6,7 @@ namespace EosRio.HyperionApi
     public class GetKeyAccountsWithPermissionsResponse : GetKeyAccountsResponse
     {
         [JsonProperty("permissions", Required = Required.DisallowNull, NullValueHandling = NullValueHandling.Ignore)]
-        public ICollection<Permissions> Permissions { get; set; }
+        public ICollection<Permission> Permissions { get; set; }
     }
 
     public class GetKeyAccountsResponse

@@ -2,7 +2,7 @@ using Newtonsoft.Json;
 
 namespace EosRio.HyperionApi
 {
-    public class Actions2 
+    public class Action2 
     {
         [JsonProperty("account_action_seq", Required = Required.DisallowNull, NullValueHandling = NullValueHandling.Ignore)]
         public double AccountActionSeq { get; set; }

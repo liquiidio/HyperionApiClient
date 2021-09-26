@@ -39,6 +39,6 @@ namespace EosRio.HyperionApi
         public string Producer { get; set; }
     
         [JsonProperty("transactions", Required = Required.DisallowNull, NullValueHandling = NullValueHandling.Ignore)]
-        public ICollection<Transactions> Transactions { get; set; }
+        public ICollection<Transaction> Transactions { get; set; }
     }
 }

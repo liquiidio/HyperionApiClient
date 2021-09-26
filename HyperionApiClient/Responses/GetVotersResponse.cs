@@ -21,6 +21,6 @@ namespace EosRio.HyperionApi
         public Total Total { get; set; }
     
         [JsonProperty("voters", Required = Required.DisallowNull, NullValueHandling = NullValueHandling.Ignore)]
-        public ICollection<Voters> Voters { get; set; }
+        public ICollection<Voter> Voters { get; set; }
     }
 }

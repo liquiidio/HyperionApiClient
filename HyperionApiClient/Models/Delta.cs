@@ -2,7 +2,7 @@ using Newtonsoft.Json;
 
 namespace EosRio.HyperionApi
 {
-    public class Deltas 
+    public class Delta 
     {
         [JsonProperty("timestamp", Required = Required.DisallowNull, NullValueHandling = NullValueHandling.Ignore)]
         public string Timestamp { get; set; }

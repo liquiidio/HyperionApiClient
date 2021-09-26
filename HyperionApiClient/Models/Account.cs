@@ -2,7 +2,7 @@ using Newtonsoft.Json;
 
 namespace EosRio.HyperionApi
 {
-    public class Accounts 
+    public class Account 
     {
         [JsonProperty("name", Required = Required.DisallowNull, NullValueHandling = NullValueHandling.Ignore)]
         public string Name { get; set; }

@@ -2,7 +2,7 @@ using Newtonsoft.Json;
 
 namespace EosRio.HyperionApi
 {
-    public class SimpleActions 
+    public class SimpleAction 
     {
         [JsonProperty("block", Required = Required.DisallowNull, NullValueHandling = NullValueHandling.Ignore)]
         public double Block { get; set; }

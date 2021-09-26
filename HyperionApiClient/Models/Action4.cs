@@ -3,7 +3,7 @@ using Newtonsoft.Json;
 
 namespace EosRio.HyperionApi
 {
-    public class Actions4 
+    public class Action4 
     {
         [JsonProperty("receiver", Required = Required.DisallowNull, NullValueHandling = NullValueHandling.Ignore)]
         public string Receiver { get; set; }

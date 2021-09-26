@@ -2,7 +2,7 @@ using Newtonsoft.Json;
 
 namespace EosRio.HyperionApi
 {
-    public class Tokens 
+    public class Token 
     {
         [JsonProperty("symbol", Required = Required.DisallowNull, NullValueHandling = NullValueHandling.Ignore)]
         public string Symbol { get; set; }

@@ -30,6 +30,6 @@ namespace EosRio.HyperionApi
         public double Version { get; set; }
     
         [JsonProperty("producers", Required = Required.DisallowNull, NullValueHandling = NullValueHandling.Ignore)]
-        public ICollection<Producers> Producers { get; set; }
+        public ICollection<Producer> Producers { get; set; }
     }
 }

@@ -3,12 +3,12 @@ using Newtonsoft.Json;
 
 namespace EosRio.HyperionApi
 {
-    public class Transactions 
+    public class Transaction 
     {
         [JsonProperty("id", Required = Required.DisallowNull, NullValueHandling = NullValueHandling.Ignore)]
         public string Id { get; set; }
     
         [JsonProperty("actions", Required = Required.DisallowNull, NullValueHandling = NullValueHandling.Ignore)]
-        public ICollection<Actions4> Actions { get; set; }
+        public ICollection<Action4> Actions { get; set; }
     }
 }

@@ -24,15 +24,15 @@ namespace EosRio.HyperionApi
         public object Account { get; set; }
     
         [JsonProperty("links", Required = Required.DisallowNull, NullValueHandling = NullValueHandling.Ignore)]
-        public ICollection<Links> Links { get; set; }
+        public ICollection<Link> Links { get; set; }
     
         [JsonProperty("tokens", Required = Required.DisallowNull, NullValueHandling = NullValueHandling.Ignore)]
-        public ICollection<Tokens> Tokens { get; set; }
+        public ICollection<Token> Tokens { get; set; }
     
         [JsonProperty("total_actions", Required = Required.DisallowNull, NullValueHandling = NullValueHandling.Ignore)]
         public double TotalActions { get; set; }
     
         [JsonProperty("actions", Required = Required.DisallowNull, NullValueHandling = NullValueHandling.Ignore)]
-        public ICollection<Actions3> Actions { get; set; }
+        public ICollection<Action3> Actions { get; set; }
     }
 }

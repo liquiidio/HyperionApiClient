@@ -12,6 +12,6 @@ namespace EosRio.HyperionApi
         public double LastIrreversibleBlock { get; set; }
     
         [JsonProperty("actions", Required = Required.DisallowNull, NullValueHandling = NullValueHandling.Ignore)]
-        public ICollection<Actions2> Actions { get; set; }
+        public ICollection<Action2> Actions { get; set; }
     }
 }

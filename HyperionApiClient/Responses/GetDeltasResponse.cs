@@ -21,6 +21,6 @@ namespace EosRio.HyperionApi
         public Total Total { get; set; }
     
         [JsonProperty("deltas", Required = Required.DisallowNull, NullValueHandling = NullValueHandling.Ignore)]
-        public ICollection<Deltas> Deltas { get; set; }
+        public ICollection<Delta> Deltas { get; set; }
     }
 }

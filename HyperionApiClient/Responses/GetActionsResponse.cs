@@ -21,9 +21,9 @@ namespace EosRio.HyperionApi
         public Total Total { get; set; }
     
         [JsonProperty("simple_actions", Required = Required.DisallowNull, NullValueHandling = NullValueHandling.Ignore)]
-        public ICollection<SimpleActions> SimpleActions { get; set; }
+        public ICollection<SimpleAction> SimpleActions { get; set; }
     
         [JsonProperty("actions", Required = Required.DisallowNull, NullValueHandling = NullValueHandling.Ignore)]
-        public ICollection<Actions> Actions { get; set; }
+        public ICollection<Action> Actions { get; set; }
     }
 }

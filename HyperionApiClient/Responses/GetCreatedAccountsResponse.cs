@@ -24,6 +24,6 @@ namespace EosRio.HyperionApi
         public double QueryTime { get; set; }
     
         [JsonProperty("accounts", Required = Required.DisallowNull, NullValueHandling = NullValueHandling.Ignore)]
-        public ICollection<Accounts> Accounts { get; set; }
+        public ICollection<Account> Accounts { get; set; }
     }
 }

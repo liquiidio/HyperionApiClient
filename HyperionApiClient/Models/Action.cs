@@ -3,7 +3,7 @@ using Newtonsoft.Json;
 
 namespace EosRio.HyperionApi
 {
-    public class Actions 
+    public class Action 
     {
         [JsonProperty("@timestamp", Required = Required.DisallowNull, NullValueHandling = NullValueHandling.Ignore)]
         public string timestamp { get; set; }
@@ -30,7 +30,7 @@ namespace EosRio.HyperionApi
         public double NetUsageWords { get; set; }
     
         [JsonProperty("account_ram_deltas", Required = Required.DisallowNull, NullValueHandling = NullValueHandling.Ignore)]
-        public ICollection<AccountRamDeltas> AccountRamDeltas { get; set; }
+        public ICollection<AccountRamDelta> AccountRamDeltas { get; set; }
     
         [JsonProperty("global_sequence", Required = Required.DisallowNull, NullValueHandling = NullValueHandling.Ignore)]
         public double GlobalSequence { get; set; }

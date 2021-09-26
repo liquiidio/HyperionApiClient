@@ -21,6 +21,6 @@ namespace EosRio.HyperionApi
         public Total Total { get; set; }
     
         [JsonProperty("links", Required = Required.DisallowNull, NullValueHandling = NullValueHandling.Ignore)]
-        public ICollection<ExtendedLinks> Links { get; set; }
+        public ICollection<ExtendedLink> Links { get; set; }
     }
 }
