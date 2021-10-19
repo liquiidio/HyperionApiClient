@@ -7,6 +7,8 @@ using System.Net.Http.Headers;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using HyperionApiClient.Models;
+using HyperionApiClient.Responses;
 using Newtonsoft.Json;
 
 namespace EosRio.HyperionApi
@@ -288,10 +290,8 @@ namespace EosRio.HyperionApi
         /// <summary>Retrieves the ABI for a contract based on its account name</summary>
         /// <returns>Default Response</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public async Task GetAbiGetAsync(string accountName, CancellationToken cancellationToken = default)
+        public async Task<GetAbiResponse> GetAbiGetAsync(string accountName, CancellationToken cancellationToken = default)
         {
-            // TODO return value
-
             if (accountName == null)
                 throw new ArgumentNullException("accountName");
     
@@ -317,7 +317,12 @@ namespace EosRio.HyperionApi
                 var status = (int)response.StatusCode;
                 if (status == 200)
                 {
-                    return;
+                    var objectResponse = await ReadObjectResponseAsync<GetAbiResponse>(response, headers, cancellationToken).ConfigureAwait(false);
+                    if (objectResponse.Object == null)
+                    {
+                        throw new ApiException("Response was null which was not expected.", status, objectResponse.Text, headers, null);
+                    }
+                    return objectResponse.Object;
                 }
 
                 var responseData = response.Content == null ? null : await response.Content.ReadAsStringAsync().ConfigureAwait(false);
@@ -370,18 +375,18 @@ namespace EosRio.HyperionApi
         /// <summary>Retrieves the ABI for a contract based on its account name</summary>
         /// <returns>Default Response</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public async Task GetAbiPostAsync(object body, CancellationToken cancellationToken = default)
+        public async Task<GetAbiResponse> GetAbiPostAsync(string accountName, CancellationToken cancellationToken = default)
         {
             // TODO return value
 
-            if (body == null)
-                throw new ArgumentNullException("body");
+            if (accountName == null)
+                throw new ArgumentNullException("accountName");
     
             var urlBuilder = new StringBuilder(BaseUrl != null ? BaseUrl.TrimEnd('/') : "").Append("/v1/chain/get_abi");
  
             using (var request = new HttpRequestMessage())
             {
-                var content = new StringContent(JsonConvert.SerializeObject(body));
+                var content = new StringContent($"{{\"account_name\":\"{accountName}\"}}");
                 content.Headers.ContentType = MediaTypeHeaderValue.Parse("application/json");
                 request.Content = content;
                 request.Method = new HttpMethod("POST");
@@ -401,7 +406,12 @@ namespace EosRio.HyperionApi
                 var status = (int)response.StatusCode;
                 if (status == 200)
                 {
-                    return;
+                    var objectResponse = await ReadObjectResponseAsync<GetAbiResponse>(response, headers, cancellationToken).ConfigureAwait(false);
+                    if (objectResponse.Object == null)
+                    {
+                        throw new ApiException("Response was null which was not expected.", status, objectResponse.Text, headers, null);
+                    }
+                    return objectResponse.Object;
                 }
 
                 var responseData = response.Content == null ? null : await response.Content.ReadAsStringAsync().ConfigureAwait(false);
@@ -413,10 +423,8 @@ namespace EosRio.HyperionApi
         /// <summary>Returns an object containing various details about a specific account on the blockchain.</summary>
         /// <returns>Default Response</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public async Task GetAccountGetAsync(string accountName, CancellationToken cancellationToken = default)
+        public async Task<GetAccountResponse2> GetAccountGetAsync(string accountName, CancellationToken cancellationToken = default)
         {
-            // TODO return value
-
             if (accountName == null)
                 throw new ArgumentNullException("accountName");
     
@@ -442,7 +450,12 @@ namespace EosRio.HyperionApi
                 var status = (int)response.StatusCode;
                 if (status == 200)
                 {
-                    return;
+                    var objectResponse = await ReadObjectResponseAsync<GetAccountResponse2>(response, headers, cancellationToken).ConfigureAwait(false);
+                    if (objectResponse.Object == null)
+                    {
+                        throw new ApiException("Response was null which was not expected.", status, objectResponse.Text, headers, null);
+                    }
+                    return objectResponse.Object;
                 }
 
                 var responseData = response.Content == null ? null : await response.Content.ReadAsStringAsync().ConfigureAwait(false);
@@ -495,18 +508,16 @@ namespace EosRio.HyperionApi
         /// <summary>Returns an object containing various details about a specific account on the blockchain.</summary>
         /// <returns>Default Response</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public async Task GetAccountPostAsync(object body, CancellationToken cancellationToken = default)
+        public async Task<GetAccountResponse2> GetAccountPostAsync(string accountName, CancellationToken cancellationToken = default)
         {
-            // TODO return value
-
-            if (body == null)
-                throw new ArgumentNullException("body");
+            if (accountName == null)
+                throw new ArgumentNullException("accountName");
     
             var urlBuilder = new StringBuilder(BaseUrl != null ? BaseUrl.TrimEnd('/') : "").Append("/v1/chain/get_account");
  
             using (var request = new HttpRequestMessage())
             {
-                var content = new StringContent(JsonConvert.SerializeObject(body));
+                var content = new StringContent($"{{\"account_name\":\"{accountName}\"}}");
                 content.Headers.ContentType = MediaTypeHeaderValue.Parse("application/json");
                 request.Content = content;
                 request.Method = new HttpMethod("POST");
@@ -526,7 +537,12 @@ namespace EosRio.HyperionApi
                 var status = (int)response.StatusCode;
                 if (status == 200)
                 {
-                    return;
+                    var objectResponse = await ReadObjectResponseAsync<GetAccountResponse2>(response, headers, cancellationToken).ConfigureAwait(false);
+                    if (objectResponse.Object == null)
+                    {
+                        throw new ApiException("Response was null which was not expected.", status, objectResponse.Text, headers, null);
+                    }
+                    return objectResponse.Object;
                 }
 
                 var responseData = response.Content == null ? null : await response.Content.ReadAsStringAsync().ConfigureAwait(false);
@@ -544,10 +560,8 @@ namespace EosRio.HyperionApi
         /// <param name="reverse">Flag to indicate it has to search in reverse</param>
         /// <returns>Default Response</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public async Task GetActivatedProtocolFeaturesGetAsync(int? lowerBound = null, int? upperBound = null, int? limit = null, bool? searchByBlockNum = null, bool? reverse = null, CancellationToken cancellationToken = default)
+        public async Task<GetActivatedProtocolFeaturesResponse> GetActivatedProtocolFeaturesGetAsync(int? lowerBound = null, int? upperBound = null, int? limit = null, bool? searchByBlockNum = null, bool? reverse = null, CancellationToken cancellationToken = default)
         {
-            // TODO return value
-
             var urlBuilder = new StringBuilder(BaseUrl != null ? BaseUrl.TrimEnd('/') : "").Append("/v1/chain/get_activated_protocol_features?");
             if (lowerBound != null)
             {
@@ -590,7 +604,12 @@ namespace EosRio.HyperionApi
                 var status = (int)response.StatusCode;
                 if (status == 200)
                 {
-                    return;
+                    var objectResponse = await ReadObjectResponseAsync<GetActivatedProtocolFeaturesResponse>(response, headers, cancellationToken).ConfigureAwait(false);
+                    if (objectResponse.Object == null)
+                    {
+                        throw new ApiException("Response was null which was not expected.", status, objectResponse.Text, headers, null);
+                    }
+                    return objectResponse.Object;
                 }
 
                 var responseData = response.Content == null ? null : await response.Content.ReadAsStringAsync().ConfigureAwait(false);
@@ -665,10 +684,8 @@ namespace EosRio.HyperionApi
         /// <summary>Retreives the activated protocol features for producer node</summary>
         /// <returns>Default Response</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public async Task GetActivatedProtocolFeaturesPostAsync(object body = null, CancellationToken cancellationToken = default)
+        public async Task<GetActivatedProtocolFeaturesResponse> GetActivatedProtocolFeaturesPostAsync(GetActivatedProtocolFeaturesBody body = null, CancellationToken cancellationToken = default)
         {
-            // TODO return value
-
             var urlBuilder = new StringBuilder(BaseUrl != null ? BaseUrl.TrimEnd('/') : "").Append("/v1/chain/get_activated_protocol_features");
  
             using (var request = new HttpRequestMessage())
@@ -693,7 +710,12 @@ namespace EosRio.HyperionApi
                 var status = (int)response.StatusCode;
                 if (status == 200)
                 {
-                    return;
+                    var objectResponse = await ReadObjectResponseAsync<GetActivatedProtocolFeaturesResponse>(response, headers, cancellationToken).ConfigureAwait(false);
+                    if (objectResponse.Object == null)
+                    {
+                        throw new ApiException("Response was null which was not expected.", status, objectResponse.Text, headers, null);
+                    }
+                    return objectResponse.Object;
                 }
 
                 var responseData = response.Content == null ? null : await response.Content.ReadAsStringAsync().ConfigureAwait(false);
@@ -706,13 +728,8 @@ namespace EosRio.HyperionApi
         /// <param name="block_num_or_id">Provide a `block number` or a `block id`</param>
         /// <returns>Default Response</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public async Task GetBlockGetAsync(string blockNumOrId, CancellationToken cancellationToken = default)
+        public async Task<GetBlockResponse2> GetBlockGetAsync(string blockNumOrId, CancellationToken cancellationToken = default)
         {
-            // TODO return value
-
-            if (blockNumOrId == null)
-                throw new ArgumentNullException("blockNumOrId");
-    
             var urlBuilder = new StringBuilder(BaseUrl != null ? BaseUrl.TrimEnd('/') : "").Append("/v1/chain/get_block?" + Uri.EscapeDataString("block_num_or_id") + "=").Append(Uri.EscapeDataString(ConvertToString(blockNumOrId, CultureInfo.InvariantCulture))).Append("&");
             urlBuilder.Length--;
  
@@ -735,7 +752,12 @@ namespace EosRio.HyperionApi
                 var status = (int)response.StatusCode;
                 if (status == 200)
                 {
-                    return;
+                    var objectResponse = await ReadObjectResponseAsync<GetBlockResponse2>(response, headers, cancellationToken).ConfigureAwait(false);
+                    if (objectResponse.Object == null)
+                    {
+                        throw new ApiException("Response was null which was not expected.", status, objectResponse.Text, headers, null);
+                    }
+                    return objectResponse.Object;
                 }
 
                 var responseData = response.Content == null ? null : await response.Content.ReadAsStringAsync().ConfigureAwait(false);
@@ -789,18 +811,16 @@ namespace EosRio.HyperionApi
         /// <summary>Returns an object containing various details about a specific block on the blockchain.</summary>
         /// <returns>Default Response</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public async Task GetBlockPostAsync(object body, CancellationToken cancellationToken = default)
+        public async Task<GetBlockResponse2> GetBlockPostAsync(string blockNumOrId, CancellationToken cancellationToken = default)
         {
-            // TODO return value
-
-            if (body == null)
-                throw new ArgumentNullException("body");
+            if (blockNumOrId == null)
+                throw new ArgumentNullException("blockNumOrId");
     
             var urlBuilder = new StringBuilder(BaseUrl != null ? BaseUrl.TrimEnd('/') : "").Append("/v1/chain/get_block");
  
             using (var request = new HttpRequestMessage())
             {
-                var content = new StringContent(JsonConvert.SerializeObject(body));
+                var content = new StringContent($"{{\"block_num_or_id\":\"{blockNumOrId}\"}}");
                 content.Headers.ContentType = MediaTypeHeaderValue.Parse("application/json");
                 request.Content = content;
                 request.Method = new HttpMethod("POST");
@@ -820,7 +840,12 @@ namespace EosRio.HyperionApi
                 var status = (int)response.StatusCode;
                 if (status == 200)
                 {
-                    return;
+                    var objectResponse = await ReadObjectResponseAsync<GetBlockResponse2>(response, headers, cancellationToken).ConfigureAwait(false);
+                    if (objectResponse.Object == null)
+                    {
+                        throw new ApiException("Response was null which was not expected.", status, objectResponse.Text, headers, null);
+                    }
+                    return objectResponse.Object;
                 }
 
                 var responseData = response.Content == null ? null : await response.Content.ReadAsStringAsync().ConfigureAwait(false);
@@ -833,7 +858,7 @@ namespace EosRio.HyperionApi
         /// <param name="block_num_or_id">Provide a block_number or a block_id</param>
         /// <returns>Default Response</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public async Task GetBlockHeaderStateGetAsync(string blockNumOrId, CancellationToken cancellationToken = default)
+        public async Task<GetBlockHeaderStateResponse> GetBlockHeaderStateGetAsync(string blockNumOrId, CancellationToken cancellationToken = default)
         {
             // TODO return value
 
@@ -862,7 +887,12 @@ namespace EosRio.HyperionApi
                 var status = (int)response.StatusCode;
                 if (status == 200)
                 {
-                    return;
+                    var objectResponse = await ReadObjectResponseAsync<GetBlockHeaderStateResponse>(response, headers, cancellationToken).ConfigureAwait(false);
+                    if (objectResponse.Object == null)
+                    {
+                        throw new ApiException("Response was null which was not expected.", status, objectResponse.Text, headers, null);
+                    }
+                    return objectResponse.Object;
                 }
 
                 var responseData = response.Content == null ? null : await response.Content.ReadAsStringAsync().ConfigureAwait(false);
@@ -916,18 +946,18 @@ namespace EosRio.HyperionApi
         /// <summary>Retrieves the block header state</summary>
         /// <returns>Default Response</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public async Task GetBlockHeaderStatePostAsync(object body, CancellationToken cancellationToken = default)
+        public async Task<GetBlockHeaderStateResponse> GetBlockHeaderStatePostAsync(string blockNumOrId, CancellationToken cancellationToken = default)
         {
             // TODO return value
 
-            if (body == null)
-                throw new ArgumentNullException("body");
+            if (blockNumOrId == null)
+                throw new ArgumentNullException("blockNumOrId");
     
             var urlBuilder = new StringBuilder(BaseUrl != null ? BaseUrl.TrimEnd('/') : "").Append("/v1/chain/get_block_header_state");
  
             using (var request = new HttpRequestMessage())
             {
-                var content = new StringContent(JsonConvert.SerializeObject(body));
+                var content = new StringContent($"{{\"block_num_or_id\":\"{blockNumOrId}\"}}");
                 content.Headers.ContentType = MediaTypeHeaderValue.Parse("application/json");
                 request.Content = content;
                 request.Method = new HttpMethod("POST");
@@ -947,7 +977,12 @@ namespace EosRio.HyperionApi
                 var status = (int)response.StatusCode;
                 if (status == 200)
                 {
-                    return;
+                    var objectResponse = await ReadObjectResponseAsync<GetBlockHeaderStateResponse>(response, headers, cancellationToken).ConfigureAwait(false);
+                    if (objectResponse.Object == null)
+                    {
+                        throw new ApiException("Response was null which was not expected.", status, objectResponse.Text, headers, null);
+                    }
+                    return objectResponse.Object;
                 }
 
                 var responseData = response.Content == null ? null : await response.Content.ReadAsStringAsync().ConfigureAwait(false);
@@ -960,14 +995,15 @@ namespace EosRio.HyperionApi
         /// <param name="code_as_wasm">This must be 1 (true)</param>
         /// <returns>Default Response</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public async Task GetCodeGetAsync(string accountName, int codeAsWasm, CancellationToken cancellationToken = default)
+        public async Task<GetCodeResponse> GetCodeGetAsync(string accountName, bool codeAsWasm, CancellationToken cancellationToken = default)
         {
-            // TODO return value
-
             if (accountName == null)
                 throw new ArgumentNullException("accountName");
 
-            var urlBuilder = new StringBuilder(BaseUrl != null ? BaseUrl.TrimEnd('/') : "").Append("/v1/chain/get_code?" + Uri.EscapeDataString("account_name") + "=").Append(Uri.EscapeDataString(ConvertToString(accountName, CultureInfo.InvariantCulture))).Append("&" + Uri.EscapeDataString("code_as_wasm") + "=").Append(Uri.EscapeDataString(ConvertToString(codeAsWasm, CultureInfo.InvariantCulture))).Append("&");
+            if (!codeAsWasm)
+                throw new Exception("codeAsWasm must be true");
+
+            var urlBuilder = new StringBuilder(BaseUrl != null ? BaseUrl.TrimEnd('/') : "").Append("/v1/chain/get_code?" + Uri.EscapeDataString("account_name") + "=").Append(Uri.EscapeDataString(ConvertToString(accountName, CultureInfo.InvariantCulture))).Append("&" + Uri.EscapeDataString("code_as_wasm") + "=1").Append("&");
             urlBuilder.Length--;
  
             using (var request = new HttpRequestMessage())
@@ -989,7 +1025,12 @@ namespace EosRio.HyperionApi
                 var status = (int)response.StatusCode;
                 if (status == 200)
                 {
-                    return;
+                    var objectResponse = await ReadObjectResponseAsync<GetCodeResponse>(response, headers, cancellationToken).ConfigureAwait(false);
+                    if (objectResponse.Object == null)
+                    {
+                        throw new ApiException("Response was null which was not expected.", status, objectResponse.Text, headers, null);
+                    }
+                    return objectResponse.Object;
                 }
 
                 var responseData = response.Content == null ? null : await response.Content.ReadAsStringAsync().ConfigureAwait(false);
@@ -1043,18 +1084,20 @@ namespace EosRio.HyperionApi
         /// <summary>Retrieves contract code</summary>
         /// <returns>Default Response</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public async Task GetCodePostAsync(object body, CancellationToken cancellationToken = default)
+        public async Task<GetCodeResponse> GetCodePostAsync(string accountName, bool codeAsWasm, CancellationToken cancellationToken = default)
         {
             // TODO return value
 
-            if (body == null)
-                throw new ArgumentNullException("body");
-    
+            if (accountName == null)
+                throw new ArgumentNullException("accountName");
+            if (!codeAsWasm)
+                throw new Exception("codeAsWasm must be true");
+
             var urlBuilder = new StringBuilder(BaseUrl != null ? BaseUrl.TrimEnd('/') : "").Append("/v1/chain/get_code");
  
             using (var request = new HttpRequestMessage())
             {
-                var content = new StringContent(JsonConvert.SerializeObject(body));
+                var content = new StringContent($"{{\"account_name\":\"{accountName}\",\"code_as_wasm\":1}}");
                 content.Headers.ContentType = MediaTypeHeaderValue.Parse("application/json");
                 request.Content = content;
                 request.Method = new HttpMethod("POST");
@@ -1074,7 +1117,12 @@ namespace EosRio.HyperionApi
                 var status = (int)response.StatusCode;
                 if (status == 200)
                 {
-                    return;
+                    var objectResponse = await ReadObjectResponseAsync<GetCodeResponse>(response, headers, cancellationToken).ConfigureAwait(false);
+                    if (objectResponse.Object == null)
+                    {
+                        throw new ApiException("Response was null which was not expected.", status, objectResponse.Text, headers, null);
+                    }
+                    return objectResponse.Object;
                 }
 
                 var responseData = response.Content == null ? null : await response.Content.ReadAsStringAsync().ConfigureAwait(false);
@@ -1227,10 +1275,8 @@ namespace EosRio.HyperionApi
         /// <param name="symbol">token symbol</param>
         /// <returns>Default Response</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public async Task GetCurrencyStatsGetAsync(string code, string symbol, CancellationToken cancellationToken = default)
+        public async Task<string> GetCurrencyStatsGetAsync(string code, string symbol, CancellationToken cancellationToken = default)
         {
-            // TODO return value
-
             if (code == null)
                 throw new ArgumentNullException("code");
     
@@ -1259,7 +1305,8 @@ namespace EosRio.HyperionApi
                 var status = (int)response.StatusCode;
                 if (status == 200)
                 {
-                    return;
+                    if (response.Content != null) 
+                        return await response.Content.ReadAsStringAsync();
                 }
 
                 var responseData = response.Content == null ? null : await response.Content.ReadAsStringAsync().ConfigureAwait(false);
@@ -1317,18 +1364,18 @@ namespace EosRio.HyperionApi
         /// <summary>Retrieves currency stats</summary>
         /// <returns>Default Response</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public async Task GetCurrencyStatsPostAsync(object body, CancellationToken cancellationToken = default)
+        public async Task<string> GetCurrencyStatsPostAsync(string code, string symbol, CancellationToken cancellationToken = default)
         {
-            // TODO return value
+            if (code == null)
+                throw new ArgumentNullException("code");
+            if (symbol == null)
+                throw new ArgumentNullException("symbol");
 
-            if (body == null)
-                throw new ArgumentNullException("body");
-    
             var urlBuilder = new StringBuilder(BaseUrl != null ? BaseUrl.TrimEnd('/') : "").Append("/v1/chain/get_currency_stats");
  
             using (var request = new HttpRequestMessage())
             {
-                var content = new StringContent(JsonConvert.SerializeObject(body));
+                var content = new StringContent($"{{\"code\":\"{code}\",\"symbol\":\"{symbol}\"}}");
                 content.Headers.ContentType = MediaTypeHeaderValue.Parse("application/json");
                 request.Content = content;
                 request.Method = new HttpMethod("POST");
@@ -1348,7 +1395,8 @@ namespace EosRio.HyperionApi
                 var status = (int)response.StatusCode;
                 if (status == 200)
                 {
-                    return;
+                    if (response.Content != null) 
+                        return await response.Content.ReadAsStringAsync();
                 }
 
                 var responseData = response.Content == null ? null : await response.Content.ReadAsStringAsync().ConfigureAwait(false);
@@ -1360,10 +1408,8 @@ namespace EosRio.HyperionApi
         /// <summary>Returns an object containing various details about the blockchain.</summary>
         /// <returns>Default Response</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public async Task GetInfoGetAsync(CancellationToken cancellationToken = default)
+        public async Task<GetInfoResponse> GetInfoGetAsync(CancellationToken cancellationToken = default)
         {
-            // TODO return value
-
             var urlBuilder = new StringBuilder(BaseUrl != null ? BaseUrl.TrimEnd('/') : "").Append("/v1/chain/get_info");
  
             using (var request = new HttpRequestMessage())
@@ -1385,7 +1431,12 @@ namespace EosRio.HyperionApi
                 var status = (int)response.StatusCode;
                 if (status == 200)
                 {
-                    return;
+                    var objectResponse = await ReadObjectResponseAsync<GetInfoResponse>(response, headers, cancellationToken).ConfigureAwait(false);
+                    if (objectResponse.Object == null)
+                    {
+                        throw new ApiException("Response was null which was not expected.", status, objectResponse.Text, headers, null);
+                    }
+                    return objectResponse.Object;
                 }
 
                 var responseData = response.Content == null ? null : await response.Content.ReadAsStringAsync().ConfigureAwait(false);
@@ -1434,15 +1485,12 @@ namespace EosRio.HyperionApi
         /// <summary>Returns an object containing various details about the blockchain.</summary>
         /// <returns>Default Response</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public async Task GetInfoPostAsync(CancellationToken cancellationToken = default)
+        public async Task<GetInfoResponse> GetInfoPostAsync(CancellationToken cancellationToken = default)
         {
-            // TODO return value
-
             var urlBuilder = new StringBuilder(BaseUrl != null ? BaseUrl.TrimEnd('/') : "").Append("/v1/chain/get_info");
  
             using (var request = new HttpRequestMessage())
             {
-                request.Content = new StringContent(string.Empty, Encoding.UTF8, "application/json");
                 request.Method = new HttpMethod("POST");
 
                 var url = urlBuilder.ToString();
@@ -1460,7 +1508,12 @@ namespace EosRio.HyperionApi
                 var status = (int)response.StatusCode;
                 if (status == 200)
                 {
-                    return;
+                    var objectResponse = await ReadObjectResponseAsync<GetInfoResponse>(response, headers, cancellationToken).ConfigureAwait(false);
+                    if (objectResponse.Object == null)
+                    {
+                        throw new ApiException("Response was null which was not expected.", status, objectResponse.Text, headers, null);
+                    }
+                    return objectResponse.Object;
                 }
 
                 var responseData = response.Content == null ? null : await response.Content.ReadAsStringAsync().ConfigureAwait(false);
