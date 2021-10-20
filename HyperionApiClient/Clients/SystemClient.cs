@@ -6,8 +6,10 @@ using System.Net.Http.Headers;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using HyperionApiClient.Models;
+using HyperionApiClient.Responses;
 
-namespace EosRio.HyperionApi
+namespace HyperionApiClient.Clients
 {
     public class SystemClient : ClientExtensions
     {
@@ -33,10 +35,8 @@ namespace EosRio.HyperionApi
         /// <param name="limit">limit of [n] actions per page</param>
         /// <returns>Default Response</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public async Task GetProposalsAsync(string proposer = null, string proposal = null, string account = null, string requested = null, string provided = null, bool? executed = null, string track = null, int? skip = null, int? limit = null, CancellationToken cancellationToken = default)
+        public async Task<GetProposalsResponse> GetProposalsAsync(string proposer = null, string proposal = null, string account = null, string requested = null, string provided = null, bool? executed = null, string track = null, int? skip = null, int? limit = null, CancellationToken cancellationToken = default)
         {
-            // TODO return value
-
             var urlBuilder = new StringBuilder(BaseUrl != null ? BaseUrl.TrimEnd('/') : "").Append("/v2/state/get_proposals?");
             if (proposer != null)
             {
@@ -95,7 +95,12 @@ namespace EosRio.HyperionApi
                 var status = (int)response.StatusCode;
                 if (status == 200)
                 {
-                    return;
+                    var objectResponse = await ReadObjectResponseAsync<GetProposalsResponse>(response, headers, cancellationToken).ConfigureAwait(false);
+                    if (objectResponse.Object == null)
+                    {
+                        throw new ApiException("Response was null which was not expected.", status, objectResponse.Text, headers, null);
+                    }
+                    return objectResponse.Object;
                 }
 
                 var responseData = response.Content == null ? null : await response.Content.ReadAsStringAsync().ConfigureAwait(false);

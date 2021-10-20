@@ -1,7 +1,8 @@
 using System.Collections.Generic;
+using HyperionApiClient.Models;
 using Newtonsoft.Json;
 
-namespace EosRio.HyperionApi
+namespace HyperionApiClient.Responses
 {
     public class GetBlockResponse 
     {
@@ -24,7 +25,7 @@ namespace EosRio.HyperionApi
         public string Id { get; set; }
     
         [JsonProperty("number", Required = Required.DisallowNull, NullValueHandling = NullValueHandling.Ignore)]
-        public int Number { get; set; }
+        public uint Number { get; set; }
     
         [JsonProperty("previous_id", Required = Required.DisallowNull, NullValueHandling = NullValueHandling.Ignore)]
         public string PreviousId { get; set; }

@@ -5,20 +5,6 @@ using Newtonsoft.Json;
 
 namespace HyperionApiClient.Models
 {
-    // Root myDeserializedClass = JsonConvert.DeserializeObject<Root>(myJsonResponse); 
-
-    public class Action
-    {
-        [JsonProperty("name")]
-        public string Name { get; set; }
-
-        [JsonProperty("type")]
-        public string Type { get; set; }
-
-        [JsonProperty("ricardian_contract")]
-        public string RicardianContract { get; set; }
-    }
-
     public class Abi
     {
         [JsonProperty("version")]
@@ -31,7 +17,7 @@ namespace HyperionApiClient.Models
         public List<Struct> Structs { get; set; }
 
         [JsonProperty("actions")]
-        public List<Action> Actions { get; set; }
+        public List<Action7> Actions { get; set; }
 
         [JsonProperty("tables")]
         public List<Table> Tables { get; set; }

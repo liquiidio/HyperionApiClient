@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using Newtonsoft.Json;
 
-namespace HyperionApiClient.Responses
+namespace HyperionApiClient.Models
 {
     public class Producer2
     {

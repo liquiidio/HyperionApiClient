@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using HyperionApiClient.Models;
 using Newtonsoft.Json;
 
 namespace HyperionApiClient.Responses

@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using Newtonsoft.Json;
 
-namespace EosRio.HyperionApi
+namespace HyperionApiClient.Models
 {
     public class Transaction 
     {

@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 
-namespace EosRio.HyperionApi
+namespace HyperionApiClient.Models
 {
     public class ApiException : Exception
     {

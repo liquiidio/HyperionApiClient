@@ -4,8 +4,10 @@ using System.Net.Http;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using HyperionApiClient.Models;
+using HyperionApiClient.Responses;
 
-namespace EosRio.HyperionApi
+namespace HyperionApiClient.Clients
 {
     public class StatusClient : ClientExtensions
     {
@@ -22,10 +24,8 @@ namespace EosRio.HyperionApi
         /// <summary>API Service Health Report</summary>
         /// <returns>Default Response</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public async Task HealthAsync(CancellationToken cancellationToken = default)
+        public async Task<GetHealthResponse> HealthAsync(CancellationToken cancellationToken = default)
         {
-            // TODO return value
-
             var urlBuilder = new StringBuilder(BaseUrl != null ? BaseUrl.TrimEnd('/') : "").Append("/v2/health");
  
             using (var request = new HttpRequestMessage())
@@ -47,7 +47,12 @@ namespace EosRio.HyperionApi
                 var status = (int)response.StatusCode;
                 if (status == 200)
                 {
-                    return;
+                    var objectResponse = await ReadObjectResponseAsync<GetHealthResponse>(response, headers, cancellationToken).ConfigureAwait(false);
+                    if (objectResponse.Object == null)
+                    {
+                        throw new ApiException("Response was null which was not expected.", status, objectResponse.Text, headers, null);
+                    }
+                    return objectResponse.Object;
                 }
 
                 var responseData = response.Content == null ? null : await response.Content.ReadAsStringAsync().ConfigureAwait(false);

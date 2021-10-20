@@ -1,7 +1,8 @@
 using System.Collections.Generic;
+using HyperionApiClient.Models;
 using Newtonsoft.Json;
 
-namespace EosRio.HyperionApi
+namespace HyperionApiClient.Responses
 {
     public class GetBlockResponse2
     {

@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using Newtonsoft.Json;
 
-namespace EosRio.HyperionApi
+namespace HyperionApiClient.Models
 {
     public class Action 
     {
@@ -12,7 +12,7 @@ namespace EosRio.HyperionApi
         public string Timestamp { get; set; }
     
         [JsonProperty("block_num", Required = Required.DisallowNull, NullValueHandling = NullValueHandling.Ignore)]
-        public double BlockNum { get; set; }
+        public uint BlockNum { get; set; }
     
         [JsonProperty("trx_id", Required = Required.DisallowNull, NullValueHandling = NullValueHandling.Ignore)]
         public string TrxId { get; set; }

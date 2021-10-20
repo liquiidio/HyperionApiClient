@@ -6,8 +6,10 @@ using System.Net.Http.Headers;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using HyperionApiClient.Models;
+using HyperionApiClient.Responses;
 
-namespace EosRio.HyperionApi
+namespace HyperionApiClient.Clients
 {
     public class StatsClient : ClientExtensions
     {
@@ -27,10 +29,8 @@ namespace EosRio.HyperionApi
         /// <param name="unique_actors">compute unique actors</param>
         /// <returns>Default Response</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public async Task GetActionUsageAsync(string period, string endDate = null, bool? uniqueActors = null, CancellationToken cancellationToken = default)
+        public async Task<GetActionUsageResponse> GetActionUsageAsync(string period, string endDate = null, bool? uniqueActors = null, CancellationToken cancellationToken = default)
         {
-            // TODO return value
-
             if (period == null)
                 throw new ArgumentNullException("period");
     
@@ -64,7 +64,12 @@ namespace EosRio.HyperionApi
                 var status = (int)response.StatusCode;
                 if (status == 200)
                 {
-                    return;
+                    var objectResponse = await ReadObjectResponseAsync<GetActionUsageResponse>(response, headers, cancellationToken).ConfigureAwait(false);
+                    if (objectResponse.Object == null)
+                    {
+                        throw new ApiException("Response was null which was not expected.", status, objectResponse.Text, headers, null);
+                    }
+                    return objectResponse.Object;
                 }
 
                 var responseData = response.Content == null ? null : await response.Content.ReadAsStringAsync().ConfigureAwait(false);
@@ -139,7 +144,7 @@ namespace EosRio.HyperionApi
         /// <param name="action">action name</param>
         /// <returns>Default Response</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public async Task GetResourceUsageAsync(string code, string action, CancellationToken cancellationToken = default)
+        public async Task<GetResourceUsageResponse> GetResourceUsageAsync(string code, string action, CancellationToken cancellationToken = default)
         {
             // TODO return value
 
@@ -171,7 +176,12 @@ namespace EosRio.HyperionApi
                 var status = (int)response.StatusCode;
                 if (status == 200)
                 {
-                    return;
+                    var objectResponse = await ReadObjectResponseAsync<GetResourceUsageResponse>(response, headers, cancellationToken).ConfigureAwait(false);
+                    if (objectResponse.Object == null)
+                    {
+                        throw new ApiException("Response was null which was not expected.", status, objectResponse.Text, headers, null);
+                    }
+                    return objectResponse.Object;
                 }
 
                 var responseData = response.Content == null ? null : await response.Content.ReadAsStringAsync().ConfigureAwait(false);

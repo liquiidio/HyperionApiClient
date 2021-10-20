@@ -1,10 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using EosRio.HyperionApi;
+﻿using System.Collections.Generic;
+using HyperionApiClient.Models;
 using Newtonsoft.Json;
 
-namespace HyperionApiClient.Models
+namespace HyperionApiClient.Responses
 {
     public class GetTokensResponse
     {

@@ -1,6 +1,6 @@
 using Newtonsoft.Json;
 
-namespace EosRio.HyperionApi
+namespace HyperionApiClient.Models
 {
     public class Permission 
     {

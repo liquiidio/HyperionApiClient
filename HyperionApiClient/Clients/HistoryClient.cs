@@ -6,9 +6,10 @@ using System.Net.Http.Headers;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
-using Newtonsoft.Json;
+using HyperionApiClient.Models;
+using HyperionApiClient.Responses;
 
-namespace EosRio.HyperionApi
+namespace HyperionApiClient.Clients
 {
     public class HistoryClient : ClientExtensions
     {
@@ -28,10 +29,8 @@ namespace EosRio.HyperionApi
         /// <param name="fetch">should fetch the ABI</param>
         /// <returns>Default Response</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public async Task GetAbiSnapshotAsync(string contract, int? block = null, bool? fetch = null, CancellationToken cancellationToken = default)
+        public async Task<GetApiSnapshotResponse> GetAbiSnapshotAsync(string contract, int? block = null, bool? fetch = null, CancellationToken cancellationToken = default)
         {
-            // TODO return value
-
             if (contract == null)
                 throw new ArgumentNullException("contract");
     
@@ -65,7 +64,12 @@ namespace EosRio.HyperionApi
                 var status = (int)response.StatusCode;
                 if (status == 200)
                 {
-                    return;
+                    var objectResponse = await ReadObjectResponseAsync<GetApiSnapshotResponse>(response, headers, cancellationToken).ConfigureAwait(false);
+                    if (objectResponse.Object == null)
+                    {
+                        throw new ApiException("Response was null which was not expected.", status, objectResponse.Text, headers, null);
+                    }
+                    return objectResponse.Object;
                 }
 
                 var responseData = response.Content == null ? null : await response.Content.ReadAsStringAsync().ConfigureAwait(false);
@@ -326,10 +330,8 @@ namespace EosRio.HyperionApi
         /// <param name="id">transaction id</param>
         /// <returns>Default Response</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public async Task GetTransactionGetAsync(string id, CancellationToken cancellationToken = default)
+        public async Task<GetTransactionResponse> GetTransactionGetAsync(string id, CancellationToken cancellationToken = default)
         {
-            // TODO return value
-
             if (id == null)
                 throw new ArgumentNullException("id");
     
@@ -355,45 +357,7 @@ namespace EosRio.HyperionApi
                 var status = (int)response.StatusCode;
                 if (status == 200)
                 {
-                    return;
-                }
-
-                var responseData = response.Content == null ? null : await response.Content.ReadAsStringAsync().ConfigureAwait(false);
-                throw new ApiException("The HTTP status code of the response was not expected (" + status + ").", status, responseData, headers, null);
-            }
-        }
-    
-        /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
-        /// <summary>get actions</summary>
-        /// <exception cref="ApiException">A server side error occurred.</exception>
-        public async Task<GetActionsResponse2> GetActionsPostAsync(object body = null, CancellationToken cancellationToken = default)
-        {
-            var urlBuilder = new StringBuilder(BaseUrl != null ? BaseUrl.TrimEnd('/') : "").Append("/v1/history/get_actions");
- 
-            using (var request = new HttpRequestMessage())
-            {
-                var content = new StringContent(JsonConvert.SerializeObject(body));
-                content.Headers.ContentType = MediaTypeHeaderValue.Parse("application/json");
-                request.Content = content;
-                request.Method = new HttpMethod("POST");
-                request.Headers.Accept.Add(MediaTypeWithQualityHeaderValue.Parse("application/json"));
-
-                var url = urlBuilder.ToString();
-                request.RequestUri = new Uri(url, UriKind.RelativeOrAbsolute);
-
-                var response = await _httpClient.SendAsync(request, HttpCompletionOption.ResponseHeadersRead, cancellationToken).ConfigureAwait(false);
-
-                var headers = response.Headers.ToDictionary(h => h.Key, h => h.Value);
-                if (response.Content?.Headers != null)
-                {
-                    foreach (var item in response.Content.Headers)
-                        headers[item.Key] = item.Value;
-                }
-
-                var status = (int)response.StatusCode;
-                if (status == 200)
-                {
-                    var objectResponse = await ReadObjectResponseAsync<GetActionsResponse2>(response, headers, cancellationToken).ConfigureAwait(false);
+                    var objectResponse = await ReadObjectResponseAsync<GetTransactionResponse>(response, headers, cancellationToken).ConfigureAwait(false);
                     if (objectResponse.Object == null)
                     {
                         throw new ApiException("Response was null which was not expected.", status, objectResponse.Text, headers, null);
@@ -405,60 +369,25 @@ namespace EosRio.HyperionApi
                 throw new ApiException("The HTTP status code of the response was not expected (" + status + ").", status, responseData, headers, null);
             }
         }
-    
-        /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
-        /// <summary>get transaction by id</summary>
-        /// <returns>Default Response</returns>
-        /// <exception cref="ApiException">A server side error occurred.</exception>
-        public async Task GetTransactionPostAsync(object body, CancellationToken cancellationToken = default)
-        {
-            // TODO return value
 
-            if (body == null)
-                throw new ArgumentNullException("body");
-    
-            var urlBuilder = new StringBuilder(BaseUrl != null ? BaseUrl.TrimEnd('/') : "").Append("/v1/history/get_transaction");
- 
-            using (var request = new HttpRequestMessage())
-            {
-                var content = new StringContent(JsonConvert.SerializeObject(body));
-                content.Headers.ContentType = MediaTypeHeaderValue.Parse("application/json");
-                request.Content = content;
-                request.Method = new HttpMethod("POST");
-
-                var url = urlBuilder.ToString();
-                request.RequestUri = new Uri(url, UriKind.RelativeOrAbsolute);
-
-                var response = await _httpClient.SendAsync(request, HttpCompletionOption.ResponseHeadersRead, cancellationToken).ConfigureAwait(false);
-
-                var headers = response.Headers.ToDictionary(h => h.Key, h => h.Value);
-                if (response.Content?.Headers != null)
-                {
-                    foreach (var item in response.Content.Headers)
-                        headers[item.Key] = item.Value;
-                }
-
-                var status = (int)response.StatusCode;
-                if (status == 200)
-                {
-                    return;
-                }
-
-                var responseData = response.Content == null ? null : await response.Content.ReadAsStringAsync().ConfigureAwait(false);
-                throw new ApiException("The HTTP status code of the response was not expected (" + status + ").", status, responseData, headers, null);
-            }
-        }
-    
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <summary>get block traces</summary>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public async Task<GetBlockResponse> GetBlockAsync(object body = null, CancellationToken cancellationToken = default)
+        public async Task<GetBlockResponse> GetBlockAsync(uint? blockNum = null, string blockId = null, CancellationToken cancellationToken = default)
         {
+
+            StringContent content = null;
+            if (blockNum != null)
+                content = new StringContent($"{{\"block_num\":\"{blockNum}\"}}");
+            else if (!string.IsNullOrEmpty(blockId))
+                content = new StringContent($"{{\"block_id\":\"{blockId}\"}}");
+            else
+                throw new ArgumentNullException("blockNum or blockId");
+
             var urlBuilder = new StringBuilder(BaseUrl != null ? BaseUrl.TrimEnd('/') : "").Append("/v1/trace_api/get_block");
  
             using (var request = new HttpRequestMessage())
             {
-                var content = new StringContent(JsonConvert.SerializeObject(body));
                 content.Headers.ContentType = MediaTypeHeaderValue.Parse("application/json");
                 request.Content = content;
                 request.Method = new HttpMethod("POST");
