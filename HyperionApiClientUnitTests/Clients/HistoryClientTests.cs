@@ -51,7 +51,7 @@ namespace EosRio.HyperionApi.Tests
         }
 
         [TestMethod()]
-        public async Task GetActionsGetAsyncTest()
+        public async Task GetActionsAsyncTest()
         {
             var historyClient = new HistoryClient(new HttpClient());
 
@@ -92,7 +92,7 @@ namespace EosRio.HyperionApi.Tests
         }
 
         [TestMethod()]
-        public async Task GetTransactionGetAsyncTest()
+        public async Task GetTransactionAsyncTest()
         {
             var historyClient = new HistoryClient(new HttpClient());
 

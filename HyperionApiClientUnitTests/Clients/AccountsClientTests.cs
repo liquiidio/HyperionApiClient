@@ -85,20 +85,7 @@ namespace EosRio.HyperionApi.Tests
         }
 
         [TestMethod()]
-        public async Task GetKeyAccountsGetAsyncTest()
-        {
-            var accountsClient = new AccountsClient(new HttpClient());
-
-            var key = "PUB_K1_84iF6DCDghFYbjzFxxM71DnMbZVYQhxwxEWXbgz21nLFCWShVj";
-            var keyAccounts = await accountsClient.GetKeyAccountsAsync(key);
-
-            Assert.IsNotNull(keyAccounts.AccountNames.FirstOrDefault(a => a == "kaefer"));
-            Assert.IsNotNull(keyAccounts.AccountNames.FirstOrDefault(a => a == "kaefer.oig"));
-            Assert.IsNotNull(keyAccounts.AccountNames.FirstOrDefault(a => a == "ig.kaefer"));
-        }
-
-        [TestMethod()]
-        public async Task GetKeyAccountsPostAsyncTest()
+        public async Task GetKeyAccountsAsyncTest()
         {
             var accountsClient = new AccountsClient(new HttpClient());
 
