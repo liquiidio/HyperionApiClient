@@ -26,10 +26,10 @@ namespace EosRio.HyperionApi.Tests
 
             try
             {
-                var acc = await chainClient.GetAccountGetAsync("wam");
+                var acc = await chainClient.GetAccountAsync("wam");
                 Assert.Fail();
             }
-            catch (Exception e)
+            catch (Exception)
             {
                 Assert.IsTrue(true);
             }
@@ -41,7 +41,7 @@ namespace EosRio.HyperionApi.Tests
             var chainClient = new ChainClient(new HttpClient());
 
             var account = "eosio";
-            var abi = await chainClient.GetAbiGetAsync(account);
+            var abi = await chainClient.GetAbiAsync(account);
 
             Assert.AreEqual(abi.AccountName, account);
             Assert.AreEqual(abi.Abi.Actions.Count,64);
@@ -61,7 +61,7 @@ namespace EosRio.HyperionApi.Tests
             var chainClient = new ChainClient(new HttpClient());
 
             var accountName = "eosio";
-            var account = await chainClient.GetAccountGetAsync(accountName);
+            var account = await chainClient.GetAccountAsync(accountName);
 
             Assert.AreEqual(account.AccountName, accountName);
             Assert.AreEqual(account.Created, "2019-06-05T12:00:00.000");
@@ -83,7 +83,7 @@ namespace EosRio.HyperionApi.Tests
         {
             var chainClient = new ChainClient(new HttpClient());
 
-            var activatedProtocolFeatures = await chainClient.GetActivatedProtocolFeaturesGetAsync();
+            var activatedProtocolFeatures = await chainClient.GetActivatedProtocolFeaturesAsync();
 
             Assert.AreEqual(activatedProtocolFeatures.ActivatedProtocolFeatures.Count, 10);
             Assert.AreEqual(activatedProtocolFeatures.More, 10);
@@ -106,7 +106,7 @@ namespace EosRio.HyperionApi.Tests
             var chainClient = new ChainClient(new HttpClient());
 
             string blockNum = "100000000";
-            var block = await chainClient.GetBlockGetAsync(blockNum);
+            var block = await chainClient.GetBlockAsync(blockNum);
 
             Assert.AreEqual(block.BlockNum, Convert.ToUInt32(blockNum));
             Assert.AreEqual(block.ActionMroot, "54f10a997a068694e36a36c5ffff90ae034361bb2dec14900ffb627d79b2744d");
@@ -140,8 +140,8 @@ namespace EosRio.HyperionApi.Tests
         {
             var chainClient = new ChainClient(new HttpClient());
 
-            var info = await chainClient.GetInfoGetAsync();
-            var blockHeaderState = await chainClient.GetBlockHeaderStateGetAsync(info.HeadBlockId);
+            var info = await chainClient.GetInfoAsync();
+            var blockHeaderState = await chainClient.GetBlockHeaderStateAsync(info.HeadBlockId);
 
             Assert.IsNotNull(blockHeaderState);
             Assert.IsNotNull(blockHeaderState.ActiveSchedule);
@@ -161,7 +161,7 @@ namespace EosRio.HyperionApi.Tests
         {
             var chainClient = new ChainClient(new HttpClient());
             var accountName = "kingcoolcorv";
-            var code = await chainClient.GetCodeGetAsync(accountName,true);
+            var code = await chainClient.GetCodeAsync(accountName,true);
 
             Assert.AreEqual(code.AccountName, accountName);
             Assert.AreEqual(code.CodeHash, "0000000000000000000000000000000000000000000000000000000000000000");
@@ -169,7 +169,7 @@ namespace EosRio.HyperionApi.Tests
             Assert.AreEqual(code.Wast, ""); 
 
             accountName = "eosio";
-            code = await chainClient.GetCodeGetAsync(accountName, true);
+            code = await chainClient.GetCodeAsync(accountName, true);
             Assert.AreEqual(code.AccountName, accountName);
             Assert.AreEqual(code.CodeHash, "a7a10c302934b581a5a2f5193be8bdfc5c22fbd46fbdc49aeb14f0865e76a5d3");
             Assert.AreNotEqual(code.Wasm, "");
@@ -184,7 +184,7 @@ namespace EosRio.HyperionApi.Tests
             var symbol = "WAX";
             var account = "kingcoolcorv";
 
-            var balance = await chainClient.GetCurrencyBalanceGetAsync(code, account, symbol);
+            var balance = await chainClient.GetCurrencyBalanceAsync(code, account, symbol);
 
             Assert.IsTrue(balance.First().Contains("WAX"));
         }
@@ -196,7 +196,7 @@ namespace EosRio.HyperionApi.Tests
             var chainClient = new ChainClient(new HttpClient());
             var code = "eosio.token";
             var symbol = "WAX";
-            var currencyStats = await chainClient.GetCurrencyStatsGetAsync(code, symbol);
+            var currencyStats = await chainClient.GetCurrencyStatsAsync(code, symbol);
             Assert.IsNotNull(currencyStats);
         }
 
@@ -204,7 +204,7 @@ namespace EosRio.HyperionApi.Tests
         public async Task GetInfoGetAsyncTest()
         {
             var chainClient = new ChainClient(new HttpClient());
-            var info = await chainClient.GetInfoGetAsync();
+            var info = await chainClient.GetInfoAsync();
 
             Assert.IsNotNull(info.HeadBlockId);
             Assert.IsNotNull(info.BlockCpuLimit);
@@ -225,22 +225,10 @@ namespace EosRio.HyperionApi.Tests
         public async Task GetProducersGetAsyncTest()
         {
             var chainClient = new ChainClient(new HttpClient());
-            var producers = await chainClient.GetProducersGetAsync(null,null,true);
+            var producers = await chainClient.GetProducersAsync(null,null,true);
 
             Assert.IsTrue(producers.Rows.Count > 21);
             Assert.IsTrue(producers.Rows.Any(r => r.Owner.Contains("liquid")));
-        }
-
-
-        [TestMethod()]
-        public async Task GetScheduledTransactionGetAsyncTest()
-        {
-            var chainClient = new ChainClient(new HttpClient());
-            var lowerbound = DateTime.Now.AddDays(-7).ToString("YYYY-MM-DDTHH:MM:SS.sss");
-            var limit = 10;
-            var json = true;
-            // TODO
-//            var trx = await chainClient.GetScheduledTransactionGetAsync(lowerbound, limit, json);
         }
 
         [TestMethod()]
@@ -254,39 +242,12 @@ namespace EosRio.HyperionApi.Tests
             int? limit = 120;
             bool? reverse = false;
 
-            var tableScopeResponse = await chainClient.GetTableByScopeGetAsync(code,table,lowerBound,upperBound,limit,reverse);
+            var tableScopeResponse = await chainClient.GetTableByScopeAsync(code,table,lowerBound,upperBound,limit,reverse);
 
             Assert.IsTrue(tableScopeResponse.Rows.Count == limit);
             Assert.IsTrue(tableScopeResponse.Rows.All(r => r.Code == code));
             Assert.IsTrue(tableScopeResponse.Rows.Select(r => r.Scope).Distinct().Count() == limit);
             Assert.IsTrue(tableScopeResponse.Rows.All(r => r.Table == table));
         }
-
-        [TestMethod()]
-        public async Task GetTableRowsGetAsyncTest()
-        {
-            var chainClient = new ChainClient(new HttpClient());
-
-            string code = "eosio.token";
-            string table = "accounts";
-            string scope = "";
-            string encode_type = ""; // TODO
-//            var tableRowResponse = await chainClient.GetTableRowsGetAsync(code,table, scope);
-
-        }
-
-        // TODO
-        /*[TestMethod()]
-        public async Task AbiBinToJsonGetAsyncTest()
-        {
-        }
-
-        [TestMethod()]
-        public async Task AbiJsonToBinGetAsyncTest()
-        {
-
-        }
-         */
-
     }
 }

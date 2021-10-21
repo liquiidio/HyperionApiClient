@@ -28,7 +28,7 @@ namespace HyperionApiClient.Clients
         /// <summary>Returns an object containing rows from the specified table.</summary>
         /// <returns>Default Response</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public async Task AbiBinToJsonGetAsync(string code, string action, string binargs, CancellationToken cancellationToken = default)
+        public async Task AbiBinToJsonAsync(string code, string action, string binargs, CancellationToken cancellationToken = default)
         {
             // TODO return value
 
@@ -75,7 +75,7 @@ namespace HyperionApiClient.Clients
         /// <summary>Convert JSON object to binary</summary>
         /// <returns>Default Response</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public async Task AbiJsonToBinGetAsync(string binargs, CancellationToken cancellationToken = default)
+        public async Task AbiJsonToBinAsync(string binargs, CancellationToken cancellationToken = default)
         {
             // TODO return value
 
@@ -116,7 +116,7 @@ namespace HyperionApiClient.Clients
         /// <summary>Retrieves the ABI for a contract based on its account name</summary>
         /// <returns>Default Response</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public async Task<GetAbiResponse> GetAbiGetAsync(string accountName, CancellationToken cancellationToken = default)
+        public async Task<GetAbiResponse> GetAbiAsync(string accountName, CancellationToken cancellationToken = default)
         {
             if (accountName == null)
                 throw new ArgumentNullException("accountName");
@@ -160,7 +160,7 @@ namespace HyperionApiClient.Clients
         /// <summary>Returns an object containing various details about a specific account on the blockchain.</summary>
         /// <returns>Default Response</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public async Task<GetAccountResponse2> GetAccountGetAsync(string accountName, CancellationToken cancellationToken = default)
+        public async Task<GetAccountResponse2> GetAccountAsync(string accountName, CancellationToken cancellationToken = default)
         {
             if (accountName == null)
                 throw new ArgumentNullException("accountName");
@@ -209,7 +209,7 @@ namespace HyperionApiClient.Clients
         /// <param name="reverse">Flag to indicate it has to search in reverse</param>
         /// <returns>Default Response</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public async Task<GetActivatedProtocolFeaturesResponse> GetActivatedProtocolFeaturesGetAsync(int? lowerBound = null, int? upperBound = null, int? limit = null, bool? searchByBlockNum = null, bool? reverse = null, CancellationToken cancellationToken = default)
+        public async Task<GetActivatedProtocolFeaturesResponse> GetActivatedProtocolFeaturesAsync(int? lowerBound = null, int? upperBound = null, int? limit = null, bool? searchByBlockNum = null, bool? reverse = null, CancellationToken cancellationToken = default)
         {
             var urlBuilder = new StringBuilder(BaseUrl != null ? BaseUrl.TrimEnd('/') : "").Append("/v1/chain/get_activated_protocol_features?");
             if (lowerBound != null)
@@ -271,7 +271,7 @@ namespace HyperionApiClient.Clients
         /// <param name="block_num_or_id">Provide a `block number` or a `block id`</param>
         /// <returns>Default Response</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public async Task<GetBlockResponse2> GetBlockGetAsync(string blockNumOrId, CancellationToken cancellationToken = default)
+        public async Task<GetBlockResponse2> GetBlockAsync(string blockNumOrId, CancellationToken cancellationToken = default)
         {
             var urlBuilder = new StringBuilder(BaseUrl != null ? BaseUrl.TrimEnd('/') : "").Append("/v1/chain/get_block?" + Uri.EscapeDataString("block_num_or_id") + "=").Append(Uri.EscapeDataString(ConvertToString(blockNumOrId, CultureInfo.InvariantCulture))).Append("&");
             urlBuilder.Length--;
@@ -313,7 +313,7 @@ namespace HyperionApiClient.Clients
         /// <param name="blockNumOrId">Provide a block_number or a block_id</param>
         /// <returns>Default Response</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public async Task<GetBlockHeaderStateResponse> GetBlockHeaderStateGetAsync(string blockNumOrId, CancellationToken cancellationToken = default)
+        public async Task<GetBlockHeaderStateResponse> GetBlockHeaderStateAsync(string blockNumOrId, CancellationToken cancellationToken = default)
         {
             // TODO return value
 
@@ -360,7 +360,7 @@ namespace HyperionApiClient.Clients
         /// <param name="code_as_wasm">This must be 1 (true)</param>
         /// <returns>Default Response</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public async Task<GetCodeResponse> GetCodeGetAsync(string accountName, bool codeAsWasm, CancellationToken cancellationToken = default)
+        public async Task<GetCodeResponse> GetCodeAsync(string accountName, bool codeAsWasm, CancellationToken cancellationToken = default)
         {
             if (accountName == null)
                 throw new ArgumentNullException("accountName");
@@ -408,7 +408,7 @@ namespace HyperionApiClient.Clients
         /// <param name="symbol">A symbol composed of capital letters between 1-7.</param>
         /// <returns>Default Response</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public async Task<List<string>> GetCurrencyBalanceGetAsync(string code, string account, string symbol, CancellationToken cancellationToken = default)
+        public async Task<List<string>> GetCurrencyBalanceAsync(string code, string account, string symbol, CancellationToken cancellationToken = default)
         {
             if (code == null)
                 throw new ArgumentNullException("code");
@@ -460,7 +460,7 @@ namespace HyperionApiClient.Clients
         /// <param name="symbol">token symbol</param>
         /// <returns>Default Response</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public async Task<string> GetCurrencyStatsGetAsync(string code, string symbol, CancellationToken cancellationToken = default)
+        public async Task<string> GetCurrencyStatsAsync(string code, string symbol, CancellationToken cancellationToken = default)
         {
             if (code == null)
                 throw new ArgumentNullException("code");
@@ -503,7 +503,7 @@ namespace HyperionApiClient.Clients
         /// <summary>Returns an object containing various details about the blockchain.</summary>
         /// <returns>Default Response</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public async Task<GetInfoResponse> GetInfoGetAsync(CancellationToken cancellationToken = default)
+        public async Task<GetInfoResponse> GetInfoAsync(CancellationToken cancellationToken = default)
         {
             var urlBuilder = new StringBuilder(BaseUrl != null ? BaseUrl.TrimEnd('/') : "").Append("/v1/chain/get_info");
  
@@ -546,7 +546,7 @@ namespace HyperionApiClient.Clients
         /// <param name="json">return result in JSON format</param>
         /// <returns>Default Response</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public async Task<GetProducersResponse> GetProducersGetAsync(string limit = null, string lowerBound = null, bool? json = null, CancellationToken cancellationToken = default)
+        public async Task<GetProducersResponse> GetProducersAsync(string limit = null, string lowerBound = null, bool? json = null, CancellationToken cancellationToken = default)
         {
             var urlBuilder = new StringBuilder(BaseUrl != null ? BaseUrl.TrimEnd('/') : "").Append("/v1/chain/get_producers?");
             if (limit != null)
@@ -599,7 +599,7 @@ namespace HyperionApiClient.Clients
         /// <summary>Retrieves raw ABI for a contract based on account name</summary>
         /// <returns>Default Response</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public async Task GetRawAbiGetAsync(string accountName, CancellationToken cancellationToken = default)
+        public async Task GetRawAbiAsync(string accountName, CancellationToken cancellationToken = default)
         {
             // TODO return value
 
@@ -640,7 +640,7 @@ namespace HyperionApiClient.Clients
         /// <summary>Retrieves raw code and ABI for a contract based on account name</summary>
         /// <returns>Default Response</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public async Task GetRawCodeAndAbiGetAsync(string accountName, CancellationToken cancellationToken = default)
+        public async Task GetRawCodeAndAbiAsync(string accountName, CancellationToken cancellationToken = default)
         {
             // TODO return value
 
@@ -684,7 +684,7 @@ namespace HyperionApiClient.Clients
         /// <param name="json">true/false whether the packed transaction is converted to json</param>
         /// <returns>Default Response</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public async Task GetScheduledTransactionGetAsync(string lowerBound = null, int? limit = null, bool? json = null, CancellationToken cancellationToken = default)
+        public async Task GetScheduledTransactionAsync(string lowerBound = null, int? limit = null, bool? json = null, CancellationToken cancellationToken = default)
         {
             // TODO return value
 
@@ -740,7 +740,7 @@ namespace HyperionApiClient.Clients
         /// <param name="reverse">Reverse the order of returned results</param>
         /// <returns>Default Response</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public async Task<GetTableByScopeResponse> GetTableByScopeGetAsync(string code, string table = null, string lowerBound = null, string upperBound = null, int? limit = null, bool? reverse = null, CancellationToken cancellationToken = default)
+        public async Task<GetTableByScopeResponse> GetTableByScopeAsync(string code, string table = null, string lowerBound = null, string upperBound = null, int? limit = null, bool? reverse = null, CancellationToken cancellationToken = default)
         {
             // TODO return value
 
@@ -811,7 +811,7 @@ namespace HyperionApiClient.Clients
         /// <param name="key_type">Type of key specified by index_position (for example - `uint64_t` or `name`)</param>
         /// <returns>Default Response</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public async Task GetTableRowsGetAsync(string code = null, string table = null, string scope = null, string indexPosition = null, string keyType = null, string encodeType = null, string upperBound = null, string lowerBound = null, CancellationToken cancellationToken = default)
+        public async Task GetTableRowsAsync(string code = null, string table = null, string scope = null, string indexPosition = null, string keyType = null, string encodeType = null, string upperBound = null, string lowerBound = null, CancellationToken cancellationToken = default)
         {
             // TODO return value
 

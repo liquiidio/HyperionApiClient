@@ -25,7 +25,7 @@ namespace EosRio.HyperionApi.Tests
                 var acc = await statusClient.HealthAsync();
                 Assert.Fail();
             }
-            catch (Exception e)
+            catch (Exception)
             {
                 Assert.IsTrue(true);
             }

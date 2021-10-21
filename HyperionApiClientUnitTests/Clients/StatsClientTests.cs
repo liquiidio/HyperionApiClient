@@ -25,7 +25,7 @@ namespace EosRio.HyperionApi.Tests
                 var resourceUsageResponse = await statsClient.GetResourceUsageAsync("eosio.token","transfer");
                 Assert.Fail();
             }
-            catch (Exception e)
+            catch (Exception)
             {
                 Assert.IsTrue(true);
             }

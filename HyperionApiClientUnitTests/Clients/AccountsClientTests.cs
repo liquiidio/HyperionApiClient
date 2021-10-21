@@ -26,7 +26,7 @@ namespace EosRio.HyperionApi.Tests
                 var acc = await accountsClient.GetAccountAsync("wam");
                 Assert.Fail();
             }
-            catch (Exception e)
+            catch (Exception)
             {
                 Assert.IsTrue(true);
             }
@@ -90,7 +90,7 @@ namespace EosRio.HyperionApi.Tests
             var accountsClient = new AccountsClient(new HttpClient());
 
             var key = "PUB_K1_84iF6DCDghFYbjzFxxM71DnMbZVYQhxwxEWXbgz21nLFCWShVj";
-            var keyAccounts = await accountsClient.GetKeyAccountsGetAsync(key);
+            var keyAccounts = await accountsClient.GetKeyAccountsAsync(key);
 
             Assert.IsNotNull(keyAccounts.AccountNames.FirstOrDefault(a => a == "kaefer"));
             Assert.IsNotNull(keyAccounts.AccountNames.FirstOrDefault(a => a == "kaefer.oig"));
@@ -103,7 +103,7 @@ namespace EosRio.HyperionApi.Tests
             var accountsClient = new AccountsClient(new HttpClient());
 
             var key = "PUB_K1_84iF6DCDghFYbjzFxxM71DnMbZVYQhxwxEWXbgz21nLFCWShVj";
-            var keyAccounts = await accountsClient.GetKeyAccountsPostAsync(key);
+            var keyAccounts = await accountsClient.GetKeyAccountsAsync(key);
 
             Assert.IsNotNull(keyAccounts.AccountNames.FirstOrDefault(a => a == "kaefer"));
             Assert.IsNotNull(keyAccounts.AccountNames.FirstOrDefault(a => a == "kaefer.oig"));

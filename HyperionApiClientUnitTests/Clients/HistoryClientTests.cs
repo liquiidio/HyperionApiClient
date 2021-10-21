@@ -26,7 +26,7 @@ namespace EosRio.HyperionApi.Tests
                 var acc = await historyClient.GetBlockAsync();
                 Assert.Fail();
             }
-            catch (Exception e)
+            catch (Exception)
             {
                 Assert.IsTrue(true);
             }
@@ -55,7 +55,7 @@ namespace EosRio.HyperionApi.Tests
         {
             var historyClient = new HistoryClient(new HttpClient());
 
-            var actionsResponse = await historyClient.GetActionsGetAsync(null, null, "kingcoolcorv");
+            var actionsResponse = await historyClient.GetActionsAsync(null, null, "kingcoolcorv");
             Assert.IsNotNull(actionsResponse.Actions);
             Assert.IsNotNull(actionsResponse.Total);
             Assert.IsTrue(actionsResponse.Actions.All(a => a.Act.Name != null));
@@ -96,7 +96,7 @@ namespace EosRio.HyperionApi.Tests
         {
             var historyClient = new HistoryClient(new HttpClient());
 
-            var transactionResponse = await historyClient.GetTransactionGetAsync("853c70f79db05484e8511c5a10a2294326ba5255bff5996588905d9c320d442e");
+            var transactionResponse = await historyClient.GetTransactionAsync("853c70f79db05484e8511c5a10a2294326ba5255bff5996588905d9c320d442e");
 
             Assert.IsNotNull(transactionResponse.Actions);
             Assert.IsTrue(transactionResponse.Actions.All(a => a.Act != null));

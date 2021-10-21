@@ -26,7 +26,7 @@ namespace EosRio.HyperionApi.Tests
                 var acc = await systemClient.GetVotersAsync();
                 Assert.Fail();
             }
-            catch (Exception e)
+            catch (Exception)
             {
                 Assert.IsTrue(true);
             }

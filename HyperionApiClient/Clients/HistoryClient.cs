@@ -92,7 +92,7 @@ namespace HyperionApiClient.Clients
         /// <param name="noBinary">exclude large binary data</param>
         /// <param name="checkLib">perform reversibility check</param>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public async Task<GetActionsResponse> GetActionsGetAsync(int? limit = null, int? skip = null, string account = null, string track = null, string filter = null, Sort? sort = null, string after = null, string before = null, bool? simple = null, bool? hotOnly = null, bool? noBinary = null, bool? checkLib = null, CancellationToken cancellationToken = default)
+        public async Task<GetActionsResponse> GetActionsAsync(int? limit = null, int? skip = null, string account = null, string track = null, string filter = null, Sort? sort = null, string after = null, string before = null, bool? simple = null, bool? hotOnly = null, bool? noBinary = null, bool? checkLib = null, CancellationToken cancellationToken = default)
         {
             var urlBuilder = new StringBuilder(BaseUrl != null ? BaseUrl.TrimEnd('/') : "").Append("/v2/history/get_actions?");
             if (limit != null)
@@ -330,7 +330,7 @@ namespace HyperionApiClient.Clients
         /// <param name="id">transaction id</param>
         /// <returns>Default Response</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public async Task<GetTransactionResponse> GetTransactionGetAsync(string id, CancellationToken cancellationToken = default)
+        public async Task<GetTransactionResponse> GetTransactionAsync(string id, CancellationToken cancellationToken = default)
         {
             if (id == null)
                 throw new ArgumentNullException("id");

@@ -184,7 +184,7 @@ namespace HyperionApiClient.Clients
         /// <param name="skip">skip [n] results</param>
         /// <param name="details">include permission details</param>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public async Task<GetKeyAccountsWithPermissionsResponse> GetKeyAccountsGetAsync(string publicKey, int? limit = null, int? skip = null, bool? details = null, CancellationToken cancellationToken = default)
+        public async Task<GetKeyAccountsWithPermissionsResponse> GetKeyAccountsAsync(string publicKey, int? limit = null, int? skip = null, bool? details = null, CancellationToken cancellationToken = default)
         {
             if (publicKey == null)
                 throw new ArgumentNullException("publicKey");
@@ -389,52 +389,6 @@ namespace HyperionApiClient.Clients
                 if (status == 200)
                 {
                     var objectResponse = await ReadObjectResponseAsync<GetControlledAccountsResponse>(response, headers, cancellationToken).ConfigureAwait(false);
-                    if (objectResponse.Object == null)
-                    {
-                        throw new ApiException("Response was null which was not expected.", status, objectResponse.Text, headers, null);
-                    }
-                    return objectResponse.Object;
-                }
-
-                var responseData = response.Content == null ? null : await response.Content.ReadAsStringAsync().ConfigureAwait(false);
-                throw new ApiException("The HTTP status code of the response was not expected (" + status + ").", status, responseData, headers, null);
-            }
-        }
-    
-        /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
-        /// <summary>get accounts by public key</summary>
-        /// <exception cref="ApiException">A server side error occurred.</exception>
-        public async Task<GetKeyAccountsResponse> GetKeyAccountsPostAsync(string publicKey, CancellationToken cancellationToken = default)
-        {
-            if (publicKey == null)
-                throw new ArgumentNullException("publicKey");
-    
-            var urlBuilder = new StringBuilder(BaseUrl != null ? BaseUrl.TrimEnd('/') : "").Append("/v1/history/get_key_accounts");
- 
-            using (var request = new HttpRequestMessage())
-            {
-                var content = new StringContent($"{{\"public_key\":\"{publicKey}\"}}");
-                content.Headers.ContentType = MediaTypeHeaderValue.Parse("application/json");
-                request.Content = content;
-                request.Method = new HttpMethod("POST");
-                request.Headers.Accept.Add(MediaTypeWithQualityHeaderValue.Parse("application/json"));
-
-                var url = urlBuilder.ToString();
-                request.RequestUri = new Uri(url, UriKind.RelativeOrAbsolute);
-
-                var response = await _httpClient.SendAsync(request, HttpCompletionOption.ResponseHeadersRead, cancellationToken).ConfigureAwait(false);
-
-                var headers = response.Headers.ToDictionary(h => h.Key, h => h.Value);
-                if (response.Content?.Headers != null)
-                {
-                    foreach (var item in response.Content.Headers)
-                        headers[item.Key] = item.Value;
-                }
-
-                var status = (int)response.StatusCode;
-                if (status == 200)
-                {
-                    var objectResponse = await ReadObjectResponseAsync<GetKeyAccountsResponse>(response, headers, cancellationToken).ConfigureAwait(false);
                     if (objectResponse.Object == null)
                     {
                         throw new ApiException("Response was null which was not expected.", status, objectResponse.Text, headers, null);
