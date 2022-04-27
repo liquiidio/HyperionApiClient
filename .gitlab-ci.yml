@@ -2,8 +2,8 @@ image: registry.gitlab.com/liquiduniverse/docgen:latest
 
 stages:
   - build
-#  - test
-#  - pages
+  - test
+  - pages
 
 before_script:
   - docker login -u gitlab-ci-token -p $CI_JOB_TOKEN $CI_REGISTRY
@@ -21,8 +21,8 @@ build:
 # test stage (running the HyperionApiClient.UnitTests-project)
 test:
   stage: test
- script:
-#      - run the test-project
+  script:
+      - echo "do nothing"
 
 
 
