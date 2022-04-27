@@ -1,0 +1,47 @@
+image: registry.gitlab.com/liquiduniverse/eosio-cdt:$CDT_VERSION
+
+stages:
+  - build
+#  - test
+#  - pages
+
+before_script:
+  - docker login -u gitlab-ci-token -p $CI_JOB_TOKEN $CI_REGISTRY
+
+# build stage
+build:
+  stage: build
+  script:
+#      - compile the project/solution with .net/dotnet
+  artifacts:
+    paths:
+      - ./build/
+  tags:
+
+# test stage (running the HyperionApiClient.UnitTests-project)
+test:
+  stage: test
+  script:
+#      - run the test-project
+
+
+
+
+
+
+
+
+# pages stage (to create the html content, the GitBook-documentation)
+pages:
+  stage: pages
+  script:
+  - ./scripts/abidiffs/make_abidiff.sh
+  - doxygen documentation/doxygen/Doxyfile
+  - doxybook2 --input documentation/doxygen_output/xml --output documentation/vuepress --config documentation/doxybook/configs/vuepress/.doxybook/config.json
+  - cd documentation/vuepress/
+  - vuepress build
+  - cp -r ./.vuepress/dist ../../public/develop
+  artifacts:
+    paths:
+    - public
+    - documentation
