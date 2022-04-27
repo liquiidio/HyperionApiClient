@@ -12,7 +12,8 @@ before_script:
 build:
   stage: build
   script:
-    - chmod 777 build.sh && ./build.sh
+    - chmod 777 build.sh && ./build.sh 
+    # copy build output to some directory which is copied to the next stage via artifacts
   artifacts:
     paths:
       - ./build/
@@ -23,10 +24,7 @@ test:
   stage: test
   script:
       - echo "do nothing"
-
-
-
-
+      # create a test-script (test.sh ?), run test.sh
 
 
 
@@ -35,13 +33,22 @@ test:
 pages:
   stage: pages
   script:
-  - ./scripts/abidiffs/make_abidiff.sh
-  - doxygen documentation/doxygen/Doxyfile
-  - doxybook2 --input documentation/doxygen_output/xml --output documentation/vuepress --config documentation/doxybook/configs/vuepress/.doxybook/config.json
-  - cd documentation/vuepress/
-  - vuepress build
-  - cp -r ./.vuepress/dist ../../public/develop
-  artifacts:
-    paths:
-    - public
-    - documentation
+    - echo "will soon generate docs here" # just because pipeline fails without a command here
+    # create a Doxyfile that will be used by doxygen
+    # call doxygen to generate doxygen output somewhere (typically .XML or .MD)
+    # call doxybook2 to generate gitbook-input (additional .XML or .MD and .HTML)
+    # call gitbook-related stuff to generate the gitbook output
+    # copy the generated gitbook-content to "public" ( public is copied to gitlab-pages)
+    # additionally in the future we could/should copy the gitbook-content to an external-repository to build the whole "liquiid Bible"
+
+# ignore below
+#  - ./scripts/abidiffs/make_abidiff.sh
+#  - doxygen documentation/doxygen/Doxyfile
+#  - doxybook2 --input documentation/doxygen_output/xml --output documentation/vuepress --config documentation/doxybook/configs/vuepress/.doxybook/#config.json
+#  - cd documentation/vuepress/
+#  - vuepress build
+#  - cp -r ./.vuepress/dist ../../public/develop
+#  artifacts:
+#    paths:
+#    - public
+#    - documentation
