@@ -1,0 +1,43 @@
+image: registry.gitlab.com/liquiduniverse/docgen:latest
+
+stages:
+  - build
+  - test
+  - pages
+
+before_script:
+  - docker login -u gitlab-ci-token -p $CI_JOB_TOKEN $CI_REGISTRY
+
+# build stage
+build:
+  stage: build
+  script:
+    - chmod 777 build.sh && ./build.sh 
+    # copy build output to some directory which is copied to the next stage via artifacts
+  artifacts:
+    paths:
+      - ./build/
+  tags:
+
+# test stage (running the HyperionApiClient.UnitTests-project)
+test:
+  stage: test
+  script:
+      - echo "do nothing"
+      # create a test-script (test.sh ?), run test.sh
+
+
+
+
+# pages stage (to create the html content, the GitBook-documentation)
+pages:
+  stage: pages
+  script:
+    - echo "will soon generate docs here" # just because pipeline fails without a command here
+    # create a Doxyfile that will be used by doxygen
+    # call doxygen to generate doxygen output somewhere (typically .XML or .MD)
+    # call doxybook2 to generate gitbook-input (additional .XML or .MD and .HTML)
+    # call gitbook-related stuff to generate the gitbook output
+    # copy the generated gitbook-content to "public" ( public is copied to gitlab-pages)
+    # additionally in the future we could/should copy the gitbook-content to an external-repository to build the whole "liquiid Bible"
+
