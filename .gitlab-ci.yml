@@ -34,10 +34,15 @@ pages:
   stage: pages
   script:
     - echo "will soon generate docs here" # just because pipeline fails without a command here
-    # create a Doxyfile that will be used by doxygen
+    - doxygen documentation/doxygen/Doxyfile
+    - cp -r /gitbook/doxygen_output/html public
     # call doxygen to generate doxygen output somewhere (typically .XML or .MD)
     # call doxybook2 to generate gitbook-input (additional .XML or .MD and .HTML)
     # call gitbook-related stuff to generate the gitbook output
     # copy the generated gitbook-content to "public" ( public is copied to gitlab-pages)
     # additionally in the future we could/should copy the gitbook-content to an external-repository to build the whole "liquiid Bible"
-
+  
+  artifacts:
+    paths:
+      - "public"
+      - "documentation"
