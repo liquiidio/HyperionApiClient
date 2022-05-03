@@ -44,5 +44,4 @@ pages:
   
   artifacts:
     paths:
-      - "public"
-      - "documentation"
+      - public
