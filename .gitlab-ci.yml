@@ -35,6 +35,7 @@ pages:
   script:
     - echo "will soon generate docs here" # just because pipeline fails without a command here
     - doxygen doxygen/Doxyfile
+    - doxybook2  documentation/gitbook-input 
     - cp -r "./documentation/doxyoutput/html" ./public
     
     # call doxygen to generate doxygen output somewhere (typically .XML or .MD)
