@@ -1,8 +1,8 @@
 image: registry.gitlab.com/liquiduniverse/docgen:latest
 
 stages:
-  - build
-  - test
+#  - build
+#  - test
   - pages
 
 before_script:
