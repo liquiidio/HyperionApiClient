@@ -1,9 +1,9 @@
 image: registry.gitlab.com/liquiduniverse/docgen:latest
 
 stages:
+  - pages
 #  - build
 #  - test
-  - pages
 
 before_script:
   - docker login -u gitlab-ci-token -p $CI_JOB_TOKEN $CI_REGISTRY
