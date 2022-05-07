@@ -4,6 +4,7 @@ stages:
 #  - build
 #  - test
   - pages
+  - temporary
 
 before_script:
   - docker login -u gitlab-ci-token -p $CI_JOB_TOKEN $CI_REGISTRY
@@ -30,11 +31,27 @@ before_script:
 
 
 # pages stage (to create the html content, the GitBook-documentation)
+temporary:
+  stage: temporary
+  script:
+    - doxygen doxygen/Doxyfile
+    - doxybook2 --input documentation/doxyoutput/xml --output documentation/gitbook --config documentation/doxybook-config/gitbook/.doxybook/config.json --summary-input documentation/doxybook-config/gitbook/SUMMARY.md.tmpl --summary-output documentation/gitbook/SUMMARY.md    
+    # cp -r "./documentation/doxyoutput/html" ./public
+    
+    # call doxygen to generate doxygen output somewhere (typically .XML or .MD)
+    # call doxybook2 to generate gitbook-input (additional .XML or .MD and .HTML)
+    # call gitbook-related stuff to generate the gitbook output
+    # copy the generated gitbook-content to "public" ( public is copied to gitlab-pages)
+    # additionally in the future we could/should copy the gitbook-content to an external-repository to build the whole "liquiid Bible"
+  
+  artifacts:
+    paths:
+      - public
+      - documentation
+
 pages:
   stage: pages
   script:
-    - doxygen doxygen/Doxyfile
-    - doxybook2 --input documentation/doxyoutput/xml --output documentation/gitbook --config documentation/doxybook-config/gitbook/.doxybook/config.json --summary-input documentation/doxybook-config/gitbook/SUMMARY.md.tmpl --summary-output documentation/gitbook/SUMMARY.md
     - cd documentation/gitbook
     - gitbook build ./ --log=debug --debug
     
