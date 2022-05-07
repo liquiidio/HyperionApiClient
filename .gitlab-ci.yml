@@ -54,7 +54,7 @@ pages:
   stage: pages
   script:
     - cd documentation/gitbook
-    - gitbook build 
+    - gitbook --log=debug --debug 
   artifacts:
     paths:
       - public
