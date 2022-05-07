@@ -36,8 +36,7 @@ temporary:
   script:
     - doxygen doxygen/Doxyfile
     - doxybook2 --input documentation/doxyoutput/xml --output documentation/gitbook --config documentation/doxybook-config/gitbook/.doxybook/config.json --summary-input documentation/doxybook-config/gitbook/SUMMARY.md.tmpl --summary-output documentation/gitbook/SUMMARY.md  
-    - cd documentation/gitbook
-    - gitbook build 
+    
 
     # cp -r "./documentation/doxyoutput/html" ./public
     
@@ -51,4 +50,12 @@ temporary:
     paths:
       - public
       - documentation
-
+pages:
+  stage: pages
+  script:
+    - cd documentation/gitbook
+    - gitbook build 
+  artifacts:
+    paths:
+      - public
+      - documentation
