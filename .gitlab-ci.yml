@@ -34,8 +34,8 @@ pages:
   stage: pages
   script:
     - doxygen doxygen/Doxyfile
-    - doxybook2 --input documentation/doxyoutput/xml --output documentation/gitbook --config documentation/doxybook-config/gitbook/.doxybook/config.json --summary-input documentation/gitbook/SUMMARY.md --summary-output documentation/gitbook/SUMMARY.md
-    - cd documentation/doxyoutput
+    - doxybook2 --input documentation/doxyoutput/xml --output documentation/gitbook --config documentation/doxybook-config/gitbook/.doxybook/config.json --summary-input documentation/gitbook/SUMMARY.md.tmpl --summary-output documentation/gitbook/SUMMARY.md
+    - cd documentation/gitbook
     - gitbook build ./ --log=debug --debug
     
     # cp -r "./documentation/doxyoutput/html" ./public
