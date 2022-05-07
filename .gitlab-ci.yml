@@ -36,7 +36,7 @@ pages:
     - doxygen doxygen/Doxyfile
     - doxybook2 --input documentation/doxyoutput/xml --output documentation/gitbook --config documentation/doxybook-config/gitbook/.doxybook/config.json
     - cd documentation/doxyoutput
-    - gitbook build
+    - gitbook build documentation/gitbook
     
     # cp -r "./documentation/doxyoutput/html" ./public
     
