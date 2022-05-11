@@ -22,8 +22,7 @@ build:
 test:
  stage: test
  script:
-   - dotnet test HyperionApiClient/HyperionApiClient.csproj
-    
+   - dotnet test HyperionApiClientUnitTests/HyperionApiClientUnitTests.csproj
 
 
 # pages stage (to create the html content, the GitBook-documentation)
