@@ -24,7 +24,7 @@ build:
 test:
  stage: test
  script:
-   - dotnet test HyperionApiClientUnitTests/HyperionApiClientUnitTests.csproj
+   - dotnet test pathtoproject
     
       
 
