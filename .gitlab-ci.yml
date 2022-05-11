@@ -12,8 +12,6 @@ build:
   stage: build
   script:
   - chmod 777 build.sh && ./build.sh 
-  
-    # copy build output to some directory which is copied to the next stage via artifacts
   artifacts:    
    paths:
     - ./build/
@@ -26,7 +24,6 @@ test:
  script:
    - dotnet test HyperionApiClient/HyperionApiClient.csproj
     
-      
 
 
 # pages stage (to create the html content, the GitBook-documentation)
@@ -37,15 +34,6 @@ pages:
     - doxybook2 --input documentation/doxyoutput/xml --output documentation/gitbook --config documentation/doxybook-config/gitbook/.doxybook/config.json --summary-input documentation/doxybook-config/gitbook/SUMMARY.md.tmpl --summary-output documentation/gitbook/SUMMARY.md 
     
     - gitbook build documentation/gitbook public
-    
-
-    # cp -r "./documentation/doxyoutput/html" ./public
-    
-    # call doxygen to generate doxygen output somewhere (typically .XML or .MD)
-    # call doxybook2 to generate gitbook-input (additional .XML or .MD and .HTML)
-    # call gitbook-related stuff to generate the gitbook output
-    # copy the generated gitbook-content to "public" ( public is copied to gitlab-pages)
-    # additionally in the future we could/should copy the gitbook-content to an external-repository to build the whole "liquiid Bible"
   
   artifacts:
     paths:
