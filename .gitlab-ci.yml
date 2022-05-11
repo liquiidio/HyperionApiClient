@@ -12,8 +12,9 @@ build:
   stage: :build
   script:
   - chmod 777 build.sh && ./build.sh 
+  
     # copy build output to some directory which is copied to the next stage via artifacts
-  artifacts:
+  artifacts:    
    paths:
     - ./build/
 
