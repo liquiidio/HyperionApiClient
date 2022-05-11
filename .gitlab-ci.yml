@@ -9,7 +9,7 @@ before_script:
   - docker login -u gitlab-ci-token -p $CI_JOB_TOKEN $CI_REGISTRY
 
 build:
-  stage: :build
+  stage: build
   script:
   - chmod 777 build.sh && ./build.sh 
   
@@ -17,6 +17,7 @@ build:
   artifacts:    
    paths:
     - ./build/
+  tags:
 
 
 # test stage (running the HyperionApiClient.UnitTests-project)
