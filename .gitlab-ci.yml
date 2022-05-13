@@ -32,7 +32,7 @@ pages:
   stage: pages
   script:
     
-    - doxygen doxygen/Doxyfile
+    - doxygen documentation/doxygen/Doxyfile
     - doxybook2 --input  documentation/doxyoutput/xml --output  documentation/gitbook --config documentation/doxybook-config/gitbook/.doxybook/config.json --summary-input documentation/doxybook-config/gitbook/SUMMARY.md.tmpl --summary-output documentation/gitbook/SUMMARY.md 
     
     - gitbook build documentation/gitbook public
