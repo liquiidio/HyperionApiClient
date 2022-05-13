@@ -2,22 +2,22 @@
 image: registry.gitlab.com/liquiduniverse/docgen:latest
 
 stages:
-- build
+# build
  - test
  - pages
 
 before_script:
  - docker login -u gitlab-ci-token -p $CI_JOB_TOKEN $CI_REGISTRY
 
-build:
-  stage: build
-  script:
-  - dotnet build chmod 777 
+#build:
+ # stage: build
+  #script:
+  #-  chmod 777 
   
-  artifacts:    
-   paths:
-    - ./build/
-  tags:
+  #artifacts:    
+   #paths:
+   # - ./build/
+ # tags:
 
 
 # test stage (running the HyperionApiClient.UnitTests-project)
@@ -31,9 +31,9 @@ test:
 pages:
   stage: pages
   script:
-    
+    -mkdir documentation
     - doxygen doxygen/Doxyfile
-    - doxybook2 --input documentation/doxyoutput/xml --output documentation/gitbook --config documentation/doxybook-config/gitbook/.doxybook/config.json --summary-input documentation/doxybook-config/gitbook/SUMMARY.md.tmpl --summary-output documentation/gitbook/SUMMARY.md 
+    - doxybook2 --input  documentation/doxyoutput/xml --output  documentation/gitbook --config documentation/doxybook-config/gitbook/.doxybook/config.json --summary-input documentation/doxybook-config/gitbook/SUMMARY.md.tmpl --summary-output documentation/gitbook/SUMMARY.md 
     
     - gitbook build documentation/gitbook public
   
