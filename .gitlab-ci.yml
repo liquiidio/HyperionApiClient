@@ -1,3 +1,4 @@
+dotnet build:
 image: registry.gitlab.com/liquiduniverse/docgen:latest
 
 stages:
@@ -29,6 +30,7 @@ test:
 pages:
   stage: pages
   script:
+    
     - doxygen doxygen/Doxyfile
     - doxybook2 --input documentation/doxyoutput/xml --output documentation/gitbook --config documentation/doxybook-config/gitbook/.doxybook/config.json --summary-input documentation/doxybook-config/gitbook/SUMMARY.md.tmpl --summary-output documentation/gitbook/SUMMARY.md 
     
