@@ -14,10 +14,10 @@ build:
   -script:
    - dotnet build 
   
-  #artifacts:    
-   #paths:
-   # - ./build/
- # tags:
+  artifacts:    
+   paths:
+    - ./build/
+  tags:
 
 
 # test stage (running the HyperionApiClient.UnitTests-project)
