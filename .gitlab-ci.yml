@@ -3,7 +3,7 @@ image: registry.gitlab.com/liquiduniverse/docgen:latest
 
 stages:
 # build
- - test
+ # test
  - pages
 
 before_script:
