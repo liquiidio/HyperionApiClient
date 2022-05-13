@@ -2,17 +2,17 @@
 image: registry.gitlab.com/liquiduniverse/docgen:latest
 
 stages:
-# build
+ - build
  # test
  - pages
 
 before_script:
  - docker login -u gitlab-ci-token -p $CI_JOB_TOKEN $CI_REGISTRY
 
-#build:
- # stage: build
-  #script:
-  #-  chmod 777 
+build:
+  -stage: build
+  -script:
+   - chmod 777 dotnet build
   
   #artifacts:    
    #paths:
