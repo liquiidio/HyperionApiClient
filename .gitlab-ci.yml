@@ -1,18 +1,19 @@
-dotnet build:
+
 image: registry.gitlab.com/liquiduniverse/docgen:latest
 
 stages:
- - build
+- build
  - test
  - pages
 
 before_script:
-  - docker login -u gitlab-ci-token -p $CI_JOB_TOKEN $CI_REGISTRY
+ - docker login -u gitlab-ci-token -p $CI_JOB_TOKEN $CI_REGISTRY
 
 build:
   stage: build
   script:
-  - chmod 777 build.sh && ./build.sh 
+  - dotnet build chmod 777 
+  
   artifacts:    
    paths:
     - ./build/
