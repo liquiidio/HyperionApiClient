@@ -3,7 +3,7 @@ image: registry.gitlab.com/liquiduniverse/docgen:latest
 
 stages:
  - build
- # test
+ - test
  - pages
 
 before_script:
@@ -21,10 +21,10 @@ build:
 
 
 # test stage (running the HyperionApiClient.UnitTests-project)
-#test:
- #stage: test
- #script:
-  # - dotnet test HyperionApiClientUnitTests/HyperionApiClientUnitTests.csproj
+test:
+ stage: test
+ script:
+   - dotnet test HyperionApiClientUnitTests/HyperionApiClientUnitTests.csproj
 
 
 # pages stage (to create the html content, the GitBook-documentation)
