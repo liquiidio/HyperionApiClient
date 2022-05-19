@@ -2,29 +2,29 @@
 image: registry.gitlab.com/liquiduniverse/docgen:latest
 
 stages:
- - build
- - test
+ #- build
+ #- test
  - pages
 
-before_script:
- - docker login -u gitlab-ci-token -p $CI_JOB_TOKEN $CI_REGISTRY
+#before_script:
+ #- docker login -u gitlab-ci-token -p $CI_JOB_TOKEN $CI_REGISTRY
 
-build:
-  stage: build
-  script:
-   - dotnet build 
+#build:
+  #stage: build
+  #script:
+   #- dotnet build 
   
-  artifacts:    
-   paths:
-    - ./build/
-  tags:
+  #artifacts:    
+   #paths:
+    #- ./build/
+  #tags:
 
 
 # test stage (running the HyperionApiClient.UnitTests-project)
-test:
- stage: test
- script:
-   - dotnet test HyperionApiClientUnitTests/HyperionApiClientUnitTests.csproj
+#test:
+ #stage: test
+ #script:
+   #- dotnet test HyperionApiClientUnitTests/HyperionApiClientUnitTests.csproj
 
 
 # pages stage (to create the html content, the GitBook-documentation)
