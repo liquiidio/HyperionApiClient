@@ -10,5 +10,13 @@
   "indexRelatedPagesName": "README",
   "mainPageInRoot": true,
   "mainPageName": "README"
+
+  /** \page <Main> ‘‘<Main page>’’ */
+/* @{ */
+// indexClassesName
+// indexFilesName
+/* @} */
+
 }
+
 
