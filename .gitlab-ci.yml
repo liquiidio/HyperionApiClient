@@ -33,7 +33,7 @@ pages:
   script:
     
     - doxygen documentation/doxygen/Doxyfile
-    - doxybook2 --input  documentation/doxyoutput/xml --output  documentation/gitbook --config documentation/doxybook-config/gitbook/.doxybook/config.json --summary-input documentation/doxybook-config/gitbook/SUMMARY.md.tmpl --summary-output documentation/gitbook/SUMMARY.md 
+    - doxybook2 --input  mkdr documentation/doxyoutput/DoxyLayout.xml --output  documentation/gitbook --config documentation/doxybook-config/gitbook/.doxybook/config.json --summary-input documentation/doxybook-config/gitbook/SUMMARY.md.tmpl --summary-output documentation/gitbook/SUMMARY.md 
     
     - gitbook build documentation/gitbook public
   
