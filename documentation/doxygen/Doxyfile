@@ -602,7 +602,7 @@ SORT_GROUP_NAMES       = NO
 # The default value is: NO.
 
 # TODO
-SORT_BY_SCOPE_NAME     = YES
+SORT_BY_SCOPE_NAME     = NO
 
 # If the STRICT_PROTO_MATCHING option is enabled and doxygen fails to do proper
 # type resolution of all parameters of a function it will reject a match between
@@ -884,7 +884,7 @@ EXCLUDE_PATTERNS       = */build/*
 # Note that the wildcards are matched against the file with absolute path, so to
 # exclude all test directories use the pattern */test/*
 
-EXCLUDE_SYMBOLS        = ANamespaces
+EXCLUDE_SYMBOLS        = Namespaces
 
 # The EXAMPLE_PATH tag can be used to specify one or more files or directories
 # that contain example code fragments that are included (see the \include
