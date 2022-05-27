@@ -45,7 +45,7 @@ stages:
 clone:
   stage: clone
   script:
-    - git clone gitlab@gitlab.com/ashleewawa17/wax-developer
+    - git clone https://gitlab.com/ashleewawa17/wax-developer
     - cp gitbook_output wax-developer/documentation
     - cd wax-developer 
     - git add .
