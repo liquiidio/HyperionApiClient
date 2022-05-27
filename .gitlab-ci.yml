@@ -5,7 +5,7 @@ stages:
  #- build
  #- test
  #- pages
- - clone
+
 
 #before_script:
  #- docker login -u gitlab-ci-token -p $CI_JOB_TOKEN $CI_REGISTRY
@@ -42,13 +42,5 @@ stages:
    # paths:
      # - public
       #- documentation
-clone:
-  stage: clone
-  script:
-    - git clone https://gitlab.com/ashleewawa17/wax-developer
-    - cp gitbook_output wax-developer/documentation
-    - cd wax-developer 
-    - git add .
-    - git commit -m"Updating"
-    - git push
+
 
