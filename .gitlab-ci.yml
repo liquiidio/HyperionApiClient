@@ -5,6 +5,7 @@ stages:
  #- build
  #- test
  #- pages
+ - update-parent
 
 
 #before_script:
@@ -42,5 +43,12 @@ stages:
    # paths:
      # - public
       #- documentation
+  
+update-parent:
+  stage: update-parent
+  script:
+    - git clone https://gitlab.com/ashleewawa17/hyperionapiclient
+    
+
 
 
