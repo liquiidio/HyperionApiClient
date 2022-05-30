@@ -48,7 +48,7 @@ update-parent:
   stage: update-parent
   script:
     - git remote set-url origin https://gitlab.com/ashleewawa17/hyperionapiclient 
-    - git clone https://Ashlee:gitlab-ci-token:ci_token@gitlab.com/ashleewawa17/hyperionapiclient
+    - git clone https://ashleewawa17:Gamedesignerlee1@gitlab.com/ashleewawa17/hyperionapiclient
     
 
 
