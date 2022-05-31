@@ -49,11 +49,12 @@ update-parent:
   script:
     
     - git clone https://ashleewawa17:Gamedesignerlee1@gitlab.com/ashleewawa17/wax-developer
-    - cp gitbook_output HyperionApiClient/documentation/gitbook_output
-    - cd wax-developer
-    - git add .
-    - git commit -m"Updating"
-    - git push
+    - pwd
+    #- cp gitbook_output wax-developer/documentation/gitbook_output
+    #- cd wax-developer
+    #- git add .
+    #- git commit -m"Updating"
+    #- git push
     
 
 
