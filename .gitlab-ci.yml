@@ -5,7 +5,7 @@ stages:
  #- build
  #- test
  - pages
- #- update-parent
+ - update-parent
 
 
 #before_script:
