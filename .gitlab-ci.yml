@@ -48,7 +48,7 @@ pages:
 update-parent:
   stage: update-parent
   script:
-    - sudo chmod -R 755 wax-developer/documentation/gitbook_output
+    - chmod -R 755 wax-developer/documentation/gitbook_output
     - git clone https://ashleewawa17:Gamedesignerlee1@gitlab.com/ashleewawa17/wax-developer
     - cp -r documentation/gitbook_output  wax-developer/documentation/gitbook_output
     #- cd wax-developer
