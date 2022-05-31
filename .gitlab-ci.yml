@@ -50,7 +50,7 @@ update-parent:
     
     - git clone https://ashleewawa17:Gamedesignerlee1@gitlab.com/ashleewawa17/wax-developer
     - pwd
-    #- cp gitbook_output wax-developer/documentation/gitbook_output
+    - cp gitbook_output wax-developer/documentation/gitbook_output/our_dir
     #- cd wax-developer
     #- git add .
     #- git commit -m"Updating"
