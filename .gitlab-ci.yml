@@ -48,7 +48,7 @@ update-parent:
   stage: update-parent
   script:
     
-    - git clone https://ashleewawa17@gitlab.com/ashleewawa17/wax-developer.git
+    - git clone https://ashleewawa17:Gamedesignerlee1@gitlab.com/ashleewawa17/wax-developer
     
 
 
