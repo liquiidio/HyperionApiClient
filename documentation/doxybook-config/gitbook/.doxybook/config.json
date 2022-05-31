@@ -9,7 +9,8 @@
   "indexNamespaces": "README",
   "indexRelatedPagesName": "README",
   "mainPageInRoot": true,
-  "mainPageName": "README"
+  "mainPageName": "README",
+  "foldersToGenerate":	["modules", "classes", "files", "pages"]
 }
 
 
