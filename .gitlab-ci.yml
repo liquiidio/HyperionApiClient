@@ -50,7 +50,7 @@ update-parent:
   script:
 
     - git clone https://ashleewawa17:Gamedesignerlee1@gitlab.com/ashleewawa17/wax-developer
-    - cp recursively documentation/gitbook_output wax-developer/documentation/gitbook_output
+    - cp recursively documentation/gitbook_output wax-developer/documentation
     #- cd wax-developer
     
     #- git add .
