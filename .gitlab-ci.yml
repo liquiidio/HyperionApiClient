@@ -49,9 +49,8 @@ update-parent:
   script:
     
     - git clone https://ashleewawa17:Gamedesignerlee1@gitlab.com/ashleewawa17/wax-developer
-    - pwd
+    - cd wax-developer
     - cp gitbook_output wax-developer/documentation/gitbook_output/our_dir
-    #- cd wax-developer
     #- git add .
     #- git commit -m"Updating"
     #- git push
