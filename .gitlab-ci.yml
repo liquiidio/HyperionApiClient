@@ -54,9 +54,9 @@ update-parent:
     - mkdir -p wax-developer/documentation/gitbook_output
     - cp -r documentation/gitbook_output  wax-developer/documentation/gitbook_output
     - cd wax-developer
-    #- git add .
-    #- git commit -m"Updating"
-    #- git push
+    - git add .
+    - git commit -m"Updating"
+    - git push
     
 
 
