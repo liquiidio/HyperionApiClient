@@ -1,4 +1,3 @@
-
 image: registry.gitlab.com/liquiduniverse/docgen:latest
 
 stages:
@@ -48,16 +47,12 @@ pages:
 update-parent:
     stage: update-parent
     script:
-    - git clone https://ashleewawa17:Gamedesignerlee1@gitlab.com/ashleewawa17/wax-developer
-    - mkdir -p wax-developer/documentation/gitbook_output
-    - cp -r documentation/gitbook_output  wax-developer/documentation/gitbook_output
-    - cd wax-developer
-    - git config --global user.email "ashleewawa17@gmail.com"
+    - git config --global user.email "${GIT_USER_EMAIL:-$GITLAB_USER_EMAIL}"
+    - git config --global user.name "${GIT_USER_NAME:-$GITLAB_USER_NAME}"
+    - git clone https://${GITLAB_USERNAME}:${GITLAB_TOKEN}@github.com/liquiduniverse/unityeosclientplugins/theliquiidbible_gitbook.git /parent
+    - mkdir /parent/hyperionapiclient
+    - cp -r documentation/gitbook_output parent/hyperionapiclient
+    - cd /parent
     - git add .
-    - git commit -m"Updating"
+    - git commit -m "${COMMIT_MESSAGE}"
     - git push
-
-    
-
-
-
