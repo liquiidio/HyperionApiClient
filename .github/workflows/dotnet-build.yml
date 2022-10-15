@@ -1,4 +1,4 @@
-name: building and testing with standard .NET
+name: building with standard .NET
 
 on: [push]
 
