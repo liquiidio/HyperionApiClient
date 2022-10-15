@@ -1,4 +1,4 @@
-name: testing with standard .NET
+name: tests
 
 on: [push]
 
