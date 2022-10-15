@@ -20,6 +20,20 @@ jobs:
         run: dotnet restore
       - name: Build
         run: dotnet build --configuration Release --no-restore
+
+  test:
+
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        dotnet-version: ['3.0', '3.1.x', '5.0.x', '6.0.x' ]
+
+    steps:
+      - uses: actions/checkout@v3
+      - name: Setup .NET SDK ${{ matrix.dotnet-version }}
+        uses: actions/setup-dotnet@v3
+        with:
+          dotnet-version: ${{ matrix.dotnet-version }}
       - name: Test
         run: dotnet test --no-restore --verbosity normal --logger trx --results-directory "TestResults-${{ matrix.dotnet-version }}"
       - name: Upload dotnet test results
