@@ -5,10 +5,10 @@ namespace HyperionApiClient.Models
     public class Percentiles
     {
         [JsonProperty("1.0")]
-        public int _10 { get; set; }
+        public double _10 { get; set; }
 
         [JsonProperty("5.0")]
-        public int _50 { get; set; }
+        public double _50 { get; set; }
 
         [JsonProperty("25.0")]
         public double _250 { get; set; }

@@ -171,7 +171,7 @@ namespace EosRio.HyperionApi.Tests
             accountName = "eosio";
             code = await chainClient.GetCodeAsync(accountName, true);
             Assert.AreEqual(code.AccountName, accountName);
-            Assert.AreEqual(code.CodeHash, "a7a10c302934b581a5a2f5193be8bdfc5c22fbd46fbdc49aeb14f0865e76a5d3");
+            Assert.AreEqual(code.CodeHash, "9342bd0fa0fb60f04d8858f379252270dcdf93b42cc188a947341c400302159f");
             Assert.AreNotEqual(code.Wasm, "");
             Assert.AreEqual(code.Wast, "");
         }
