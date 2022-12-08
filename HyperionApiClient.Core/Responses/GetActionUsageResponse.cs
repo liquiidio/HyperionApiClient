@@ -1,9 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using Newtonsoft.Json;
+﻿using Newtonsoft.Json;
 
-namespace HyperionApiClient.Responses
+namespace HyperionApiClient.Core.Responses
 {
     public class GetActionUsageResponse
     {

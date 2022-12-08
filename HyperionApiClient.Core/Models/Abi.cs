@@ -1,9 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using System.Collections.Generic;
 using Newtonsoft.Json;
 
-namespace HyperionApiClient.Models
+namespace HyperionApiClient.Core.Models
 {
     public class Abi
     {

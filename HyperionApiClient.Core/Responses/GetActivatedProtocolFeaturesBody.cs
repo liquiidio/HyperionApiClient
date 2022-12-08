@@ -1,6 +1,6 @@
 ﻿using Newtonsoft.Json;
 
-namespace HyperionApiClient.Responses
+namespace HyperionApiClient.Core.Responses
 {
     public class GetActivatedProtocolFeaturesBody
     {

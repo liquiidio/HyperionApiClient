@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using Newtonsoft.Json;
 
-namespace HyperionApiClient.Responses
+namespace HyperionApiClient.Core.Responses
 {
     public class GetKeyAccountsResponse
     {

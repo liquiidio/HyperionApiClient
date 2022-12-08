@@ -7,11 +7,11 @@ using System.Net.Http.Headers;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
-using HyperionApiClient.Models;
-using HyperionApiClient.Responses;
+using HyperionApiClient.Core.Models;
+using HyperionApiClient.Core.Responses;
 using Newtonsoft.Json;
 
-namespace HyperionApiClient.Clients
+namespace HyperionApiClient.Core.Clients
 {
     public class ChainClient : ClientExtensions
     {

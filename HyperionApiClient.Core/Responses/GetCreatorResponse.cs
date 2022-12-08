@@ -1,7 +1,7 @@
-using HyperionApiClient.Models;
+using HyperionApiClient.Core.Models;
 using Newtonsoft.Json;
 
-namespace HyperionApiClient.Responses
+namespace HyperionApiClient.Core.Responses
 {
     public class GetCreatorResponse 
     {

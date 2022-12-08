@@ -1,10 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using HyperionApiClient.Models;
+﻿using System.Collections.Generic;
+using HyperionApiClient.Core.Models;
 using Newtonsoft.Json;
 
-namespace HyperionApiClient.Responses
+namespace HyperionApiClient.Core.Responses
 {
     public class GetProducersResponse
     {
