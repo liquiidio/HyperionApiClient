@@ -1,8 +1,5 @@
 using System;
 using System.Globalization;
-using System.Linq;
-using System.Net.Http;
-using System.Net.Http.Headers;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
@@ -13,14 +10,14 @@ namespace HyperionApiClient.Core.Clients
 {
     public class SystemClient : ClientExtensions
     {
-        private readonly HttpClient _httpClient;
-
-        public SystemClient(HttpClient httpClient)
-        {
-            _httpClient = httpClient;
-        }
-
         public string BaseUrl { get; set; } = "https://api.wax.liquidstudios.io/";
+
+        private readonly IHttpHandler _httpHandler;
+
+        public SystemClient(IHttpHandler httpHandler)
+        {
+            _httpHandler = httpHandler;
+        }
 
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <summary>get proposals</summary>
@@ -75,39 +72,12 @@ namespace HyperionApiClient.Core.Clients
                 urlBuilder.Append(Uri.EscapeDataString("limit") + "=").Append(Uri.EscapeDataString(ConvertToString(limit, CultureInfo.InvariantCulture))).Append("&");
             }
             urlBuilder.Length--;
- 
-            using (var request = new HttpRequestMessage())
-            {
-                request.Method = new HttpMethod("GET");
 
-                var url = urlBuilder.ToString();
-                request.RequestUri = new Uri(url, UriKind.RelativeOrAbsolute);
+            var url = urlBuilder.ToString();
 
-                var response = await _httpClient.SendAsync(request, HttpCompletionOption.ResponseHeadersRead, cancellationToken).ConfigureAwait(false);
-
-                var headers = response.Headers.ToDictionary(h => h.Key, h => h.Value);
-                if (response.Content?.Headers != null)
-                {
-                    foreach (var item in response.Content.Headers)
-                        headers[item.Key] = item.Value;
-                }
-
-                var status = (int)response.StatusCode;
-                if (status == 200)
-                {
-                    var objectResponse = await ReadObjectResponseAsync<GetProposalsResponse>(response, headers, cancellationToken).ConfigureAwait(false);
-                    if (objectResponse.Object == null)
-                    {
-                        throw new ApiException("Response was null which was not expected.", status, objectResponse.Text, headers, null);
-                    }
-                    return objectResponse.Object;
-                }
-
-                var responseData = response.Content == null ? null : await response.Content.ReadAsStringAsync().ConfigureAwait(false);
-                throw new ApiException("The HTTP status code of the response was not expected (" + status + ").", status, responseData, headers, null);
-            }
+            return await _httpHandler.GetJsonAsync<GetProposalsResponse>(url, cancellationToken);
         }
-    
+
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <summary>get voters</summary>
         /// <param name="limit">limit of [n] results per page</param>
@@ -130,38 +100,10 @@ namespace HyperionApiClient.Core.Clients
                 urlBuilder.Append(Uri.EscapeDataString("producer") + "=").Append(Uri.EscapeDataString(ConvertToString(producer, CultureInfo.InvariantCulture))).Append("&");
             }
             urlBuilder.Length--;
- 
-            using (var request = new HttpRequestMessage())
-            {
-                request.Method = new HttpMethod("GET");
-                request.Headers.Accept.Add(MediaTypeWithQualityHeaderValue.Parse("application/json"));
 
-                var url = urlBuilder.ToString();
-                request.RequestUri = new Uri(url, UriKind.RelativeOrAbsolute);
+            var url = urlBuilder.ToString();
 
-                var response = await _httpClient.SendAsync(request, HttpCompletionOption.ResponseHeadersRead, cancellationToken).ConfigureAwait(false);
-
-                var headers = response.Headers.ToDictionary(h => h.Key, h => h.Value);
-                if (response.Content?.Headers != null)
-                {
-                    foreach (var item in response.Content.Headers)
-                        headers[item.Key] = item.Value;
-                }
-
-                var status = (int)response.StatusCode;
-                if (status == 200)
-                {
-                    var objectResponse = await ReadObjectResponseAsync<GetVotersResponse>(response, headers, cancellationToken).ConfigureAwait(false);
-                    if (objectResponse.Object == null)
-                    {
-                        throw new ApiException("Response was null which was not expected.", status, objectResponse.Text, headers, null);
-                    }
-                    return objectResponse.Object;
-                }
-
-                var responseData = response.Content == null ? null : await response.Content.ReadAsStringAsync().ConfigureAwait(false);
-                throw new ApiException("The HTTP status code of the response was not expected (" + status + ").", status, responseData, headers, null);
-            }
+            return await _httpHandler.GetJsonAsync<GetVotersResponse>(url, cancellationToken);
         }
     }
 }
