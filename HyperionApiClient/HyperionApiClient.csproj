@@ -8,4 +8,17 @@
     <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
   </ItemGroup>
 
+	<ItemGroup>
+		<Reference Include="UnityEditor">
+			<HintPath>C:\Program Files\Unity 2021.3.11f1\Editor\Data\Managed\UnityEditor.dll</HintPath>
+		</Reference>
+		<Reference Include="UnityEngine">
+			<HintPath>C:\Program Files\Unity 2021.3.11f1\Editor\Data\Managed\UnityEngine.dll</HintPath>
+		</Reference>
+	</ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\HyperionApiClient.Core\HyperionApiClient.Core.csproj" />
+  </ItemGroup>
+
 </Project>
