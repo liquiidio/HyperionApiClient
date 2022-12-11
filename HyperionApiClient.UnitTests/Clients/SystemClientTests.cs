@@ -2,9 +2,8 @@
 using System;
 using System.Threading.Tasks;
 using HyperionApiClient.Clients;
-using HyperionApiClient;
 
-namespace EosRio.HyperionApi.Tests
+namespace HyperionApiClient.UnitTests.Clients
 {
     [TestClass()]
     public class SystemClientTests
