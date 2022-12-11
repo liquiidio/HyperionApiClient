@@ -1,11 +1,8 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using EosRio.HyperionApi;
 using System;
-using System.Collections.Generic;
-using System.Net.Http;
-using System.Text;
 using System.Threading.Tasks;
 using HyperionApiClient.Clients;
+using HyperionApiClient;
 
 namespace EosRio.HyperionApi.Tests
 {
@@ -15,7 +12,7 @@ namespace EosRio.HyperionApi.Tests
         [TestMethod()]
         public async Task StatsClientTest()
         {
-            var statsClient = new StatsClient(new HttpClient())
+            var statsClient = new StatsClient(new HttpClientHandler())
             {
                 BaseUrl = "invalidUrl"
             };
@@ -34,7 +31,7 @@ namespace EosRio.HyperionApi.Tests
         [TestMethod()]
         public async Task GetActionUsageAsyncTest()
         {
-            var statsClient = new StatsClient(new HttpClient());
+            var statsClient = new StatsClient(new HttpClientHandler());
 
             var actionUsageResponse = await statsClient.GetActionUsageAsync("1h");
 
@@ -46,7 +43,7 @@ namespace EosRio.HyperionApi.Tests
         [TestMethod()]
         public async Task GetMissedBlocksAsyncTest()
         {
-            var statsClient = new StatsClient(new HttpClient());
+            var statsClient = new StatsClient(new HttpClientHandler());
 
             var missedBlocksResponse = await statsClient.GetMissedBlocksAsync("liquidstudios");
 
@@ -57,7 +54,7 @@ namespace EosRio.HyperionApi.Tests
         [TestMethod()]
         public async Task GetResourceUsageAsyncTest()
         {
-            var statsClient = new StatsClient(new HttpClient());
+            var statsClient = new StatsClient(new HttpClientHandler());
 
             var resourceUsageResponse = await statsClient.GetResourceUsageAsync("eosio.token", "transfer");
 

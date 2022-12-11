@@ -1,4 +1,4 @@
-﻿namespace HyperionApiClient.Core.Dtos
+﻿namespace HyperionApiClient.Dtos
 {
     public class BaseDto
     {

@@ -1,6 +1,6 @@
 ﻿using Newtonsoft.Json;
 
-namespace HyperionApiClient.Core.Responses
+namespace HyperionApiClient.Responses
 {
     public class GetCodeResponse
     {

@@ -1,12 +1,9 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using EosRio.HyperionApi;
 using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Net.Http;
-using System.Text;
 using System.Threading.Tasks;
 using HyperionApiClient.Clients;
+using HyperionApiClient;
 
 namespace EosRio.HyperionApi.Tests
 {
@@ -16,7 +13,7 @@ namespace EosRio.HyperionApi.Tests
         [TestMethod()]
         public async Task HistoryClientTest()
         {
-            var historyClient = new HistoryClient(new HttpClient())
+            var historyClient = new HistoryClient(new HttpClientHandler())
             {
                 BaseUrl = "invalidUrl"
             };
@@ -35,7 +32,7 @@ namespace EosRio.HyperionApi.Tests
         [TestMethod()]
         public async Task GetAbiSnapshotAsyncTest()
         {
-            var historyClient = new HistoryClient(new HttpClient());
+            var historyClient = new HistoryClient(new HttpClientHandler());
 
             var blockNum = 10000;
             var snapshotResponse = await historyClient.GetAbiSnapshotAsync("eosio.token", blockNum);
@@ -53,7 +50,7 @@ namespace EosRio.HyperionApi.Tests
         [TestMethod()]
         public async Task GetActionsAsyncTest()
         {
-            var historyClient = new HistoryClient(new HttpClient());
+            var historyClient = new HistoryClient(new HttpClientHandler());
 
             var actionsResponse = await historyClient.GetActionsAsync(null, null, "kingcoolcorv");
             Assert.IsNotNull(actionsResponse.Actions);
@@ -66,7 +63,7 @@ namespace EosRio.HyperionApi.Tests
         [TestMethod()]
         public async Task GetDeltasAsyncTest()
         {
-            var historyClient = new HistoryClient(new HttpClient());
+            var historyClient = new HistoryClient(new HttpClientHandler());
 
             var contract = "eosio.token";
             var deltasResponse = await historyClient.GetDeltasAsync(null, null, contract);
@@ -81,7 +78,7 @@ namespace EosRio.HyperionApi.Tests
         [TestMethod()]
         public async Task GetScheduleAsyncTest()
         {
-            var historyClient = new HistoryClient(new HttpClient());
+            var historyClient = new HistoryClient(new HttpClientHandler());
 
             var scheduleResponse = await historyClient.GetScheduleAsync();
 
@@ -94,7 +91,7 @@ namespace EosRio.HyperionApi.Tests
         [TestMethod()]
         public async Task GetTransactionAsyncTest()
         {
-            var historyClient = new HistoryClient(new HttpClient());
+            var historyClient = new HistoryClient(new HttpClientHandler());
 
             var transactionResponse = await historyClient.GetTransactionAsync("853c70f79db05484e8511c5a10a2294326ba5255bff5996588905d9c320d442e");
 
@@ -106,7 +103,7 @@ namespace EosRio.HyperionApi.Tests
         [TestMethod()]
         public async Task GetBlockAsyncTest()
         {
-            var historyClient = new HistoryClient(new HttpClient());
+            var historyClient = new HistoryClient(new HttpClientHandler());
 
             uint blockNum = 10000;
             var blockResponse = await historyClient.GetBlockAsync(blockNum);

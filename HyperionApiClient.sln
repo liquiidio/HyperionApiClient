@@ -7,8 +7,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HyperionApiClient", "Hyperi
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HyperionApiClientUnitTests", "HyperionApiClientUnitTests\HyperionApiClientUnitTests.csproj", "{528298EE-21F0-400A-8A61-DD07265F4D70}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HyperionApiClient.Core", "HyperionApiClient.Core\HyperionApiClient.Core.csproj", "{DF9C3CE2-7C6A-434E-8728-37E16174B120}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -23,10 +21,6 @@ Global
 		{528298EE-21F0-400A-8A61-DD07265F4D70}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{528298EE-21F0-400A-8A61-DD07265F4D70}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{528298EE-21F0-400A-8A61-DD07265F4D70}.Release|Any CPU.Build.0 = Release|Any CPU
-		{DF9C3CE2-7C6A-434E-8728-37E16174B120}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{DF9C3CE2-7C6A-434E-8728-37E16174B120}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{DF9C3CE2-7C6A-434E-8728-37E16174B120}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{DF9C3CE2-7C6A-434E-8728-37E16174B120}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -1,5 +1,4 @@
 ﻿using Cryptography.ECDSA;
-using HyperionApiClient.Core;
 using HyperionApiClient.Exceptions;
 using HyperionApiClient.Helpers;
 using Newtonsoft.Json;

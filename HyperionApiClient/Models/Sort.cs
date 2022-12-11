@@ -1,6 +1,6 @@
 using System.Runtime.Serialization;
 
-namespace HyperionApiClient.Core.Models
+namespace HyperionApiClient.Models
 {
     /// <summary>sort direction</summary>
     public enum Sort

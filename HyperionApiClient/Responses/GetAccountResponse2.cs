@@ -1,6 +1,6 @@
-using HyperionApiClient.Core.Models;
+using HyperionApiClient.Models;
 
-namespace HyperionApiClient.Core.Responses
+namespace HyperionApiClient.Responses
 {
     public class GetAccountResponse2 : Account2
     {

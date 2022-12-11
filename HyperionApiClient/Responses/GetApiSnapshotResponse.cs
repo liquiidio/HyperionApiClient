@@ -1,7 +1,7 @@
-﻿using HyperionApiClient.Core.Models;
+﻿using HyperionApiClient.Models;
 using Newtonsoft.Json;
 
-namespace HyperionApiClient.Core.Responses
+namespace HyperionApiClient.Responses
 {
     public class GetApiSnapshotResponse
     {

@@ -9,7 +9,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
 
-namespace HyperionApiClient.Core.Models
+namespace HyperionApiClient.Models
 {
     public class ClientExtensions
     {

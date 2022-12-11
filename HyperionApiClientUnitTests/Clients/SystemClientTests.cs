@@ -1,12 +1,8 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using EosRio.HyperionApi;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net.Http;
-using System.Text;
 using System.Threading.Tasks;
 using HyperionApiClient.Clients;
+using HyperionApiClient;
 
 namespace EosRio.HyperionApi.Tests
 {
@@ -16,7 +12,7 @@ namespace EosRio.HyperionApi.Tests
         [TestMethod()]
         public async Task SystemClientTest()
         {
-            var systemClient = new SystemClient(new HttpClient())
+            var systemClient = new SystemClient(new HttpClientHandler())
             {
                 BaseUrl = "invalidUrl"
             };
@@ -35,7 +31,7 @@ namespace EosRio.HyperionApi.Tests
         [TestMethod()]
         public async Task GetProposalsAsyncTest()
         {
-            var systemClient = new SystemClient(new HttpClient());
+            var systemClient = new SystemClient(new HttpClientHandler());
 
             var proposalsResponse = await systemClient.GetProposalsAsync();
 
@@ -46,7 +42,7 @@ namespace EosRio.HyperionApi.Tests
         [TestMethod()]
         public async Task GetVotersAsyncTest()
         {
-            var systemClient = new SystemClient(new HttpClient());
+            var systemClient = new SystemClient(new HttpClientHandler());
 
             var votersResponse = await systemClient.GetVotersAsync();
 

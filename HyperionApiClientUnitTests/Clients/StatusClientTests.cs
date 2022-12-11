@@ -1,11 +1,8 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using EosRio.HyperionApi;
 using System;
-using System.Collections.Generic;
-using System.Net.Http;
-using System.Text;
 using System.Threading.Tasks;
 using HyperionApiClient.Clients;
+using HyperionApiClient;
 
 namespace EosRio.HyperionApi.Tests
 {
@@ -15,7 +12,7 @@ namespace EosRio.HyperionApi.Tests
         [TestMethod()]
         public async Task StatusClientTest()
         {
-            var statusClient = new StatusClient(new HttpClient())
+            var statusClient = new StatusClient(new HttpClientHandler())
             {
                 BaseUrl = "invalidUrl"
             };
@@ -34,7 +31,7 @@ namespace EosRio.HyperionApi.Tests
         [TestMethod()]
         public async Task HealthAsyncTest()
         {
-            var statusClient = new StatusClient(new HttpClient());
+            var statusClient = new StatusClient(new HttpClientHandler());
 
             var healthResponse = await statusClient.HealthAsync();
             Assert.IsNotNull(healthResponse.Features);

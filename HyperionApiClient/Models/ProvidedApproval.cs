@@ -1,7 +1,7 @@
 ﻿using System;
 using Newtonsoft.Json;
 
-namespace HyperionApiClient.Core.Models
+namespace HyperionApiClient.Models
 {
     public class ProvidedApproval
     {

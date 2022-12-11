@@ -1,6 +1,6 @@
 ﻿using Newtonsoft.Json;
 
-namespace HyperionApiClient.Core.Dtos
+namespace HyperionApiClient.Dtos
 {
     public class ControllingAccountDto
     {

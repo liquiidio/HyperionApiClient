@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>netcoreapp3.1</TargetFramework>
@@ -6,6 +6,7 @@
 
   <ItemGroup>
     <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
+	  <PackageReference Include="Cryptography.ECDSA.Secp256K1" Version="1.1.2" />
   </ItemGroup>
 
 	<ItemGroup>
@@ -16,9 +17,5 @@
 			<HintPath>C:\Program Files\Unity 2021.3.11f1\Editor\Data\Managed\UnityEngine.dll</HintPath>
 		</Reference>
 	</ItemGroup>
-
-  <ItemGroup>
-    <ProjectReference Include="..\HyperionApiClient.Core\HyperionApiClient.Core.csproj" />
-  </ItemGroup>
 
 </Project>
