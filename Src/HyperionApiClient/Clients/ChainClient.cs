@@ -4,6 +4,7 @@ using System.Globalization;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using HyperionApiClient.Dtos;
 using HyperionApiClient.Models;
 using HyperionApiClient.Responses;
 
@@ -142,12 +143,14 @@ namespace HyperionApiClient.Clients
         /// <exception cref="ApiException">A server side error occurred.</exception>
         public async Task<GetBlockResponse2> GetBlockAsync(string blockNumOrId, CancellationToken cancellationToken = default)
         {
-            var urlBuilder = new StringBuilder(BaseUrl != null ? BaseUrl.TrimEnd('/') : "").Append("/v1/chain/get_block?" + Uri.EscapeDataString("block_num_or_id") + "=").Append(Uri.EscapeDataString(ConvertToString(blockNumOrId, CultureInfo.InvariantCulture))).Append("&");
-            urlBuilder.Length--;
-
+            var urlBuilder = new StringBuilder(BaseUrl != null ? BaseUrl.TrimEnd('/') : "").Append("/v1/chain/get_block");
             var url = urlBuilder.ToString();
+            var dataDto = new GetBlockByNumOrIdDto
+            {
+                BlockNumOrId = blockNumOrId
+            };
 
-            return await _httpHandler.GetJsonAsync<GetBlockResponse2>(url, cancellationToken);
+            return await _httpHandler.PostJsonAsync<GetBlockResponse2>(url, dataDto, cancellationToken);
         }
 
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
