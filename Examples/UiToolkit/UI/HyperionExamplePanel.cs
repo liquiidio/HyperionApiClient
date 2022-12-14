@@ -1,11 +1,7 @@
-<<<<<<< HEAD
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using Assets.Packages.UniversalAuthenticatorLibrary.Src.UiToolkit.Ui;
-=======
-using Assets.Packages.AnchorLinkTransportSharp.Src.Transports.UiToolkit.Ui;
->>>>>>> 17f7e43bf440c28de085d2cdb60cbfe07ba36016
 using HyperionApiClient;
 using HyperionApiClient.Clients;
 using HyperionApiClient.Exceptions;
