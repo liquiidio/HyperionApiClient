@@ -60,6 +60,7 @@ public class HyperionExamplePanel : MonoBehaviour
     private Button _accountButton;
     private Button _infoButton;
     private Button _blockButton;
+    private Button _closeViewButton;
 
     private TextField _textFieldValue;
 
@@ -125,6 +126,7 @@ public class HyperionExamplePanel : MonoBehaviour
         _accountButton = Root.Q<Button>("account-button");
         _infoButton = Root.Q<Button>("info-button");
         _blockButton = Root.Q<Button>("block-button");
+        _closeViewButton = Root.Q<Button>("close-view-button");
 
 
         _filterTypeLabel.text = "Account";
@@ -163,6 +165,11 @@ public class HyperionExamplePanel : MonoBehaviour
 
             var info = await _chainClient.GetInfoAsync();
             Rebind(info);
+        };
+
+        _closeViewButton.clickable.clicked += () =>
+        {
+            this.Root.Hide();
         };
     }
 
