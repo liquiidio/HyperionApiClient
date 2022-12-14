@@ -11,7 +11,7 @@ namespace HyperionApiClient.UnitTests.Clients
         [TestMethod()]
         public async Task StatusClientTest()
         {
-            var statusClient = new StatusClient(new HttpClientHandler())
+            var statusClient = new StatusClient(new HttpHandler())
             {
                 BaseUrl = "invalidUrl"
             };
@@ -30,7 +30,7 @@ namespace HyperionApiClient.UnitTests.Clients
         [TestMethod()]
         public async Task HealthAsyncTest()
         {
-            var statusClient = new StatusClient(new HttpClientHandler());
+            var statusClient = new StatusClient(new HttpHandler());
 
             var healthResponse = await statusClient.HealthAsync();
             Assert.IsNotNull(healthResponse.Features);

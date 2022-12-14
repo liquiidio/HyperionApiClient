@@ -12,7 +12,7 @@ namespace HyperionApiClient.UnitTests.Clients
         [TestMethod()]
         public async Task HistoryClientTest()
         {
-            var historyClient = new HistoryClient(new HttpClientHandler())
+            var historyClient = new HistoryClient(new HttpHandler())
             {
                 BaseUrl = "invalidUrl"
             };
@@ -31,7 +31,7 @@ namespace HyperionApiClient.UnitTests.Clients
         [TestMethod()]
         public async Task GetAbiSnapshotAsyncTest()
         {
-            var historyClient = new HistoryClient(new HttpClientHandler());
+            var historyClient = new HistoryClient(new HttpHandler());
 
             var blockNum = 10000;
             var snapshotResponse = await historyClient.GetAbiSnapshotAsync("eosio.token", blockNum);
@@ -49,7 +49,7 @@ namespace HyperionApiClient.UnitTests.Clients
         [TestMethod()]
         public async Task GetActionsAsyncTest()
         {
-            var historyClient = new HistoryClient(new HttpClientHandler());
+            var historyClient = new HistoryClient(new HttpHandler());
 
             var actionsResponse = await historyClient.GetActionsAsync(null, null, "kingcoolcorv");
             Assert.IsNotNull(actionsResponse.Actions);
@@ -62,7 +62,7 @@ namespace HyperionApiClient.UnitTests.Clients
         [TestMethod()]
         public async Task GetDeltasAsyncTest()
         {
-            var historyClient = new HistoryClient(new HttpClientHandler());
+            var historyClient = new HistoryClient(new HttpHandler());
 
             var contract = "eosio.token";
             var deltasResponse = await historyClient.GetDeltasAsync(null, null, contract);
@@ -77,7 +77,7 @@ namespace HyperionApiClient.UnitTests.Clients
         [TestMethod()]
         public async Task GetScheduleAsyncTest()
         {
-            var historyClient = new HistoryClient(new HttpClientHandler());
+            var historyClient = new HistoryClient(new HttpHandler());
 
             var scheduleResponse = await historyClient.GetScheduleAsync();
 
@@ -90,7 +90,7 @@ namespace HyperionApiClient.UnitTests.Clients
         [TestMethod()]
         public async Task GetTransactionAsyncTest()
         {
-            var historyClient = new HistoryClient(new HttpClientHandler());
+            var historyClient = new HistoryClient(new HttpHandler());
 
             var transactionResponse = await historyClient.GetTransactionAsync("853c70f79db05484e8511c5a10a2294326ba5255bff5996588905d9c320d442e");
 
@@ -102,7 +102,7 @@ namespace HyperionApiClient.UnitTests.Clients
         [TestMethod()]
         public async Task GetBlockAsyncTest()
         {
-            var historyClient = new HistoryClient(new HttpClientHandler());
+            var historyClient = new HistoryClient(new HttpHandler());
 
             uint blockNum = 10000;
             var blockResponse = await historyClient.GetBlockAsync(blockNum);

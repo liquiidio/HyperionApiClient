@@ -11,7 +11,7 @@ namespace HyperionApiClient.UnitTests.Clients
         [TestMethod()]
         public async Task SystemClientTest()
         {
-            var systemClient = new SystemClient(new HttpClientHandler())
+            var systemClient = new SystemClient(new HttpHandler())
             {
                 BaseUrl = "invalidUrl"
             };
@@ -30,7 +30,7 @@ namespace HyperionApiClient.UnitTests.Clients
         [TestMethod()]
         public async Task GetProposalsAsyncTest()
         {
-            var systemClient = new SystemClient(new HttpClientHandler());
+            var systemClient = new SystemClient(new HttpHandler());
 
             var proposalsResponse = await systemClient.GetProposalsAsync();
 
@@ -41,7 +41,7 @@ namespace HyperionApiClient.UnitTests.Clients
         [TestMethod()]
         public async Task GetVotersAsyncTest()
         {
-            var systemClient = new SystemClient(new HttpClientHandler());
+            var systemClient = new SystemClient(new HttpHandler());
 
             var votersResponse = await systemClient.GetVotersAsync();
 

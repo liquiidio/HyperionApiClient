@@ -12,7 +12,7 @@ namespace HyperionApiClient.UnitTests.Clients
         [TestMethod()]
         public async Task AccountsClientTest()
         {
-            var accountsClient = new AccountsClient(new HttpClientHandler())
+            var accountsClient = new AccountsClient(new HttpHandler())
             {
                 BaseUrl = "invalidUrl"
             };
@@ -31,7 +31,7 @@ namespace HyperionApiClient.UnitTests.Clients
         [TestMethod()]
         public async Task GetCreatedAccountsAsyncTest()
         {
-            var accountsClient = new AccountsClient(new HttpClientHandler());
+            var accountsClient = new AccountsClient(new HttpHandler());
 
             var count = 20;
             var accounts = await accountsClient.GetCreatedAccountsAsync("wam", count);
@@ -42,7 +42,7 @@ namespace HyperionApiClient.UnitTests.Clients
         [TestMethod()]
         public async Task GetCreatorAsyncTest()
         {
-            var accountsClient = new AccountsClient(new HttpClientHandler());
+            var accountsClient = new AccountsClient(new HttpHandler());
 
             var createdAccount = "kingcoolcorv";
             var account = await accountsClient.GetCreatorAsync(createdAccount);
@@ -57,7 +57,7 @@ namespace HyperionApiClient.UnitTests.Clients
         [TestMethod()]
         public async Task GetAccountAsyncTest()
         {
-            var accountsClient = new AccountsClient(new HttpClientHandler());
+            var accountsClient = new AccountsClient(new HttpHandler());
 
             var accountName = "eosio";
             var account = await accountsClient.GetAccountAsync(accountName);
@@ -83,7 +83,7 @@ namespace HyperionApiClient.UnitTests.Clients
         [TestMethod()]
         public async Task GetKeyAccountsAsyncTest()
         {
-            var accountsClient = new AccountsClient(new HttpClientHandler());
+            var accountsClient = new AccountsClient(new HttpHandler());
 
             var key = "PUB_K1_84iF6DCDghFYbjzFxxM71DnMbZVYQhxwxEWXbgz21nLFCWShVj";
             var keyAccounts = await accountsClient.GetKeyAccountsAsync(key);
@@ -96,7 +96,7 @@ namespace HyperionApiClient.UnitTests.Clients
         [TestMethod()]
         public async Task GetLinksAsyncTest()
         {
-            var accountsClient = new AccountsClient(new HttpClientHandler());
+            var accountsClient = new AccountsClient(new HttpHandler());
 
             var account = "wam";
             var code = "eosio";
@@ -115,7 +115,7 @@ namespace HyperionApiClient.UnitTests.Clients
         [TestMethod()]
         public async Task GetTokensAsyncTest()
         {
-            var accountsClient = new AccountsClient(new HttpClientHandler());
+            var accountsClient = new AccountsClient(new HttpHandler());
 
             var account = "kingcoolcorv";
             var tokens = await accountsClient.GetTokensAsync(account);
@@ -128,7 +128,7 @@ namespace HyperionApiClient.UnitTests.Clients
         [TestMethod()]
         public async Task GetControlledAccountsAsyncTest()
         {
-            var accountsClient = new AccountsClient(new HttpClientHandler());
+            var accountsClient = new AccountsClient(new HttpHandler());
 
             var controllingAccount = "kaefer";
             var controlledAccounts = await accountsClient.GetControlledAccountsAsync(controllingAccount);

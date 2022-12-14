@@ -11,7 +11,7 @@ namespace HyperionApiClient.UnitTests.Clients
         [TestMethod()]
         public async Task StatsClientTest()
         {
-            var statsClient = new StatsClient(new HttpClientHandler())
+            var statsClient = new StatsClient(new HttpHandler())
             {
                 BaseUrl = "invalidUrl"
             };
@@ -30,7 +30,7 @@ namespace HyperionApiClient.UnitTests.Clients
         [TestMethod()]
         public async Task GetActionUsageAsyncTest()
         {
-            var statsClient = new StatsClient(new HttpClientHandler());
+            var statsClient = new StatsClient(new HttpHandler());
 
             var actionUsageResponse = await statsClient.GetActionUsageAsync("1h");
 
@@ -42,7 +42,7 @@ namespace HyperionApiClient.UnitTests.Clients
         [TestMethod()]
         public async Task GetMissedBlocksAsyncTest()
         {
-            var statsClient = new StatsClient(new HttpClientHandler());
+            var statsClient = new StatsClient(new HttpHandler());
 
             var missedBlocksResponse = await statsClient.GetMissedBlocksAsync("liquidstudios");
 
@@ -53,7 +53,7 @@ namespace HyperionApiClient.UnitTests.Clients
         [TestMethod()]
         public async Task GetResourceUsageAsyncTest()
         {
-            var statsClient = new StatsClient(new HttpClientHandler());
+            var statsClient = new StatsClient(new HttpHandler());
 
             var resourceUsageResponse = await statsClient.GetResourceUsageAsync("eosio.token", "transfer");
 
