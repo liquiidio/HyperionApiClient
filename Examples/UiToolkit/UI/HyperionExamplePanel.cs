@@ -1,19 +1,9 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using Assets.Packages.UniversalAuthenticatorLibrary.Src.UiToolkit.Ui;
-using AtomicAssetsApiClient.Core.Assets;
-using AtomicAssetsApiClient.Core.Collections;
-using AtomicAssetsApiClient.Core.Exceptions;
-using AtomicAssetsApiClient.Unity3D;
-using AtomicAssetsApiClient.Unity3D.Assets;
-using AtomicAssetsApiClient.Unity3D.Collections;
+using Assets.Packages.AnchorLinkTransportSharp.Src.Transports.UiToolkit.Ui;
 using HyperionApiClient;
 using HyperionApiClient.Clients;
+using HyperionApiClient.Exceptions;
 using HyperionApiClient.Responses;
-using UnityEditor;
 using UnityEngine;
-using UnityEngine.Assertions;
 using UnityEngine.UIElements;
 
 public class HyperionExamplePanel : MonoBehaviour
@@ -76,12 +66,12 @@ public class HyperionExamplePanel : MonoBehaviour
     {
         Root = GetComponent<UIDocument>().rootVisualElement;
 
-        _accountsClient = new AccountsClient(new UnityWebRequestHandler())
+        _accountsClient = new AccountsClient(new HttpHandler())
         {
             BaseUrl = "https://wax.eosphere.io/"
         };
 
-        _chainClient = new ChainClient(new UnityWebRequestHandler())
+        _chainClient = new ChainClient(new HttpHandler())
         {
             BaseUrl = "https://wax.eosphere.io/"
         };

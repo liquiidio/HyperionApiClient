@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Runtime.CompilerServices;
+
+#if UNITY_2019_1_OR_NEWER
 using UnityEngine;
 using UnityEngine.Networking;
 
@@ -46,3 +48,4 @@ namespace HyperionApiClient
         }
     }
 }
+#endif
