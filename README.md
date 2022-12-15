@@ -38,36 +38,42 @@ Endpoints have its own set of parameters that you may build up and pass in to th
 ### Examples
 
 #### Accounts
+Query various details about a specific account on the blockchain.
 ```csharp
        var accountsClient = new AccountsClient(new HttpClient());
        var account = await accountsClient.GetAccountAsync("eosio");
 ```
 
 #### Chain
+Get the ABI for a contract based on its account name
 ```csharp
        var chainClient = new ChainClient(new HttpClient());
        var abi = await chainClient.GetAbiAsync("eosio");
 ```
 
 #### History
+Get actions for a specific Account
 ```csharp
        var historyClient = new HistoryClient(new HttpClient());
        var actions = await historyClient.GetActionsAsync(null, null, "kingcoolcorv");
 ```
 
 #### Stats
+Get action and transaction stats for a given period
 ```csharp
        var statsClient = new StatsClient(new HttpClient());
        var actionUsage = await statsClient.GetActionUsageAsync("1h");
 ```
 
 #### Status
+Get Information about the health of the API
 ```csharp
        var statusClient = new StatusClient(new HttpClient());
        var health = await statusClient.HealthAsync();
 ```
 
 #### System
+Get Information about Accounts voting for Block Producers
 ```csharp
        var systemClient = new SystemClient(new HttpClient());
        var voters = await systemClient.GetVotersAsync();
