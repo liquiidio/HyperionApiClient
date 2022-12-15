@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using Assets.Packages.UniversalAuthenticatorLibrary.Src.UiToolkit.Ui;
+using UniversalAuthenticatorLibrary.Src.UiToolkit.Ui;
 using HyperionApiClient;
 using HyperionApiClient.Clients;
 using HyperionApiClient.Exceptions;
