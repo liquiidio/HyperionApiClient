@@ -4,6 +4,7 @@
  <img src="https://avatars.githubusercontent.com/u/82725791?s=200&v=4" align="center"
      alt="Liquiid logo" width="280" height="300">
 </div>
+
 # HyperionApiClient 
 
 <div align="center">
@@ -13,9 +14,9 @@
        
 </div>
 
-.NET and Unity3D-compatible (Desktop, Mobile, WebGL) Client-Library for Hyperion History APIs
+*.NET and Unity3D-compatible (Desktop, Mobile, WebGL) Client-Library for Hyperion History APIs*
 
-See [Hyperion History by EosRio](https://eosrio.io/hyperion/)
+*See [Hyperion History by EosRio](https://eosrio.io/hyperion/)*
 
 ### INSTALLATION
 ---
