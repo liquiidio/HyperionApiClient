@@ -1,7 +1,3 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using Assets.Packages.UniversalAuthenticatorLibrary.Src.UiToolkit.Ui;
 using HyperionApiClient;
 using HyperionApiClient.Clients;
 using HyperionApiClient.Exceptions;
@@ -15,7 +11,6 @@ public class HyperionExamplePanel : MonoBehaviour
      * Child-Controls
      */
     public VisualElement Root;
-
 
     private VisualElement _accountBox;
     private VisualElement _infoBox;
@@ -65,6 +60,8 @@ public class HyperionExamplePanel : MonoBehaviour
     private AccountsClient _accountsClient;
     private ChainClient _chainClient;
 
+    public ErrorPanel ErrorPanel;
+
     void Start()
     {
         Root = GetComponent<UIDocument>().rootVisualElement;
@@ -95,8 +92,6 @@ public class HyperionExamplePanel : MonoBehaviour
         _blockProducerSignatureLabel = Root.Q<Label>("block-producer-signature-label");
         _blockTransactionMrootLabel = Root.Q<Label>("block-transaction-mroot-label");
 
-
-
         _headBlockIdLabel = Root.Q<Label>("head-block-id-label");
         _blockCPULimitLabel = Root.Q<Label>("block-cpu-limit-label");
         _blockNETLimitLabel = Root.Q<Label>("block-net-limit-label");
@@ -108,19 +103,17 @@ public class HyperionExamplePanel : MonoBehaviour
         _headBlockProducerLabel = Root.Q<Label>("head-block-producer-label");
         _headBlockTimeLabel = Root.Q<Label>("head-block-time-label");
 
+        _filterTypeLabel = Root.Q<Label>("filter-type");
 
         _accountBox = Root.Q<VisualElement>("account-box");
         _blockBox = Root.Q<VisualElement>("block-box");
         _infoBox = Root.Q<VisualElement>("info-box");
-
-        _filterTypeLabel = Root.Q<Label>("filter-type");
 
         _searchButton = Root.Q<Button>("search-button");
         _accountButton = Root.Q<Button>("account-button");
         _infoButton = Root.Q<Button>("info-button");
         _blockButton = Root.Q<Button>("block-button");
         _closeViewButton = Root.Q<Button>("close-view-button");
-
 
         _filterTypeLabel.text = "Account";
 
@@ -136,25 +129,25 @@ public class HyperionExamplePanel : MonoBehaviour
         _accountButton.clickable.clicked += () =>
         {
             _filterTypeLabel.text = "Account";
-            _accountBox.Show();
-            _blockBox.Hide(); 
-            _infoBox.Hide();
+            Show(_accountBox);
+            Hide(_blockBox); 
+            Hide(_infoBox);
         };
 
         _blockButton.clickable.clicked += () =>
         {
             _filterTypeLabel.text = "Block";
-            _accountBox.Hide();
-            _blockBox.Show();
-            _infoBox.Hide();
+            Hide(_accountBox);
+            Show(_blockBox);
+            Hide(_infoBox);
         };
 
         _infoButton.clickable.clicked += async () =>
         {
             _filterTypeLabel.text = "Info";
-            _accountBox.Hide();
-            _blockBox.Hide();
-            _infoBox.Show();
+            Hide(_accountBox);
+            Hide(_blockBox);
+            Show(_infoBox);
 
             var info = await _chainClient.GetInfoAsync();
             Rebind(info);
@@ -162,13 +155,18 @@ public class HyperionExamplePanel : MonoBehaviour
 
         _closeViewButton.clickable.clicked += () =>
         {
-            this.Root.Hide();
+            Hide(Root);
         };
     }
 
     #endregion
 
     #region Rebind
+
+    /// <summary>
+    /// Rebind Method for binding GetCreatorResponse api
+    /// </summary>
+    /// <param name="creatorResponse"></param>
     private void Rebind(GetCreatorResponse creatorResponse)
     {
         _accountLabel.text = creatorResponse.Account;
@@ -177,6 +175,11 @@ public class HyperionExamplePanel : MonoBehaviour
         _blockNumberLabel.text = creatorResponse.BlockNum.ToString();
         _creatorLabel.text = creatorResponse.Creator;
     }
+
+    /// <summary>
+    /// Rebind Method for binding GetBlockResponse2 api
+    /// </summary>
+    /// <param name="blockResponse"></param>
 
     private void Rebind(GetBlockResponse2 blockResponse)
     {
@@ -189,6 +192,10 @@ public class HyperionExamplePanel : MonoBehaviour
         _blockTransactionMrootLabel.text = blockResponse.TransactionMroot;
     }
 
+    /// <summary>
+    /// Rebind Method for binding GetInfoResponse api
+    /// </summary>
+    /// <param name="info"></param>
     private void Rebind(GetInfoResponse info)
     {
         _headBlockIdLabel.text = info.HeadBlockId;
@@ -206,6 +213,10 @@ public class HyperionExamplePanel : MonoBehaviour
     #endregion
 
     #region Others
+
+    /// <summary>
+    /// SearchAsset Method to evaluate input search for certain api
+    /// </summary>
     private async void SearchAsset()
     {
         try
@@ -236,8 +247,35 @@ public class HyperionExamplePanel : MonoBehaviour
         }
         catch (ApiException ex)
         {
-            Debug.LogError($"Content: {ex.Content}");
+            ErrorPanel.ErrorText("Content Error", ex.Content);
+            Show(ErrorPanel.Root);
         }
+    }
+
+    /// <summary>
+    /// Extension-method to show an UI Element (set it to visible)
+    /// </summary>
+    /// <param name="element"></param>
+    public void Show(VisualElement element)
+    {
+        if (element == null)
+            return;
+
+        element.style.visibility = Visibility.Visible;
+        element.style.display = DisplayStyle.Flex;
+    }
+
+    /// <summary>
+    /// Extension-method to hide an UI Element (set it to invisible)
+    /// </summary>
+    /// <param name="element"></param>
+    public void Hide(VisualElement element)
+    {
+        if (element == null)
+            return;
+
+        element.style.visibility = Visibility.Hidden;
+        element.style.display = DisplayStyle.None;
     }
     #endregion
 }
