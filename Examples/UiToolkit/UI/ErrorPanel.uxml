@@ -1,4 +1,5 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <Style src="project://database/Assets/Packages/hyperionapiclient/Examples/UiToolkit/Stylesheet/HyperionUSSFile.uss?fileID=7433441132597879392&amp;guid=6b043ef0bc5648246b0a5da882108f4d&amp;type=3#HyperionUSSFile" />
     <ui:VisualElement name="screen" style="flex-grow: 1; flex-direction: column; justify-content: flex-start; align-items: stretch; flex-wrap: no-wrap;">
         <ui:VisualElement style="height: 100%; align-items: center; justify-content: center; width: 100%;">
             <ui:VisualElement style="background-image: none; width: 60%; height: 60%; -unity-background-image-tint-color: rgba(255, 0, 0, 0); align-items: center; justify-content: center; background-color: rgb(0, 18, 53); border-top-left-radius: 6px; border-bottom-left-radius: 6px; border-top-right-radius: 6px; border-bottom-right-radius: 6px; border-left-color: rgb(255, 0, 0); border-right-color: rgb(255, 0, 0); border-top-color: rgb(255, 0, 0); border-bottom-color: rgb(255, 0, 0); border-left-width: 1px; border-right-width: 1px; border-top-width: 1px; border-bottom-width: 1px;">
@@ -11,7 +12,7 @@
                     <ui:Label text="ErrorText&#10;" display-tooltip-when-elided="true" name="error-text-long" class="value-label description-label" style="align-items: center; -unity-text-align: middle-center; white-space: normal; width: 70%; height: auto; font-size: 18px; -unity-font-style: bold; color: rgb(255, 255, 255);" />
                 </ui:VisualElement>
                 <ui:VisualElement name="footer" style="width: 100%; align-items: center; flex-direction: row; height: auto; margin-left: 10px; justify-content: center;">
-                    <ui:Button text="ok" display-tooltip-when-elided="true" name="ok-button" class="text-button" style="border-left-color: rgba(255, 255, 255, 0); border-right-color: rgba(255, 255, 255, 0); border-top-color: rgba(255, 255, 255, 0); border-bottom-color: rgba(255, 255, 255, 0); width: 86px; height: 26px; background-color: rgb(245, 245, 245); color: rgba(0, 0, 0, 255);" />
+                    <ui:Button text="0k" display-tooltip-when-elided="true" name="ok-button" class="select-button" style="height: 30px; padding-left: 0; padding-right: 0; padding-top: 0; padding-bottom: 0; width: 100px; margin-top: 1px;" />
                 </ui:VisualElement>
             </ui:VisualElement>
         </ui:VisualElement>
