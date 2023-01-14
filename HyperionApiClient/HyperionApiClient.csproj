@@ -9,7 +9,7 @@
     <Authors>Liquiid.io</Authors>
     <Company>Liquiid.io</Company>
     <Product>Liquiid.io</Product>
-    <PackageId>Liquiid.io.HyperionApiClient</PackageId>
+    <PackageId>Liquiid.io.Hyperion</PackageId>
     <AssemblyName>HyperionApiClient</AssemblyName>
     <RootNamespace>HyperionApiClient</RootNamespace>
     <RepositoryUrl>https://github.com/liquiidio/HyperionApiClient-Private</RepositoryUrl>
@@ -22,7 +22,7 @@
 	  <PackageReference Include="Cryptography.ECDSA.Secp256K1" Version="1.1.2" />
   </ItemGroup>
 
-  	<ItemGroup>
+  <ItemGroup>
     	<None Include="..\README.md" Pack="true" PackagePath="" />
 	</ItemGroup>
 
