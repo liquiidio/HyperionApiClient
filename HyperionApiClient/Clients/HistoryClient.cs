@@ -1,11 +1,9 @@
 using System;
 using System.Globalization;
-using System.Linq;
-using System.Net.Http;
-using System.Net.Http.Headers;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using HyperionApiClient.Dtos;
 using HyperionApiClient.Models;
 using HyperionApiClient.Responses;
 
@@ -13,14 +11,14 @@ namespace HyperionApiClient.Clients
 {
     public class HistoryClient : ClientExtensions
     {
-        private readonly HttpClient _httpClient;
-
-        public HistoryClient(HttpClient httpClient)
-        {
-            _httpClient = httpClient;
-        }
-
         public string BaseUrl { get; set; } = "https://api.wax.liquidstudios.io/";
+
+        private readonly IHttpHandler _httpHandler;
+
+        public HistoryClient(IHttpHandler httpHandler)
+        {
+            _httpHandler = httpHandler;
+        }
 
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <summary>fetch abi at specific block</summary>
@@ -33,7 +31,7 @@ namespace HyperionApiClient.Clients
         {
             if (contract == null)
                 throw new ArgumentNullException("contract");
-    
+
             var urlBuilder = new StringBuilder(BaseUrl != null ? BaseUrl.TrimEnd('/') : "").Append("/v2/history/get_abi_snapshot?" + Uri.EscapeDataString("contract") + "=").Append(Uri.EscapeDataString(ConvertToString(contract, CultureInfo.InvariantCulture))).Append("&");
             if (block != null)
             {
@@ -44,39 +42,12 @@ namespace HyperionApiClient.Clients
                 urlBuilder.Append(Uri.EscapeDataString("fetch") + "=").Append(Uri.EscapeDataString(ConvertToString(fetch, CultureInfo.InvariantCulture))).Append("&");
             }
             urlBuilder.Length--;
- 
-            using (var request = new HttpRequestMessage())
-            {
-                request.Method = new HttpMethod("GET");
 
-                var url = urlBuilder.ToString();
-                request.RequestUri = new Uri(url, UriKind.RelativeOrAbsolute);
+            var url = urlBuilder.ToString();
 
-                var response = await _httpClient.SendAsync(request, HttpCompletionOption.ResponseHeadersRead, cancellationToken).ConfigureAwait(false);
-
-                var headers = response.Headers.ToDictionary(h => h.Key, h => h.Value);
-                if (response.Content?.Headers != null)
-                {
-                    foreach (var item in response.Content.Headers)
-                        headers[item.Key] = item.Value;
-                }
-
-                var status = (int)response.StatusCode;
-                if (status == 200)
-                {
-                    var objectResponse = await ReadObjectResponseAsync<GetApiSnapshotResponse>(response, headers, cancellationToken).ConfigureAwait(false);
-                    if (objectResponse.Object == null)
-                    {
-                        throw new ApiException("Response was null which was not expected.", status, objectResponse.Text, headers, null);
-                    }
-                    return objectResponse.Object;
-                }
-
-                var responseData = response.Content == null ? null : await response.Content.ReadAsStringAsync().ConfigureAwait(false);
-                throw new ApiException("The HTTP status code of the response was not expected (" + status + ").", status, responseData, headers, null);
-            }
+            return await _httpHandler.GetJsonAsync<GetApiSnapshotResponse>(url, cancellationToken);
         }
-    
+
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <summary>get root actions</summary>
         /// <param name="limit">limit of [n] results per page</param>
@@ -144,40 +115,12 @@ namespace HyperionApiClient.Clients
                 urlBuilder.Append(Uri.EscapeDataString("checkLib") + "=").Append(Uri.EscapeDataString(ConvertToString(checkLib, CultureInfo.InvariantCulture))).Append("&");
             }
             urlBuilder.Length--;
- 
-            using (var request = new HttpRequestMessage())
-            {
-                request.Method = new HttpMethod("GET");
-                request.Headers.Accept.Add(MediaTypeWithQualityHeaderValue.Parse("application/json"));
 
-                var url = urlBuilder.ToString();
-                request.RequestUri = new Uri(url, UriKind.RelativeOrAbsolute);
+            var url = urlBuilder.ToString();
 
-                var response = await _httpClient.SendAsync(request, HttpCompletionOption.ResponseHeadersRead, cancellationToken).ConfigureAwait(false);
-
-                var headers = response.Headers.ToDictionary(h => h.Key, h => h.Value);
-                if (response.Content?.Headers != null)
-                {
-                    foreach (var item in response.Content.Headers)
-                        headers[item.Key] = item.Value;
-                }
-
-                var status = (int)response.StatusCode;
-                if (status == 200)
-                {
-                    var objectResponse = await ReadObjectResponseAsync<GetActionsResponse>(response, headers, cancellationToken).ConfigureAwait(false);
-                    if (objectResponse.Object == null)
-                    {
-                        throw new ApiException("Response was null which was not expected.", status, objectResponse.Text, headers, null);
-                    }
-                    return objectResponse.Object;
-                }
-
-                var responseData = response.Content == null ? null : await response.Content.ReadAsStringAsync().ConfigureAwait(false);
-                throw new ApiException("The HTTP status code of the response was not expected (" + status + ").", status, responseData, headers, null);
-            }
+            return await _httpHandler.GetJsonAsync<GetActionsResponse>(url, cancellationToken);
         }
-    
+
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <summary>get state deltas</summary>
         /// <param name="limit">limit of [n] results per page</param>
@@ -225,40 +168,12 @@ namespace HyperionApiClient.Clients
                 urlBuilder.Append(Uri.EscapeDataString("before") + "=").Append(Uri.EscapeDataString(ConvertToString(before, CultureInfo.InvariantCulture))).Append("&");
             }
             urlBuilder.Length--;
- 
-            using (var request = new HttpRequestMessage())
-            {
-                request.Method = new HttpMethod("GET");
-                request.Headers.Accept.Add(MediaTypeWithQualityHeaderValue.Parse("application/json"));
 
-                var url = urlBuilder.ToString();
-                request.RequestUri = new Uri(url, UriKind.RelativeOrAbsolute);
+            var url = urlBuilder.ToString();
 
-                var response = await _httpClient.SendAsync(request, HttpCompletionOption.ResponseHeadersRead, cancellationToken).ConfigureAwait(false);
-
-                var headers = response.Headers.ToDictionary(h => h.Key, h => h.Value);
-                if (response.Content?.Headers != null)
-                {
-                    foreach (var item in response.Content.Headers)
-                        headers[item.Key] = item.Value;
-                }
-
-                var status = (int)response.StatusCode;
-                if (status == 200)
-                {
-                    var objectResponse = await ReadObjectResponseAsync<GetDeltasResponse>(response, headers, cancellationToken).ConfigureAwait(false);
-                    if (objectResponse.Object == null)
-                    {
-                        throw new ApiException("Response was null which was not expected.", status, objectResponse.Text, headers, null);
-                    }
-                    return objectResponse.Object;
-                }
-
-                var responseData = response.Content == null ? null : await response.Content.ReadAsStringAsync().ConfigureAwait(false);
-                throw new ApiException("The HTTP status code of the response was not expected (" + status + ").", status, responseData, headers, null);
-            }
+            return await _httpHandler.GetJsonAsync<GetDeltasResponse>(url, cancellationToken);
         }
-    
+
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <summary>get producer schedule by version</summary>
         /// <param name="producer">search by producer</param>
@@ -291,40 +206,12 @@ namespace HyperionApiClient.Clients
                 urlBuilder.Append(Uri.EscapeDataString("version") + "=").Append(Uri.EscapeDataString(ConvertToString(version, CultureInfo.InvariantCulture))).Append("&");
             }
             urlBuilder.Length--;
- 
-            using (var request = new HttpRequestMessage())
-            {
-                request.Method = new HttpMethod("GET");
-                request.Headers.Accept.Add(MediaTypeWithQualityHeaderValue.Parse("application/json"));
 
-                var url = urlBuilder.ToString();
-                request.RequestUri = new Uri(url, UriKind.RelativeOrAbsolute);
+            var url = urlBuilder.ToString();
 
-                var response = await _httpClient.SendAsync(request, HttpCompletionOption.ResponseHeadersRead, cancellationToken).ConfigureAwait(false);
-
-                var headers = response.Headers.ToDictionary(h => h.Key, h => h.Value);
-                if (response.Content?.Headers != null)
-                {
-                    foreach (var item in response.Content.Headers)
-                        headers[item.Key] = item.Value;
-                }
-
-                var status = (int)response.StatusCode;
-                if (status == 200)
-                {
-                    var objectResponse = await ReadObjectResponseAsync<GetScheduleResponse>(response, headers, cancellationToken).ConfigureAwait(false);
-                    if (objectResponse.Object == null)
-                    {
-                        throw new ApiException("Response was null which was not expected.", status, objectResponse.Text, headers, null);
-                    }
-                    return objectResponse.Object;
-                }
-
-                var responseData = response.Content == null ? null : await response.Content.ReadAsStringAsync().ConfigureAwait(false);
-                throw new ApiException("The HTTP status code of the response was not expected (" + status + ").", status, responseData, headers, null);
-            }
+            return await _httpHandler.GetJsonAsync<GetScheduleResponse>(url, cancellationToken);
         }
-    
+
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <summary>get transaction by id</summary>
         /// <param name="id">transaction id</param>
@@ -334,40 +221,13 @@ namespace HyperionApiClient.Clients
         {
             if (id == null)
                 throw new ArgumentNullException("id");
-    
+
             var urlBuilder = new StringBuilder(BaseUrl != null ? BaseUrl.TrimEnd('/') : "").Append("/v2/history/get_transaction?" + Uri.EscapeDataString("id") + "=").Append(Uri.EscapeDataString(ConvertToString(id, CultureInfo.InvariantCulture))).Append("&");
             urlBuilder.Length--;
- 
-            using (var request = new HttpRequestMessage())
-            {
-                request.Method = new HttpMethod("GET");
 
-                var url = urlBuilder.ToString();
-                request.RequestUri = new Uri(url, UriKind.RelativeOrAbsolute);
+            var url = urlBuilder.ToString();
 
-                var response = await _httpClient.SendAsync(request, HttpCompletionOption.ResponseHeadersRead, cancellationToken).ConfigureAwait(false);
-
-                var headers = response.Headers.ToDictionary(h => h.Key, h => h.Value);
-                if (response.Content?.Headers != null)
-                {
-                    foreach (var item in response.Content.Headers)
-                        headers[item.Key] = item.Value;
-                }
-
-                var status = (int)response.StatusCode;
-                if (status == 200)
-                {
-                    var objectResponse = await ReadObjectResponseAsync<GetTransactionResponse>(response, headers, cancellationToken).ConfigureAwait(false);
-                    if (objectResponse.Object == null)
-                    {
-                        throw new ApiException("Response was null which was not expected.", status, objectResponse.Text, headers, null);
-                    }
-                    return objectResponse.Object;
-                }
-
-                var responseData = response.Content == null ? null : await response.Content.ReadAsStringAsync().ConfigureAwait(false);
-                throw new ApiException("The HTTP status code of the response was not expected (" + status + ").", status, responseData, headers, null);
-            }
+            return await _httpHandler.GetJsonAsync<GetTransactionResponse>(url, cancellationToken);
         }
 
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
@@ -375,50 +235,19 @@ namespace HyperionApiClient.Clients
         /// <exception cref="ApiException">A server side error occurred.</exception>
         public async Task<GetBlockResponse> GetBlockAsync(uint? blockNum = null, string blockId = null, CancellationToken cancellationToken = default)
         {
-
-            StringContent content = null;
+            BaseDto requestObject = null;
             if (blockNum != null)
-                content = new StringContent($"{{\"block_num\":\"{blockNum}\"}}");
+                requestObject = new GetBlockByNumDto { blockNum = blockNum };
             else if (!string.IsNullOrEmpty(blockId))
-                content = new StringContent($"{{\"block_id\":\"{blockId}\"}}");
+                requestObject = new GetBlockByIdDto { blockId = blockId };
             else
                 throw new ArgumentNullException("blockNum or blockId");
 
             var urlBuilder = new StringBuilder(BaseUrl != null ? BaseUrl.TrimEnd('/') : "").Append("/v1/trace_api/get_block");
- 
-            using (var request = new HttpRequestMessage())
-            {
-                content.Headers.ContentType = MediaTypeHeaderValue.Parse("application/json");
-                request.Content = content;
-                request.Method = new HttpMethod("POST");
-                request.Headers.Accept.Add(MediaTypeWithQualityHeaderValue.Parse("application/json"));
 
-                var url = urlBuilder.ToString();
-                request.RequestUri = new Uri(url, UriKind.RelativeOrAbsolute);
+            var url = urlBuilder.ToString();
 
-                var response = await _httpClient.SendAsync(request, HttpCompletionOption.ResponseHeadersRead, cancellationToken).ConfigureAwait(false);
-
-                var headers = response.Headers.ToDictionary(h => h.Key, h => h.Value);
-                if (response.Content?.Headers != null)
-                {
-                    foreach (var item in response.Content.Headers)
-                        headers[item.Key] = item.Value;
-                }
-
-                var status = (int)response.StatusCode;
-                if (status == 200)
-                {
-                    var objectResponse = await ReadObjectResponseAsync<GetBlockResponse>(response, headers, cancellationToken).ConfigureAwait(false);
-                    if (objectResponse.Object == null)
-                    {
-                        throw new ApiException("Response was null which was not expected.", status, objectResponse.Text, headers, null);
-                    }
-                    return objectResponse.Object;
-                }
-
-                var responseData = response.Content == null ? null : await response.Content.ReadAsStringAsync().ConfigureAwait(false);
-                throw new ApiException("The HTTP status code of the response was not expected (" + status + ").", status, responseData, headers, null);
-            }
+            return await _httpHandler.PostJsonAsync<GetBlockResponse>(url, requestObject, cancellationToken);
         }
     }
 }

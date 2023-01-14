@@ -1,6 +1,4 @@
-﻿using System;
-using System.Text;
-using HyperionApiClient.Models;
+﻿using HyperionApiClient.Models;
 using Newtonsoft.Json;
 
 namespace HyperionApiClient.Responses

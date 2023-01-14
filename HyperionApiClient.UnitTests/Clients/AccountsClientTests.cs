@@ -1,14 +1,10 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using EosRio.HyperionApi;
 using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Net.Http;
-using System.Text;
 using System.Threading.Tasks;
 using HyperionApiClient.Clients;
 
-namespace EosRio.HyperionApi.Tests
+namespace HyperionApiClient.UnitTests.Clients
 {
     [TestClass()]
     public class AccountsClientTests
@@ -16,7 +12,7 @@ namespace EosRio.HyperionApi.Tests
         [TestMethod()]
         public async Task AccountsClientTest()
         {
-            var accountsClient = new AccountsClient(new HttpClient())
+            var accountsClient = new AccountsClient(new HttpHandler())
             {
                 BaseUrl = "invalidUrl"
             };
@@ -35,7 +31,7 @@ namespace EosRio.HyperionApi.Tests
         [TestMethod()]
         public async Task GetCreatedAccountsAsyncTest()
         {
-            var accountsClient = new AccountsClient(new HttpClient());
+            var accountsClient = new AccountsClient(new HttpHandler());
 
             var count = 20;
             var accounts = await accountsClient.GetCreatedAccountsAsync("wam", count);
@@ -46,7 +42,7 @@ namespace EosRio.HyperionApi.Tests
         [TestMethod()]
         public async Task GetCreatorAsyncTest()
         {
-            var accountsClient = new AccountsClient(new HttpClient());
+            var accountsClient = new AccountsClient(new HttpHandler());
 
             var createdAccount = "kingcoolcorv";
             var account = await accountsClient.GetCreatorAsync(createdAccount);
@@ -61,7 +57,7 @@ namespace EosRio.HyperionApi.Tests
         [TestMethod()]
         public async Task GetAccountAsyncTest()
         {
-            var accountsClient = new AccountsClient(new HttpClient());
+            var accountsClient = new AccountsClient(new HttpHandler());
 
             var accountName = "eosio";
             var account = await accountsClient.GetAccountAsync(accountName);
@@ -87,7 +83,7 @@ namespace EosRio.HyperionApi.Tests
         [TestMethod()]
         public async Task GetKeyAccountsAsyncTest()
         {
-            var accountsClient = new AccountsClient(new HttpClient());
+            var accountsClient = new AccountsClient(new HttpHandler());
 
             var key = "PUB_K1_84iF6DCDghFYbjzFxxM71DnMbZVYQhxwxEWXbgz21nLFCWShVj";
             var keyAccounts = await accountsClient.GetKeyAccountsAsync(key);
@@ -100,7 +96,7 @@ namespace EosRio.HyperionApi.Tests
         [TestMethod()]
         public async Task GetLinksAsyncTest()
         {
-            var accountsClient = new AccountsClient(new HttpClient());
+            var accountsClient = new AccountsClient(new HttpHandler());
 
             var account = "wam";
             var code = "eosio";
@@ -119,7 +115,7 @@ namespace EosRio.HyperionApi.Tests
         [TestMethod()]
         public async Task GetTokensAsyncTest()
         {
-            var accountsClient = new AccountsClient(new HttpClient());
+            var accountsClient = new AccountsClient(new HttpHandler());
 
             var account = "kingcoolcorv";
             var tokens = await accountsClient.GetTokensAsync(account);
@@ -132,7 +128,7 @@ namespace EosRio.HyperionApi.Tests
         [TestMethod()]
         public async Task GetControlledAccountsAsyncTest()
         {
-            var accountsClient = new AccountsClient(new HttpClient());
+            var accountsClient = new AccountsClient(new HttpHandler());
 
             var controllingAccount = "kaefer";
             var controlledAccounts = await accountsClient.GetControlledAccountsAsync(controllingAccount);

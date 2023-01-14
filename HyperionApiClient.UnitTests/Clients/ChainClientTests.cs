@@ -1,17 +1,10 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using EosRio.HyperionApi;
 using System;
-using System.Collections.Generic;
-using System.Globalization;
 using System.Linq;
-using System.Net.Http;
-using System.Text;
-using System.Threading;
 using System.Threading.Tasks;
 using HyperionApiClient.Clients;
-using Newtonsoft.Json;
 
-namespace EosRio.HyperionApi.Tests
+namespace HyperionApiClient.UnitTests.Clients
 {
     [TestClass()]
     public class ChainClientTests
@@ -19,7 +12,7 @@ namespace EosRio.HyperionApi.Tests
         [TestMethod()]
         public async Task ChainClientTest()
         {
-            var chainClient = new ChainClient(new HttpClient())
+            var chainClient = new ChainClient(new HttpHandler())
             {
                 BaseUrl = "invalidUrl"
             };
@@ -38,7 +31,7 @@ namespace EosRio.HyperionApi.Tests
         [TestMethod()]
         public async Task GetAbiAsyncTest()
         {
-            var chainClient = new ChainClient(new HttpClient());
+            var chainClient = new ChainClient(new HttpHandler());
 
             var account = "eosio";
             var abi = await chainClient.GetAbiAsync(account);
@@ -58,7 +51,7 @@ namespace EosRio.HyperionApi.Tests
         [TestMethod()]
         public async Task GetAccountAsyncTest()
         {
-            var chainClient = new ChainClient(new HttpClient());
+            var chainClient = new ChainClient(new HttpHandler());
 
             var accountName = "eosio";
             var account = await chainClient.GetAccountAsync(accountName);
@@ -81,7 +74,7 @@ namespace EosRio.HyperionApi.Tests
         [TestMethod()]
         public async Task GetActivatedProtocolFeaturesAsyncTest()
         {
-            var chainClient = new ChainClient(new HttpClient());
+            var chainClient = new ChainClient(new HttpHandler());
 
             var activatedProtocolFeatures = await chainClient.GetActivatedProtocolFeaturesAsync();
 
@@ -103,7 +96,7 @@ namespace EosRio.HyperionApi.Tests
         [TestMethod()]
         public async Task GetBlockAsyncTest()
         {
-            var chainClient = new ChainClient(new HttpClient());
+            var chainClient = new ChainClient(new HttpHandler());
 
             string blockNum = "100000000";
             var block = await chainClient.GetBlockAsync(blockNum);
@@ -138,7 +131,7 @@ namespace EosRio.HyperionApi.Tests
         [TestMethod()]
         public async Task GetBlockHeaderStateAsyncTest()
         {
-            var chainClient = new ChainClient(new HttpClient());
+            var chainClient = new ChainClient(new HttpHandler());
 
             var info = await chainClient.GetInfoAsync();
             var blockHeaderState = await chainClient.GetBlockHeaderStateAsync(info.HeadBlockId);
@@ -159,7 +152,7 @@ namespace EosRio.HyperionApi.Tests
         [TestMethod()]
         public async Task GetCodeAsyncTest()
         {
-            var chainClient = new ChainClient(new HttpClient());
+            var chainClient = new ChainClient(new HttpHandler());
             var accountName = "kingcoolcorv";
             var code = await chainClient.GetCodeAsync(accountName,true);
 
@@ -179,7 +172,7 @@ namespace EosRio.HyperionApi.Tests
         [TestMethod()]
         public async Task GetCurrencyBalanceAsyncTest()
         {
-            var chainClient = new ChainClient(new HttpClient());
+            var chainClient = new ChainClient(new HttpHandler());
             var code = "eosio.token";
             var symbol = "WAX";
             var account = "kingcoolcorv";
@@ -193,7 +186,7 @@ namespace EosRio.HyperionApi.Tests
         [TestMethod()]
         public async Task GetCurrencyStatsAsyncTest()
         {
-            var chainClient = new ChainClient(new HttpClient());
+            var chainClient = new ChainClient(new HttpHandler());
             var code = "eosio.token";
             var symbol = "WAX";
             var currencyStats = await chainClient.GetCurrencyStatsAsync(code, symbol);
@@ -203,7 +196,7 @@ namespace EosRio.HyperionApi.Tests
         [TestMethod()]
         public async Task GetInfoAsyncTest()
         {
-            var chainClient = new ChainClient(new HttpClient());
+            var chainClient = new ChainClient(new HttpHandler());
             var info = await chainClient.GetInfoAsync();
 
             Assert.IsNotNull(info.HeadBlockId);
@@ -224,7 +217,7 @@ namespace EosRio.HyperionApi.Tests
         [TestMethod()]
         public async Task GetProducersAsyncTest()
         {
-            var chainClient = new ChainClient(new HttpClient());
+            var chainClient = new ChainClient(new HttpHandler());
             var producers = await chainClient.GetProducersAsync(null,null,true);
 
             Assert.IsTrue(producers.Rows.Count > 21);
@@ -234,7 +227,7 @@ namespace EosRio.HyperionApi.Tests
         [TestMethod()]
         public async Task GetTableByScopeAsyncTest()
         {
-            var chainClient = new ChainClient(new HttpClient());
+            var chainClient = new ChainClient(new HttpHandler());
             string code = "eosio.token";
             string table = "accounts";
             string lowerBound = null;
