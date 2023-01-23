@@ -35,29 +35,6 @@ namespace HyperionApiClient
         Task<TResponseData> PostJsonAsync<TResponseData>(string url, object data, CancellationToken cancellationToken);
 
         /// <summary>
-        /// Make post request with data converted to json asynchronously.
-        /// Response is cached based on input (url, data)
-        /// </summary>
-        /// <typeparam name="TResponseData">Response type</typeparam>
-        /// <param name="url">Url to send the request</param>
-        /// <param name="data">data sent in the body</param>
-        /// <param name="reload">ignore cached value and make a request caching the result</param>
-        /// <returns>Response data deserialized to type TResponseData</returns>
-        Task<TResponseData> PostJsonWithCacheAsync<TResponseData>(string url, object data, bool reload = false);
-
-        /// <summary>
-        /// Make post request with data converted to json asynchronously.
-        /// Response is cached based on input (url, data)
-        /// </summary>
-        /// <typeparam name="TResponseData">Response type</typeparam>
-        /// <param name="url">Url to send the request</param>
-        /// <param name="data">data sent in the body</param>
-        /// <param name="cancellationToken">Notification that operation should be canceled</param>
-        /// <param name="reload">ignore cached value and make a request caching the result</param>
-        /// <returns>Response data deserialized to type TResponseData</returns>
-        Task<TResponseData> PostJsonWithCacheAsync<TResponseData>(string url, object data, CancellationToken cancellationToken, bool reload = false);
-
-        /// <summary>
         /// Make get request asynchronously.
         /// </summary>
         /// <typeparam name="TResponseData">Response type</typeparam>
@@ -96,14 +73,6 @@ namespace HyperionApiClient
         /// <param name="hashKey">data key</param>
         /// <param name="responseData">response data</param>
         void UpdateResponseDataCache<TResponseData>(string hashKey, TResponseData responseData);
-
-        /// <summary>
-        /// Calculate request unique hash key
-        /// </summary>
-        /// <param name="url">Url to send the request</param>
-        /// <param name="data">data sent in the body</param>
-        /// <returns></returns>
-        string GetRequestHashKey(string url, object data);
 
         /// <summary>
         /// Convert response to stream
