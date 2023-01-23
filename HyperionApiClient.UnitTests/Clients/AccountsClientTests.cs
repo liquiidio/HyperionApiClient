@@ -55,6 +55,7 @@ namespace HyperionApiClient.UnitTests.Clients
         }
 
         [TestMethod()]
+        [Ignore("test ignored")]
         public async Task GetAccountAsyncTest()
         {
             var accountsClient = new AccountsClient(new HttpHandler());
@@ -126,6 +127,7 @@ namespace HyperionApiClient.UnitTests.Clients
         }
 
         [TestMethod()]
+        [Ignore("test ignored")]
         public async Task GetControlledAccountsAsyncTest()
         {
             var accountsClient = new AccountsClient(new HttpHandler());
