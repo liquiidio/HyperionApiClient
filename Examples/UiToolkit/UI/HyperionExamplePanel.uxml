@@ -47,7 +47,7 @@
                     </ui:VisualElement>
                 </ui:VisualElement>
                 <ui:VisualElement name="block-box" style="flex-direction: row; width: 100%; display: none; visibility: hidden;">
-                    <ui:VisualElement name="info" style="width: 50%; align-items: center; justify-content: flex-start; margin-left: 16px; margin-right: 16px; margin-top: 16px; margin-bottom: 16px; height: auto;">
+                    <ui:VisualElement name="info" style="width: auto; align-items: center; justify-content: flex-start; margin-left: 16px; margin-right: 16px; margin-top: 16px; margin-bottom: 16px; height: auto;">
                         <ui:VisualElement name="confirm" style="flex-direction: column; width: 100%; justify-content: space-around; margin-left: 0; margin-right: 0; margin-top: 10px; margin-bottom: 0;">
                             <ui:Label text="Confirm" display-tooltip-when-elided="true" name="confirm-text" class="asset-label" style="-unity-font-style: bold; -unity-font: url(&apos;project://database/Assets/UI%20Toolkit/UnityThemes/UnityDefaultRuntimeTheme.tss?fileID=2230732570650464555&amp;guid=dbd42bac0de017e4e8e7afa4304982ea&amp;type=3#NotInter-Regular&apos;); color: rgb(91, 91, 91); font-size: 16px; width: auto; white-space: normal;" />
                             <ui:Label display-tooltip-when-elided="true" name="confirm-label" class="asset-label" style="-unity-font-style: bold; font-size: 30px; -unity-text-align: middle-left; color: rgb(255, 255, 255); margin-top: 10px; white-space: normal;" />
