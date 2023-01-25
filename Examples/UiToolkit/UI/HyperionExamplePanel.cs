@@ -7,7 +7,7 @@ using UnityEngine.UIElements;
 
 public class HyperionExamplePanel : MonoBehaviour
 {
-    /*
+    /**
      * Child-Controls
      */
     public VisualElement Root;
@@ -53,7 +53,7 @@ public class HyperionExamplePanel : MonoBehaviour
     private TextField _textFieldValue;
 
 
-    /*
+    /**
      * Fields/Properties
      */
 
@@ -276,6 +276,19 @@ public class HyperionExamplePanel : MonoBehaviour
 
         element.style.visibility = Visibility.Hidden;
         element.style.display = DisplayStyle.None;
+    }
+
+    /// <summary>Called when ctrl + v is pressed in browser (webgl)</summary>
+    /// <param name="pastedText">The pasted text.</param>
+    public void OnBrowserClipboardPaste(string pastedText)
+    {
+        if (string.IsNullOrEmpty(pastedText))
+            return;
+
+        if (_textFieldValue != null && _textFieldValue.focusController.focusedElement == _textFieldValue)
+        {
+            _textFieldValue.SetValueWithoutNotify(pastedText);
+        }
     }
     #endregion
 }
