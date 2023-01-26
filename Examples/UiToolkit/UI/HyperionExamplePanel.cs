@@ -50,7 +50,7 @@ public class HyperionExamplePanel : MonoBehaviour
     private Button _blockButton;
     private Button _closeViewButton;
 
-    private TextField _textFieldValue;
+    private static TextField _textFieldValue;
 
 
     /**
@@ -280,7 +280,7 @@ public class HyperionExamplePanel : MonoBehaviour
 
     /// <summary>Called when ctrl + v is pressed in browser (webgl)</summary>
     /// <param name="pastedText">The pasted text.</param>
-    public void OnBrowserClipboardPaste(string pastedText)
+    public static void OnBrowserClipboardPaste(string pastedText)
     {
         if (string.IsNullOrEmpty(pastedText))
             return;
