@@ -1,9 +1,9 @@
 using UnityEngine;
 using UnityEngine.UIElements;
 
-    public class ErrorPanel : MonoBehaviour
+    public class HyperionErrorPanel : MonoBehaviour
     {
-        /*
+        /**
          * Child-controls
          */
 

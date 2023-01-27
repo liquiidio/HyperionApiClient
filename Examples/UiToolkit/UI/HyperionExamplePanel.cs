@@ -60,7 +60,7 @@ public class HyperionExamplePanel : MonoBehaviour
     private AccountsClient _accountsClient;
     private ChainClient _chainClient;
 
-    public ErrorPanel ErrorPanel;
+    public HyperionErrorPanel HyperionErrorPanel;
 
     void Start()
     {
@@ -247,8 +247,8 @@ public class HyperionExamplePanel : MonoBehaviour
         }
         catch (ApiException ex)
         {
-            ErrorPanel.ErrorText("Content Error", ex.Content);
-            Show(ErrorPanel.Root);
+            HyperionErrorPanel.ErrorText("Content Error", ex.Content);
+            Show(HyperionErrorPanel.Root);
         }
     }
 
@@ -278,17 +278,27 @@ public class HyperionExamplePanel : MonoBehaviour
         element.style.display = DisplayStyle.None;
     }
 
-    /// <summary>Called when ctrl + v is pressed in browser (webgl)</summary>
+    /// <summary>
+    /// Called when ctrl + v is pressed in browser (webgl)
+    /// </summary>
     /// <param name="pastedText">The pasted text.</param>
-    public static void OnBrowserClipboardPaste(string pastedText)
+    public void OnBrowserClipboardPaste(string pastedText)
     {
         if (string.IsNullOrEmpty(pastedText))
             return;
 
         if (_textFieldValue != null && _textFieldValue.focusController.focusedElement == _textFieldValue)
-        {
             _textFieldValue.SetValueWithoutNotify(pastedText);
-        }
+    }
+
+    /// <summary>
+    /// Called when ctrl + v is pressed in browser for the PluginSuiteMultiExample Scene (webgl)
+    /// </summary>
+    /// <param name="pastedText">The pasted text.</param>
+    public static void MultiExampleClipboardPaste(string pastedText)
+    {
+        if (_textFieldValue != null && _textFieldValue.focusController.focusedElement == _textFieldValue)
+            _textFieldValue.SetValueWithoutNotify(pastedText);
     }
     #endregion
 }

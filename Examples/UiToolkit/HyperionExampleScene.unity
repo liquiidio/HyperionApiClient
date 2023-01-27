@@ -351,6 +351,10 @@ PrefabInstance:
       propertyPath: ErrorPanel
       value: 
       objectReference: {fileID: 4226073044484319302}
+    - target: {fileID: 266688664031869410, guid: 947b0c4f5801f6346b43906ffd10b7dc, type: 3}
+      propertyPath: HyperionErrorPanel
+      value: 
+      objectReference: {fileID: 4226073044484319302}
     - target: {fileID: 266688664031869415, guid: 947b0c4f5801f6346b43906ffd10b7dc, type: 3}
       propertyPath: m_Name
       value: HyperionExamplePanel
@@ -366,7 +370,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1340717226301186978, guid: 6f4c0a751e150aa46b0878b4dafbad15, type: 3}
       propertyPath: m_Name
-      value: ErrorPanel
+      value: HyperionErrorPanel
       objectReference: {fileID: 0}
     - target: {fileID: 1558549903653668100, guid: 6f4c0a751e150aa46b0878b4dafbad15, type: 3}
       propertyPath: m_PanelSettings
