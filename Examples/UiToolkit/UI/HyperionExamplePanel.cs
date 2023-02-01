@@ -152,11 +152,6 @@ public class HyperionExamplePanel : MonoBehaviour
             var info = await _chainClient.GetInfoAsync();
             Rebind(info);
         };
-
-        _closeViewButton.clickable.clicked += () =>
-        {
-            Hide(Root);
-        };
     }
 
     #endregion
