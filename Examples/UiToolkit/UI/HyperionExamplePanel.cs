@@ -17,6 +17,7 @@ public class HyperionExamplePanel : MonoBehaviour
     private VisualElement _searchDetails;
     private VisualElement _blockBox;
     private VisualElement _loadingMask;
+    private VisualElement _searchBox;
 
     private Label _accountLabel;
     private Label _creatorLabel;
@@ -110,6 +111,7 @@ public class HyperionExamplePanel : MonoBehaviour
         _infoBox = Root.Q<VisualElement>("info-box");
         _searchDetails = Root.Q<VisualElement>("search-details");
         _loadingMask = Root.Q<VisualElement>("loading-mask");
+        _searchBox = Root.Q<VisualElement>("search-box");
 
         _searchButton = Root.Q<Button>("search-button");
         _accountButton = Root.Q<Button>("account-button");
@@ -128,6 +130,7 @@ public class HyperionExamplePanel : MonoBehaviour
         });
 
         Hide(_loadingMask);
+        Hide(_searchDetails);
 
         BindButtons();
     }
@@ -144,7 +147,8 @@ public class HyperionExamplePanel : MonoBehaviour
             _queryLabel.text = "Query various details about a specific account on the blockchain.";
             _infoLabel.text = "Type an account to search";
             _textFieldValue.value = "";
-            Show(_searchDetails);
+            Hide(_searchDetails);
+            Show(_searchBox);
             Show(_accountBox);
             Hide(_blockBox); 
             Hide(_infoBox);
@@ -157,7 +161,8 @@ public class HyperionExamplePanel : MonoBehaviour
             _queryLabel.text = "Query various details about a specific block on the blockchain.";
             _infoLabel.text = "Type block to search";
             _textFieldValue.value = "";
-            Show(_searchDetails);
+            Hide(_searchDetails);
+            Show(_searchBox);
             Show(_blockBox);
             Hide(_accountBox);
             Hide(_infoBox);
@@ -167,6 +172,7 @@ public class HyperionExamplePanel : MonoBehaviour
         {
             _textFieldValue.label = "Info";
             _textFieldValue.value = "";
+            Hide(_searchBox);
             Hide(_accountBox);
             Hide(_blockBox);
             Hide(_searchDetails);
@@ -243,13 +249,13 @@ public class HyperionExamplePanel : MonoBehaviour
             switch (_textFieldValue.label)
             {
                 case "Account":
-                    Hide(_searchDetails);
                     Show(_loadingMask);
-                    
+
                     var account = await _accountsClient.GetCreatorAsync(_textFieldValue.value);
                     if (account != null)
                     {
                         Show(_accountBox);
+                        Hide(_searchDetails);
                         Rebind(account);
                         Hide(_loadingMask);
                     }
@@ -257,13 +263,14 @@ public class HyperionExamplePanel : MonoBehaviour
                     break;
 
                 case "Block":
-                    Hide(_searchDetails);
+                    
                     Show(_blockBox);
                     Show(_loadingMask);
                     var block = await _chainClient.GetBlockAsync(_textFieldValue.value);
                     if (block != null)
                     {
                         Rebind(block);
+                        Hide(_searchDetails);
                         Hide(_loadingMask);
                     }
                     else Debug.Log("block not found");
