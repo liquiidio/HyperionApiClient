@@ -14,13 +14,17 @@ public class HyperionExamplePanel : MonoBehaviour
 
     private VisualElement _accountBox;
     private VisualElement _infoBox;
+    private VisualElement _searchDetails;
     private VisualElement _blockBox;
+    private VisualElement _loadingMask;
 
     private Label _accountLabel;
     private Label _creatorLabel;
     private Label _timeSpanLabel;
     private Label _blockNumberLabel;
     private Label _trxIdLabel;
+    private Label _queryLabel;
+    private Label _infoLabel;
 
     private Label _confirmLabel;
     private Label _previousBlockLabel;
@@ -41,8 +45,6 @@ public class HyperionExamplePanel : MonoBehaviour
     private Label _headBlockNumLabel;
     private Label _headBlockProducerLabel;
     private Label _headBlockTimeLabel;
-
-    private Label _filterTypeLabel;
 
     private Button _searchButton;
     private Button _accountButton;
@@ -83,6 +85,8 @@ public class HyperionExamplePanel : MonoBehaviour
         _timeSpanLabel = Root.Q<Label>("timespan-label");
         _blockNumberLabel = Root.Q<Label>("block-number-label");
         _trxIdLabel = Root.Q<Label>("transaction-id-label");
+        _queryLabel = Root.Q<Label>("query-label");
+        _infoLabel = Root.Q<Label>("info-label");
 
         _confirmLabel = Root.Q<Label>("confirm-label");
         _previousBlockLabel = Root.Q<Label>("previous-block-label");
@@ -103,11 +107,11 @@ public class HyperionExamplePanel : MonoBehaviour
         _headBlockProducerLabel = Root.Q<Label>("head-block-producer-label");
         _headBlockTimeLabel = Root.Q<Label>("head-block-time-label");
 
-        _filterTypeLabel = Root.Q<Label>("filter-type");
-
         _accountBox = Root.Q<VisualElement>("account-box");
         _blockBox = Root.Q<VisualElement>("block-box");
         _infoBox = Root.Q<VisualElement>("info-box");
+        _searchDetails = Root.Q<VisualElement>("search-details");
+        _loadingMask = Root.Q<VisualElement>("loading-mask");
 
         _searchButton = Root.Q<Button>("search-button");
         _accountButton = Root.Q<Button>("account-button");
@@ -115,42 +119,63 @@ public class HyperionExamplePanel : MonoBehaviour
         _blockButton = Root.Q<Button>("block-button");
         _closeViewButton = Root.Q<Button>("close-view-button");
 
-        _filterTypeLabel.text = "Account";
+        _textFieldValue.label = "Account";
+        _textFieldValue.RegisterCallback<ClickEvent>(evt =>
+        {
+            if (_textFieldValue.label == "Info")
+            {
+               Hide(_searchDetails); 
+            }
+            else Show(_searchDetails);
+        });
+
+        Hide(_loadingMask);
 
         BindButtons();
     }
 
     #region Button Binding
-
     private void BindButtons()
     {
         _searchButton.clicked += SearchAsset;
 
         _accountButton.clickable.clicked += () =>
         {
-            _filterTypeLabel.text = "Account";
-            Show(_accountBox);
+            _textFieldValue.label = "Account";
+            _searchButton.text = "Search Account";
+            _queryLabel.text = "Query various details about a specific account on the blockchain.";
+            _infoLabel.text = "Type an account to search";
+            _textFieldValue.value = "";
+            Show(_searchDetails);
+            Hide(_accountBox);
             Hide(_blockBox); 
             Hide(_infoBox);
         };
 
         _blockButton.clickable.clicked += () =>
         {
-            _filterTypeLabel.text = "Block";
+            _textFieldValue.label = "Block";
+            _searchButton.text = "Search Block";
+            _queryLabel.text = "Query various details about a specific block on the blockchain.";
+            _infoLabel.text = "Type block to search";
+            _textFieldValue.value = "";
+            Show(_searchDetails);
             Hide(_accountBox);
-            Show(_blockBox);
             Hide(_infoBox);
         };
 
         _infoButton.clickable.clicked += async () =>
         {
-            _filterTypeLabel.text = "Info";
+            _textFieldValue.label = "Info";
+            _textFieldValue.value = "";
             Hide(_accountBox);
             Hide(_blockBox);
-            Show(_infoBox);
-
+            Hide(_searchDetails);
+            Show(_loadingMask);
             var info = await _chainClient.GetInfoAsync();
+            Show(_infoBox);
             Rebind(info);
+            Hide(_loadingMask);
         };
     }
 
@@ -210,28 +235,37 @@ public class HyperionExamplePanel : MonoBehaviour
     #region Others
 
     /// <summary>
-    /// SearchAsset Method to evaluate input search for certain api
+    /// SearchAsset Method to evaluate input search for hyperion api client
     /// </summary>
     private async void SearchAsset()
     {
         try
         {
-            switch (_filterTypeLabel.text)
+            switch (_textFieldValue.label)
             {
                 case "Account":
+                    Hide(_searchDetails);
+                    Show(_loadingMask);
+                    
                     var account = await _accountsClient.GetCreatorAsync(_textFieldValue.value);
                     if (account != null)
                     {
+                        Show(_accountBox);
                         Rebind(account);
+                        Hide(_loadingMask);
                     }
                     else Debug.Log("account not found");
                     break;
 
                 case "Block":
+                    Hide(_searchDetails);
+                    Show(_blockBox);
+                    Show(_loadingMask);
                     var block = await _chainClient.GetBlockAsync(_textFieldValue.value);
                     if (block != null)
                     {
                         Rebind(block);
+                        Hide(_loadingMask);
                     }
                     else Debug.Log("block not found");
                     break;

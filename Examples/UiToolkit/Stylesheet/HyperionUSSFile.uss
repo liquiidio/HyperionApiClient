@@ -2,7 +2,7 @@ VisualElement {
 }
 
 .search-button {
-    background-image: url('project://database/Assets/Packages/hyperionapiclient/Examples/UiToolkit/Assets/search.png?fileID=2800000&guid=a3e0f7836e8aae44bb4eafb71ef3d549&type=3#search');
+    background-image: none;
     width: 26px;
     height: 26px;
     margin-left: 3px;
@@ -20,6 +20,7 @@ VisualElement {
     background-color: rgb(234, 146, 62);
     background-image: url('project://database/Assets/Packages/hyperionapiclient/Examples/UiToolkit/Assets/search.png?fileID=2800000&guid=a3e0f7836e8aae44bb4eafb71ef3d549&type=3#search');
     -unity-background-image-tint-color: rgb(255, 125, 0);
+    scale: 1.2 1.2;
 }
 
 .select-button {
@@ -41,14 +42,14 @@ VisualElement {
     padding-right: 18px;
     padding-top: 20px;
     padding-bottom: 20px;
-    background-color: rgba(36, 54, 137, 255);
+    background-color: rgb(36, 54, 137);
     border-top-left-radius: 12px;
     border-bottom-left-radius: 12px;
     border-top-right-radius: 12px;
     border-bottom-right-radius: 12px;
     font-size: 18px;
     -unity-font-style: bold;
-    color: rgba(255, 255, 255, 255);
+    color: rgb(255, 255, 255);
 }
 
 .select-button:hover {
@@ -66,5 +67,34 @@ VisualElement {
     transition-duration: 0s;
     transition-timing-function: ease;
     transition-delay: 0s;
-    color: rgba(255, 255, 255, 255);
+    color: rgb(255, 255, 255);
+}
+
+.search {
+    width: 154px;
+    height: 35px;
+    border-top-left-radius: 18px;
+    border-bottom-left-radius: 18px;
+    border-top-right-radius: 18px;
+    border-bottom-right-radius: 18px;
+    border-left-color: rgba(255, 255, 255, 0);
+    border-right-color: rgba(255, 255, 255, 0);
+    border-top-color: rgba(255, 255, 255, 0);
+    border-bottom-color: rgba(255, 255, 255, 0);
+    background-color: rgba(88, 88, 88, 0.62);
+    -unity-font-style: bold;
+    position: absolute;
+    bottom: auto;
+    left: auto;
+    top: 6px;
+    right: 20px;
+    -unity-text-align: middle-center;
+}
+
+.search:hover {
+    background-color: rgb(96, 97, 101);
+    scale: 1.05 1.05;
+    -unity-text-outline-color: rgba(255, 255, 255, 255);
+    width: 154px;
+    height: 35px;
 }
