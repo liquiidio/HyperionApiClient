@@ -20,24 +20,7 @@
                         </ui:TextField>
                     </ui:VisualElement>
                 </ui:VisualElement>
-                <ui:VisualElement name="search-details" style="width: 100%; align-items: center; display: flex; position: relative;">
-                    <ui:VisualElement style="background-color: rgb(255, 255, 255); height: 122px; width: 60%; border-top-left-radius: 12px; border-bottom-left-radius: 12px; border-top-right-radius: 12px; border-bottom-right-radius: 12px; position: relative; top: auto; right: auto; left: auto; align-items: center; justify-content: center; opacity: 0.8; flex-shrink: 0; flex-wrap: wrap;">
-                        <ui:VisualElement name="label-container" style="width: 100%; height: 60%; align-items: center; justify-content: center; flex-direction: row; flex-wrap: wrap;">
-                            <ui:Button display-tooltip-when-elided="true" style="background-color: rgba(5, 5, 5, 0); border-left-color: rgba(255, 255, 255, 0); border-right-color: rgba(255, 255, 255, 0); border-top-color: rgba(255, 255, 255, 0); border-bottom-color: rgba(255, 255, 255, 0); padding-left: 6px; margin-left: 1px; margin-right: 1px; margin-top: 1px; margin-bottom: 1px; -unity-background-image-tint-color: rgb(0, 0, 0); height: 28px; width: 28px; background-image: url(&apos;project://database/Assets/Packages/atomicmarketapiclient/Examples/UiToolkit/Assets/search.png?fileID=2800000&amp;guid=815ec4dd775830942abcd2a73c903080&amp;type=3#search&apos;);" />
-                            <ui:Label text="Query various details about a specific account on the blockchain." display-tooltip-when-elided="true" name="query-label" style="color: rgb(0, 0, 0); -unity-font-style: bold; font-size: 18px; flex-wrap: wrap; white-space: normal; -unity-text-align: upper-center; width: 336px;" />
-                        </ui:VisualElement>
-                        <ui:VisualElement style="width: 100%; height: 40%; justify-content: flex-start; align-items: auto;">
-                            <ui:VisualElement style="width: 100%; align-items: auto;">
-                                <ui:VisualElement name="border" style="width: 100%; height: 1px; background-color: rgb(144, 144, 144);" />
-                                <ui:VisualElement style="flex-direction: row; width: 100%; align-items: center; justify-content: space-around;">
-                                    <ui:Label text="Type an account to search" display-tooltip-when-elided="true" name="info-label" style="color: rgb(7, 7, 7); -unity-text-align: upper-center; font-size: 12px; -unity-font-style: bold;" />
-                                    <ui:Button text="Search Account" display-tooltip-when-elided="true" name="search-button" class="select-button" style="height: 35px; padding-left: 0; padding-right: 0; padding-top: 0; padding-bottom: 0; width: 154px; margin-top: 6px; font-size: 16px; background-color: rgb(88, 88, 88); border-top-left-radius: 18px; border-bottom-left-radius: 18px; border-top-right-radius: 18px; border-bottom-right-radius: 18px; opacity: 0.8; border-top-width: 2px;" />
-                                </ui:VisualElement>
-                            </ui:VisualElement>
-                        </ui:VisualElement>
-                    </ui:VisualElement>
-                </ui:VisualElement>
-                <ui:VisualElement name="account-box" style="flex-direction: row; width: 100%; display: none; visibility: hidden; position: relative; top: auto; left: auto;">
+                <ui:VisualElement name="account-box" style="flex-direction: row; width: 100%; display: flex; visibility: visible; position: relative; top: auto; left: auto;">
                     <ui:VisualElement name="info" style="width: auto; align-items: center; justify-content: flex-start; margin-left: 16px; margin-right: 16px; margin-top: 16px; margin-bottom: 16px; height: 90%;">
                         <ui:VisualElement name="account-name" style="flex-direction: column; width: 100%; justify-content: space-around; margin-left: 0; margin-right: 0; margin-top: 10px; margin-bottom: 0; flex-wrap: nowrap;">
                             <ui:Label text="account" display-tooltip-when-elided="true" name="account-name-text" class="asset-label" style="-unity-font-style: bold; -unity-font: url(&apos;project://database/Assets/UI%20Toolkit/UnityThemes/UnityDefaultRuntimeTheme.tss?fileID=2230732570650464555&amp;guid=dbd42bac0de017e4e8e7afa4304982ea&amp;type=3#NotInter-Regular&apos;); color: rgb(91, 91, 91); font-size: 16px; width: auto; white-space: normal; flex-wrap: wrap;" />
@@ -141,8 +124,25 @@
                 </ui:VisualElement>
             </ui:VisualElement>
         </ui:VisualElement>
-        <ui:VisualElement name="loading-mask" style="position: absolute; width: 100%; height: 100%; justify-content: center; align-items: center; opacity: 1; background-color: rgba(79, 77, 77, 0.63); display: flex;">
+        <ui:VisualElement name="loading-mask" style="position: absolute; width: 100%; height: 100%; justify-content: center; align-items: center; opacity: 1; background-color: rgba(79, 77, 77, 0.63); display: none; visibility: hidden;">
             <ui:Label text="LOADING..." display-tooltip-when-elided="true" name="loading-label" style="-unity-font-style: bold; font-size: 26px; color: rgb(255, 255, 255); -unity-font: url(&apos;project://database/Assets/UI%20Toolkit/UnityThemes/UnityDefaultRuntimeTheme.tss?fileID=2230732570650464555&amp;guid=dbd42bac0de017e4e8e7afa4304982ea&amp;type=3#NotInter-Regular&apos;);" />
+        </ui:VisualElement>
+        <ui:VisualElement name="search-details" style="width: 100%; align-items: center; display: flex; position: absolute; top: 167px; left: 153px;">
+            <ui:VisualElement style="background-color: rgb(255, 255, 255); height: 122px; width: 38%; border-top-left-radius: 12px; border-bottom-left-radius: 12px; border-top-right-radius: 12px; border-bottom-right-radius: 12px; position: relative; top: auto; right: auto; left: auto; align-items: center; justify-content: center; opacity: 0.8; flex-shrink: 0; flex-wrap: wrap;">
+                <ui:VisualElement name="label-container" style="width: 100%; height: 60%; align-items: center; justify-content: center; flex-direction: row; flex-wrap: wrap;">
+                    <ui:Button display-tooltip-when-elided="true" style="background-color: rgba(5, 5, 5, 0); border-left-color: rgba(255, 255, 255, 0); border-right-color: rgba(255, 255, 255, 0); border-top-color: rgba(255, 255, 255, 0); border-bottom-color: rgba(255, 255, 255, 0); padding-left: 6px; margin-left: 1px; margin-right: 1px; margin-top: 1px; margin-bottom: 1px; -unity-background-image-tint-color: rgb(0, 0, 0); height: 28px; width: 28px; background-image: url(&apos;project://database/Assets/Packages/atomicmarketapiclient/Examples/UiToolkit/Assets/search.png?fileID=2800000&amp;guid=815ec4dd775830942abcd2a73c903080&amp;type=3#search&apos;);" />
+                    <ui:Label text="Query various details about a specific account on the blockchain." display-tooltip-when-elided="true" name="query-label" style="color: rgb(0, 0, 0); -unity-font-style: bold; font-size: 18px; flex-wrap: wrap; white-space: normal; -unity-text-align: upper-center; width: 336px;" />
+                </ui:VisualElement>
+                <ui:VisualElement style="width: 100%; height: 40%; justify-content: flex-start; align-items: auto;">
+                    <ui:VisualElement style="width: 100%; align-items: auto;">
+                        <ui:VisualElement name="border" style="width: 100%; height: 1px; background-color: rgb(144, 144, 144);" />
+                        <ui:VisualElement style="flex-direction: row; width: 100%; align-items: center; justify-content: space-around;">
+                            <ui:Label text="Type an account to search" display-tooltip-when-elided="true" name="info-label" style="color: rgb(7, 7, 7); -unity-text-align: upper-center; font-size: 12px; -unity-font-style: bold;" />
+                            <ui:Button text="Search Account" display-tooltip-when-elided="true" name="search-button" class="select-button" style="height: 35px; padding-left: 0; padding-right: 0; padding-top: 0; padding-bottom: 0; width: 154px; margin-top: 6px; font-size: 16px; background-color: rgb(88, 88, 88); border-top-left-radius: 18px; border-bottom-left-radius: 18px; border-top-right-radius: 18px; border-bottom-right-radius: 18px; opacity: 0.8; border-top-width: 2px;" />
+                        </ui:VisualElement>
+                    </ui:VisualElement>
+                </ui:VisualElement>
+            </ui:VisualElement>
         </ui:VisualElement>
     </ui:VisualElement>
 </ui:UXML>

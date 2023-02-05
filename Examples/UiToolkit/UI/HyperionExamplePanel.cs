@@ -34,7 +34,6 @@ public class HyperionExamplePanel : MonoBehaviour
     private Label _blockActionMrootLabel;
     private Label _blockTransactionMrootLabel;
     private Label _blockProducerSignatureLabel;
-
     //private Label _headBlockIdLabel;
     private Label _blockCPULimitLabel;
     private Label _blockNETLimitLabel;
@@ -53,7 +52,6 @@ public class HyperionExamplePanel : MonoBehaviour
     private Button _closeViewButton;
 
     private static TextField _textFieldValue;
-
 
     /**
      * Fields/Properties
@@ -147,7 +145,7 @@ public class HyperionExamplePanel : MonoBehaviour
             _infoLabel.text = "Type an account to search";
             _textFieldValue.value = "";
             Show(_searchDetails);
-            Hide(_accountBox);
+            Show(_accountBox);
             Hide(_blockBox); 
             Hide(_infoBox);
         };
@@ -160,6 +158,7 @@ public class HyperionExamplePanel : MonoBehaviour
             _infoLabel.text = "Type block to search";
             _textFieldValue.value = "";
             Show(_searchDetails);
+            Show(_blockBox);
             Hide(_accountBox);
             Hide(_infoBox);
         };
