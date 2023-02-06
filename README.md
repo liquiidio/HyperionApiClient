@@ -3,7 +3,7 @@
      alt="Liquiid logo" width="280" height="300">
 </div>
 
-# HyperionApiClient 
+
 
 <div align="center">
 
@@ -11,6 +11,9 @@
 [![tests](https://github.com/liquiidio/AtomicAssetsApiClient-Private/actions/workflows/dotnet-test.yml/badge.svg)](https://github.com/liquiidio/AtomicAssetsApiClient-Private/actions/workflows/dotnet-test.yml)
  
 </div>
+
+# HyperionApiClient 
+
 *.NET and Unity3D-compatible (Desktop, Mobile, WebGL) Client-Library for Hyperion History APIs*
 
 *See [Hyperion History by EosRio](https://eosrio.io/hyperion/)*
