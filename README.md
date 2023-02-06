@@ -60,7 +60,7 @@ Download the UnityPackage here <<-- (Hyper link this). Then in your Unity projec
 
 
 ---
-### 3. Install manually. (!TODO!)
+### 3. Install manually.
 Download this project there here . Then in your Unity project:
 
  1. Copy the sources from `HyperionClient` into your `Assets` directory.
