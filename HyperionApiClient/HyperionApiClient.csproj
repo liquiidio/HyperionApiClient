@@ -19,7 +19,6 @@
 
   <ItemGroup>
     <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
-	  <PackageReference Include="Cryptography.ECDSA.Secp256K1" Version="1.1.2" />
   </ItemGroup>
 
   <ItemGroup>
