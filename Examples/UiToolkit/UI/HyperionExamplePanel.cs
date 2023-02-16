@@ -122,10 +122,8 @@ public class HyperionExamplePanel : MonoBehaviour
         _textFieldValue.label = "Account";
         _textFieldValue.RegisterCallback<ClickEvent>(evt =>
         {
-            if (_textFieldValue.label == "Info")
-            {
-               Hide(_searchDetails); 
-            }
+            _textFieldValue.value= "";
+            if (_textFieldValue.label == "Info") Hide(_searchDetails);
             else Show(_searchDetails);
         });
 
@@ -143,10 +141,10 @@ public class HyperionExamplePanel : MonoBehaviour
         _accountButton.clickable.clicked += () =>
         {
             _textFieldValue.label = "Account";
+            _textFieldValue.value = "Type an account to search";
             _searchButton.text = "Search Account";
             _queryLabel.text = "Query various details about a specific account on the blockchain.";
             _infoLabel.text = "Type an account to search";
-            _textFieldValue.value = "";
             Hide(_searchDetails);
             Show(_searchBox);
             Show(_accountBox);
@@ -159,8 +157,8 @@ public class HyperionExamplePanel : MonoBehaviour
             _textFieldValue.label = "Block";
             _searchButton.text = "Search Block";
             _queryLabel.text = "Query various details about a specific block on the blockchain.";
-            _infoLabel.text = "Type block to search";
-            _textFieldValue.value = "";
+            _infoLabel.text = "Type a block to search";
+            _textFieldValue.value = "Type a block to search";
             Hide(_searchDetails);
             Show(_searchBox);
             Show(_blockBox);
