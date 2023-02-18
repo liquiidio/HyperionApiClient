@@ -170,15 +170,17 @@ public class HyperionExamplePanel : MonoBehaviour
         {
             _textFieldValue.label = "Info";
             _textFieldValue.value = "";
+
             Hide(_searchBox);
             Hide(_accountBox);
             Hide(_blockBox);
             Hide(_searchDetails);
             Show(_loadingMask);
-            var info = await _chainClient.GetInfoAsync();
-            Show(_infoBox);
-            Rebind(info);
-            Hide(_loadingMask);
+
+            while (_textFieldValue.label == "Info")
+            { var info = await _chainClient.GetInfoAsync(); Show(_infoBox); Rebind(info); Hide(_loadingMask);}
+
+            Hide(_infoBox);
         };
     }
 
