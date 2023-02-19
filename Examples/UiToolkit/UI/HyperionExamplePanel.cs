@@ -63,6 +63,8 @@ public class HyperionExamplePanel : MonoBehaviour
 
     public HyperionErrorPanel HyperionErrorPanel;
 
+
+    private bool _activeButton;
     void Start()
     {
         Root = GetComponent<UIDocument>().rootVisualElement;
@@ -140,11 +142,13 @@ public class HyperionExamplePanel : MonoBehaviour
 
         _accountButton.clickable.clicked += () =>
         {
+            _activeButton = true;
             _textFieldValue.label = "Account";
             _textFieldValue.value = "Type an account to search";
             _searchButton.text = "Search Account";
             _queryLabel.text = "Query various details about a specific account on the blockchain.";
-            _infoLabel.text = "Type an account to search";
+            _infoLabel.text = "Type an account and search";
+
             Hide(_searchDetails);
             Show(_searchBox);
             Show(_accountBox);
@@ -157,7 +161,7 @@ public class HyperionExamplePanel : MonoBehaviour
             _textFieldValue.label = "Block";
             _searchButton.text = "Search Block";
             _queryLabel.text = "Query various details about a specific block on the blockchain.";
-            _infoLabel.text = "Type a block to search";
+            _infoLabel.text = "Type a block and search";
             _textFieldValue.value = "Type a block to search";
             Hide(_searchDetails);
             Show(_searchBox);
@@ -283,6 +287,7 @@ public class HyperionExamplePanel : MonoBehaviour
         catch (ApiException ex)
         {
             HyperionErrorPanel.ErrorText("Content Error", ex.Content);
+            Hide(_loadingMask);
             Show(HyperionErrorPanel.Root);
         }
     }
