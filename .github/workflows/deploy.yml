@@ -57,14 +57,14 @@ jobs:
         run: echo "VERSION=$(git describe --tags --dirty)" >> $GITHUB_ENV
       - name: Pack
         run: dotnet pack -p:PackageOutputPath=./artifacts --configuration Release -p:Version=${{ github.event.inputs.package_version }}
-      - name: List artifact files
-        run: ls ./artifacts
       - name: Upload package
         uses: actions/upload-artifact@v2
         with:
           name: artifacts
           path: ./artifacts
-
+      - name: Check upload artifact logs
+        run: echo "${{ jobs.<job_id>.steps.upload-artifact.logs }}"
+    
   pack-unitypackage:
     runs-on: ubuntu-20.04
     needs: pack-nuget
