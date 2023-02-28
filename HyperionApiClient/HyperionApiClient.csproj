@@ -1,11 +1,28 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>netcoreapp3.1</TargetFramework>
+    <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
+    <Description>.NET and Unity3D-compatible (Desktop, Mobile, WebGL) ApiClient for Hyperion History APIs</Description>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <PackageTags>Liquiid.io, HyperionApi, HyperionApiClient</PackageTags>
+    <Authors>Liquiid.io</Authors>
+    <Company>Liquiid.io</Company>
+    <Product>Liquiid.io</Product>
+    <PackageId>Liquiid.io.Hyperion</PackageId>
+    <AssemblyName>HyperionApiClient</AssemblyName>
+    <RootNamespace>HyperionApiClient</RootNamespace>
+    <RepositoryUrl>https://github.com/liquiidio/HyperionApiClient-Private</RepositoryUrl>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
   </PropertyGroup>
 
   <ItemGroup>
     <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
   </ItemGroup>
+
+  <ItemGroup>
+    	<None Include="..\README.md" Pack="true" PackagePath="" />
+	</ItemGroup>
 
 </Project>
