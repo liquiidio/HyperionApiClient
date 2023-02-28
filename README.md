@@ -1,12 +1,3 @@
-
-
-<div align="center">
- <img src="https://avatars.githubusercontent.com/u/82725791?s=200&v=4" align="center"
-     alt="Liquiid logo" width="280" height="300">
-</div>
-
-# HyperionApiClient 
-
 <div align="center">
  <img src="https://avatars.githubusercontent.com/u/82725791?s=200&v=4" align="center"
      alt="Liquiid logo" width="280" height="300">
@@ -16,10 +7,12 @@
 
 <div align="center">
 
-[![builds](https://github.com/liquiidio/AtomicAssetsApiClient-Private/actions/workflows/dotnet-build.yml/badge.svg)](https://github.com/liquiidio/AtomicAssetsApiClient-Private/actions/workflows/dotnet-build.yml)
-[![tests](https://github.com/liquiidio/AtomicAssetsApiClient-Private/actions/workflows/dotnet-test.yml/badge.svg)](https://github.com/liquiidio/AtomicAssetsApiClient-Private/actions/workflows/dotnet-test.yml)
+[![builds](https://github.com/liquiidio/HyperionApiClient-Private/actions/workflows/dotnet-build.yml/badge.svg)](https://github.com/liquiidio/HyperionApiClient-Private/actions/workflows/dotnet-build.yml)
+[![tests](https://github.com/liquiidio/HyperionApiClient-Private/actions/workflows/dotnet-test.yml/badge.svg)](https://github.com/liquiidio/HyperionApiClient-Private/actions/workflows/dotnet-test.yml)
  
 </div>
+
+# HyperionApiClient 
 
 *.NET and Unity3D-compatible (Desktop, Mobile, WebGL) Client-Library for Hyperion History APIs*
 
