@@ -61,7 +61,7 @@ jobs:
         uses: actions/upload-artifact@v2
         with:
           name: artifacts
-          path: HyperionApiClient/artifacts
+          path: ./HyperionApiClient/artifacts
     
   pack-unitypackage:
     runs-on: ubuntu-20.04
