@@ -7,7 +7,7 @@ jobs:
     runs-on: ubuntu-20.04
     strategy:
       matrix:
-        dotnet-version: ['3.1.x', '7.0.x']
+        dotnet-version: ['3.0', '3.1.x', '5.0.x', '6.0.x' ]
 
     steps:
       - uses: actions/checkout@v3
@@ -19,6 +19,7 @@ jobs:
         run: dotnet restore
       - name: Build
         run: dotnet build --configuration Release --no-restore
+     
       - name: Test
         run: dotnet test --no-build --configuration Release --verbosity normal --logger trx --results-directory "TestResults-${{ matrix.dotnet-version }}"
       - name: Upload dotnet test results
