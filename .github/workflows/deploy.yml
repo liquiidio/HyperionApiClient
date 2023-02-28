@@ -62,8 +62,6 @@ jobs:
         with:
           name: artifacts
           path: ./artifacts
-      - name: Check upload artifact logs
-        run: echo "${{ jobs.<job_id>.steps.upload-artifact.logs }}"
     
   pack-unitypackage:
     runs-on: ubuntu-20.04
