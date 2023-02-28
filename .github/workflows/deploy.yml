@@ -55,6 +55,8 @@ jobs:
           dotnet-version: 3.1.x
       - name: Determine version
         run: echo "VERSION=$(git describe --tags --dirty)" >> $GITHUB_ENV
+      - name : Make Directory
+        run : mkdir artifacts
       - name: Pack
         run: dotnet pack -p:PackageOutputPath=./artifacts --configuration Release -p:Version=${{ github.event.inputs.package_version }}
       - name: Upload package
