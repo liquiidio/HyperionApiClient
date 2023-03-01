@@ -7,9 +7,11 @@
 
 <div align="center">
 
-[![builds](https://github.com/liquiidio/HyperionApiClient-Private/actions/workflows/dotnet-build.yml/badge.svg)](https://github.com/liquiidio/HyperionApiClient-Private/actions/workflows/dotnet-build.yml)
-[![tests](https://github.com/liquiidio/HyperionApiClient-Private/actions/workflows/dotnet-test.yml/badge.svg)](https://github.com/liquiidio/HyperionApiClient-Private/actions/workflows/dotnet-test.yml)
- 
+[![Build](https://github.com/liquiidio/HyperionApiClient-Private/actions/workflows/build.yml/badge.svg)](https://github.com/liquiidio/HyperionApiClient-Private/actions/workflows/build.yml)
+[![Test](https://github.com/liquiidio/HyperionApiClient-Private/actions/workflows/test.yml/badge.svg)](https://github.com/liquiidio/HyperionApiClient-Private/actions/workflows/test.yml)
+[![Build documents](https://github.com/liquiidio/HyperionApiClient-Private/actions/workflows/docs.yml/badge.svg)](https://github.com/liquiidio/HyperionApiClient-Private/actions/workflows/docs.yml)
+[![Deploy](https://github.com/liquiidio/HyperionApiClient-Private/actions/workflows/deploy.yml/badge.svg)](https://github.com/liquiidio/HyperionApiClient-Private/actions/workflows/deploy.yml)
+
 </div>
 
 # HyperionApiClient 
