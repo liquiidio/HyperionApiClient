@@ -20,32 +20,6 @@
 
 *See [Hyperion History by EosRio](https://eosrio.io/hyperion/)*
 
-### INSTALLATION
----
-A step by step series of examples that tell you how to get a package. There is the Unity package,Unity Package Manager GitHub and Nuget Package.
- 
-
-1. Say what the steps will be for each package
-
-    Give the example
-
-2. A step by step explanation on how to clone and import the repository
-
-    give the instructions
-
----
-## Usage
-.NET and Unity3D-compatible (Desktop, Mobile, WebGL) ApiClient for the different  APIs. 
-Endpoints have its own set of parameters that you may build up and pass in to the relevant function.
-
-### Examples
-=======
-# HyperionApiClient 
-
-*.NET and Unity3D-compatible (Desktop, Mobile, WebGL) Client-Library for Hyperion History APIs*
-
-*See [Hyperion History by EosRio](https://eosrio.io/hyperion/)*
-
 # Installation
 
 **_Requires Unity 2019.1+ with .NET 4.x+ Runtime_**
