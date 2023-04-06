@@ -7,10 +7,10 @@
 
 <div align="center">
 
-[![Build](https://github.com/liquiidio/HyperionApiClient-Private/actions/workflows/build.yml/badge.svg)](https://github.com/liquiidio/HyperionApiClient-Private/actions/workflows/build.yml)
-[![Test](https://github.com/liquiidio/HyperionApiClient-Private/actions/workflows/test.yml/badge.svg)](https://github.com/liquiidio/HyperionApiClient-Private/actions/workflows/test.yml)
-[![Build documents](https://github.com/liquiidio/HyperionApiClient-Private/actions/workflows/docs.yml/badge.svg)](https://github.com/liquiidio/HyperionApiClient-Private/actions/workflows/docs.yml)
-[![Deploy](https://github.com/liquiidio/HyperionApiClient-Private/actions/workflows/deploy.yml/badge.svg)](https://github.com/liquiidio/HyperionApiClient-Private/actions/workflows/deploy.yml)
+[![Build](https://github.com/liquiidio/HyperionApiClient/actions/workflows/build.yml/badge.svg)](https://github.com/liquiidio/HyperionApiClient/actions/workflows/build.yml)
+[![Build documents](https://github.com/liquiidio/HyperionApiClient/actions/workflows/docs.yml/badge.svg)](https://github.com/liquiidio/HyperionApiClient/actions/workflows/docs.yml)
+[![Deploy](https://github.com/liquiidio/HyperionApiClient/actions/workflows/deploy.yml/badge.svg)](https://github.com/liquiidio/HyperionApiClient/actions/workflows/deploy.yml)
+[![Test](https://github.com/liquiidio/HyperionApiClient/actions/workflows/test.yml/badge.svg)](https://github.com/liquiidio/HyperionApiClient/actions/workflows/test.yml)
 
 </div>
 
