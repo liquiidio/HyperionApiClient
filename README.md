@@ -27,7 +27,7 @@
 This package can be included into your project by either:
 
  1. Installing the package via Unity's Package Manager (UPM) in the editor (recommended).
- 2. Importing the .unitypackage which you can download [here](https://github.com/liquiidio/HyperionApiClient-Private/releases/latest/download/hyperion.unitypackage). 
+ 2. Importing the .unitypackage which you can download [here](https://github.com/liquiidio/HyperionApiClient/releases/latest/download/hyperion.unitypackage). 
  3. Manually add the files in this repo.
  4. Installing it via NuGet.
 ---
@@ -42,12 +42,12 @@ In your Unity project:
 
     ![image](https://user-images.githubusercontent.com/74650011/208429298-76fe1101-95f3-4ab0-bbd5-f0a32a1cc652.png)
 
- 3. Enter URL:  `https://github.com/liquiidio/HyperionApiClient-Private.git#upm`
+ 3. Enter URL:  `https://github.com/liquiidio/HyperionApiClient.git#upm`
    
 ---
 ### 2. Importing the Unity Package.
 
-Download the [UnityPackage here](https://github.com/liquiidio/HyperionApiClient-Private/releases/latest/download/hyperion.unitypackage). 
+Download the [UnityPackage here](https://github.com/liquiidio/HyperionApiClient/releases/latest/download/hyperion.unitypackage). 
 
 
  1. Open up the import a custom package window
@@ -65,10 +65,7 @@ Download the [UnityPackage here](https://github.com/liquiidio/HyperionApiClient-
 
 ---
 ### 3. Install manually.
-Download this [project here](https://github.com/liquiidio/HyperionApiClient-Private/releases/latest).
-
-  * [zip](https://github.com/liquiidio/HyperionApiClient-Private/archive/refs/tags/1.0.10.zip) 
-  * [tar.gz](https://github.com/liquiidio/HyperionApiClient-Private/archive/refs/tags/1.0.10.tar.gz) 
+Download[the latest release](https://github.com/liquiidio/HyperionApiClient/releases/latest).
 
 Then in your Unity project, copy the sources from `HyperionApiClient` into your Unity `Assets` directory.
 
@@ -77,11 +74,11 @@ Then in your Unity project, copy the sources from `HyperionApiClient` into your 
 
 #### .NET CLI
 
-`> dotnet add package Liquiid.io.Hyperion --version 1.0.3`
+`> dotnet add package Liquiid.io.Hyperion`
 
 #### Package Manager
 
-`PM> Install-Package Liquiid.io.Hyperion -Version 1.0.3`
+`PM> Install-Package Liquiid.io.Hyperion`
 
 ---
 # Usage 
