@@ -9,10 +9,10 @@ namespace HyperionApiClient.Models
         public string Expiration { get; set; }
 
         [JsonProperty("ref_block_num")]
-        public int RefBlockNum { get; set; }
+        public ulong RefBlockNum { get; set; }
 
         [JsonProperty("ref_block_prefix")]
-        public long RefBlockPrefix { get; set; }
+        public ulong RefBlockPrefix { get; set; }
 
         [JsonProperty("max_net_usage_words")]
         public int MaxNetUsageWords { get; set; }

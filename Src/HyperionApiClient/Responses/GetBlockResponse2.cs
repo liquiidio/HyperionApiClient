@@ -40,9 +40,9 @@ namespace HyperionApiClient.Responses
         public string Id { get; set; }
 
         [JsonProperty("block_num")]
-        public uint BlockNum { get; set; }
+        public ulong BlockNum { get; set; }
 
         [JsonProperty("ref_block_prefix")]
-        public int RefBlockPrefix { get; set; }
+        public ulong RefBlockPrefix { get; set; }
     }
 }
