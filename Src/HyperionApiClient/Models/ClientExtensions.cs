@@ -63,7 +63,7 @@ namespace HyperionApiClient.Models
             }
         }
 
-        internal string ConvertToString(object value, CultureInfo cultureInfo)
+        public string ConvertToString(object value, CultureInfo cultureInfo)
         {
             if (value == null)
             {

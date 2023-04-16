@@ -1,42 +1,92 @@
-
-
 <div align="center">
  <img src="https://avatars.githubusercontent.com/u/82725791?s=200&v=4" align="center"
      alt="Liquiid logo" width="280" height="300">
 </div>
 
-# HyperionApiClient 
+---
 
 <div align="center">
 
-[![builds](https://github.com/liquiidio/HyperionApiClient-Private/actions/workflows/dotnet-build.yml/badge.svg)](https://github.com/liquiidio/HyperionApiClient-Private/actions/workflows/dotnet-build.yml)
-[![tests](https://github.com/liquiidio/HyperionApiClient-Private/actions/workflows/dotnet-test.yml/badge.svg)](https://github.com/liquiidio/HyperionApiClient-Private/actions/workflows/dotnet-test.yml)
-       
+[![Build](https://github.com/liquiidio/HyperionApiClient/actions/workflows/build.yml/badge.svg)](https://github.com/liquiidio/HyperionApiClient/actions/workflows/build.yml)
+[![Build documents](https://github.com/liquiidio/HyperionApiClient/actions/workflows/docs.yml/badge.svg)](https://github.com/liquiidio/HyperionApiClient/actions/workflows/docs.yml)
+[![Deploy](https://github.com/liquiidio/HyperionApiClient/actions/workflows/deploy.yml/badge.svg)](https://github.com/liquiidio/HyperionApiClient/actions/workflows/deploy.yml)
+[![Test](https://github.com/liquiidio/HyperionApiClient/actions/workflows/test.yml/badge.svg)](https://github.com/liquiidio/HyperionApiClient/actions/workflows/test.yml)
+
 </div>
+
+# HyperionApiClient 
 
 *.NET and Unity3D-compatible (Desktop, Mobile, WebGL) Client-Library for Hyperion History APIs*
 
 *See [Hyperion History by EosRio](https://eosrio.io/hyperion/)*
 
-### INSTALLATION
+# Installation
+
+**_Requires Unity 2019.1+ with .NET 4.x+ Runtime_**
+
+This package can be included into your project by either:
+
+ 1. Installing the package via Unity's Package Manager (UPM) in the editor (recommended).
+ 2. Importing the .unitypackage which you can download [here](https://github.com/liquiidio/HyperionApiClient/releases/latest/download/hyperion.unitypackage). 
+ 3. Manually add the files in this repo.
+ 4. Installing it via NuGet.
 ---
-A step by step series of examples that tell you how to get a package. There is the Unity package,Unity Package Manager GitHub and Nuget Package.
- 
 
-1. Say what the steps will be for each package
+### 1. Installing via Unity Package Manager (UPM).
+In your Unity project:
+ 1. Open the Package Manager Window/Tab
 
-    Give the example
+    ![image](https://user-images.githubusercontent.com/74650011/208429048-37e2277c-3e10-4794-97e7-3ec87f55f8c9.png)
 
-2. A step by step explanation on how to clone and import the repository
+ 2. Click on + icon and then click on "Add Package From Git URL"
 
-    give the instructions
+    ![image](https://user-images.githubusercontent.com/74650011/208429298-76fe1101-95f3-4ab0-bbd5-f0a32a1cc652.png)
+
+ 3. Enter URL:  `https://github.com/liquiidio/HyperionApiClient.git#upm`
+   
+---
+### 2. Importing the Unity Package.
+
+Download the [UnityPackage here](https://github.com/liquiidio/HyperionApiClient/releases/latest/download/hyperion.unitypackage). 
+
+
+ 1. Open up the import a custom package window
+    
+    ![image](https://user-images.githubusercontent.com/74650011/208430044-caf91dd9-111e-4224-8441-95d116dbec3b.png)
+
+ 2. Navigate to where you downloaded the file and open it.
+    
+    ![image](https://user-images.githubusercontent.com/86061433/217001295-236e041b-97e3-4bd2-a6da-b0966bf98ead.jpg)
+    
+ 3. Check all the relevant files needed (if this is a first time import, just select ALL) and click on import.
+   
+   ![image](https://user-images.githubusercontent.com/86061433/217002303-a067c293-19ee-4747-b042-e08f3b49565f.jpg)
+
 
 ---
-## Usage
+### 3. Install manually.
+Download[the latest release](https://github.com/liquiidio/HyperionApiClient/releases/latest).
+
+Then in your Unity project, copy the sources from `HyperionApiClient` into your Unity `Assets` directory.
+
+---
+### 4. Install via NuGet (for Standard .NET users only - No Unity3D)
+
+#### .NET CLI
+
+`> dotnet add package Liquiid.io.Hyperion`
+
+#### Package Manager
+
+`PM> Install-Package Liquiid.io.Hyperion`
+
+---
+# Usage 
 .NET and Unity3D-compatible (Desktop, Mobile, WebGL) ApiClient for the different  APIs. 
 Endpoints have its own set of parameters that you may build up and pass in to the relevant function.
 
-### Examples
+---
+# Examples
 
 #### Accounts
 Query various details about a specific account on the blockchain.
