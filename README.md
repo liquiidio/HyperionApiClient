@@ -5,15 +5,6 @@
 
 ---
 
-<div align="center">
-
-[![Build](https://github.com/liquiidio/HyperionApiClient/actions/workflows/build.yml/badge.svg)](https://github.com/liquiidio/HyperionApiClient/actions/workflows/build.yml)
-[![Build documents](https://github.com/liquiidio/HyperionApiClient/actions/workflows/docs.yml/badge.svg)](https://github.com/liquiidio/HyperionApiClient/actions/workflows/docs.yml)
-[![Deploy](https://github.com/liquiidio/HyperionApiClient/actions/workflows/deploy.yml/badge.svg)](https://github.com/liquiidio/HyperionApiClient/actions/workflows/deploy.yml)
-[![Test](https://github.com/liquiidio/HyperionApiClient/actions/workflows/test.yml/badge.svg)](https://github.com/liquiidio/HyperionApiClient/actions/workflows/test.yml)
-
-</div>
-
 # HyperionApiClient 
 
 *.NET and Unity3D-compatible (Desktop, Mobile, WebGL) Client-Library for Hyperion History APIs*
