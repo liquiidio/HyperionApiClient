@@ -132,14 +132,14 @@ jobs:
         run: dotnet nuget push ./artifacts**.nupkg --api-key ${{secrets.NUGET_KEY}} --source "https://api.nuget.org/v3/index.json"
   
   split-upm:
-    runs-on: ubuntu-latest
-    needs: release
-    name: Split UPM branch
+    name: split upm branch
+    runs-on: ubuntu-20.04
+    needs: pack-unitypackage
     steps:
       - name: Checkout
         uses: actions/checkout@v3
         with:
-          ref: packages_folder
+          ref: unity_develop
           fetch-depth: 0
       - name: split upm branch
         run: |
